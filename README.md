@@ -40,12 +40,12 @@ graph LR
     utilities_spacing[utilities.spacing<br/>spacing]
 
     builders_scales --> core_base
+    core_testing --> core_resources
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_spacing
-    core_testing --> utilities_layout
     core_testing --> core_base
     core_testing --> utilities_sizing
-    core_testing --> core_resources
+    core_testing --> utilities_spacing
+    core_testing --> utilities_layout
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_layout --> builders_scales
@@ -342,22 +342,132 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
     place_items,
     PLACE_SELF_VALUES,
     place_self,
+    test_flexbox_and_grid_basis_examples,
+    test_flexbox_and_grid_direction_examples,
+    test_flexbox_and_grid_wrap_examples,
+    test_flexbox_and_grid_flex_examples,
     GrowFactory,
+    test_flexbox_and_grid_grow_examples,
     ShrinkFactory,
+    test_flexbox_and_grid_shrink_examples,
+    test_flexbox_and_grid_order_examples,
+    test_flexbox_and_grid_template_columns_examples,
+    test_flexbox_and_grid_template_rows_examples,
     ColFactory,
+    test_flexbox_and_grid_column_examples,
     RowFactory,
+    test_flexbox_and_grid_row_examples,
+    test_flexbox_and_grid_flow_examples,
     AutoColsFactory,
     AutoRowsFactory,
+    test_flexbox_and_grid_auto_cols_rows_examples,
     GapFactory,
+    test_flexbox_and_grid_gap_examples,
+    test_flexbox_and_grid_justify_examples,
+    test_flexbox_and_grid_align_examples,
+    test_flexbox_and_grid_place_examples,
+    test_flexbox_and_grid_practical_examples,
     flex_center,
     flex_between,
     flex_col_center,
     grid_center,
-    responsive_grid
+    responsive_grid,
+    test_flexbox_and_grid_helper_examples,
+    test_flexbox_and_grid_all_examples
 )
 ```
 
 #### Functions
+
+``` python
+def test_flexbox_and_grid_basis_examples()
+    "Test flex basis utilities with various scale values."
+```
+
+``` python
+def test_flexbox_and_grid_direction_examples()
+    "Test flex direction utilities."
+```
+
+``` python
+def test_flexbox_and_grid_wrap_examples()
+    "Test flex wrap utilities."
+```
+
+``` python
+def test_flexbox_and_grid_flex_examples()
+    "Test flex utilities for combined grow/shrink properties."
+```
+
+``` python
+def test_flexbox_and_grid_grow_examples()
+    "Test flex grow utilities."
+```
+
+``` python
+def test_flexbox_and_grid_shrink_examples()
+    "Test flex shrink utilities."
+```
+
+``` python
+def test_flexbox_and_grid_order_examples()
+    "Test order utilities for flex and grid items."
+```
+
+``` python
+def test_flexbox_and_grid_template_columns_examples()
+    "Test grid template columns utilities."
+```
+
+``` python
+def test_flexbox_and_grid_template_rows_examples()
+    "Test grid template rows utilities."
+```
+
+``` python
+def test_flexbox_and_grid_column_examples()
+    "Test grid column utilities including span, start, and end."
+```
+
+``` python
+def test_flexbox_and_grid_row_examples()
+    "Test grid row utilities including span, start, and end."
+```
+
+``` python
+def test_flexbox_and_grid_flow_examples()
+    "Test grid auto flow utilities."
+```
+
+``` python
+def test_flexbox_and_grid_auto_cols_rows_examples()
+    "Test grid auto columns and rows utilities."
+```
+
+``` python
+def test_flexbox_and_grid_gap_examples()
+    "Test gap utilities for flexbox and grid containers."
+```
+
+``` python
+def test_flexbox_and_grid_justify_examples()
+    "Test justify utilities for flex and grid containers."
+```
+
+``` python
+def test_flexbox_and_grid_align_examples()
+    "Test align utilities for flex and grid containers."
+```
+
+``` python
+def test_flexbox_and_grid_place_examples()
+    "Test place utilities for grid containers."
+```
+
+``` python
+def test_flexbox_and_grid_practical_examples()
+    "Test flexbox and grid utilities in practical FastHTML component examples."
+```
 
 ``` python
 def flex_center(
@@ -391,6 +501,16 @@ def responsive_grid(
     gap_size: TailwindScale = 4  # Gap size between grid items
 ) -> str:  # Combined CSS classes for responsive grid
     "Create responsive grid classes with customizable breakpoints."
+```
+
+``` python
+def test_flexbox_and_grid_helper_examples()
+    "Test helper functions for common flexbox and grid patterns."
+```
+
+``` python
+def test_flexbox_and_grid_all_examples()
+    "Run all flexbox and grid utility example tests."
 ```
 
 #### Classes
@@ -618,21 +738,95 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     box_decoration,
     OVERSCROLL_VALUES,
     overscroll,
+    test_layout_display_examples,
+    test_layout_position_examples,
     InsetDirectionalFactory,
+    test_layout_inset_examples,
     OverflowFactory,
+    test_layout_overflow_examples,
+    test_layout_z_index_examples,
     FloatFactory,
+    test_layout_float_clear_examples,
     ObjectPositionFactory,
+    test_layout_object_examples,
+    test_layout_visibility_examples,
     AspectRatioFactory,
+    test_layout_aspect_columns_examples,
+    test_layout_columns_examples,
     BreakFactory,
     OverscrollFactory,
+    test_layout_other_utilities_examples,
+    test_layout_practical_examples,
     center_absolute,
     stack_context,
     sticky_top,
-    full_bleed
+    full_bleed,
+    test_layout_helper_examples,
+    test_layout_all_examples
 )
 ```
 
 #### Functions
+
+``` python
+def test_layout_display_examples()
+    "Test display utilities with various values."
+```
+
+``` python
+def test_layout_position_examples()
+    "Test position utilities."
+```
+
+``` python
+def test_layout_inset_examples()
+    "Test inset utilities for positioning elements."
+```
+
+``` python
+def test_layout_overflow_examples()
+    "Test overflow utilities for content handling."
+```
+
+``` python
+def test_layout_z_index_examples()
+    "Test z-index utilities for stack ordering."
+```
+
+``` python
+def test_layout_float_clear_examples()
+    "Test float and clear utilities for content wrapping."
+```
+
+``` python
+def test_layout_object_examples()
+    "Test object fit and position utilities."
+```
+
+``` python
+def test_layout_visibility_examples()
+    "Test visibility and box sizing utilities."
+```
+
+``` python
+def test_layout_aspect_columns_examples()
+    "Test aspect ratio and columns utilities."
+```
+
+``` python
+def test_layout_columns_examples()
+    "Test columns utilities."
+```
+
+``` python
+def test_layout_other_utilities_examples()
+    "Test isolation, break, box decoration, and overscroll utilities."
+```
+
+``` python
+def test_layout_practical_examples()
+    "Test layout utilities in practical FastHTML component examples."
+```
 
 ``` python
 def center_absolute(
@@ -658,6 +852,16 @@ def sticky_top(
 def full_bleed(
 ) -> str:  # Combined CSS classes for full-bleed layout
     "Make element break out of container constraints."
+```
+
+``` python
+def test_layout_helper_examples()
+    "Test helper functions for common layout patterns."
+```
+
+``` python
+def test_layout_all_examples()
+    "Run all layout utility example tests."
 ```
 
 #### Classes
@@ -1024,14 +1228,88 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
     min_h,
     max_h,
     size_util,
+    test_sizing_width_examples,
+    test_sizing_width_named_examples,
+    test_sizing_width_viewport_examples,
+    test_sizing_arbitrary_examples,
+    test_sizing_height_examples,
+    test_sizing_height_viewport_examples,
+    test_sizing_min_width_examples,
+    test_sizing_max_width_examples,
+    test_sizing_min_height_examples,
+    test_sizing_size_util_examples,
+    test_sizing_max_height_examples,
+    test_sizing_practical_examples,
     size,
     square,
     full_size,
-    full_screen
+    full_screen,
+    test_sizing_helper_examples,
+    test_sizing_all_examples
 )
 ```
 
 #### Functions
+
+``` python
+def test_sizing_width_examples()
+    "Test width utilities with various scales and values."
+```
+
+``` python
+def test_sizing_width_named_examples()
+    "Test width utilities with named container sizes."
+```
+
+``` python
+def test_sizing_width_viewport_examples()
+    "Test width utilities with viewport units."
+```
+
+``` python
+def test_sizing_arbitrary_examples()
+    "Test sizing utilities with arbitrary and custom values."
+```
+
+``` python
+def test_sizing_height_examples()
+    "Test height utilities with various scales and values."
+```
+
+``` python
+def test_sizing_height_viewport_examples()
+    "Test height utilities with viewport units."
+```
+
+``` python
+def test_sizing_min_width_examples()
+    "Test min-width utilities."
+```
+
+``` python
+def test_sizing_max_width_examples()
+    "Test max-width utilities."
+```
+
+``` python
+def test_sizing_min_height_examples()
+    "Test min-height utilities."
+```
+
+``` python
+def test_sizing_size_util_examples()
+    "Test size utilities that set both width and height."
+```
+
+``` python
+def test_sizing_max_height_examples()
+    "Test max-height utilities."
+```
+
+``` python
+def test_sizing_practical_examples()
+    "Test sizing utilities in practical FastHTML component examples."
+```
 
 ``` python
 def size(
@@ -1064,6 +1342,16 @@ def full_screen(
     "Make element take full viewport width and height."
 ```
 
+``` python
+def test_sizing_helper_examples()
+    "Test helper functions for common sizing patterns."
+```
+
+``` python
+def test_sizing_all_examples()
+    "Run all sizing utility example tests."
+```
+
 #### Variables
 
 ``` python
@@ -1094,13 +1382,69 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
     space,
     space_x_reverse,
     space_y_reverse,
+    test_spacing_basic_examples,
+    test_spacing_directional_examples,
+    test_spacing_arbitrary_examples,
+    test_spacing_margin_examples,
+    test_spacing_margin_directional_examples,
+    test_spacing_negative_examples,
+    test_spacing_logical_examples,
     SpaceFactory,
+    test_spacing_space_between_examples,
+    test_spacing_practical_examples,
     pad,
-    margin
+    margin,
+    test_spacing_helper_examples,
+    test_spacing_all_examples
 )
 ```
 
 #### Functions
+
+``` python
+def test_spacing_basic_examples()
+    "Test basic padding utilities with various scale values."
+```
+
+``` python
+def test_spacing_directional_examples()
+    "Test directional padding utilities."
+```
+
+``` python
+def test_spacing_arbitrary_examples()
+    "Test padding utilities with arbitrary and custom values."
+```
+
+``` python
+def test_spacing_margin_examples()
+    "Test basic margin utilities with various scale values."
+```
+
+``` python
+def test_spacing_margin_directional_examples()
+    "Test directional margin utilities."
+```
+
+``` python
+def test_spacing_negative_examples()
+    "Test negative margin utilities."
+```
+
+``` python
+def test_spacing_logical_examples()
+    "Test logical properties for padding and margin utilities."
+```
+
+``` python
+def test_spacing_space_between_examples()
+    "Test space between child elements utilities."
+```
+
+``` python
+def test_spacing_practical_examples()
+    "Test spacing utilities in practical FastHTML component examples."
+```
 
 ``` python
 def pad(
@@ -1127,6 +1471,16 @@ def margin(
     negative: bool = False                 # Apply negative margins
 ) -> str:  # Space-separated margin classes
     "Generate margin classes with a convenient API."
+```
+
+``` python
+def test_spacing_helper_examples()
+    "Test helper functions for common spacing patterns."
+```
+
+``` python
+def test_spacing_all_examples()
+    "Run all spacing utility example tests."
 ```
 
 #### Classes
