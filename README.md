@@ -40,20 +40,23 @@ graph LR
     utilities_spacing[utilities.spacing<br/>spacing]
 
     builders_scales --> core_base
-    core_testing --> core_base
-    core_testing --> core_resources
     core_testing --> utilities_flexbox_and_grid
-    utilities_flexbox_and_grid --> core_base
+    core_testing --> utilities_spacing
+    core_testing --> utilities_layout
+    core_testing --> core_base
+    core_testing --> utilities_sizing
+    core_testing --> core_resources
     utilities_flexbox_and_grid --> builders_scales
+    utilities_flexbox_and_grid --> core_base
     utilities_layout --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> core_base
     utilities_sizing --> builders_scales
-    utilities_spacing --> core_base
+    utilities_sizing --> core_base
     utilities_spacing --> builders_scales
+    utilities_spacing --> core_base
 ```
 
-*12 cross-module dependencies detected*
+*15 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -573,7 +576,7 @@ place_self  # The place self factory
 ``` python
 from cjm_fasthtml_tailwind.utilities.layout import (
     DISPLAY_VALUES,
-    display,
+    display_tw,
     sr_only,
     not_sr_only,
     POSITION_VALUES,
@@ -590,7 +593,7 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     Z_INDEX_CONFIG,
     z,
     FLOAT_VALUES,
-    float_util,
+    float_tw,
     CLEAR_VALUES,
     clear,
     OBJECT_FIT_VALUES,
@@ -742,7 +745,7 @@ class OverscrollFactory:
 
 ``` python
 DISPLAY_VALUES = {22 items}  # Display utilities
-display  # The display factory
+display_tw  # The display factory
 sr_only = 'sr-only'  # Screen reader only
 not_sr_only = 'not-sr-only'  # Not screen reader only
 POSITION_VALUES = {5 items}  # Position utilities
@@ -759,7 +762,7 @@ overflow  # The overflow factory
 Z_INDEX_CONFIG  # Z-index configuration
 z  # The z-index factory
 FLOAT_VALUES = {5 items}
-float_util  # Renamed to avoid conflict with Python's float
+float_tw  # Renamed to avoid conflict with Python's float
 CLEAR_VALUES = {6 items}
 clear  # The clear factory
 OBJECT_FIT_VALUES = {5 items}
