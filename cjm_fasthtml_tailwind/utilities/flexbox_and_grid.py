@@ -22,7 +22,7 @@ __all__ = ['FLEX_BASIS_CONFIG', 'basis', 'FLEX_DIRECTION_VALUES', 'flex_directio
            'test_flexbox_and_grid_gap_examples', 'test_flexbox_and_grid_justify_examples',
            'test_flexbox_and_grid_align_examples', 'test_flexbox_and_grid_place_examples',
            'test_flexbox_and_grid_practical_examples', 'flex_center', 'flex_between', 'flex_col_center', 'grid_center',
-           'responsive_grid', 'test_flexbox_and_grid_helper_examples', 'test_flexbox_and_grid_all_examples']
+           'responsive_grid', 'test_flexbox_and_grid_helper_examples']
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 3
 from typing import Optional, Union, Literal, List, Dict
@@ -973,29 +973,3 @@ def test_flexbox_and_grid_helper_examples():
 
 # Run the tests
 test_flexbox_and_grid_helper_examples()
-
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 77
-def test_flexbox_and_grid_all_examples():
-    """Run all flexbox and grid utility example tests."""
-    test_flexbox_and_grid_basis_examples()
-    test_flexbox_and_grid_direction_examples()
-    test_flexbox_and_grid_wrap_examples()
-    test_flexbox_and_grid_flex_examples()
-    test_flexbox_and_grid_grow_examples()
-    test_flexbox_and_grid_shrink_examples()
-    test_flexbox_and_grid_order_examples()
-    test_flexbox_and_grid_template_columns_examples()
-    test_flexbox_and_grid_template_rows_examples()
-    test_flexbox_and_grid_column_examples()
-    test_flexbox_and_grid_row_examples()
-    test_flexbox_and_grid_flow_examples()
-    test_flexbox_and_grid_auto_cols_rows_examples()
-    test_flexbox_and_grid_gap_examples()
-    test_flexbox_and_grid_justify_examples()
-    test_flexbox_and_grid_align_examples()
-    test_flexbox_and_grid_place_examples()
-    test_flexbox_and_grid_helper_examples()
-    test_flexbox_and_grid_practical_examples()
-
-# Run all tests
-test_flexbox_and_grid_all_examples()

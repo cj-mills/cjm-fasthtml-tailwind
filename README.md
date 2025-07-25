@@ -41,19 +41,19 @@ graph LR
 
     builders_scales --> core_base
     core_testing --> core_resources
+    core_testing --> utilities_layout
+    core_testing --> utilities_sizing
+    core_testing --> utilities_flexbox_and_grid
     core_testing --> core_base
     core_testing --> utilities_spacing
-    core_testing --> utilities_layout
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_sizing
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_layout --> builders_scales
     utilities_layout --> core_base
+    utilities_layout --> builders_scales
     utilities_sizing --> core_base
     utilities_sizing --> builders_scales
-    utilities_spacing --> core_base
     utilities_spacing --> builders_scales
+    utilities_spacing --> core_base
 ```
 
 *15 cross-module dependencies detected*
@@ -372,8 +372,7 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
     flex_col_center,
     grid_center,
     responsive_grid,
-    test_flexbox_and_grid_helper_examples,
-    test_flexbox_and_grid_all_examples
+    test_flexbox_and_grid_helper_examples
 )
 ```
 
@@ -506,11 +505,6 @@ def responsive_grid(
 ``` python
 def test_flexbox_and_grid_helper_examples()
     "Test helper functions for common flexbox and grid patterns."
-```
-
-``` python
-def test_flexbox_and_grid_all_examples()
-    "Run all flexbox and grid utility example tests."
 ```
 
 #### Classes
@@ -761,8 +755,7 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     stack_context,
     sticky_top,
     full_bleed,
-    test_layout_helper_examples,
-    test_layout_all_examples
+    test_layout_helper_examples
 )
 ```
 
@@ -857,11 +850,6 @@ def full_bleed(
 ``` python
 def test_layout_helper_examples()
     "Test helper functions for common layout patterns."
-```
-
-``` python
-def test_layout_all_examples()
-    "Run all layout utility example tests."
 ```
 
 #### Classes
@@ -1244,8 +1232,7 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
     square,
     full_size,
     full_screen,
-    test_sizing_helper_examples,
-    test_sizing_all_examples
+    test_sizing_helper_examples
 )
 ```
 
@@ -1347,11 +1334,6 @@ def test_sizing_helper_examples()
     "Test helper functions for common sizing patterns."
 ```
 
-``` python
-def test_sizing_all_examples()
-    "Run all sizing utility example tests."
-```
-
 #### Variables
 
 ``` python
@@ -1394,8 +1376,7 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
     test_spacing_practical_examples,
     pad,
     margin,
-    test_spacing_helper_examples,
-    test_spacing_all_examples
+    test_spacing_helper_examples
 )
 ```
 
@@ -1476,11 +1457,6 @@ def margin(
 ``` python
 def test_spacing_helper_examples()
     "Test helper functions for common spacing patterns."
-```
-
-``` python
-def test_spacing_all_examples()
-    "Run all spacing utility example tests."
 ```
 
 #### Classes

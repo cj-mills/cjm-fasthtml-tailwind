@@ -8,7 +8,7 @@ __all__ = ['w', 'h', 'min_w', 'max_w', 'container', 'min_h', 'max_h', 'size_util
            'test_sizing_height_examples', 'test_sizing_height_viewport_examples', 'test_sizing_min_width_examples',
            'test_sizing_max_width_examples', 'test_sizing_min_height_examples', 'test_sizing_size_util_examples',
            'test_sizing_max_height_examples', 'test_sizing_practical_examples', 'size', 'square', 'full_size',
-           'full_screen', 'test_sizing_helper_examples', 'test_sizing_all_examples']
+           'full_screen', 'test_sizing_helper_examples']
 
 # %% ../../nbs/utilities/sizing.ipynb 3
 from typing import Optional, Union
@@ -393,23 +393,3 @@ def test_sizing_helper_examples():
 
 # Run the tests
 test_sizing_helper_examples()
-
-# %% ../../nbs/utilities/sizing.ipynb 45
-def test_sizing_all_examples():
-    """Run all sizing utility example tests."""
-    test_sizing_width_examples()
-    test_sizing_width_named_examples()
-    test_sizing_width_viewport_examples()
-    test_sizing_arbitrary_examples()
-    test_sizing_height_examples()
-    test_sizing_height_viewport_examples()
-    test_sizing_min_width_examples()
-    test_sizing_max_width_examples()
-    test_sizing_min_height_examples()
-    test_sizing_max_height_examples()
-    test_sizing_size_util_examples()
-    test_sizing_helper_examples()
-    test_sizing_practical_examples()
-
-# Run all tests
-test_sizing_all_examples()

@@ -1,0 +1,18 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - section: builders
+        contents:
+          - builders/scales.ipynb
+      - section: core
+        contents:
+          - core/base.ipynb
+          - core/resources.ipynb
+          - core/testing.ipynb
+      - section: utilities
+        contents:
+          - utilities/flexbox_and_grid.ipynb
+          - utilities/layout.ipynb
+          - utilities/sizing.ipynb
+          - utilities/spacing.ipynb

@@ -7,8 +7,7 @@ __all__ = ['p', 'ps', 'pe', 'm', 'ms', 'me', 'space', 'space_x_reverse', 'space_
            'test_spacing_directional_examples', 'test_spacing_arbitrary_examples', 'test_spacing_margin_examples',
            'test_spacing_margin_directional_examples', 'test_spacing_negative_examples',
            'test_spacing_logical_examples', 'SpaceFactory', 'test_spacing_space_between_examples',
-           'test_spacing_practical_examples', 'pad', 'margin', 'test_spacing_helper_examples',
-           'test_spacing_all_examples']
+           'test_spacing_practical_examples', 'pad', 'margin', 'test_spacing_helper_examples']
 
 # %% ../../nbs/utilities/spacing.ipynb 3
 from typing import Optional, Union
@@ -313,20 +312,3 @@ def test_spacing_helper_examples():
 
 # Run the tests
 test_spacing_helper_examples()
-
-# %% ../../nbs/utilities/spacing.ipynb 31
-def test_spacing_all_examples():
-    """Run all spacing utility example tests."""
-    test_spacing_basic_examples()
-    test_spacing_directional_examples()
-    test_spacing_arbitrary_examples()
-    test_spacing_margin_examples()
-    test_spacing_margin_directional_examples()
-    test_spacing_negative_examples()
-    test_spacing_logical_examples()
-    test_spacing_space_between_examples()
-    test_spacing_helper_examples()
-    test_spacing_practical_examples()
-
-# Run all tests
-test_spacing_all_examples()
