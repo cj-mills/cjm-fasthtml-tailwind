@@ -94,9 +94,6 @@ class BaseUtility(ABC):
     ):
         """
         Initialize with a utility prefix.
-        
-        Args:
-            prefix: The utility prefix (e.g., 'w' for width, 'p' for padding)
         """
         self.prefix = prefix
         self._value: Optional[str] = None
