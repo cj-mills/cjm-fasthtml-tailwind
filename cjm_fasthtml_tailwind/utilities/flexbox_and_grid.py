@@ -830,7 +830,7 @@ def test_flexbox_and_grid_place_examples():
 # Run the tests
 test_flexbox_and_grid_place_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 69
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 68
 def test_flexbox_and_grid_practical_examples():
     """Test flexbox and grid utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Header, Nav, Main, Article, Aside, Footer, Img, Button, H1, H2, P
@@ -920,31 +920,31 @@ def test_flexbox_and_grid_practical_examples():
 # Run the tests
 test_flexbox_and_grid_practical_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 71
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 70
 def flex_center(
 ) -> str:  # Combined CSS classes for centered flex container
     """Create classes for a flex container that centers its content."""
     return combine_classes("flex", justify.center, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 72
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 71
 def flex_between(
 ) -> str:  # Combined CSS classes for flex container with space between
     """Create classes for a flex container with space between items."""
     return combine_classes("flex", justify.between, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 73
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 72
 def flex_col_center(
 ) -> str:  # Combined CSS classes for centered vertical flex container
     """Create classes for a vertical flex container that centers its content."""
     return combine_classes("flex", flex_direction.col, justify.center, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 74
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 73
 def grid_center(
 ) -> str:  # Combined CSS classes for centered grid container
     """Create classes for a grid container that centers its content."""
     return combine_classes("grid", place_items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 75
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 74
 def responsive_grid(
     mobile: int = 1,  # Number of columns on mobile devices
     tablet: int = 2,  # Number of columns on tablet devices
@@ -960,7 +960,7 @@ def responsive_grid(
         gap(gap_size)
     )
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 76
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 75
 def test_flexbox_and_grid_helper_examples():
     """Test helper functions for common flexbox and grid patterns."""
     # Test helper functions
@@ -974,7 +974,7 @@ def test_flexbox_and_grid_helper_examples():
 # Run the tests
 test_flexbox_and_grid_helper_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 78
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 77
 def test_flexbox_and_grid_all_examples():
     """Run all flexbox and grid utility example tests."""
     test_flexbox_and_grid_basis_examples()

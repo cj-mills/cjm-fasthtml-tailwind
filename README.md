@@ -41,19 +41,19 @@ graph LR
 
     builders_scales --> core_base
     core_testing --> core_resources
-    core_testing --> utilities_flexbox_and_grid
     core_testing --> core_base
-    core_testing --> utilities_sizing
     core_testing --> utilities_spacing
     core_testing --> utilities_layout
-    utilities_flexbox_and_grid --> builders_scales
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_sizing
     utilities_flexbox_and_grid --> core_base
+    utilities_flexbox_and_grid --> builders_scales
     utilities_layout --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
 ```
 
 *15 cross-module dependencies detected*

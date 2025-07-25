@@ -274,7 +274,7 @@ def test_sizing_max_height_examples():
 # Run the tests
 test_sizing_max_height_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 38
+# %% ../../nbs/utilities/sizing.ipynb 37
 def test_sizing_practical_examples():
     """Test sizing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Article, Header, Main, Aside
@@ -335,7 +335,7 @@ def test_sizing_practical_examples():
 # Run the tests
 test_sizing_practical_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 40
+# %% ../../nbs/utilities/sizing.ipynb 39
 def size(
     w: Optional[TailwindScale] = None,        # Width value
     h: Optional[TailwindScale] = None,        # Height value
@@ -362,26 +362,26 @@ def size(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/sizing.ipynb 41
+# %% ../../nbs/utilities/sizing.ipynb 40
 def square(
     size: TailwindScale  # Size value for both width and height
 ) -> str:  # Space-separated width and height classes
     """Create a square element with equal width and height."""
     return combine_classes(w(size), h(size))
 
-# %% ../../nbs/utilities/sizing.ipynb 42
+# %% ../../nbs/utilities/sizing.ipynb 41
 def full_size(
 ) -> str:  # "w-full h-full"
     """Make element take full width and height of parent."""
     return combine_classes(w.full, h.full)
 
-# %% ../../nbs/utilities/sizing.ipynb 43
+# %% ../../nbs/utilities/sizing.ipynb 42
 def full_screen(
 ) -> str:  # "w-screen h-screen"
     """Make element take full viewport width and height."""
     return combine_classes(w.screen, h.screen)
 
-# %% ../../nbs/utilities/sizing.ipynb 44
+# %% ../../nbs/utilities/sizing.ipynb 43
 def test_sizing_helper_examples():
     """Test helper functions for common sizing patterns."""
     # Test helper functions
@@ -394,7 +394,7 @@ def test_sizing_helper_examples():
 # Run the tests
 test_sizing_helper_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 46
+# %% ../../nbs/utilities/sizing.ipynb 45
 def test_sizing_all_examples():
     """Run all sizing utility example tests."""
     test_sizing_width_examples()

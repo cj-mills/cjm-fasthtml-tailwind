@@ -625,7 +625,7 @@ def test_layout_other_utilities_examples():
 # Run the tests
 test_layout_other_utilities_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 51
+# %% ../../nbs/utilities/layout.ipynb 50
 def test_layout_practical_examples():
     """Test layout utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Header, Nav, Main, Section, Article, Aside
@@ -670,7 +670,7 @@ def test_layout_practical_examples():
 # Run the tests
 test_layout_practical_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 53
+# %% ../../nbs/utilities/layout.ipynb 52
 def center_absolute(
 ) -> str:  # Combined CSS classes for centering an element
     """Center an absolutely positioned element."""
@@ -682,27 +682,27 @@ def center_absolute(
         "-translate-y-1/2"
     )
 
-# %% ../../nbs/utilities/layout.ipynb 54
+# %% ../../nbs/utilities/layout.ipynb 53
 def stack_context(
     z_value: int = 10  # The z-index value for the stacking context
 ) -> str:  # Combined CSS classes for creating a stacking context
     """Create a stacking context with z-index."""
     return combine_classes(position.relative, z(z_value))
 
-# %% ../../nbs/utilities/layout.ipynb 55
+# %% ../../nbs/utilities/layout.ipynb 54
 def sticky_top(
     offset: TailwindScale = 0  # Top offset value (e.g., 0, 4, '1rem')
 ) -> str:  # Combined CSS classes for sticky positioning
     """Make element sticky at top with optional offset."""
     return combine_classes(position.sticky, top(offset))
 
-# %% ../../nbs/utilities/layout.ipynb 56
+# %% ../../nbs/utilities/layout.ipynb 55
 def full_bleed(
 ) -> str:  # Combined CSS classes for full-bleed layout
     """Make element break out of container constraints."""
     return combine_classes(position.relative, left("1/2"), right("1/2"), "-mx-[50vw]", "w-screen")
 
-# %% ../../nbs/utilities/layout.ipynb 57
+# %% ../../nbs/utilities/layout.ipynb 56
 def test_layout_helper_examples():
     """Test helper functions for common layout patterns."""
     # Test helper functions
@@ -714,7 +714,7 @@ def test_layout_helper_examples():
 # Run the tests
 test_layout_helper_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 59
+# %% ../../nbs/utilities/layout.ipynb 58
 def test_layout_all_examples():
     """Run all layout utility example tests."""
     test_layout_display_examples()
