@@ -40,18 +40,20 @@ graph LR
     utilities_spacing[utilities.spacing<br/>spacing]
 
     builders_scales --> core_base
+    core_testing --> core_base
     core_testing --> core_resources
+    core_testing --> utilities_flexbox_and_grid
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
+    utilities_layout --> core_base
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
 ```
 
-*10 cross-module dependencies detected*
+*12 cross-module dependencies detected*
 
 ## CLI Reference
 

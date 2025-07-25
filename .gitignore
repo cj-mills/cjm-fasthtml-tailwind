@@ -154,3 +154,4 @@ checklink/cookies.txt
 
 # Custom
 nbs/*.sesskey
+nbs/core/.sesskey

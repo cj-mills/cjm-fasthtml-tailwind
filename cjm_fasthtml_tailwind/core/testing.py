@@ -26,7 +26,7 @@ def create_test_app(
     
     # Create app with daisyUI configuration
     app, rt = fast_app(
-        pico=True,
+        pico=False, # Disable pico since we're using Tailwind
         hdrs=headers,
         debug=debug
     )
