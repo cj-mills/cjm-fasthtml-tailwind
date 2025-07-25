@@ -45,10 +45,10 @@ graph LR
     utilities_flexbox_and_grid --> builders_scales
     utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> core_base
     utilities_sizing --> builders_scales
-    utilities_spacing --> core_base
+    utilities_sizing --> core_base
     utilities_spacing --> builders_scales
+    utilities_spacing --> core_base
 ```
 
 *10 cross-module dependencies detected*
@@ -160,10 +160,7 @@ class BaseUtility:
             self,
             prefix: str  # The utility prefix (e.g., 'w' for width, 'p' for padding)
         )
-        "Initialize with a utility prefix.
-
-Args:
-    prefix: The utility prefix (e.g., 'w' for width, 'p' for padding)"
+        "Initialize with a utility prefix."
     
     def build(
             self,
