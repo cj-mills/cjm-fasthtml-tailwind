@@ -14,6 +14,8 @@ pip install cjm-fasthtml-tailwind
     nbs/
     ├── builders/ (1)
     │   └── scales.ipynb  # Numeric and named scale builders for Tailwind CSS utilities
+    ├── cli/ (1)
+    │   └── explorer.ipynb  # CLI tool for API exploration
     ├── core/ (3)
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
@@ -24,13 +26,14 @@ pip install cjm-fasthtml-tailwind
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         └── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
 
-Total: 8 notebooks across 3 directories
+Total: 9 notebooks across 4 directories
 
 ## Module Dependencies
 
 ``` mermaid
 graph LR
     builders_scales[builders.scales<br/>scales]
+    cli_explorer[cli.explorer<br/>explorer]
     core_base[core.base<br/>base]
     core_resources[core.resources<br/>resources]
     core_testing[core.testing<br/>testing]
@@ -40,18 +43,18 @@ graph LR
     utilities_spacing[utilities.spacing<br/>spacing]
 
     builders_scales --> core_base
-    core_testing --> core_resources
-    core_testing --> utilities_layout
-    core_testing --> utilities_sizing
-    core_testing --> utilities_flexbox_and_grid
     core_testing --> core_base
+    core_testing --> utilities_layout
+    core_testing --> core_resources
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_sizing
     core_testing --> utilities_spacing
-    utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_layout --> core_base
+    utilities_flexbox_and_grid --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> core_base
+    utilities_layout --> core_base
     utilities_sizing --> builders_scales
+    utilities_sizing --> core_base
     utilities_spacing --> builders_scales
     utilities_spacing --> core_base
 ```
@@ -60,7 +63,30 @@ graph LR
 
 ## CLI Reference
 
-No CLI commands found in this project.
+### `tw-explorer` Command
+
+                                                                                                              
+     Usage: tw-explorer [OPTIONS] COMMAND [ARGS]...                                                           
+                                                                                                              
+     🎨 Tailwind CSS Explorer for FastHTML - Explore utilities dynamically                                    
+                                                                                                              
+                                                                                                              
+    ╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────╮
+    │ --install-completion          Install completion for the current shell.                                │
+    │ --show-completion             Show completion for the current shell, to copy it or customize the       │
+    │                               installation.                                                            │
+    │ --help                        Show this message and exit.                                              │
+    ╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+    ╭─ Commands ─────────────────────────────────────────────────────────────────────────────────────────────╮
+    │ list       List available modules or utilities.                                                        │
+    │ show       Show detailed information about a module or specific utility.                               │
+    │ examples   Run example functions to see utility usage.                                                 │
+    │ search     Search for utilities across all modules.                                                    │
+    │ imports    Show import statements for a module.                                                        │
+    │ help       Show detailed help and usage guide.                                                         │
+    ╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+For detailed help on any command, use `tw-explorer <command> --help`.
 
 ## Module Overview
 
@@ -93,8 +119,10 @@ from cjm_fasthtml_tailwind.core.base import (
     StandardUtility,
     NamedScale,
     Breakpoint,
+    BaseFactory,
     UtilityFactory,
     combine_classes,
+    SingleValueFactory,
     Direction,
     DirectionalUtility,
     NegativeableUtility
@@ -133,7 +161,7 @@ def is_arbitrary_value(
 
 ``` python
 def combine_classes(
-    *args: Union[str, BaseUtility, TailwindBuilder, None]
+    *args: Union[str, BaseUtility, TailwindBuilder, BaseFactory, None]
 ) -> str:  # Space-separated class string
     "Combine multiple class builders or strings into a single class string."
 ```
@@ -205,20 +233,64 @@ class Breakpoint:
 ```
 
 ``` python
+class BaseFactory:
+    def __init__(
+        self,
+        doc: str  # Documentation string describing what this factory creates
+    )
+    "Base factory class with documentation support."
+    
+    def __init__(
+            self,
+            doc: str  # Documentation string describing what this factory creates
+        )
+        "Initialize with documentation string."
+    
+    def describe(
+            self
+        ) -> str:  # A formatted description of the factory
+        "Return a formatted description of this factory."
+```
+
+``` python
 class UtilityFactory:
     def __init__(
         self,
         utility_class: type[T],  # The utility class to instantiate
-        prefix: str  # The prefix to use for the utilities
+        prefix: str,  # The prefix to use for the utilities
+        doc: Optional[str] = None  # Optional documentation string
     )
     "Factory for creating utility instances with fluent API."
     
     def __init__(
             self,
             utility_class: type[T],  # The utility class to instantiate
-            prefix: str  # The prefix to use for the utilities
+            prefix: str,  # The prefix to use for the utilities
+            doc: Optional[str] = None  # Optional documentation string
         )
         "Initialize factory with a utility class and prefix."
+```
+
+``` python
+class SingleValueFactory:
+    def __init__(
+        self,
+        value: str,  # The utility class string (e.g., "container")
+        doc: str  # Documentation describing what this utility does
+    )
+    "Factory for a single utility class string with documentation."
+    
+    def __init__(
+            self,
+            value: str,  # The utility class string (e.g., "container")
+            doc: str  # Documentation describing what this utility does
+        )
+        "Initialize with a value and documentation."
+    
+    def build(
+            self
+        ) -> str:  # The utility class string
+        "Build and return the utility class string."
 ```
 
 ``` python
@@ -277,6 +349,190 @@ BREAKPOINTS = {5 items}  # Common breakpoints
 STATE_MODIFIERS = [39 items]  # Common state modifiers
 T
 DIRECTIONS = {6 items}  # Common directions
+```
+
+### explorer (`explorer.ipynb`)
+
+> CLI tool for API exploration
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.explorer import (
+    app,
+    console,
+    show_header,
+    discover_modules,
+    get_module_info,
+    get_utility_info,
+    run_example_function,
+    search_utilities,
+    main,
+    list,
+    show,
+    examples,
+    search,
+    imports,
+    help,
+    cli
+)
+```
+
+#### Functions
+
+``` python
+def show_header()
+    "Display the CLI header with welcome message."
+```
+
+``` python
+def discover_modules() -> Dict[str, List[str]]:
+    """
+    Dynamically discover all modules in the library.
+    Returns a dictionary with categories as keys and module names as values.
+    """
+    modules_by_category = {}
+    
+    try
+    """
+    Dynamically discover all modules in the library.
+    Returns a dictionary with categories as keys and module names as values.
+    """
+```
+
+``` python
+def get_module_info(module_name: str) -> Dict[str, Any]:
+    """
+    Get detailed information about a specific module.
+    Returns dictionary with module details, utilities, and examples.
+    """
+    info = {
+        "description": "No description available",
+    """
+    Get detailed information about a specific module.
+    Returns dictionary with module details, utilities, and examples.
+    """
+```
+
+``` python
+def get_utility_info(module_name: str, utility_name: str) -> Dict[str, Any]:
+    """
+    Get detailed information about a specific utility.
+    Returns dictionary with utility details, supported values, and usage.
+    """
+    # Placeholder implementation
+    return {
+        "description": f"[Placeholder: Description for {utility_name} utility]",
+    """
+    Get detailed information about a specific utility.
+    Returns dictionary with utility details, supported values, and usage.
+    """
+```
+
+``` python
+def run_example_function(module_name: str, feature: str) -> str
+    "Run a test example function and return its output."
+```
+
+``` python
+def search_utilities(search_term: str) -> List[Tuple[str, str, str]]
+    """
+    Search for utilities across all modules.
+    Returns list of (module, utility, description) tuples.
+    """
+```
+
+``` python
+def main(ctx: typer.Context):
+    """
+    Main entry point - shows header and quick start guide when no command is given.
+    """
+    if ctx.invoked_subcommand is None
+    "Main entry point - shows header and quick start guide when no command is given."
+```
+
+``` python
+def list(
+    target: Optional[str] = Argument(
+        None,
+        help="What to list: 'modules' (default), 'utilities', or 'all'"
+    )
+)
+    """
+    List available modules or utilities.
+    
+    Examples:
+        tw-explorer list              # List all modules
+        tw-explorer list utilities    # List all utilities
+        tw-explorer list all          # List everything
+    """
+```
+
+``` python
+def show(
+    module_name: str = Argument(..., help="Module name to explore"),
+    utility_name: Optional[str] = Argument(None, help="Specific utility to examine")
+)
+    """
+    Show detailed information about a module or specific utility.
+    
+    Examples:
+        tw-explorer show spacing          # Show spacing module overview
+        tw-explorer show spacing p        # Show details about 'p' utility
+        tw-explorer show layout display   # Show details about display utilities
+    """
+```
+
+``` python
+def examples(
+    module_name: str = Argument(..., help="Module name"),
+    feature: Optional[str] = Argument(None, help="Feature to demonstrate (e.g., 'basic', 'directional')")
+)
+    """
+    Run example functions to see utility usage.
+    
+    Examples:
+        tw-explorer examples spacing              # List available examples
+        tw-explorer examples spacing basic        # Run basic spacing examples
+        tw-explorer examples layout display       # Run display examples
+    """
+```
+
+``` python
+def search(
+    term: str = Argument(..., help="Search term (e.g., 'margin', 'flex', 'grid')")
+)
+    """
+    Search for utilities across all modules.
+    
+    Examples:
+        tw-explorer search margin     # Find all margin-related utilities
+        tw-explorer search flex       # Find flexbox utilities
+        tw-explorer search negative   # Find utilities that support negative values
+    """
+```
+
+``` python
+def imports(
+    module_name: str = Argument(..., help="Module name to get imports for")
+)
+    """
+    Show import statements for a module.
+    
+    Examples:
+        tw-explorer imports spacing      # Show spacing module imports
+        tw-explorer imports layout       # Show layout module imports
+    """
+```
+
+``` python
+def help()
+    "Show detailed help and usage guide."
+```
+
+``` python
+def cli()
+    "Main CLI entry point."
 ```
 
 ### flexbox_and_grid (`flexbox_and_grid.ipynb`)
@@ -372,7 +628,8 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
     flex_col_center,
     grid_center,
     responsive_grid,
-    test_flexbox_and_grid_helper_examples
+    test_flexbox_and_grid_helper_examples,
+    test_flexbox_and_grid_factory_documentation
 )
 ```
 
@@ -507,25 +764,64 @@ def test_flexbox_and_grid_helper_examples()
     "Test helper functions for common flexbox and grid patterns."
 ```
 
+``` python
+def test_flexbox_and_grid_factory_documentation()
+    "Test that factories have accessible documentation."
+```
+
 #### Classes
 
 ``` python
-class GrowFactory(ScaledFactory):
+class GrowFactory:
+    def __init__(self):
+        "Initialize with grow configuration and documentation."
+        super().__init__("grow", FLEX_GROW_CONFIG, "Flex grow utilities for controlling how flex items grow")
+    
+    def __call__(
+        self,
+        value: Optional[TailwindScale] = None  # The grow value (defaults to 1 if None)
+    ) -> ScaledUtility:  # A new grow utility instance
     "Special factory for grow that defaults to grow-1 when called without args."
     
+    def __init__(self):
+            "Initialize with grow configuration and documentation."
+            super().__init__("grow", FLEX_GROW_CONFIG, "Flex grow utilities for controlling how flex items grow")
+        
+        def __call__(
+            self,
+            value: Optional[TailwindScale] = None  # The grow value (defaults to 1 if None)
+        ) -> ScaledUtility:  # A new grow utility instance
+        "Initialize with grow configuration and documentation."
 ```
 
 ``` python
-class ShrinkFactory(ScaledFactory):
+class ShrinkFactory:
+    def __init__(self):
+        "Initialize with shrink configuration and documentation."
+        super().__init__("shrink", FLEX_SHRINK_CONFIG, "Flex shrink utilities for controlling how flex items shrink")
+    
+    def __call__(
+        self,
+        value: Optional[TailwindScale] = None  # The shrink value (defaults to 1 if None)
+    ) -> ScaledUtility:  # A new shrink utility instance
     "Special factory for shrink that defaults to shrink-1 when called without args."
     
+    def __init__(self):
+            "Initialize with shrink configuration and documentation."
+            super().__init__("shrink", FLEX_SHRINK_CONFIG, "Flex shrink utilities for controlling how flex items shrink")
+        
+        def __call__(
+            self,
+            value: Optional[TailwindScale] = None  # The shrink value (defaults to 1 if None)
+        ) -> ScaledUtility:  # A new shrink utility instance
+        "Initialize with shrink configuration and documentation."
 ```
 
 ``` python
 class ColFactory:
     def __init__(self):
         "Initialize with 'col' prefix and column configuration."
-        super().__init__("col", COL_START_END_CONFIG)
+        super().__init__("col", COL_START_END_CONFIG, "Grid column utilities for arbitrary grid-column values")
     
     @property
     def auto(
@@ -535,7 +831,7 @@ class ColFactory:
     
     def __init__(self):
             "Initialize with 'col' prefix and column configuration."
-            super().__init__("col", COL_START_END_CONFIG)
+            super().__init__("col", COL_START_END_CONFIG, "Grid column utilities for arbitrary grid-column values")
         
         @property
         def auto(
@@ -553,7 +849,7 @@ class ColFactory:
 class RowFactory:
     def __init__(self):
         "Initialize with 'row' prefix and row configuration."
-        super().__init__("row", ROW_START_END_CONFIG)
+        super().__init__("row", ROW_START_END_CONFIG, "Grid row utilities for arbitrary grid-row values")
     
     @property
     def auto(
@@ -563,7 +859,7 @@ class RowFactory:
     
     def __init__(self):
             "Initialize with 'row' prefix and row configuration."
-            super().__init__("row", ROW_START_END_CONFIG)
+            super().__init__("row", ROW_START_END_CONFIG, "Grid row utilities for arbitrary grid-row values")
         
         @property
         def auto(
@@ -578,26 +874,61 @@ class RowFactory:
 ```
 
 ``` python
-class AutoColsFactory(SimpleFactory):
+class AutoColsFactory:
+    def __init__(self):
+        "Initialize with auto columns values and documentation."
+        super().__init__(AUTO_COLS_VALUES, "Grid auto columns utilities for controlling the size of implicitly-created grid columns")
+    
+    def __call__(
+        self,
+        value: str  # Custom auto-cols value (e.g., '200px', 'minmax(0, 1fr)')
+    ) -> str:  # The formatted auto-cols CSS class
     "Factory for auto-cols with custom value support."
     
+    def __init__(self):
+            "Initialize with auto columns values and documentation."
+            super().__init__(AUTO_COLS_VALUES, "Grid auto columns utilities for controlling the size of implicitly-created grid columns")
+        
+        def __call__(
+            self,
+            value: str  # Custom auto-cols value (e.g., '200px', 'minmax(0, 1fr)')
+        ) -> str:  # The formatted auto-cols CSS class
+        "Initialize with auto columns values and documentation."
 ```
 
 ``` python
-class AutoRowsFactory(SimpleFactory):
+class AutoRowsFactory:
+    def __init__(self):
+        "Initialize with auto rows values and documentation."
+        super().__init__(AUTO_ROWS_VALUES, "Grid auto rows utilities for controlling the size of implicitly-created grid rows")
+    
+    def __call__(
+        self,
+        value: str  # Custom auto-rows value (e.g., '200px', 'minmax(0, 1fr)')
+    ) -> str:  # The formatted auto-rows CSS class
     "Factory for auto-rows with custom value support."
     
+    def __init__(self):
+            "Initialize with auto rows values and documentation."
+            super().__init__(AUTO_ROWS_VALUES, "Grid auto rows utilities for controlling the size of implicitly-created grid rows")
+        
+        def __call__(
+            self,
+            value: str  # Custom auto-rows value (e.g., '200px', 'minmax(0, 1fr)')
+        ) -> str:  # The formatted auto-rows CSS class
+        "Initialize with auto rows values and documentation."
 ```
 
 ``` python
 class GapFactory:
     def __init__(self):
         "Initialize with base gap and directional gap factories."
+        super().__init__("Gap utilities for controlling gutters between grid and flexbox items")
         # Base gap utility
-        self._base = ScaledFactory("gap", SPACING_CONFIG)
+        self._base = ScaledFactory("gap", SPACING_CONFIG, "Gap utilities for controlling gutters between grid and flexbox items")
         # Directional gap utilities with hyphens
-        self.x = ScaledFactory("gap-x", SPACING_CONFIG)
-        self.y = ScaledFactory("gap-y", SPACING_CONFIG)
+        self.x = ScaledFactory("gap-x", SPACING_CONFIG, "Column gap utilities for controlling gutters between columns")
+        self.y = ScaledFactory("gap-y", SPACING_CONFIG, "Row gap utilities for controlling gutters between rows")
     
     def __call__(
         self,
@@ -607,11 +938,12 @@ class GapFactory:
     
     def __init__(self):
             "Initialize with base gap and directional gap factories."
+            super().__init__("Gap utilities for controlling gutters between grid and flexbox items")
             # Base gap utility
-            self._base = ScaledFactory("gap", SPACING_CONFIG)
+            self._base = ScaledFactory("gap", SPACING_CONFIG, "Gap utilities for controlling gutters between grid and flexbox items")
             # Directional gap utilities with hyphens
-            self.x = ScaledFactory("gap-x", SPACING_CONFIG)
-            self.y = ScaledFactory("gap-y", SPACING_CONFIG)
+            self.x = ScaledFactory("gap-x", SPACING_CONFIG, "Column gap utilities for controlling gutters between columns")
+            self.y = ScaledFactory("gap-y", SPACING_CONFIG, "Row gap utilities for controlling gutters between rows")
         
         def __call__(
             self,
@@ -751,6 +1083,7 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     OverscrollFactory,
     test_layout_other_utilities_examples,
     test_layout_practical_examples,
+    test_layout_factory_documentation,
     center_absolute,
     stack_context,
     sticky_top,
@@ -822,6 +1155,11 @@ def test_layout_practical_examples()
 ```
 
 ``` python
+def test_layout_factory_documentation()
+    "Test that factories have accessible documentation."
+```
+
+``` python
 def center_absolute(
 ) -> str:  # Combined CSS classes for centering an element
     "Center an absolutely positioned element."
@@ -880,12 +1218,14 @@ class InsetDirectionalFactory:
 class OverflowFactory:
     def __init__(self):
         "Initialize with overflow values and directional sub-factories."
+        super().__init__("Overflow utilities for controlling how an element handles content that is too large")
         # Create base overflow utilities
         self._values = {value: f"overflow-{value}" for value in OVERFLOW_VALUES}
     "Factory for overflow utilities with directional support."
     
     def __init__(self):
             "Initialize with overflow values and directional sub-factories."
+            super().__init__("Overflow utilities for controlling how an element handles content that is too large")
             # Create base overflow utilities
             self._values = {value: f"overflow-{value}" for value in OVERFLOW_VALUES}
         "Initialize with overflow values and directional sub-factories."
@@ -922,12 +1262,14 @@ class BreakFactory:
 class OverscrollFactory:
     def __init__(self):
         "Initialize with overscroll values and directional sub-factories."
+        super().__init__("Overscroll behavior utilities for controlling browser behavior at scroll boundaries")
         # Create base overscroll utilities
         self._values = {value: f"overscroll-{value}" for value in OVERSCROLL_VALUES}
     "Factory for overscroll behavior utilities with directional support."
     
     def __init__(self):
             "Initialize with overscroll values and directional sub-factories."
+            super().__init__("Overscroll behavior utilities for controlling browser behavior at scroll boundaries")
             # Create base overscroll utilities
             self._values = {value: f"overscroll-{value}" for value in OVERSCROLL_VALUES}
         "Initialize with overscroll values and directional sub-factories."
@@ -938,17 +1280,9 @@ class OverscrollFactory:
 ``` python
 DISPLAY_VALUES = {22 items}  # Display utilities
 display_tw  # The display factory
-sr_only = 'sr-only'  # Screen reader only
-not_sr_only = 'not-sr-only'  # Not screen reader only
 POSITION_VALUES = {5 items}  # Position utilities
 position  # The position factory
 inset  # The inset factory for positioning
-top  # The top factory
-right  # The right factory
-bottom  # The bottom factory
-left  # The left factory
-start  # The start factory (logical)
-end  # The end factory (logical)
 OVERFLOW_VALUES = [5 items]  # Overflow values
 overflow  # The overflow factory
 Z_INDEX_CONFIG  # Z-index configuration
@@ -960,7 +1294,6 @@ clear  # The clear factory
 OBJECT_FIT_VALUES = {5 items}
 object_fit  # The object fit factory
 OBJECT_POSITION_VALUES = {9 items}
-object_position  # The object position factory
 VISIBILITY_VALUES = {3 items}
 visibility  # The visibility factory
 BOX_SIZING_VALUES = {2 items}
@@ -976,7 +1309,6 @@ BREAK_AFTER_VALUES = {8 items}
 BREAK_INSIDE_VALUES = {4 items}
 break_util  # The break factory
 BOX_DECORATION_VALUES = {2 items}
-box_decoration  # The box decoration factory
 OVERSCROLL_VALUES = [3 items]
 overscroll  # The overscroll factory
 ```
@@ -1095,14 +1427,16 @@ class ScaledFactory:
     def __init__(
         self, 
         prefix: str,  # The utility prefix (e.g., 'w', 'h', 'p')
-        config: ScaleConfig  # Configuration defining valid scales and values
+        config: ScaleConfig,  # Configuration defining valid scales and values
+        doc: Optional[str] = None  # Optional documentation string
     )
     "Factory for creating scaled utilities with enhanced attribute access."
     
     def __init__(
             self, 
             prefix: str,  # The utility prefix (e.g., 'w', 'h', 'p')
-            config: ScaleConfig  # Configuration defining valid scales and values
+            config: ScaleConfig,  # Configuration defining valid scales and values
+            doc: Optional[str] = None  # Optional documentation string
         )
         "Initialize with prefix and scale configuration."
     
@@ -1155,14 +1489,16 @@ class DirectionalScaledFactory:
     def __init__(
         self, 
         prefix: str,  # The base utility prefix (e.g., 'p' for padding, 'm' for margin)
-        config: ScaleConfig  # Configuration defining valid scales and values
+        config: ScaleConfig,  # Configuration defining valid scales and values
+        doc: Optional[str] = None  # Optional documentation string
     )
     "Factory for creating directional scaled utilities."
     
     def __init__(
             self, 
             prefix: str,  # The base utility prefix (e.g., 'p' for padding, 'm' for margin)
-            config: ScaleConfig  # Configuration defining valid scales and values
+            config: ScaleConfig,  # Configuration defining valid scales and values
+            doc: Optional[str] = None  # Optional documentation string
         )
         "Initialize with prefix and scale configuration."
     
@@ -1176,13 +1512,15 @@ class DirectionalScaledFactory:
 class SimpleFactory:
     def __init__(
         self,
-        values_dict: Dict[str, str]  # Dictionary mapping attribute names to CSS values
+        values_dict: Dict[str, str],  # Dictionary mapping attribute names to CSS values
+        doc: Optional[str] = None  # Optional documentation string
     )
     "Factory for utilities that are simple string values."
     
     def __init__(
             self,
-            values_dict: Dict[str, str]  # Dictionary mapping attribute names to CSS values
+            values_dict: Dict[str, str],  # Dictionary mapping attribute names to CSS values
+            doc: Optional[str] = None  # Optional documentation string
         )
         "Initialize with a dictionary of values."
 ```
@@ -1228,6 +1566,7 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
     test_sizing_size_util_examples,
     test_sizing_max_height_examples,
     test_sizing_practical_examples,
+    test_sizing_factory_documentation,
     size,
     square,
     full_size,
@@ -1299,6 +1638,11 @@ def test_sizing_practical_examples()
 ```
 
 ``` python
+def test_sizing_factory_documentation()
+    "Test that factories have accessible documentation."
+```
+
+``` python
 def size(
     w: Optional[TailwindScale] = None,        # Width value
     h: Optional[TailwindScale] = None,        # Height value
@@ -1341,7 +1685,6 @@ w  # The width factory
 h  # The height factory
 min_w  # The min-width factory
 max_w  # The max-width factory
-container = 'container'  # Responsive container with breakpoint-based max-widths
 min_h  # The min-height factory
 max_h  # The max-height factory
 size_util  # The size factory (sets both width and height)
@@ -1362,8 +1705,6 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
     ms,
     me,
     space,
-    space_x_reverse,
-    space_y_reverse,
     test_spacing_basic_examples,
     test_spacing_directional_examples,
     test_spacing_arbitrary_examples,
@@ -1376,7 +1717,8 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
     test_spacing_practical_examples,
     pad,
     margin,
-    test_spacing_helper_examples
+    test_spacing_helper_examples,
+    test_spacing_factory_documentation
 )
 ```
 
@@ -1459,15 +1801,20 @@ def test_spacing_helper_examples()
     "Test helper functions for common spacing patterns."
 ```
 
+``` python
+def test_spacing_factory_documentation()
+    "Test that factories have accessible documentation."
+```
+
 #### Classes
 
 ``` python
 class SpaceFactory:
     def __init__(self)
-    "Special factory for space utilities that use hyphenated directions."
+    "Special factory for space utilities that control spacing between child elements."
     
     def __init__(self)
-        "Initialize with scaled factories."
+        "Initialize with scaled factories and reverse utilities."
 ```
 
 #### Variables
@@ -1480,8 +1827,6 @@ m  # The margin factory
 ms  # margin-inline-start
 me  # margin-inline-end
 space  # The space factory
-space_x_reverse = 'space-x-reverse'  # Reverse the order of horizontal spacing
-space_y_reverse = 'space-y-reverse'  # Reverse the order of vertical spacing
 ```
 
 ### testing (`testing.ipynb`)

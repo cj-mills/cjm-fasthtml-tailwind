@@ -6,8 +6,8 @@
 __all__ = ['TailwindScale', 'TailwindFraction', 'TailwindArbitrary', 'TailwindCustomProperty', 'TailwindValue',
            'CONTAINER_SCALES', 'BREAKPOINTS', 'STATE_MODIFIERS', 'T', 'DIRECTIONS', 'is_numeric_scale', 'is_fraction',
            'is_custom_property', 'is_arbitrary_value', 'TailwindBuilder', 'BaseUtility', 'StandardUtility',
-           'NamedScale', 'Breakpoint', 'UtilityFactory', 'combine_classes', 'Direction', 'DirectionalUtility',
-           'NegativeableUtility']
+           'NamedScale', 'Breakpoint', 'BaseFactory', 'UtilityFactory', 'combine_classes', 'SingleValueFactory',
+           'Direction', 'DirectionalUtility', 'NegativeableUtility']
 
 # %% ../../nbs/core/base.ipynb 3
 from typing import Union, Optional, Literal, Protocol, runtime_checkable, TypeVar, Generic, Callable, Any, Dict, List, Tuple
@@ -230,18 +230,45 @@ STATE_MODIFIERS = [ # Common state modifiers
 ]
 
 # %% ../../nbs/core/base.ipynb 25
+class BaseFactory(ABC):
+    """Base factory class with documentation support."""
+    
+    def __init__(
+        self,
+        doc: str  # Documentation string describing what this factory creates
+    ):
+        """Initialize with documentation string."""
+        self._doc = doc
+    
+    @property
+    def __doc__(
+        self
+    ) -> str:  # The documentation string
+        """Return the documentation for this factory."""
+        return self._doc
+    
+    def describe(
+        self
+    ) -> str:  # A formatted description of the factory
+        """Return a formatted description of this factory."""
+        return self._doc
+
+# %% ../../nbs/core/base.ipynb 27
 T = TypeVar('T', bound=BaseUtility)
 
-# %% ../../nbs/core/base.ipynb 26
-class UtilityFactory(Generic[T]):
+# %% ../../nbs/core/base.ipynb 28
+class UtilityFactory(BaseFactory, Generic[T]):
     """Factory for creating utility instances with fluent API."""
     
     def __init__(
         self,
         utility_class: type[T],  # The utility class to instantiate
-        prefix: str  # The prefix to use for the utilities
+        prefix: str,  # The prefix to use for the utilities
+        doc: Optional[str] = None  # Optional documentation string
     ):
         "Initialize factory with a utility class and prefix."
+        doc = doc or f"Factory for {prefix} utilities"
+        super().__init__(doc)
         self.utility_class = utility_class
         self.prefix = prefix
     
@@ -264,9 +291,9 @@ class UtilityFactory(Generic[T]):
         instance._value = name.replace("_", "-")
         return instance
 
-# %% ../../nbs/core/base.ipynb 35
+# %% ../../nbs/core/base.ipynb 37
 def combine_classes(
-    *args: Union[str, BaseUtility, TailwindBuilder, None]
+    *args: Union[str, BaseUtility, TailwindBuilder, BaseFactory, None]
 ) -> str:  # Space-separated class string
     "Combine multiple class builders or strings into a single class string."
     classes = []
@@ -278,6 +305,8 @@ def combine_classes(
                 classes.append(arg.strip())
         elif isinstance(arg, BaseUtility):
             classes.append(str(arg))
+        elif isinstance(arg, SingleValueFactory):
+            classes.append(str(arg))
         elif hasattr(arg, 'build'):
             classes.append(arg.build())
         elif hasattr(arg, '__str__'):
@@ -287,14 +316,45 @@ def combine_classes(
     
     return " ".join(classes)
 
-# %% ../../nbs/core/base.ipynb 38
+# %% ../../nbs/core/base.ipynb 40
+class SingleValueFactory(BaseFactory):
+    """Factory for a single utility class string with documentation."""
+    
+    def __init__(
+        self,
+        value: str,  # The utility class string (e.g., "container")
+        doc: str  # Documentation describing what this utility does
+    ):
+        """Initialize with a value and documentation."""
+        super().__init__(doc)
+        self._value = value
+    
+    def __str__(
+        self
+    ) -> str:  # The utility class string
+        """Return the utility class string."""
+        return self._value
+    
+    def __call__(
+        self
+    ) -> str:  # The utility class string
+        """Return the utility class string when called."""
+        return self._value
+    
+    def build(
+        self
+    ) -> str:  # The utility class string
+        """Build and return the utility class string."""
+        return self._value
+
+# %% ../../nbs/core/base.ipynb 43
 @dataclass
 class Direction:
     """Represents a directional variant."""
     suffix: str
     css_suffix: str
 
-# %% ../../nbs/core/base.ipynb 39
+# %% ../../nbs/core/base.ipynb 44
 DIRECTIONS = { # Common directions
     "t": Direction("t", "top"),      # top
     "r": Direction("r", "right"),    # right
@@ -304,7 +364,7 @@ DIRECTIONS = { # Common directions
     "y": Direction("y", "block"),    # vertical
 }
 
-# %% ../../nbs/core/base.ipynb 40
+# %% ../../nbs/core/base.ipynb 45
 class DirectionalUtility(StandardUtility):
     """Base class for utilities with directional variants."""
     
@@ -320,7 +380,7 @@ class DirectionalUtility(StandardUtility):
             full_prefix = prefix
         super().__init__(full_prefix)
 
-# %% ../../nbs/core/base.ipynb 43
+# %% ../../nbs/core/base.ipynb 48
 class NegativeableUtility(StandardUtility):
     """Utility class that supports negative values."""
     

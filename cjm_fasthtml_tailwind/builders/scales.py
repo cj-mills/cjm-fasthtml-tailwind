@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from cjm_fasthtml_tailwind.core.base import (
     NamedScale, CONTAINER_SCALES, TailwindScale, 
     BaseUtility, StandardUtility, DirectionalUtility,
-    UtilityFactory, is_numeric_scale
+    UtilityFactory, is_numeric_scale, BaseFactory
 )
 
 # %% ../../nbs/builders/scales.ipynb 5
@@ -127,11 +127,12 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
     def __init__(
         self, 
         prefix: str,  # The utility prefix (e.g., 'w', 'h', 'p')
-        config: ScaleConfig  # Configuration defining valid scales and values
+        config: ScaleConfig,  # Configuration defining valid scales and values
+        doc: Optional[str] = None  # Optional documentation string
     ):
         """Initialize with prefix and scale configuration."""
         self.config = config
-        super().__init__(ScaledUtility, prefix)
+        super().__init__(ScaledUtility, prefix, doc)
     
     def __call__(
         self, 
@@ -231,25 +232,28 @@ class DirectionalScaledUtility(DirectionalUtility):
         super().__init__(base_prefix, direction)
 
 # %% ../../nbs/builders/scales.ipynb 15
-class DirectionalScaledFactory:
+class DirectionalScaledFactory(BaseFactory):
     """Factory for creating directional scaled utilities."""
     
     def __init__(
         self, 
         prefix: str,  # The base utility prefix (e.g., 'p' for padding, 'm' for margin)
-        config: ScaleConfig  # Configuration defining valid scales and values
+        config: ScaleConfig,  # Configuration defining valid scales and values
+        doc: Optional[str] = None  # Optional documentation string
     ):
         """Initialize with prefix and scale configuration."""
+        doc = doc or f"Factory for {prefix} utilities with directional variants"
+        super().__init__(doc)
         self.prefix = prefix
         self.config = config
         
         # Create direction-specific factories
-        self.t = ScaledFactory(f"{prefix}t", config)  # top
-        self.r = ScaledFactory(f"{prefix}r", config)  # right
-        self.b = ScaledFactory(f"{prefix}b", config)  # bottom
-        self.l = ScaledFactory(f"{prefix}l", config)  # left
-        self.x = ScaledFactory(f"{prefix}x", config)  # horizontal
-        self.y = ScaledFactory(f"{prefix}y", config)  # vertical
+        self.t = ScaledFactory(f"{prefix}t", config, f"Top {prefix} utilities")  # top
+        self.r = ScaledFactory(f"{prefix}r", config, f"Right {prefix} utilities")  # right
+        self.b = ScaledFactory(f"{prefix}b", config, f"Bottom {prefix} utilities")  # bottom
+        self.l = ScaledFactory(f"{prefix}l", config, f"Left {prefix} utilities")  # left
+        self.x = ScaledFactory(f"{prefix}x", config, f"Horizontal {prefix} utilities")  # horizontal
+        self.y = ScaledFactory(f"{prefix}y", config, f"Vertical {prefix} utilities")  # vertical
     
     def __call__(
         self, 
@@ -257,7 +261,7 @@ class DirectionalScaledFactory:
         negative: bool = False  # Whether to create a negative variant
     ) -> ScaledUtility:  # A new scaled utility for all directions
         """Create a utility instance for all directions."""
-        return ScaledFactory(self.prefix, self.config)(value, negative)
+        return ScaledFactory(self.prefix, self.config, f"All sides {self.prefix} utilities")(value, negative)
     
     def __getattr__(
         self,
@@ -351,14 +355,17 @@ def list_scale_values(
     return values
 
 # %% ../../nbs/builders/scales.ipynb 42
-class SimpleFactory:
+class SimpleFactory(BaseFactory):
     """Factory for utilities that are simple string values."""
     
     def __init__(
         self,
-        values_dict: Dict[str, str]  # Dictionary mapping attribute names to CSS values
+        values_dict: Dict[str, str],  # Dictionary mapping attribute names to CSS values
+        doc: Optional[str] = None  # Optional documentation string
     ):
         "Initialize with a dictionary of values."
+        doc = doc or "Factory for simple utility values"
+        super().__init__(doc)
         self._values = values_dict
     
     def __getattr__(
