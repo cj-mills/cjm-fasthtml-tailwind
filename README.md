@@ -14,8 +14,15 @@ pip install cjm-fasthtml-tailwind
     nbs/
     ├── builders/ (1)
     │   └── scales.ipynb  # Numeric and named scale builders for Tailwind CSS utilities
-    ├── cli/ (1)
-    │   └── explorer.ipynb  # CLI tool for API exploration
+    ├── cli/ (8)
+    │   ├── core_utils_discovery.ipynb  # Functions to discover and display core utility functions like combine_classes:
+    │   ├── example_discovery.ipynb     # Functions to discover and extract test example functions:
+    │   ├── explorer.ipynb              # CLI tool for API exploration of cjm-fasthtml-tailwind utilities
+    │   ├── factory_extraction.ipynb    # Functions to extract BaseFactory instances from modules:
+    │   ├── helper_discovery.ipynb      # Functions to discover and extract helper functions:
+    │   ├── search.ipynb                # Functions to search across all library components:
+    │   ├── test_code.ipynb             # Functions to test code snippets using the library:
+    │   └── utils.ipynb                 # Utility functions for CLI tools
     ├── core/ (3)
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
@@ -26,14 +33,21 @@ pip install cjm-fasthtml-tailwind
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         └── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
 
-Total: 9 notebooks across 4 directories
+Total: 16 notebooks across 4 directories
 
 ## Module Dependencies
 
 ``` mermaid
 graph LR
     builders_scales[builders.scales<br/>scales]
+    cli_core_utils_discovery[cli.core_utils_discovery<br/>Core Utilities Discovery]
+    cli_example_discovery[cli.example_discovery<br/>Example Discovery]
     cli_explorer[cli.explorer<br/>explorer]
+    cli_factory_extraction[cli.factory_extraction<br/>Factory Extraction]
+    cli_helper_discovery[cli.helper_discovery<br/>Helper Function Discovery]
+    cli_search[cli.search<br/>Search Functions]
+    cli_test_code[cli.test_code<br/>Test Code Functionality]
+    cli_utils[cli.utils<br/>utils]
     core_base[core.base<br/>base]
     core_resources[core.resources<br/>resources]
     core_testing[core.testing<br/>testing]
@@ -43,50 +57,74 @@ graph LR
     utilities_spacing[utilities.spacing<br/>spacing]
 
     builders_scales --> core_base
+    cli_example_discovery --> cli_utils
+    cli_explorer --> cli_utils
+    cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_search
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_core_utils_discovery
+    cli_factory_extraction --> cli_utils
+    cli_factory_extraction --> core_base
+    cli_helper_discovery --> cli_example_discovery
+    cli_helper_discovery --> cli_utils
+    cli_search --> cli_utils
+    cli_search --> cli_example_discovery
+    cli_search --> cli_factory_extraction
+    cli_search --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_utils
+    core_testing --> utilities_spacing
+    core_testing --> utilities_sizing
     core_testing --> core_base
-    core_testing --> utilities_layout
     core_testing --> core_resources
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_sizing
-    core_testing --> utilities_spacing
-    utilities_flexbox_and_grid --> builders_scales
+    core_testing --> utilities_layout
     utilities_flexbox_and_grid --> core_base
-    utilities_layout --> builders_scales
+    utilities_flexbox_and_grid --> builders_scales
     utilities_layout --> core_base
+    utilities_layout --> builders_scales
     utilities_sizing --> builders_scales
     utilities_sizing --> core_base
     utilities_spacing --> builders_scales
     utilities_spacing --> core_base
 ```
 
-*15 cross-module dependencies detected*
+*34 cross-module dependencies detected*
 
 ## CLI Reference
 
-### `tw-explorer` Command
+### `cjm-tailwind-explore` Command
 
-                                                                                                              
-     Usage: tw-explorer [OPTIONS] COMMAND [ARGS]...                                                           
-                                                                                                              
-     🎨 Tailwind CSS Explorer for FastHTML - Explore utilities dynamically                                    
-                                                                                                              
-                                                                                                              
-    ╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────╮
-    │ --install-completion          Install completion for the current shell.                                │
-    │ --show-completion             Show completion for the current shell, to copy it or customize the       │
-    │                               installation.                                                            │
-    │ --help                        Show this message and exit.                                              │
-    ╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Commands ─────────────────────────────────────────────────────────────────────────────────────────────╮
-    │ list       List available modules or utilities.                                                        │
-    │ show       Show detailed information about a module or specific utility.                               │
-    │ examples   Run example functions to see utility usage.                                                 │
-    │ search     Search for utilities across all modules.                                                    │
-    │ imports    Show import statements for a module.                                                        │
-    │ help       Show detailed help and usage guide.                                                         │
-    ╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+    usage: cjm-tailwind-explore [-h]
+                                {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports}
+                                ...
 
-For detailed help on any command, use `tw-explorer <command> --help`.
+    Explore cjm-fasthtml-tailwind utility factories and modules
+
+    positional arguments:
+      {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports}
+                            Available commands
+        modules             List all utility modules
+        factories           List factories
+        factory             Show detailed info for a specific factory
+        examples            Show usage examples
+        example             Show source code for a specific example
+        helpers             Show helper functions
+        helper              Show source code for a specific helper
+        search              Search across all library components
+        test-code           Test code snippets using the library
+        core-utils          List core utility functions
+        core-util           Show source code for a core utility
+        imports             Show recommended import statements
+
+    options:
+      -h, --help            show this help message and exit
+
+For detailed help on any command, use
+`cjm-tailwind-explore <command> --help`.
 
 ## Module Overview
 
@@ -250,6 +288,16 @@ class BaseFactory:
             self
         ) -> str:  # A formatted description of the factory
         "Return a formatted description of this factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about this factory's options and valid inputs.
+
+Should return a dictionary with keys like:
+- 'description': Factory description
+- 'valid_inputs': List/description of valid input values
+- 'options': Available options or methods"
 ```
 
 ``` python
@@ -269,6 +317,11 @@ class UtilityFactory:
             doc: Optional[str] = None  # Optional documentation string
         )
         "Initialize factory with a utility class and prefix."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this utility factory."
 ```
 
 ``` python
@@ -291,6 +344,11 @@ class SingleValueFactory:
             self
         ) -> str:  # The utility class string
         "Build and return the utility class string."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this single-value factory."
 ```
 
 ``` python
@@ -351,188 +409,483 @@ T
 DIRECTIONS = {6 items}  # Common directions
 ```
 
-### explorer (`explorer.ipynb`)
+### Core Utilities Discovery (`core_utils_discovery.ipynb`)
 
-> CLI tool for API exploration
+> Functions to discover and display core utility functions like
+> combine_classes:
 
 #### Import
 
 ``` python
-from cjm_fasthtml_tailwind.cli.explorer import (
-    app,
-    console,
-    show_header,
-    discover_modules,
-    get_module_info,
-    get_utility_info,
-    run_example_function,
-    search_utilities,
-    main,
-    list,
-    show,
-    examples,
-    search,
-    imports,
-    help,
-    cli
+from cjm_fasthtml_tailwind.cli.core_utils_discovery import (
+    CoreUtilityInfo,
+    get_core_utilities
 )
 ```
 
 #### Functions
 
 ``` python
-def show_header()
-    "Display the CLI header with welcome message."
-```
-
-``` python
-def discover_modules() -> Dict[str, List[str]]:
-    """
-    Dynamically discover all modules in the library.
-    Returns a dictionary with categories as keys and module names as values.
-    """
-    modules_by_category = {}
+def get_core_utilities() -> List[CoreUtilityInfo]:
+    """Get information about core utility functions."""
+    utilities = []
     
-    try
-    """
-    Dynamically discover all modules in the library.
-    Returns a dictionary with categories as keys and module names as values.
-    """
+    # Define core utilities to expose
+    core_utils = [
+        ('combine_classes', 'cjm_fasthtml_tailwind.core.base'),
+        ('get_tailwind_headers', 'cjm_fasthtml_tailwind.core.resources'),
+    ]
+    
+    for util_name, module_path in core_utils
+    "Get information about core utility functions."
 ```
 
-``` python
-def get_module_info(module_name: str) -> Dict[str, Any]:
-    """
-    Get detailed information about a specific module.
-    Returns dictionary with module details, utilities, and examples.
-    """
-    info = {
-        "description": "No description available",
-    """
-    Get detailed information about a specific module.
-    Returns dictionary with module details, utilities, and examples.
-    """
-```
+#### Classes
 
 ``` python
-def get_utility_info(module_name: str, utility_name: str) -> Dict[str, Any]:
-    """
-    Get detailed information about a specific utility.
-    Returns dictionary with utility details, supported values, and usage.
-    """
-    # Placeholder implementation
-    return {
-        "description": f"[Placeholder: Description for {utility_name} utility]",
-    """
-    Get detailed information about a specific utility.
-    Returns dictionary with utility details, supported values, and usage.
-    """
+@dataclass
+class CoreUtilityInfo:
+    "Information about a core utility function."
+    
+    name: str  # Function name
+    module: str  # Module path (e.g., 'cjm_fasthtml_tailwind.core.base')
+    function: Any  # The actual function object
+    signature: str  # Function signature
+    docstring: str  # Function docstring
+    source: str  # Source code
+    import_statement: str  # How to import this utility
 ```
 
-``` python
-def run_example_function(module_name: str, feature: str) -> str
-    "Run a test example function and return its output."
-```
+### Example Discovery (`example_discovery.ipynb`)
+
+> Functions to discover and extract test example functions:
+
+#### Import
 
 ``` python
-def search_utilities(search_term: str) -> List[Tuple[str, str, str]]
-    """
-    Search for utilities across all modules.
-    Returns list of (module, utility, description) tuples.
-    """
-```
-
-``` python
-def main(ctx: typer.Context):
-    """
-    Main entry point - shows header and quick start guide when no command is given.
-    """
-    if ctx.invoked_subcommand is None
-    "Main entry point - shows header and quick start guide when no command is given."
-```
-
-``` python
-def list(
-    target: Optional[str] = Argument(
-        None,
-        help="What to list: 'modules' (default), 'utilities', or 'all'"
-    )
+from cjm_fasthtml_tailwind.cli.example_discovery import (
+    ExampleInfo,
+    extract_test_examples_from_module,
+    list_all_examples
 )
-    """
-    List available modules or utilities.
-    
-    Examples:
-        tw-explorer list              # List all modules
-        tw-explorer list utilities    # List all utilities
-        tw-explorer list all          # List everything
-    """
+```
+
+#### Functions
+
+``` python
+def extract_test_examples_from_module(
+    module: Any,  # The module to extract test examples from
+    module_name: str  # The name of the module
+) -> List[ExampleInfo]:  # List of ExampleInfo objects
+    "Extract all test example functions from a module."
 ```
 
 ``` python
-def show(
-    module_name: str = Argument(..., help="Module name to explore"),
-    utility_name: Optional[str] = Argument(None, help="Specific utility to examine")
+def list_all_examples(
+) -> Dict[str, List[ExampleInfo]]:  # Dictionary mapping module names to their examples
+    "List all test example functions across all utility modules."
+```
+
+#### Classes
+
+``` python
+@dataclass
+class ExampleInfo:
+    "Information about a discovered test example function."
+    
+    name: str  # Function name (e.g., 'test_spacing_basic_examples')
+    module_name: str  # Module where it was found (e.g., 'spacing')
+    feature: str  # Feature being demonstrated (e.g., 'basic')
+    function: Any  # The actual function object
+    source: str  # Source code of the function
+    docstring: str  # Docstring of the function
+```
+
+### explorer (`explorer.ipynb`)
+
+> CLI tool for API exploration of cjm-fasthtml-tailwind utilities
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.explorer import (
+    get_recommended_imports,
+    list_module_factories,
+    list_module_examples,
+    get_example_by_name,
+    get_factory_by_name,
+    display_modules,
+    display_module_factories,
+    display_all_factories,
+    display_module_examples,
+    display_all_examples,
+    display_example_source,
+    display_module_helpers,
+    display_helper_source,
+    display_all_helpers,
+    display_factory_info,
+    display_search_results,
+    display_core_utility_source,
+    display_core_utilities,
+    display_imports,
+    display_test_code_result,
+    add_modules_parser,
+    add_factories_parser,
+    add_factory_parser,
+    add_examples_parser,
+    add_example_parser,
+    add_helpers_parser,
+    add_helper_parser,
+    add_search_parser,
+    add_test_code_parser,
+    add_core_utils_parser,
+    add_core_util_parser,
+    add_imports_parser,
+    dispatch_command,
+    handle_search_command,
+    handle_test_code_command,
+    setup_argument_parser,
+    main
 )
-    """
-    Show detailed information about a module or specific utility.
-    
-    Examples:
-        tw-explorer show spacing          # Show spacing module overview
-        tw-explorer show spacing p        # Show details about 'p' utility
-        tw-explorer show layout display   # Show details about display utilities
-    """
+```
+
+#### Functions
+
+``` python
+def get_recommended_imports(
+    modules: Optional[List[str]] = None  # Specific modules to include, or None for all
+) -> List[str]:  # List of import statements
+    "Get recommended import statements for using the library."
 ```
 
 ``` python
-def examples(
-    module_name: str = Argument(..., help="Module name"),
-    feature: Optional[str] = Argument(None, help="Feature to demonstrate (e.g., 'basic', 'directional')")
+def list_module_factories(
+    module_name: str  # Name of the module to inspect (e.g., 'spacing', 'sizing')
+) -> List[FactoryInfo]:  # List of FactoryInfo objects for the module
+    "List all factory instances in a specific utility module."
+```
+
+``` python
+def list_module_examples(
+    module_name: str  # Name of the module to inspect
+) -> List[ExampleInfo]:  # List of ExampleInfo objects
+    "List all test example functions in a specific utility module."
+```
+
+``` python
+def get_example_by_name(
+    module_name: str,  # Name of the module
+    feature: str  # Feature name (e.g., 'basic', 'directional')
+) -> Optional[ExampleInfo]:  # ExampleInfo object or None if not found
+    "Get a specific example by module name and feature."
+```
+
+``` python
+def get_factory_by_name(
+    module_name: str,  # Name of the module
+    factory_name: str  # Name of the factory (e.g., 'p', 'w', 'flex')
+) -> Optional[FactoryInfo]:  # FactoryInfo object or None if not found
+    "Get a specific factory by module name and factory name."
+```
+
+``` python
+def display_modules():
+    """Display all available utility modules with their documentation."""
+    modules = list_utility_modules()
+    
+    # Convert dict to list of tuples for the formatter
+    module_list = [(name, doc) for name, doc in modules.items()]
+    
+    # Create formatter
+    def module_formatter(item)
+    "Display all available utility modules with their documentation."
+```
+
+``` python
+def display_module_factories(module_name: str):
+    """Display all factories in a specific module."""
+    factories = list_module_factories(module_name)
+    
+    if not factories
+    "Display all factories in a specific module."
+```
+
+``` python
+def display_all_factories():
+    """Display all factories across all modules."""
+    all_factories = list_all_factories()
+    
+    # Create formatter using simple_item_formatter
+    factory_formatter = simple_item_formatter('name', 'doc')
+    indented_formatter = indented_item_formatter("  ")
+    
+    # Instructions
+    instructions = []
+    if all_factories
+    "Display all factories across all modules."
+```
+
+``` python
+def display_module_examples(module_name: str):
+    """Display all usage examples in a specific module."""
+    examples = list_module_examples(module_name)
+    
+    if not examples
+    "Display all usage examples in a specific module."
+```
+
+``` python
+def display_all_examples():
+    """Display all usage examples across all modules."""
+    all_examples = list_all_examples()
+    
+    # Create formatter
+    def example_formatter(item)
+    "Display all usage examples across all modules."
+```
+
+``` python
+def display_example_source(module_name: str, feature: str):
+    """Display the source code of a specific example function."""
+    example = get_example_by_name(module_name, feature)
+    
+    if not example
+    "Display the source code of a specific example function."
+```
+
+``` python
+def display_module_helpers(module_name: str):
+    """Display helper functions available in a specific module."""
+    helpers = get_module_helpers(module_name)
+    
+    if not helpers
+    "Display helper functions available in a specific module."
+```
+
+``` python
+def display_helper_source(module_name: str, helper_name: str):
+    """Display the source code of a specific helper function."""
+    helpers = get_module_helpers(module_name)
+    
+    helper_info = None
+    for h in helpers
+    "Display the source code of a specific helper function."
+```
+
+``` python
+def display_all_helpers():
+    """Display all helper functions across all modules."""
+    all_helpers = {}
+    
+    for module_name, module in discover_utility_modules()
+    "Display all helper functions across all modules."
+```
+
+``` python
+def display_factory_info(module_name: str, factory_name: str):
+    """Display detailed information about a specific factory."""
+    factory_info = get_factory_by_name(module_name, factory_name)
+    
+    if not factory_info
+    "Display detailed information about a specific factory."
+```
+
+``` python
+def display_search_results(results: List[SearchResult], query: str):
+    """Display search results in a formatted way."""
+    if not results
+    "Display search results in a formatted way."
+```
+
+``` python
+def display_core_utility_source(util_name: str):
+    """Display the source code of a specific core utility function."""
+    utilities = get_core_utilities()
+    
+    util_info = None
+    for u in utilities
+    "Display the source code of a specific core utility function."
+```
+
+``` python
+def display_core_utilities():
+    """Display all core utility functions."""
+    utilities = get_core_utilities()
+    
+    if not utilities
+    "Display all core utility functions."
+```
+
+``` python
+def display_imports(modules: Optional[List[str]] = None):
+    """Display recommended import statements."""
+    imports = get_recommended_imports(modules)
+    
+    if modules
+    "Display recommended import statements."
+```
+
+``` python
+def display_test_code_result(success: bool, stdout: str, stderr: str, code: str):
+    """Display the results of test code execution."""
+    print("Test Code Execution Result:")
+    print("=" * 60)
+    
+    # Show the code that was tested
+    print("\nCode tested:")
+    print("-" * 40)
+    print(code)
+    print("-" * 40)
+    
+    # Show the result
+    if success
+    "Display the results of test code execution."
+```
+
+``` python
+def add_modules_parser(subparsers)
+    "Add the 'modules' command parser."
+```
+
+``` python
+def add_factories_parser(subparsers)
+    "Add the 'factories' command parser."
+```
+
+``` python
+def add_factory_parser(subparsers)
+    "Add the 'factory' command parser."
+```
+
+``` python
+def add_examples_parser(subparsers)
+    "Add the 'examples' command parser."
+```
+
+``` python
+def add_example_parser(subparsers)
+    "Add the 'example' command parser."
+```
+
+``` python
+def add_helpers_parser(subparsers)
+    "Add the 'helpers' command parser."
+```
+
+``` python
+def add_helper_parser(subparsers)
+    "Add the 'helper' command parser."
+```
+
+``` python
+def add_search_parser(subparsers)
+    "Add the 'search' command parser."
+```
+
+``` python
+def add_test_code_parser(subparsers)
+    "Add the 'test-code' command parser."
+```
+
+``` python
+def add_core_utils_parser(subparsers)
+    "Add the 'core-utils' command parser."
+```
+
+``` python
+def add_core_util_parser(subparsers)
+    "Add the 'core-util' command parser."
+```
+
+``` python
+def add_imports_parser(subparsers)
+    "Add the 'imports' command parser."
+```
+
+``` python
+def dispatch_command(args):
+    """Dispatch the parsed arguments to the appropriate handler."""
+    if args.command == 'modules'
+    "Dispatch the parsed arguments to the appropriate handler."
+```
+
+``` python
+def handle_search_command(args):
+    """Handle the search command."""
+    # Determine which content types to search
+    if args.search_in == 'all'
+    "Handle the search command."
+```
+
+``` python
+def handle_test_code_command(args):
+    """Handle the test-code command."""
+    # Get code from command line or file
+    code = None
+    if args.file
+    "Handle the test-code command."
+```
+
+``` python
+def setup_argument_parser()
+    "Set up the main argument parser with all subcommands."
+```
+
+``` python
+def main():
+    """CLI entry point for exploring cjm-fasthtml-tailwind utilities."""
+    # Set up the argument parser
+    parser = setup_argument_parser()
+    
+    # Parse arguments
+    args = parser.parse_args()
+    
+    # If no command specified, show help
+    if args.command is None
+    "CLI entry point for exploring cjm-fasthtml-tailwind utilities."
+```
+
+### Factory Extraction (`factory_extraction.ipynb`)
+
+> Functions to extract BaseFactory instances from modules:
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.factory_extraction import (
+    FactoryInfo,
+    extract_factories_from_module,
+    list_all_factories
 )
-    """
-    Run example functions to see utility usage.
+```
+
+#### Functions
+
+``` python
+def extract_factories_from_module(
+    module: Any,  # The module to extract factories from
+    module_name: str  # The name of the module
+) -> List[FactoryInfo]:  # List of FactoryInfo objects
+    "Extract all BaseFactory instances from a module."
+```
+
+``` python
+def list_all_factories(
+) -> Dict[str, List[FactoryInfo]]:  # Dictionary mapping module names to their factories
+    "List all factory instances across all utility modules."
+```
+
+#### Classes
+
+``` python
+@dataclass
+class FactoryInfo:
+    "Information about a discovered factory instance."
     
-    Examples:
-        tw-explorer examples spacing              # List available examples
-        tw-explorer examples spacing basic        # Run basic spacing examples
-        tw-explorer examples layout display       # Run display examples
-    """
-```
-
-``` python
-def search(
-    term: str = Argument(..., help="Search term (e.g., 'margin', 'flex', 'grid')")
-)
-    """
-    Search for utilities across all modules.
-    
-    Examples:
-        tw-explorer search margin     # Find all margin-related utilities
-        tw-explorer search flex       # Find flexbox utilities
-        tw-explorer search negative   # Find utilities that support negative values
-    """
-```
-
-``` python
-def imports(
-    module_name: str = Argument(..., help="Module name to get imports for")
-)
-    """
-    Show import statements for a module.
-    
-    Examples:
-        tw-explorer imports spacing      # Show spacing module imports
-        tw-explorer imports layout       # Show layout module imports
-    """
-```
-
-``` python
-def help()
-    "Show detailed help and usage guide."
-```
-
-``` python
-def cli()
-    "Main CLI entry point."
+    name: str  # Factory variable name (e.g., 'p', 'w', 'flex')
+    factory: BaseFactory  # The actual factory instance
+    doc: str  # Documentation from the factory
+    module_name: str  # Module where it was found
 ```
 
 ### flexbox_and_grid (`flexbox_and_grid.ipynb`)
@@ -792,6 +1145,11 @@ class GrowFactory:
             value: Optional[TailwindScale] = None  # The grow value (defaults to 1 if None)
         ) -> ScaledUtility:  # A new grow utility instance
         "Initialize with grow configuration and documentation."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this grow factory."
 ```
 
 ``` python
@@ -815,6 +1173,11 @@ class ShrinkFactory:
             value: Optional[TailwindScale] = None  # The shrink value (defaults to 1 if None)
         ) -> ScaledUtility:  # A new shrink utility instance
         "Initialize with shrink configuration and documentation."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this shrink factory."
 ```
 
 ``` python
@@ -843,6 +1206,11 @@ class ColFactory:
             self
         ) -> str:  # The 'col-auto' CSS class
         "Return the col-auto utility class."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this column factory."
 ```
 
 ``` python
@@ -871,6 +1239,11 @@ class RowFactory:
             self
         ) -> str:  # The 'row-auto' CSS class
         "Return the row-auto utility class."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this row factory."
 ```
 
 ``` python
@@ -894,6 +1267,11 @@ class AutoColsFactory:
             value: str  # Custom auto-cols value (e.g., '200px', 'minmax(0, 1fr)')
         ) -> str:  # The formatted auto-cols CSS class
         "Initialize with auto columns values and documentation."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this auto columns factory."
 ```
 
 ``` python
@@ -917,6 +1295,11 @@ class AutoRowsFactory:
             value: str  # Custom auto-rows value (e.g., '200px', 'minmax(0, 1fr)')
         ) -> str:  # The formatted auto-rows CSS class
         "Initialize with auto rows values and documentation."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this auto rows factory."
 ```
 
 ``` python
@@ -950,6 +1333,11 @@ class GapFactory:
             value: Optional[TailwindScale] = None  # The gap value (numeric, px, or arbitrary)
         ) -> ScaledUtility:  # A new gap utility instance
         "Initialize with base gap and directional gap factories."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the gap factory."
 ```
 
 #### Variables
@@ -1010,6 +1398,51 @@ PLACE_ITEMS_VALUES = {7 items}  # Place items values
 place_items  # The place items factory
 PLACE_SELF_VALUES = {7 items}  # Place self values
 place_self  # The place self factory
+```
+
+### Helper Function Discovery (`helper_discovery.ipynb`)
+
+> Functions to discover and extract helper functions:
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.helper_discovery import (
+    HelperInfo,
+    get_helper_examples,
+    get_module_helpers
+)
+```
+
+#### Functions
+
+``` python
+def get_helper_examples(
+    module_name: str  # Name of the module to inspect
+) -> Optional[ExampleInfo]:  # ExampleInfo object or None if not found
+    "Get the helper examples test function for a module."
+```
+
+``` python
+def get_module_helpers(
+    module_name: str  # Name of the module to inspect
+) -> List[HelperInfo]:  # List of HelperInfo objects
+    "Get helper functions from a module based on its test_<module>_helper_examples function."
+```
+
+#### Classes
+
+``` python
+@dataclass
+class HelperInfo:
+    "Information about a discovered helper function."
+    
+    name: str  # Function name (e.g., 'pad', 'margin', 'combine_classes')
+    module_name: str  # Module where it was found
+    function: Any  # The actual function object
+    signature: str  # Function signature
+    docstring: str  # Function docstring
+    source: str  # Source code of the function
 ```
 
 ### layout (`layout.ipynb`)
@@ -1212,6 +1645,11 @@ class InsetDirectionalFactory:
             self
         ) -> 'NegativeFactory':  # A factory for creating negative variants
         "Return a negative variant factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about this inset factory."
 ```
 
 ``` python
@@ -1229,6 +1667,11 @@ class OverflowFactory:
             # Create base overflow utilities
             self._values = {value: f"overflow-{value}" for value in OVERFLOW_VALUES}
         "Initialize with overflow values and directional sub-factories."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the overflow factory."
 ```
 
 ``` python
@@ -1241,21 +1684,52 @@ class FloatFactory(SimpleFactory):
 class ObjectPositionFactory(SimpleFactory):
     "Factory for object position with both fixed and custom values."
     
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the object position factory."
 ```
 
 ``` python
 class AspectRatioFactory(SimpleFactory):
     "Factory for aspect ratio with both fixed and custom values."
     
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the aspect ratio factory."
 ```
 
 ``` python
 class BreakFactory:
-    def __init__(self)
+    def __init__(self):
+        "Initialize with sub-factories for before, after, and inside breaks."
+        super().__init__("Break utilities for controlling column and page breaks")
+        self.before = SimpleFactory(BREAK_BEFORE_VALUES, "Break-before utilities for controlling breaks before an element")
+        self.after = SimpleFactory(BREAK_AFTER_VALUES, "Break-after utilities for controlling breaks after an element")
+        self.inside = SimpleFactory(BREAK_INSIDE_VALUES, "Break-inside utilities for controlling breaks within an element")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
     "Factory for break utilities with before, after, and inside sub-factories."
     
-    def __init__(self)
+    def __init__(self):
+            "Initialize with sub-factories for before, after, and inside breaks."
+            super().__init__("Break utilities for controlling column and page breaks")
+            self.before = SimpleFactory(BREAK_BEFORE_VALUES, "Break-before utilities for controlling breaks before an element")
+            self.after = SimpleFactory(BREAK_AFTER_VALUES, "Break-after utilities for controlling breaks after an element")
+            self.inside = SimpleFactory(BREAK_INSIDE_VALUES, "Break-inside utilities for controlling breaks within an element")
+        
+        def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
         "Initialize with sub-factories for before, after, and inside breaks."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the break factory."
 ```
 
 ``` python
@@ -1273,6 +1747,11 @@ class OverscrollFactory:
             # Create base overscroll utilities
             self._values = {value: f"overscroll-{value}" for value in OVERSCROLL_VALUES}
         "Initialize with overscroll values and directional sub-factories."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the overscroll factory."
 ```
 
 #### Variables
@@ -1444,6 +1923,11 @@ class ScaledFactory:
             self
         ) -> 'NegativeFactory':  # A factory for creating negative variants
         "Return a negative variant factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about this scaled factory."
 ```
 
 ``` python
@@ -1506,6 +1990,11 @@ class DirectionalScaledFactory:
             self
         ) -> 'NegativeFactory':  # A factory for creating negative variants
         "Return a negative variant factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about this directional factory."
 ```
 
 ``` python
@@ -1523,6 +2012,11 @@ class SimpleFactory:
             doc: Optional[str] = None  # Optional documentation string
         )
         "Initialize with a dictionary of values."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this simple factory."
 ```
 
 #### Variables
@@ -1536,6 +2030,69 @@ FRACTIONS  # Pre-generate fractions
 SPACING_CONFIG  # Spacing configuration (padding, margin, gap)
 SIZE_CONFIG  # Size configuration (width, height)
 INSET_CONFIG  # Inset configuration (top, right, bottom, left)
+```
+
+### Search Functions (`search.ipynb`)
+
+> Functions to search across all library components:
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.search import (
+    search_factories,
+    search_examples,
+    search_helpers,
+    search_modules,
+    search_all
+)
+```
+
+#### Functions
+
+``` python
+def search_factories(
+    query: str,  # Search query
+    include_source: bool = False,  # Whether to search in source code
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of search results
+    "Search in all factories."
+```
+
+``` python
+def search_examples(
+    query: str,  # Search query
+    include_source: bool = False,  # Whether to search in source code
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of search results
+    "Search in all test examples."
+```
+
+``` python
+def search_helpers(
+    query: str,  # Search query
+    include_source: bool = False,  # Whether to search in source code
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of search results
+    "Search in all helper functions."
+```
+
+``` python
+def search_modules(
+    query: str,  # Search query
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of search results
+    "Search in module names and documentation."
+```
+
+``` python
+def search_all(
+    query: str,  # Search query
+    content_types: Optional[List[str]] = None,  # Types to search in ('factories', 'examples', 'helpers', 'modules')
+    include_source: bool = False,  # Whether to search in source code
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of all search results
+    "Search across all content types."
 ```
 
 ### sizing (`sizing.ipynb`)
@@ -1562,6 +2119,7 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
     test_sizing_height_viewport_examples,
     test_sizing_min_width_examples,
     test_sizing_max_width_examples,
+    test_sizing_container_examples,
     test_sizing_min_height_examples,
     test_sizing_size_util_examples,
     test_sizing_max_height_examples,
@@ -1615,6 +2173,11 @@ def test_sizing_min_width_examples()
 ``` python
 def test_sizing_max_width_examples()
     "Test max-width utilities."
+```
+
+``` python
+def test_sizing_container_examples()
+    "Test continer utility."
 ```
 
 ``` python
@@ -1810,11 +2373,36 @@ def test_spacing_factory_documentation()
 
 ``` python
 class SpaceFactory:
-    def __init__(self)
+    def __init__(self):
+        """Initialize with scaled factories and reverse utilities."""
+        super().__init__("Space utilities for adding consistent spacing between child elements")
+        self.x = ScaledFactory("space-x", SPACING_CONFIG, "Horizontal spacing between child elements")
+        self.y = ScaledFactory("space-y", SPACING_CONFIG, "Vertical spacing between child elements")
+        self.x_reverse = SingleValueFactory("space-x-reverse", "Reverse the order of horizontal spacing")
+        self.y_reverse = SingleValueFactory("space-y-reverse", "Reverse the order of vertical spacing")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
     "Special factory for space utilities that control spacing between child elements."
     
-    def __init__(self)
+    def __init__(self):
+            """Initialize with scaled factories and reverse utilities."""
+            super().__init__("Space utilities for adding consistent spacing between child elements")
+            self.x = ScaledFactory("space-x", SPACING_CONFIG, "Horizontal spacing between child elements")
+            self.y = ScaledFactory("space-y", SPACING_CONFIG, "Vertical spacing between child elements")
+            self.x_reverse = SingleValueFactory("space-x-reverse", "Reverse the order of horizontal spacing")
+            self.y_reverse = SingleValueFactory("space-y-reverse", "Reverse the order of vertical spacing")
+        
+        def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
         "Initialize with scaled factories and reverse utilities."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the space factory."
 ```
 
 #### Variables
@@ -1827,6 +2415,41 @@ m  # The margin factory
 ms  # margin-inline-start
 me  # margin-inline-end
 space  # The space factory
+```
+
+### Test Code Functionality (`test_code.ipynb`)
+
+> Functions to test code snippets using the library:
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.test_code import (
+    create_test_script,
+    execute_test_code
+)
+```
+
+#### Functions
+
+``` python
+def create_test_script(code: str) -> str:
+    """Create a test script with necessary imports and the provided code."""
+    # Build the import statements dynamically based on discovered modules
+    imports = ["from fasthtml.common import *"]
+    
+    # Add imports for factories from each utility module
+    for module_name, module in discover_utility_modules()
+    "Create a test script with necessary imports and the provided code."
+```
+
+``` python
+def execute_test_code(
+    code: str,  # The code to test
+    show_imports: bool = False,  # Whether to show the generated imports
+    timeout: int = 10  # Timeout in seconds
+) -> Tuple[bool, str, str]:  # (success, stdout, stderr)
+    "Execute test code in a safe environment."
 ```
 
 ### testing (`testing.ipynb`)
@@ -1877,4 +2500,274 @@ def start_test_server(
         # Later, in another cell:
         server.stop()
     """
+```
+
+### utils (`utils.ipynb`)
+
+> Utility functions for CLI tools
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.utils import (
+    SearchResult,
+    print_header,
+    print_not_found,
+    print_total,
+    print_helpful_instructions,
+    display_items_generic,
+    handle_module_not_found,
+    simple_item_formatter,
+    indented_item_formatter,
+    extract_match_context,
+    extract_source_line_context,
+    create_search_result,
+    search_in_text,
+    search_in_name_and_text,
+    check_factory_usage_patterns,
+    search_in_fields,
+    search_in_source_code,
+    find_usage_in_items,
+    get_view_command,
+    format_usage_examples,
+    discover_utility_modules,
+    iterate_all_modules_with_items,
+    extract_helper_names_from_test,
+    load_code_from_file,
+    list_utility_modules
+)
+```
+
+#### Functions
+
+``` python
+def print_header(title: str, width: int = 60):
+    """Print a formatted header with title and separator."""
+    print(title)
+    print("=" * width)
+    if title.endswith(":")
+    "Print a formatted header with title and separator."
+```
+
+``` python
+def print_not_found(item_type: str, item_name: str, module_name: Optional[str] = None):
+    """Print a standardized not found message."""
+    if module_name
+    "Print a standardized not found message."
+```
+
+``` python
+def print_total(item_type: str, count: int, across_modules: bool = False):
+    """Print a standardized total count message."""
+    if across_modules
+    "Print a standardized total count message."
+```
+
+``` python
+def print_helpful_instructions(instructions: List[Tuple[str, Optional[str]]]):
+    """Print helpful instructions section.
+    
+    Args:
+        instructions: List of (description, example) tuples
+    """
+    print("\nTo explore further:")
+    for desc, example in instructions
+    """
+    Print helpful instructions section.
+    
+    Args:
+        instructions: List of (description, example) tuples
+    """
+```
+
+``` python
+def display_items_generic(
+    items: Union[Dict, List],  # Items to display (dict of lists or list)
+    title: str,  # Title for the display
+    item_formatter: Callable[[Any], str],  # Function to format each item
+    item_type: str,  # Type of items for the total message
+    instructions: Optional[List[Tuple[str, Optional[str]]]] = None,  # Help instructions
+    not_found_message: Optional[str] = None  # Custom not found message
+)
+    "Generic function to display a collection of items with consistent formatting."
+```
+
+``` python
+def handle_module_not_found(
+    "Print standardized error message for module not found."
+```
+
+``` python
+def simple_item_formatter(
+    name_field: str,  # Name of the field containing the item name
+    doc_field: str  # Name of the field containing the documentation
+) -> Callable[[Any], str]:  # Formatter function
+    "Create a simple formatter for items with name and documentation fields."
+```
+
+``` python
+def indented_item_formatter(
+    prefix: str = "  "  # Indentation prefix
+) -> Callable[[Any], Callable[[Any], str]]:  # Returns a formatter factory
+    "Create a formatter that indents items with a prefix."
+```
+
+``` python
+def extract_match_context(
+    text: str, 
+    query: str, 
+    case_sensitive: bool = False, 
+    context_size: int = 30
+) -> str
+    "Extract context around a match in text."
+```
+
+``` python
+def extract_source_line_context(
+    source: str, 
+    query: str, 
+    case_sensitive: bool = False
+) -> str
+    "Extract line context for a match in source code."
+```
+
+``` python
+def create_search_result(
+    content_type: str,
+    module_name: str,
+    item_name: str,
+    match_context: str,
+    match_location: str
+) -> SearchResult
+    "Create a SearchResult with standard fields."
+```
+
+``` python
+def search_in_text(
+    query: str,  # Search query
+    text: str,  # Text to search in
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> bool:  # True if match found
+    "Check if query exists in text."
+```
+
+``` python
+def search_in_name_and_text(
+    query: str,
+    item_name: str,
+    text: str,
+    content_type: str,
+    module_name: str,
+    text_location: str,
+    case_sensitive: bool = False
+) -> List[SearchResult]
+    "Search in both name and text fields, returning search results."
+```
+
+``` python
+def check_factory_usage_patterns(factory_name: str) -> List[str]
+    "Get regex patterns to match common factory usage patterns."
+```
+
+``` python
+def search_in_fields(
+    item: Any,  # The item to search in
+    query: str,  # Search query
+    fields: Dict[str, Callable[[Any], str]],  # field_name -> getter function
+    content_type: str,  # Type of content being searched
+    module_name: str,  # Module containing the item
+    item_name: str,  # Name of the item
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of search results
+    "Search for query in multiple fields of an item."
+```
+
+``` python
+def search_in_source_code(
+    source: str,  # Source code to search in
+    query: str,  # Search query
+    content_type: str,  # Type of content being searched
+    module_name: str,  # Module containing the source
+    item_name: str,  # Name of the item
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> Optional[SearchResult]:  # Search result or None
+    "Search in source code and return result with line context."
+```
+
+``` python
+def find_usage_in_items(
+    target_name: str,  # Name of the target (factory/helper) to find usage for
+    items: Dict[str, List[Any]],  # Dictionary of module_name -> list of items
+    source_getter: Callable[[Any], str],  # Function to get source code from item
+    item_type: str  # Type of items being searched (for display)
+) -> List[Tuple[str, Any]]:  # List of (module_name, item) tuples
+    "Find items that use a specific target (factory/helper)."
+```
+
+``` python
+def get_view_command(
+    content_type: str,  # Type of content ('factory', 'example', 'helper', 'module')
+    module_name: str,  # Module name
+    item_name: str  # Item name (or feature name for examples)
+) -> str:  # CLI command to view the item
+    "Get the CLI command to view a specific item."
+```
+
+``` python
+def format_usage_examples(
+    usage_items: List[Tuple[str, Any]],  # List of (module_name, item) tuples
+    item_name_getter: Callable[[Any], str],  # Function to get item name
+    item_type: str,  # Type of items ('examples' or 'helpers')
+    view_command_type: str  # Type for get_view_command ('example' or 'helper')
+) -> List[str]:  # List of formatted strings
+    "Format usage examples for display."
+```
+
+``` python
+def discover_utility_modules(
+) -> List[Tuple[str, Any]]:  # List of (module_name, module) tuples
+    "Discover all utility modules in the cjm_fasthtml_tailwind.utilities package."
+```
+
+``` python
+def iterate_all_modules_with_items(
+    extractor_func,  # Function to extract items from a module
+    module_filter: Optional[str] = None  # Optional specific module to filter for
+) -> Dict[str, List[Any]]:  # Dictionary mapping module names to their items
+    "Generic iterator for extracting items from all modules."
+```
+
+``` python
+def extract_helper_names_from_test(
+    source: str  # Source code of the test_<module>_helper_examples function
+) -> List[str]:  # List of helper function names
+    "Extract helper function names from test source code."
+```
+
+``` python
+def load_code_from_file(filepath: str) -> Optional[str]:
+    """Load code from a file."""
+    try
+    "Load code from a file."
+```
+
+``` python
+def list_utility_modules(
+) -> Dict[str, str]:  # Dictionary mapping module names to their docstrings
+    "List all available utility modules with their docstrings."
+```
+
+#### Classes
+
+``` python
+@dataclass
+class SearchResult:
+    "Represents a single search result."
+    
+    content_type: str  # 'factory', 'example', 'helper', 'module'
+    module_name: str  # Module where found
+    item_name: str  # Name of the item (factory name, function name, etc.)
+    match_context: str  # The context where the match was found
+    match_location: str  # Where the match was found (name, doc, source)
+    score: float = 1.0  # Relevance score for fuzzy matching
 ```

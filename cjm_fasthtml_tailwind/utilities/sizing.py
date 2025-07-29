@@ -6,9 +6,10 @@
 __all__ = ['w', 'h', 'min_w', 'max_w', 'container', 'min_h', 'max_h', 'size_util', 'test_sizing_width_examples',
            'test_sizing_width_named_examples', 'test_sizing_width_viewport_examples', 'test_sizing_arbitrary_examples',
            'test_sizing_height_examples', 'test_sizing_height_viewport_examples', 'test_sizing_min_width_examples',
-           'test_sizing_max_width_examples', 'test_sizing_min_height_examples', 'test_sizing_size_util_examples',
-           'test_sizing_max_height_examples', 'test_sizing_practical_examples', 'test_sizing_factory_documentation',
-           'size', 'square', 'full_size', 'full_screen', 'test_sizing_helper_examples']
+           'test_sizing_max_width_examples', 'test_sizing_container_examples', 'test_sizing_min_height_examples',
+           'test_sizing_size_util_examples', 'test_sizing_max_height_examples', 'test_sizing_practical_examples',
+           'test_sizing_factory_documentation', 'size', 'square', 'full_size', 'full_screen',
+           'test_sizing_helper_examples']
 
 # %% ../../nbs/utilities/sizing.ipynb 3
 from typing import Optional, Union
@@ -201,10 +202,25 @@ container = SingleValueFactory(
     "Responsive container with breakpoint-based max-widths"
 )
 
-# %% ../../nbs/utilities/sizing.ipynb 28
-min_h = ScaledFactory("min-h", SIZE_CONFIG, "Minimum height utilities for setting minimum element height") # The min-height factory
+# %% ../../nbs/utilities/sizing.ipynb 27
+def test_sizing_container_examples():
+    """Test continer utility."""
+    # Test that container works with combine_classes
+    result = combine_classes(container, "mx-auto", "px-4")
+    assert result == "container mx-auto px-4"
+    
+    # Test different ways to use container
+    assert str(container) == "container"
+    assert container() == "container"
+    assert container.build() == "container"
+
+# Run the tests
+test_sizing_container_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 29
+min_h = ScaledFactory("min-h", SIZE_CONFIG, "Minimum height utilities for setting minimum element height") # The min-height factory
+
+# %% ../../nbs/utilities/sizing.ipynb 30
 def test_sizing_min_height_examples():
     """Test min-height utilities."""
     # Numeric scales
@@ -224,13 +240,13 @@ def test_sizing_min_height_examples():
 # Run the tests
 test_sizing_min_height_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 31
+# %% ../../nbs/utilities/sizing.ipynb 32
 max_h = ScaledFactory("max-h", SIZE_CONFIG, "Maximum height utilities for setting maximum element height") # The max-height factory
 
-# %% ../../nbs/utilities/sizing.ipynb 33
+# %% ../../nbs/utilities/sizing.ipynb 34
 size_util = ScaledFactory("size", SIZE_CONFIG, "Size utilities for setting both width and height simultaneously") # The size factory (sets both width and height)
 
-# %% ../../nbs/utilities/sizing.ipynb 34
+# %% ../../nbs/utilities/sizing.ipynb 35
 def test_sizing_size_util_examples():
     """Test size utilities that set both width and height."""
     # Size utilities set both width and height
@@ -254,7 +270,7 @@ def test_sizing_size_util_examples():
 # Run the tests
 test_sizing_size_util_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 35
+# %% ../../nbs/utilities/sizing.ipynb 36
 def test_sizing_max_height_examples():
     """Test max-height utilities."""
     # Numeric scales
@@ -277,7 +293,7 @@ def test_sizing_max_height_examples():
 # Run the tests
 test_sizing_max_height_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 37
+# %% ../../nbs/utilities/sizing.ipynb 38
 def test_sizing_practical_examples():
     """Test sizing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Article, Header, Main, Aside
@@ -338,7 +354,7 @@ def test_sizing_practical_examples():
 # Run the tests
 test_sizing_practical_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 38
+# %% ../../nbs/utilities/sizing.ipynb 39
 def test_sizing_factory_documentation():
     """Test that factories have accessible documentation."""
     # Test factory documentation
@@ -350,20 +366,11 @@ def test_sizing_factory_documentation():
     assert max_h.describe() == "Maximum height utilities for setting maximum element height"
     assert size_util.describe() == "Size utilities for setting both width and height simultaneously"
     assert container.describe() == "Responsive container with breakpoint-based max-widths"
-    
-    # Test that container works with combine_classes
-    result = combine_classes(container, "mx-auto", "px-4")
-    assert result == "container mx-auto px-4"
-    
-    # Test different ways to use container
-    assert str(container) == "container"
-    assert container() == "container"
-    assert container.build() == "container"
 
 # Run the tests
 test_sizing_factory_documentation()
 
-# %% ../../nbs/utilities/sizing.ipynb 40
+# %% ../../nbs/utilities/sizing.ipynb 41
 def size(
     w: Optional[TailwindScale] = None,        # Width value
     h: Optional[TailwindScale] = None,        # Height value
@@ -390,26 +397,26 @@ def size(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/sizing.ipynb 41
+# %% ../../nbs/utilities/sizing.ipynb 42
 def square(
     size: TailwindScale  # Size value for both width and height
 ) -> str:  # Space-separated width and height classes
     """Create a square element with equal width and height."""
     return combine_classes(w(size), h(size))
 
-# %% ../../nbs/utilities/sizing.ipynb 42
+# %% ../../nbs/utilities/sizing.ipynb 43
 def full_size(
 ) -> str:  # "w-full h-full"
     """Make element take full width and height of parent."""
     return combine_classes(w.full, h.full)
 
-# %% ../../nbs/utilities/sizing.ipynb 43
+# %% ../../nbs/utilities/sizing.ipynb 44
 def full_screen(
 ) -> str:  # "w-screen h-screen"
     """Make element take full viewport width and height."""
     return combine_classes(w.screen, h.screen)
 
-# %% ../../nbs/utilities/sizing.ipynb 44
+# %% ../../nbs/utilities/sizing.ipynb 45
 def test_sizing_helper_examples():
     """Test helper functions for common sizing patterns."""
     # Test helper functions

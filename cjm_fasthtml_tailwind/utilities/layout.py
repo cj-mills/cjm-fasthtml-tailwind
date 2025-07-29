@@ -19,7 +19,7 @@ __all__ = ['DISPLAY_VALUES', 'display_tw', 'sr_only', 'not_sr_only', 'POSITION_V
            'test_layout_helper_examples']
 
 # %% ../../nbs/utilities/layout.ipynb 3
-from typing import Optional, Union, Literal, List, Dict
+from typing import Optional, Union, Literal, List, Dict, Any
 from dataclasses import dataclass
 from cjm_fasthtml_tailwind.core.base import (
     TailwindScale, combine_classes, StandardUtility, UtilityFactory,
@@ -150,6 +150,46 @@ class InsetDirectionalFactory(BaseFactory):
     ) -> 'NegativeFactory':  # A factory for creating negative variants
         """Return a negative variant factory."""
         return NegativeFactory(self.prefix, self.config)
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get detailed information about this inset factory."""
+        # Get valid inputs from the config (similar to ScaledFactory)
+        from cjm_fasthtml_tailwind.builders.scales import NUMERIC_SCALE, FRACTIONS
+        
+        valid_inputs = []
+        
+        if self.config.numeric:
+            valid_inputs.append(f"Numeric scales: 0-{max(NUMERIC_SCALE)}")
+        
+        if self.config.fractions:
+            valid_inputs.append(f"Fractions: {len(FRACTIONS)} supported (e.g., 1/2, 2/3, 3/4)")
+        
+        if self.config.special:
+            valid_inputs.append(f"Special values: {', '.join(self.config.special.keys())}")
+        
+        valid_inputs.append("Arbitrary values: Any string with CSS units (e.g., '10px', '2.5rem')")
+        valid_inputs.append("Custom properties: CSS variables starting with -- (e.g., '--spacing')")
+        
+        options = {
+            'prefix': self.prefix,
+            'supports_negative': self.config.negative,
+            'directional_variants': {
+                'x': 'horizontal (left and right)',
+                'y': 'vertical (top and bottom)'
+            },
+            'note': 'Also available as individual directions: top, right, bottom, left, start, end'
+        }
+        
+        if self.config.negative:
+            options['negative_access'] = 'Use .negative property or negative=True parameter'
+        
+        return {
+            'description': self._doc,
+            'valid_inputs': valid_inputs,
+            'options': options
+        }
 
 # Inset utilities (top, right, bottom, left)
 inset = InsetDirectionalFactory("inset", INSET_CONFIG) # The inset factory for positioning
@@ -214,6 +254,22 @@ class OverflowFactory(BaseFactory):
         if name in self._values:
             return self._values[name]
         raise AttributeError(f"'OverflowFactory' object has no attribute '{name}'")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about the overflow factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': 'Access values as attributes',
+            'options': {
+                'available_values': OVERFLOW_VALUES,
+                'directional_variants': {
+                    'x': 'horizontal overflow',
+                    'y': 'vertical overflow'
+                }
+            }
+        }
 
 overflow = OverflowFactory() # The overflow factory
 
@@ -364,6 +420,23 @@ class ObjectPositionFactory(SimpleFactory):
         elif is_arbitrary_value(value) or " " in value:
             return f"object-[{value}]"
         return f"object-{value}"
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about the object position factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': [
+                'Access fixed positions as attributes',
+                'Call with custom position (e.g., "50% 25%")',
+                'CSS custom properties (e.g., "--custom-position")'
+            ],
+            'options': {
+                'fixed_positions': list(self._values.keys()),
+                'custom_usage': 'Call factory with position string: object_position("50% 25%")'
+            }
+        }
 
 # Create object position factory
 object_position = ObjectPositionFactory(
@@ -464,6 +537,23 @@ class AspectRatioFactory(SimpleFactory):
         elif is_arbitrary_value(value):
             return f"aspect-[{value}]"
         return f"aspect-{value}"
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about the aspect ratio factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': [
+                'Access fixed ratios as attributes',
+                'Call with ratio (e.g., "16/9", "4/3")',
+                'CSS custom properties (e.g., "--custom-ratio")'
+            ],
+            'options': {
+                'fixed_ratios': list(self._values.keys()),
+                'custom_usage': 'Call factory with ratio: aspect("16/9")'
+            }
+        }
 
 # Create aspect ratio factory
 aspect = AspectRatioFactory(ASPECT_RATIO_VALUES, "Aspect ratio utilities for controlling element proportions") # The aspect ratio factory
@@ -560,6 +650,25 @@ class BreakFactory(BaseFactory):
         self.before = SimpleFactory(BREAK_BEFORE_VALUES, "Break-before utilities for controlling breaks before an element")
         self.after = SimpleFactory(BREAK_AFTER_VALUES, "Break-after utilities for controlling breaks after an element")
         self.inside = SimpleFactory(BREAK_INSIDE_VALUES, "Break-inside utilities for controlling breaks within an element")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about the break factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': 'Access sub-factories as attributes (before, after, inside)',
+            'options': {
+                'sub_factories': {
+                    'before': 'Control breaks before an element',
+                    'after': 'Control breaks after an element',
+                    'inside': 'Control breaks within an element'
+                },
+                'before_values': list(BREAK_BEFORE_VALUES.keys()),
+                'after_values': list(BREAK_AFTER_VALUES.keys()),
+                'inside_values': list(BREAK_INSIDE_VALUES.keys())
+            }
+        }
 
 # Create the break factory
 break_util = BreakFactory() # The break factory
@@ -606,6 +715,22 @@ class OverscrollFactory(BaseFactory):
         if name in self._values:
             return self._values[name]
         raise AttributeError(f"'OverscrollFactory' object has no attribute '{name}'")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about the overscroll factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': 'Access values as attributes',
+            'options': {
+                'available_values': OVERSCROLL_VALUES,
+                'directional_variants': {
+                    'x': 'horizontal overscroll behavior',
+                    'y': 'vertical overscroll behavior'
+                }
+            }
+        }
 
 # Create the overscroll factory
 overscroll = OverscrollFactory() # The overscroll factory

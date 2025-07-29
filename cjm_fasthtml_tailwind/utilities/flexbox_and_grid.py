@@ -25,7 +25,7 @@ __all__ = ['FLEX_BASIS_CONFIG', 'basis', 'FLEX_DIRECTION_VALUES', 'flex_directio
            'responsive_grid', 'test_flexbox_and_grid_helper_examples', 'test_flexbox_and_grid_factory_documentation']
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 3
-from typing import Optional, Union, Literal, List, Dict
+from typing import Optional, Union, Literal, List, Dict, Any
 from dataclasses import dataclass
 from cjm_fasthtml_tailwind.core.base import (
     TailwindScale, combine_classes, StandardUtility, UtilityFactory,
@@ -184,6 +184,15 @@ class GrowFactory(ScaledFactory):
             # Default grow means grow-1
             return super().__call__(1)
         return super().__call__(value)
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this grow factory."""
+        info = super().get_info()
+        # Add special note about default behavior
+        info['options']['default_behavior'] = 'Calling grow() without arguments creates grow-1'
+        return info
 
 # Create flex grow factory
 grow = GrowFactory() # The flex grow factory
@@ -230,6 +239,15 @@ class ShrinkFactory(ScaledFactory):
             # Default shrink means shrink-1
             return super().__call__(1)
         return super().__call__(value)
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this shrink factory."""
+        info = super().get_info()
+        # Add special note about default behavior
+        info['options']['default_behavior'] = 'Calling shrink() without arguments creates shrink-1'
+        return info
 
 # Create flex shrink factory
 shrink = ShrinkFactory() # The flex shrink factory
@@ -396,6 +414,23 @@ class ColFactory(ScaledFactory):
     ) -> str:  # The 'col-auto' CSS class
         "Return the col-auto utility class."
         return "col-auto"
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this column factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': [
+                'Arbitrary grid-column values (e.g., "1 / 3", "span 2 / span 2")'
+            ],
+            'options': {
+                'prefix': self.prefix,
+                'special_properties': {
+                    'auto': 'Returns "col-auto" for automatic column placement'
+                }
+            }
+        }
 
 col = ColFactory() # The grid column factory
 
@@ -470,6 +505,23 @@ class RowFactory(ScaledFactory):
     ) -> str:  # The 'row-auto' CSS class
         "Return the row-auto utility class."
         return "row-auto"
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this row factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': [
+                'Arbitrary grid-row values (e.g., "2 / 5", "span 3 / span 3")'
+            ],
+            'options': {
+                'prefix': self.prefix,
+                'special_properties': {
+                    'auto': 'Returns "row-auto" for automatic row placement'
+                }
+            }
+        }
 
 row = RowFactory() # The grid row factory
 
@@ -559,6 +611,18 @@ class AutoColsFactory(SimpleFactory):
         elif is_arbitrary_value(value) or value not in ["auto", "min", "max", "fr"]:
             return f"auto-cols-[{value}]"
         return f"auto-cols-{value}"
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this auto columns factory."""
+        info = super().get_info()
+        info['valid_inputs'] = [
+            'Predefined values: auto, min, max, fr',
+            'Arbitrary values: Any CSS grid-auto-columns value (e.g., "200px", "minmax(0, 1fr)")',
+            'Custom properties: CSS variables starting with -- (e.g., "--column-size")'
+        ]
+        return info
 
 class AutoRowsFactory(SimpleFactory):
     """Factory for auto-rows with custom value support."""
@@ -577,6 +641,18 @@ class AutoRowsFactory(SimpleFactory):
         elif is_arbitrary_value(value) or value not in ["auto", "min", "max", "fr"]:
             return f"auto-rows-[{value}]"
         return f"auto-rows-{value}"
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this auto rows factory."""
+        info = super().get_info()
+        info['valid_inputs'] = [
+            'Predefined values: auto, min, max, fr',
+            'Arbitrary values: Any CSS grid-auto-rows value (e.g., "200px", "minmax(0, 1fr)")',
+            'Custom properties: CSS variables starting with -- (e.g., "--row-size")'
+        ]
+        return info
 
 # Create the factories
 auto_cols = AutoColsFactory() # The auto columns factory
@@ -630,6 +706,22 @@ class GapFactory(BaseFactory):
     ) -> ScaledUtility:  # A new gap utility instance
         """Handle attribute access for named values."""
         return self._base.__getattr__(name)
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about the gap factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': self._base.get_info()['valid_inputs'],
+            'options': {
+                'prefix': 'gap',
+                'sub_factories': {
+                    'x': 'Column gap utilities (gap-x-*)',
+                    'y': 'Row gap utilities (gap-y-*)'
+                }
+            }
+        }
 
 gap = GapFactory() # The gap factory
 

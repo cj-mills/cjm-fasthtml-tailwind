@@ -181,6 +181,45 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
     ) -> 'NegativeFactory':  # A factory for creating negative variants
         """Return a negative variant factory."""
         return NegativeFactory(self.prefix, self.config)
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get detailed information about this scaled factory."""
+        valid_inputs = []
+        
+        if self.config.numeric:
+            valid_inputs.append(f"Numeric scales: 0-{max(NUMERIC_SCALE)}")
+        
+        if self.config.decimals:
+            valid_inputs.append(f"Decimal scales: {', '.join(str(d) for d in DECIMAL_SCALE)}")
+        
+        if self.config.fractions:
+            valid_inputs.append(f"Fractions: {len(FRACTIONS)} supported (e.g., 1/2, 2/3, 3/4)")
+        
+        if self.config.named:
+            named_values = [scale.name for scale in self.config.named]
+            valid_inputs.append(f"Named scales: {', '.join(named_values)}")
+        
+        if self.config.special:
+            valid_inputs.append(f"Special values: {', '.join(self.config.special.keys())}")
+        
+        valid_inputs.append("Arbitrary values: Any string with CSS units (e.g., '10px', '2.5rem')")
+        valid_inputs.append("Custom properties: CSS variables starting with -- (e.g., '--spacing')")
+        
+        options = {
+            'prefix': self.prefix,
+            'supports_negative': self.config.negative
+        }
+        
+        if self.config.negative:
+            options['negative_access'] = 'Use .negative property or negative=True parameter'
+        
+        return {
+            'description': self._doc,
+            'valid_inputs': valid_inputs,
+            'options': options
+        }
 
 # %% ../../nbs/builders/scales.ipynb 12
 class NegativeFactory:
@@ -276,6 +315,54 @@ class DirectionalScaledFactory(BaseFactory):
     ) -> 'NegativeFactory':  # A factory for creating negative variants
         """Return a negative variant factory."""
         return NegativeFactory(self.prefix, self.config)
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get detailed information about this directional factory."""
+        # Get valid inputs from the config (same as ScaledFactory)
+        valid_inputs = []
+        
+        if self.config.numeric:
+            valid_inputs.append(f"Numeric scales: 0-{max(NUMERIC_SCALE)}")
+        
+        if self.config.decimals:
+            valid_inputs.append(f"Decimal scales: {', '.join(str(d) for d in DECIMAL_SCALE)}")
+        
+        if self.config.fractions:
+            valid_inputs.append(f"Fractions: {len(FRACTIONS)} supported (e.g., 1/2, 2/3, 3/4)")
+        
+        if self.config.named:
+            named_values = [scale.name for scale in self.config.named]
+            valid_inputs.append(f"Named scales: {', '.join(named_values)}")
+        
+        if self.config.special:
+            valid_inputs.append(f"Special values: {', '.join(self.config.special.keys())}")
+        
+        valid_inputs.append("Arbitrary values: Any string with CSS units (e.g., '10px', '2.5rem')")
+        valid_inputs.append("Custom properties: CSS variables starting with -- (e.g., '--spacing')")
+        
+        options = {
+            'prefix': self.prefix,
+            'supports_negative': self.config.negative,
+            'directional_variants': {
+                't': 'top',
+                'r': 'right', 
+                'b': 'bottom',
+                'l': 'left',
+                'x': 'horizontal (left and right)',
+                'y': 'vertical (top and bottom)'
+            }
+        }
+        
+        if self.config.negative:
+            options['negative_access'] = 'Use .negative property or negative=True parameter'
+        
+        return {
+            'description': self._doc,
+            'valid_inputs': valid_inputs,
+            'options': options
+        }
 
 # %% ../../nbs/builders/scales.ipynb 17
 SPACING_CONFIG = ScaleConfig( # Spacing configuration (padding, margin, gap)
@@ -381,3 +468,15 @@ class SimpleFactory(BaseFactory):
         if name in self._values:
             return self._values[name]
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this simple factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': 'No inputs - access values as attributes',
+            'options': {
+                'available_values': list(self._values.keys())
+            }
+        }

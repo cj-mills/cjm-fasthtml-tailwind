@@ -252,6 +252,20 @@ class BaseFactory(ABC):
     ) -> str:  # A formatted description of the factory
         """Return a formatted description of this factory."""
         return self._doc
+    
+    @abstractmethod
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """
+        Get detailed information about this factory's options and valid inputs.
+        
+        Should return a dictionary with keys like:
+        - 'description': Factory description
+        - 'valid_inputs': List/description of valid input values
+        - 'options': Available options or methods
+        """
+        pass
 
 # %% ../../nbs/core/base.ipynb 27
 T = TypeVar('T', bound=BaseUtility)
@@ -290,6 +304,19 @@ class UtilityFactory(BaseFactory, Generic[T]):
         instance = self.utility_class(self.prefix)
         instance._value = name.replace("_", "-")
         return instance
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this utility factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': 'Various Tailwind values (implementation specific)',
+            'options': {
+                'prefix': self.prefix,
+                'utility_class': self.utility_class.__name__
+            }
+        }
 
 # %% ../../nbs/core/base.ipynb 37
 def combine_classes(
@@ -346,6 +373,18 @@ class SingleValueFactory(BaseFactory):
     ) -> str:  # The utility class string
         """Build and return the utility class string."""
         return self._value
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about this single-value factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': 'No inputs - returns a fixed value',
+            'options': {
+                'value': self._value
+            }
+        }
 
 # %% ../../nbs/core/base.ipynb 43
 @dataclass

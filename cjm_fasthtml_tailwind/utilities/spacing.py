@@ -11,7 +11,7 @@ __all__ = ['p', 'ps', 'pe', 'm', 'ms', 'me', 'space', 'test_spacing_basic_exampl
            'test_spacing_factory_documentation']
 
 # %% ../../nbs/utilities/spacing.ipynb 3
-from typing import Optional, Union
+from typing import Optional, Union, Dict, Any
 from ..core.base import TailwindScale, combine_classes
 from cjm_fasthtml_tailwind.builders.scales import (
     DirectionalScaledFactory, ScaledFactory, SPACING_CONFIG
@@ -167,6 +167,23 @@ class SpaceFactory(BaseFactory):
         self.y = ScaledFactory("space-y", SPACING_CONFIG, "Vertical spacing between child elements")
         self.x_reverse = SingleValueFactory("space-x-reverse", "Reverse the order of horizontal spacing")
         self.y_reverse = SingleValueFactory("space-y-reverse", "Reverse the order of vertical spacing")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+        """Get information about the space factory."""
+        return {
+            'description': self._doc,
+            'valid_inputs': 'Access sub-factories as attributes (x, y, x_reverse, y_reverse)',
+            'options': {
+                'sub_factories': {
+                    'x': 'Horizontal spacing between child elements',
+                    'y': 'Vertical spacing between child elements',
+                    'x_reverse': 'Reverse horizontal spacing order',
+                    'y_reverse': 'Reverse vertical spacing order'
+                }
+            }
+        }
 
 space = SpaceFactory() # The space factory
 
