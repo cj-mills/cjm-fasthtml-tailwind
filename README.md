@@ -30,15 +30,16 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (6)
+    └── utilities/ (7)
         ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
         ├── filters.ipynb           # Filter utilities for Tailwind CSS
         ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
         ├── layout.ipynb            # Display, position, overflow, z-index and other layout utilities for Tailwind CSS
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
-        └── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
+        ├── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
+        └── svg.ipynb               # SVG utilities for Tailwind CSS
 
-Total: 21 notebooks across 4 directories
+Total: 22 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -65,57 +66,61 @@ graph LR
     utilities_layout[utilities.layout<br/>layout]
     utilities_sizing[utilities.sizing<br/>sizing]
     utilities_spacing[utilities.spacing<br/>spacing]
+    utilities_svg[utilities.svg<br/>svg]
 
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_utils
     cli_explorer --> cli_core_utils_discovery
     cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_utils
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_search
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_test_code
     cli_explorer --> cli_imports
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_search
-    cli_explorer --> cli_test_code
-    cli_explorer --> cli_helper_discovery
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
+    cli_helper_discovery --> cli_utils
     cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_factory_extraction
     cli_imports --> cli_helper_discovery
+    cli_imports --> cli_factory_extraction
     cli_imports --> cli_utils
     cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
-    cli_search --> cli_helper_discovery
     cli_search --> cli_example_discovery
-    cli_test_code --> cli_factory_extraction
+    cli_search --> cli_helper_discovery
+    cli_search --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
-    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_sizing
     core_testing --> utilities_layout
-    core_testing --> utilities_spacing
+    core_testing --> utilities_flexbox_and_grid
     core_testing --> core_resources
+    core_testing --> utilities_spacing
     core_testing --> core_base
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
-    utilities_filters --> core_base
     utilities_filters --> builders_colors
+    utilities_filters --> core_base
     utilities_filters --> builders_scales
-    utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_layout --> core_base
+    utilities_flexbox_and_grid --> core_base
     utilities_layout --> builders_scales
+    utilities_layout --> core_base
     utilities_sizing --> builders_scales
     utilities_sizing --> core_base
-    utilities_spacing --> core_base
     utilities_spacing --> builders_scales
+    utilities_spacing --> core_base
+    utilities_svg --> core_base
+    utilities_svg --> builders_scales
+    utilities_svg --> builders_colors
 ```
 
-*47 cross-module dependencies detected*
+*50 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -853,8 +858,8 @@ class ColoredUtility:
     def opacity(
             self,
             value: Union[int, str]  # Opacity value (0-100 or arbitrary)
-        ) -> 'ColoredUtility':  # Self for chaining
-        "Set opacity value."
+        ) -> 'ColoredUtility':  # A new instance with opacity set
+        "Return a new ColoredUtility instance with opacity value."
 ```
 
 ``` python
@@ -3485,6 +3490,175 @@ m  # The margin factory
 ms  # margin-inline-start
 me  # margin-inline-end
 space  # The space factory
+```
+
+### svg (`svg.ipynb`)
+
+> SVG utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.svg import (
+    fill_none,
+    fill,
+    stroke_none,
+    stroke,
+    STROKE_WIDTH_CONFIG,
+    stroke_width,
+    test_svg_fill_examples,
+    test_svg_fill_opacity_examples,
+    test_svg_fill_arbitrary_examples,
+    test_svg_stroke_examples,
+    test_svg_stroke_opacity_examples,
+    StrokeWidthFactory,
+    test_svg_stroke_width_examples,
+    test_svg_stroke_width_arbitrary_examples,
+    test_svg_practical_examples,
+    test_svg_icon_examples,
+    test_svg_progress_ring_examples,
+    test_svg_factory_documentation,
+    test_svg_edge_cases,
+    svg_icon_classes,
+    test_svg_helper_functions
+)
+```
+
+#### Functions
+
+``` python
+def test_svg_fill_examples()
+    "Test fill color utilities with various color values."
+```
+
+``` python
+def test_svg_fill_opacity_examples()
+    "Test fill colors with opacity modifiers."
+```
+
+``` python
+def test_svg_fill_arbitrary_examples()
+    "Test fill utilities with arbitrary and custom values."
+```
+
+``` python
+def test_svg_stroke_examples()
+    "Test stroke color utilities with various color values."
+```
+
+``` python
+def test_svg_stroke_opacity_examples()
+    "Test stroke colors with opacity modifiers."
+```
+
+``` python
+def test_svg_stroke_width_examples()
+    "Test stroke width utilities with various values."
+```
+
+``` python
+def test_svg_stroke_width_arbitrary_examples()
+    "Test stroke width utilities with arbitrary and custom values."
+```
+
+``` python
+def test_svg_practical_examples()
+    "Test SVG utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_svg_icon_examples():
+    """Test creating reusable SVG icon components."""
+    from fasthtml.common import Div
+    from fasthtml.svg import Svg, Path
+    
+    # Helper function to create an icon
+    def Icon(path_d: str, size: str = "6", color_cls: str = "")
+    "Test creating reusable SVG icon components."
+```
+
+``` python
+def test_svg_progress_ring_examples():
+    """Test creating a progress ring component."""
+    from fasthtml.common import Div
+    from fasthtml.svg import Svg, Circle
+    
+    # Progress ring component
+    def ProgressRing(percentage: int, size: int = 120)
+    "Test creating a progress ring component."
+```
+
+``` python
+def test_svg_factory_documentation()
+    "Test that SVG factories have accessible documentation."
+```
+
+``` python
+def test_svg_edge_cases()
+    "Test edge cases and special values for SVG utilities."
+```
+
+``` python
+def svg_icon_classes(
+    fill_color: Optional[str] = None,  # Fill color class or utility
+    stroke_color: Optional[str] = None,  # Stroke color class or utility
+    width: Union[int, str] = 2,  # Stroke width value
+    size: str = "6",  # Icon size (for w-{size} h-{size})
+    extra_classes: str = ""  # Additional classes to include
+) -> str:  # Combined class string for SVG icon
+    "Generate common SVG icon classes."
+```
+
+``` python
+def test_svg_helper_functions()
+    "Test SVG helper functions."
+```
+
+#### Classes
+
+``` python
+class StrokeWidthFactory:
+    def __init__(self):
+        """Initialize with stroke width configuration."""
+        super().__init__("stroke", STROKE_WIDTH_CONFIG, "Stroke width utilities for styling the stroke width of SVG elements")
+        # Override the numeric scale to only include 0, 1, 2
+        self._valid_values = [0, 1, 2]
+    
+    def __call__(
+        self,
+        value: Optional[TailwindValue] = None,  # The stroke width value
+        negative: bool = False  # Not applicable for stroke width
+    ) -> StandardUtility:  # A stroke width utility instance
+    "Factory for stroke-width utilities with restricted numeric scale (0-2)."
+    
+    def __init__(self):
+            """Initialize with stroke width configuration."""
+            super().__init__("stroke", STROKE_WIDTH_CONFIG, "Stroke width utilities for styling the stroke width of SVG elements")
+            # Override the numeric scale to only include 0, 1, 2
+            self._valid_values = [0, 1, 2]
+        
+        def __call__(
+            self,
+            value: Optional[TailwindValue] = None,  # The stroke width value
+            negative: bool = False  # Not applicable for stroke width
+        ) -> StandardUtility:  # A stroke width utility instance
+        "Initialize with stroke width configuration."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about the stroke width factory."
+```
+
+#### Variables
+
+``` python
+fill_none  # Remove fill
+fill  # The fill color factory
+stroke_none  # Remove stroke
+stroke  # The stroke color factory
+STROKE_WIDTH_CONFIG
+stroke_width  # The stroke width factory
 ```
 
 ### Test Code Functionality (`test_code.ipynb`)

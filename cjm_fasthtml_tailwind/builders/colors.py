@@ -191,10 +191,13 @@ class ColoredUtility(BaseUtility):
     def opacity(
         self,
         value: Union[int, str]  # Opacity value (0-100 or arbitrary)
-    ) -> 'ColoredUtility':  # Self for chaining
-        """Set opacity value."""
-        self._opacity = value
-        return self
+    ) -> 'ColoredUtility':  # A new instance with opacity set
+        """Return a new ColoredUtility instance with opacity value."""
+        # Create a new instance to avoid modifying the original
+        new_instance = ColoredUtility(self.prefix, self._color, value)
+        new_instance._modifiers = self._modifiers.copy() if self._modifiers else []
+        new_instance._value = self._value
+        return new_instance
 
 # %% ../../nbs/builders/colors.ipynb 18
 class ColoredFactory(BaseFactory):
@@ -401,6 +404,12 @@ def test_colors_opacity_examples():
     
     # Test opacity in factory call
     assert str(bg("green-600", opacity=25)) == "bg-green-600/25"
+    
+    # Test that opacity doesn't persist (bug fix)
+    red_500 = bg.red._500
+    assert str(red_500) == "bg-red-500"
+    assert str(red_500.opacity(50)) == "bg-red-500/50"
+    assert str(red_500) == "bg-red-500"  # Should still be without opacity
 
 # Run the test
 test_colors_opacity_examples()
