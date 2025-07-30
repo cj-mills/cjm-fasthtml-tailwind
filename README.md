@@ -30,7 +30,7 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (8)
+    └── utilities/ (9)
         ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
         ├── filters.ipynb           # Filter utilities for Tailwind CSS
         ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
@@ -38,9 +38,10 @@ pip install cjm-fasthtml-tailwind
         ├── layout.ipynb            # Display, position, overflow, z-index and other layout utilities for Tailwind CSS
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         ├── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
-        └── svg.ipynb               # SVG utilities for Tailwind CSS
+        ├── svg.ipynb               # SVG utilities for Tailwind CSS
+        └── typography.ipynb        # Typography utilities for Tailwind CSS
 
-Total: 23 notebooks across 4 directories
+Total: 24 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -69,63 +70,67 @@ graph LR
     utilities_sizing[utilities.sizing<br/>sizing]
     utilities_spacing[utilities.spacing<br/>spacing]
     utilities_svg[utilities.svg<br/>svg]
+    utilities_typography[utilities.typography<br/>typography]
 
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_search
     cli_explorer --> cli_utils
     cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_imports
     cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_test_code
-    cli_explorer --> cli_search
+    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_example_discovery
     cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_imports
-    cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_utils
+    cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_example_discovery
+    cli_helper_discovery --> cli_utils
     cli_imports --> cli_utils
     cli_imports --> cli_helper_discovery
     cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
+    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
     cli_search --> cli_factory_extraction
-    cli_search --> cli_example_discovery
     cli_test_code --> cli_utils
     cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
-    core_testing --> utilities_layout
-    core_testing --> utilities_spacing
-    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_sizing
+    core_testing --> utilities_layout
+    core_testing --> utilities_flexbox_and_grid
     core_testing --> core_base
+    core_testing --> utilities_spacing
     core_testing --> core_resources
-    utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_scales
-    utilities_filters --> core_base
     utilities_filters --> builders_colors
     utilities_filters --> builders_scales
-    utilities_flexbox_and_grid --> core_base
+    utilities_filters --> core_base
     utilities_flexbox_and_grid --> builders_scales
+    utilities_flexbox_and_grid --> core_base
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> core_base
     utilities_interactivity --> builders_colors
-    utilities_interactivity --> builders_scales
-    utilities_layout --> core_base
     utilities_layout --> builders_scales
+    utilities_layout --> core_base
     utilities_sizing --> core_base
     utilities_sizing --> builders_scales
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
-    utilities_svg --> core_base
     utilities_svg --> builders_colors
     utilities_svg --> builders_scales
+    utilities_svg --> core_base
+    utilities_typography --> builders_colors
+    utilities_typography --> builders_scales
+    utilities_typography --> core_base
 ```
 
-*53 cross-module dependencies detected*
+*56 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -3927,6 +3932,404 @@ def start_test_server(
         # Later, in another cell:
         server.stop()
     """
+```
+
+### typography (`typography.ipynb`)
+
+> Typography utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.typography import (
+    font,
+    TEXT_SIZE_CONFIG,
+    text,
+    antialiased,
+    subpixel_antialiased,
+    italic,
+    not_italic,
+    TRACKING_CONFIG,
+    tracking,
+    LINE_CLAMP_CONFIG,
+    line_clamp,
+    LEADING_CONFIG,
+    leading,
+    list_position,
+    list_style,
+    text_align,
+    underline,
+    overline,
+    line_through,
+    no_underline,
+    decoration,
+    decoration_style,
+    DECORATION_THICKNESS_CONFIG,
+    decoration_thickness,
+    UNDERLINE_OFFSET_CONFIG,
+    underline_offset,
+    uppercase,
+    lowercase,
+    capitalize,
+    normal_case,
+    truncate,
+    text_ellipsis,
+    text_clip,
+    text_wrap,
+    text_nowrap,
+    text_balance,
+    text_pretty,
+    indent,
+    align,
+    whitespace,
+    break_normal,
+    break_all,
+    break_keep,
+    wrap_break_word,
+    wrap_anywhere,
+    wrap_normal,
+    hyphens,
+    test_typography_font_family_examples,
+    test_typography_font_size_examples,
+    test_typography_font_smoothing_examples,
+    test_typography_font_style_examples,
+    FontFactory,
+    test_typography_font_weight_examples,
+    test_typography_spacing_examples,
+    LineClampFactory,
+    test_typography_line_clamp_examples,
+    LeadingFactory,
+    test_typography_line_height_examples,
+    test_typography_list_styles_examples,
+    test_typography_text_alignment_examples,
+    TextFactory,
+    test_typography_text_color_examples,
+    test_typography_text_decoration_examples,
+    test_typography_underline_offset_examples,
+    test_typography_text_transform_examples,
+    test_typography_text_overflow_examples,
+    test_typography_text_wrap_examples,
+    test_typography_text_indent_examples,
+    test_typography_vertical_align_examples,
+    test_typography_whitespace_examples,
+    test_typography_word_break_examples,
+    test_typography_overflow_wrap_examples,
+    test_typography_hyphens_examples,
+    test_typography_practical_examples,
+    test_typography_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def test_typography_font_family_examples()
+    "Test font family utilities."
+```
+
+``` python
+def test_typography_font_size_examples()
+    "Test font size utilities."
+```
+
+``` python
+def test_typography_font_smoothing_examples()
+    "Test font smoothing utilities."
+```
+
+``` python
+def test_typography_font_style_examples()
+    "Test font style utilities."
+```
+
+``` python
+def test_typography_font_weight_examples()
+    "Test font weight utilities."
+```
+
+``` python
+def test_typography_font_stretch_examples()
+    "Test font stretch utilities."
+```
+
+``` python
+def test_typography_font_variant_numeric_examples()
+    "Test font variant numeric utilities."
+```
+
+``` python
+def test_typography_spacing_examples()
+    "Test letter spacing utilities."
+```
+
+``` python
+def test_typography_line_clamp_examples()
+    "Test line clamp utilities."
+```
+
+``` python
+def test_typography_line_height_examples()
+    "Test line height utilities."
+```
+
+``` python
+def test_typography_list_image_examples()
+    "Test list style image utilities."
+```
+
+``` python
+def test_typography_list_styles_examples()
+    "Test list styles utilities."
+```
+
+``` python
+def test_typography_text_alignment_examples()
+    "Test text alignment utilities."
+```
+
+``` python
+def test_typography_text_color_examples()
+    "Test text color utilities."
+```
+
+``` python
+def test_typography_text_decoration_examples()
+    "Test text decoration utilities."
+```
+
+``` python
+def test_typography_underline_offset_examples()
+    "Test underline offset utilities."
+```
+
+``` python
+def test_typography_text_transform_examples()
+    "Test text transform utilities."
+```
+
+``` python
+def test_typography_text_overflow_examples()
+    "Test text overflow utilities."
+```
+
+``` python
+def test_typography_text_wrap_examples()
+    "Test text wrap utilities."
+```
+
+``` python
+def test_typography_text_indent_examples()
+    "Test text indent utilities."
+```
+
+``` python
+def test_typography_vertical_align_examples()
+    "Test vertical align utilities."
+```
+
+``` python
+def test_typography_whitespace_examples()
+    "Test whitespace utilities."
+```
+
+``` python
+def test_typography_word_break_examples()
+    "Test word break utilities."
+```
+
+``` python
+def test_typography_overflow_wrap_examples()
+    "Test overflow wrap utilities."
+```
+
+``` python
+def test_typography_hyphens_examples()
+    "Test hyphens utilities."
+```
+
+``` python
+def test_typography_content_examples()
+    "Test content utilities for pseudo-elements."
+```
+
+``` python
+def test_typography_practical_examples()
+    "Test typography utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_typography_factory_documentation()
+    "Test that typography factories have accessible documentation."
+```
+
+#### Classes
+
+``` python
+class FontFactory:
+    def __init__(self)
+    "Factory for font utilities including family and weight."
+    
+    def __init__(self)
+        "Initialize font factory with families and weights."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the font factory."
+```
+
+``` python
+class LineClampFactory(ScaledFactory):
+    "Factory for line clamp utilities."
+    
+```
+
+``` python
+class LeadingFactory(ScaledFactory):
+    "Factory for line height utilities with restricted numeric range."
+    
+```
+
+``` python
+class ListImageUtility(BaseUtility):
+    "Utility class for list-style-image with arbitrary value support."
+    
+```
+
+``` python
+class ListImageFactory:
+    def __init__(self):
+        """Initialize list image factory."""
+        super().__init__("List style image utilities for controlling list item marker images")
+        self.none = ListImageUtility("list-image")
+        self.none._value = "none"
+    
+    def __call__(
+        self,
+        value: str  # Image URL or value
+    ) -> ListImageUtility:  # A list image utility instance
+    "Factory for list-style-image utilities."
+    
+    def __init__(self):
+            """Initialize list image factory."""
+            super().__init__("List style image utilities for controlling list item marker images")
+            self.none = ListImageUtility("list-image")
+            self.none._value = "none"
+        
+        def __call__(
+            self,
+            value: str  # Image URL or value
+        ) -> ListImageUtility:  # A list image utility instance
+        "Initialize list image factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the list image factory."
+```
+
+``` python
+class TextFactory:
+    def __init__(self)
+    "Enhanced text factory that supports both font sizes and text colors."
+    
+    def __init__(self)
+        "Initialize text factory with size support."
+```
+
+``` python
+class ContentUtility(BaseUtility):
+    "Utility class for content with arbitrary value support."
+    
+```
+
+``` python
+class ContentFactory:
+    def __init__(self):
+        """Initialize content factory."""
+        super().__init__("Content utilities for controlling before and after pseudo-element content")
+        self.none = ContentUtility("content")
+        self.none._value = "none"
+    
+    def __call__(
+        self,
+        value: str  # Content value
+    ) -> ContentUtility:  # A content utility instance
+    "Factory for content utilities for pseudo-elements."
+    
+    def __init__(self):
+            """Initialize content factory."""
+            super().__init__("Content utilities for controlling before and after pseudo-element content")
+            self.none = ContentUtility("content")
+            self.none._value = "none"
+        
+        def __call__(
+            self,
+            value: str  # Content value
+        ) -> ContentUtility:  # A content utility instance
+        "Initialize content factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the content factory."
+```
+
+#### Variables
+
+``` python
+TEXT_SIZE_CONFIG
+text  # Font size factory
+antialiased  # Antialiased font smoothing
+subpixel_antialiased  # Subpixel antialiased font smoothing
+italic  # Italic font style
+not_italic  # Normal font style
+font  # Enhanced font factory for family and weight
+normal_nums  # Normal numbers
+ordinal  # Ordinal numbers
+slashed_zero  # Slashed zero
+lining_nums  # Lining numbers
+oldstyle_nums  # Old-style numbers
+proportional_nums  # Proportional numbers
+tabular_nums  # Tabular numbers
+diagonal_fractions  # Diagonal fractions
+stacked_fractions  # Stacked fractions
+TRACKING_CONFIG
+tracking  # Letter spacing factory
+LINE_CLAMP_CONFIG
+line_clamp  # Line clamp factory
+LEADING_CONFIG
+leading  # Line height factory
+list_image  # List image factory
+text  # Enhanced text factory for size and color
+underline  # Underline text
+overline  # Overline text
+line_through  # Line through text
+no_underline  # No text decoration
+decoration  # Text decoration color factory
+DECORATION_THICKNESS_CONFIG
+decoration_thickness  # Text decoration thickness factory
+UNDERLINE_OFFSET_CONFIG
+underline_offset  # Text underline offset factory
+uppercase  # Uppercase text
+lowercase  # Lowercase text
+capitalize  # Capitalize text
+normal_case  # Normal case text
+truncate  # Truncate overflow text
+text_ellipsis  # Text ellipsis
+text_clip  # Text clip
+text_wrap  # Text wrap
+text_nowrap  # Text no wrap
+text_balance  # Text balance
+text_pretty  # Text pretty
+indent  # Text indent factory
+break_normal  # Normal word break
+break_all  # Break all
+break_keep  # Keep words together
+wrap_break_word  # Break word wrap
+wrap_anywhere  # Wrap anywhere
+wrap_normal  # Normal wrap
+content  # Content factory
 ```
 
 ### utils (`utils.ipynb`)

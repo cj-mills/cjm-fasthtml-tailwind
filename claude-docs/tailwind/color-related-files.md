@@ -3,7 +3,7 @@
 The following files in the `/mnt/SN850X_8TB_EXT4/Projects/GitHub/cj-mills/cjm-fasthtml-tailwind/claude-docs/tailwind` directory contain the substring "-red-50":
 
 1. ~~[utility_classes/svg.md](utility_classes/svg.md)~~
-2. [utility_classes/interactivity.md](utility_classes/interactivity.md)
+2. ~~[utility_classes/interactivity.md](utility_classes/interactivity.md)~~
 3. ~~[utility_classes/filters.md](utility_classes/filters.md)~~
 4. [utility_classes/effects.md](utility_classes/effects.md)
 5. [utility_classes/borders.md](utility_classes/borders.md)
