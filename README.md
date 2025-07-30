@@ -30,14 +30,15 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (5)
+    └── utilities/ (6)
         ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
+        ├── filters.ipynb           # Filter utilities for Tailwind CSS
         ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
         ├── layout.ipynb            # Display, position, overflow, z-index and other layout utilities for Tailwind CSS
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         └── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
 
-Total: 20 notebooks across 4 directories
+Total: 21 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -59,6 +60,7 @@ graph LR
     core_resources[core.resources<br/>resources]
     core_testing[core.testing<br/>testing]
     utilities_backgrounds[utilities.backgrounds<br/>backgrounds]
+    utilities_filters[utilities.filters<br/>filters]
     utilities_flexbox_and_grid[utilities.flexbox_and_grid<br/>flexbox_and_grid]
     utilities_layout[utilities.layout<br/>layout]
     utilities_sizing[utilities.sizing<br/>sizing]
@@ -67,50 +69,53 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_test_code
     cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_utils
-    cli_explorer --> cli_imports
-    cli_explorer --> cli_search
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_imports
+    cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_search
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_helper_discovery
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_example_discovery
     cli_helper_discovery --> cli_utils
-    cli_imports --> cli_helper_discovery
-    cli_imports --> cli_factory_extraction
+    cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_factory_extraction
+    cli_imports --> cli_helper_discovery
     cli_imports --> cli_utils
-    cli_search --> cli_factory_extraction
     cli_search --> cli_utils
+    cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
     cli_search --> cli_example_discovery
-    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_utils
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_spacing
     core_testing --> utilities_sizing
     core_testing --> utilities_layout
+    core_testing --> utilities_spacing
     core_testing --> core_resources
     core_testing --> core_base
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_scales
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> builders_scales
+    utilities_filters --> core_base
+    utilities_filters --> builders_colors
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
     utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> core_base
     utilities_sizing --> builders_scales
+    utilities_sizing --> core_base
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
 ```
 
-*44 cross-module dependencies detected*
+*47 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -180,7 +185,7 @@ graph LR
 
     Key Concepts:
       - Factories: Objects that generate CSS classes (e.g., bg, bg_attachment, bg_clip, bg_conic)
-      - Modules: Categories of utilities (backgrounds, flexbox_and_grid, layout, etc.)
+      - Modules: Categories of utilities (backgrounds, filters, flexbox_and_grid, etc.)
       - Examples: Test functions demonstrating usage patterns
       - Helpers: Convenience functions for common patterns
 
@@ -1400,6 +1405,168 @@ class FactoryInfo:
     module_name: str  # Module where it was found
 ```
 
+### filters (`filters.ipynb`)
+
+> Filter utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.filters import (
+    filter_none,
+    BLUR_SCALES,
+    blur,
+    BRIGHTNESS_VALUES,
+    brightness_config,
+    brightness,
+    CONTRAST_VALUES,
+    contrast,
+    DROP_SHADOW_SCALES,
+    drop_shadow,
+    drop_shadow_color,
+    grayscale,
+    HUE_ROTATE_VALUES,
+    hue_rotate_config,
+    hue_rotate,
+    invert,
+    SATURATE_VALUES,
+    saturate,
+    sepia,
+    backdrop_filter_none,
+    backdrop_blur,
+    backdrop_brightness,
+    backdrop_contrast,
+    backdrop_saturate,
+    backdrop_opacity,
+    backdrop_grayscale,
+    backdrop_sepia,
+    backdrop_hue_rotate,
+    test_filters_control_examples,
+    BlurScale,
+    test_filters_blur_examples,
+    test_filters_brightness_examples,
+    test_filters_contrast_examples,
+    DropShadowScale,
+    test_filters_drop_shadow_examples,
+    test_filters_grayscale_examples,
+    test_filters_hue_rotate_examples,
+    test_filters_invert_examples,
+    test_filters_saturate_examples,
+    test_filters_sepia_examples,
+    test_filters_backdrop_examples,
+    test_filters_practical_examples,
+    test_filters_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def test_filters_control_examples()
+    "Test filter control utilities."
+```
+
+``` python
+def test_filters_blur_examples()
+    "Test blur filter utilities."
+```
+
+``` python
+def test_filters_brightness_examples()
+    "Test brightness filter utilities."
+```
+
+``` python
+def test_filters_contrast_examples()
+    "Test contrast filter utilities."
+```
+
+``` python
+def test_filters_drop_shadow_examples()
+    "Test drop shadow filter utilities."
+```
+
+``` python
+def test_filters_grayscale_examples()
+    "Test grayscale filter utilities."
+```
+
+``` python
+def test_filters_hue_rotate_examples()
+    "Test hue rotate filter utilities."
+```
+
+``` python
+def test_filters_invert_examples()
+    "Test invert filter utilities."
+```
+
+``` python
+def test_filters_saturate_examples()
+    "Test saturate filter utilities."
+```
+
+``` python
+def test_filters_sepia_examples()
+    "Test sepia filter utilities."
+```
+
+``` python
+def test_filters_backdrop_examples()
+    "Test backdrop filter utilities."
+```
+
+``` python
+def test_filters_practical_examples()
+    "Test filter utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_filters_factory_documentation()
+    "Test that filter factories have accessible documentation."
+```
+
+#### Classes
+
+``` python
+@dataclass
+class BlurScale:
+    "Represents a blur scale with name and pixel value."
+    
+    name: str
+    pixels: str
+    var: str
+    
+    def format(self) -> str
+        "Format as Tailwind class suffix."
+```
+
+``` python
+@dataclass
+class DropShadowScale:
+    "Represents a drop shadow scale with name and shadow value."
+    
+    name: str
+    shadow: str
+    var: str
+    
+    def format(self) -> str
+        "Format as Tailwind class suffix."
+```
+
+#### Variables
+
+``` python
+filter_none  # Remove filters
+BLUR_SCALES = [7 items]
+BRIGHTNESS_VALUES = [11 items]
+CONTRAST_VALUES = [7 items]
+DROP_SHADOW_SCALES = [6 items]
+HUE_ROTATE_VALUES = [6 items]
+SATURATE_VALUES = [5 items]
+backdrop_filter_none  # Remove backdrop filters
+```
+
 ### flexbox_and_grid (`flexbox_and_grid.ipynb`)
 
 > Flexbox and CSS Grid utilities for Tailwind CSS
@@ -2082,79 +2249,79 @@ from cjm_fasthtml_tailwind.utilities.layout import (
 
 ``` python
 def test_layout_display_examples(
-): # TODO: Add type hint
+)
     "Test display utilities with various values."
 ```
 
 ``` python
 def test_layout_position_examples(
-): # TODO: Add type hint
+)
     "Test position utilities."
 ```
 
 ``` python
 def test_layout_inset_examples(
-): # TODO: Add type hint
+)
     "Test inset utilities for positioning elements."
 ```
 
 ``` python
 def test_layout_overflow_examples(
-): # TODO: Add type hint
+)
     "Test overflow utilities for content handling."
 ```
 
 ``` python
 def test_layout_z_index_examples(
-): # TODO: Add type hint
+)
     "Test z-index utilities for stack ordering."
 ```
 
 ``` python
 def test_layout_float_clear_examples(
-): # TODO: Add type hint
+)
     "Test float and clear utilities for content wrapping."
 ```
 
 ``` python
 def test_layout_object_examples(
-): # TODO: Add type hint
+)
     "Test object fit and position utilities."
 ```
 
 ``` python
 def test_layout_visibility_examples(
-): # TODO: Add type hint
+)
     "Test visibility and box sizing utilities."
 ```
 
 ``` python
 def test_layout_aspect_columns_examples(
-): # TODO: Add type hint
+)
     "Test aspect ratio and columns utilities."
 ```
 
 ``` python
 def test_layout_columns_examples(
-): # TODO: Add type hint
+)
     "Test columns utilities."
 ```
 
 ``` python
 def test_layout_other_utilities_examples(
-): # TODO: Add type hint
+)
     "Test isolation, break, box decoration, and overscroll utilities."
 ```
 
 ``` python
 def test_layout_practical_examples(
-): # TODO: Add type hint
+)
     "Test layout utilities in practical FastHTML component examples."
 ```
 
 ``` python
 def test_layout_factory_documentation(
-): # TODO: Add type hint
+)
     "Test that factories have accessible documentation."
 ```
 
@@ -2186,7 +2353,7 @@ def full_bleed(
 
 ``` python
 def test_layout_helper_examples(
-): # TODO: Add type hint
+)
     "Test helper functions for common layout patterns."
 ```
 
@@ -3014,85 +3181,85 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
 
 ``` python
 def test_sizing_width_examples(
-): # TODO: Add type hint
+)
     "Test width utilities with various scales and values."
 ```
 
 ``` python
 def test_sizing_width_named_examples(
-): # TODO: Add type hint
+)
     "Test width utilities with named container sizes."
 ```
 
 ``` python
 def test_sizing_width_viewport_examples(
-): # TODO: Add type hint
+)
     "Test width utilities with viewport units."
 ```
 
 ``` python
 def test_sizing_arbitrary_examples(
-): # TODO: Add type hint
+)
     "Test sizing utilities with arbitrary and custom values."
 ```
 
 ``` python
 def test_sizing_height_examples(
-): # TODO: Add type hint
+)
     "Test height utilities with various scales and values."
 ```
 
 ``` python
 def test_sizing_height_viewport_examples(
-): # TODO: Add type hint
+)
     "Test height utilities with viewport units."
 ```
 
 ``` python
 def test_sizing_min_width_examples(
-): # TODO: Add type hint
+)
     "Test min-width utilities."
 ```
 
 ``` python
 def test_sizing_max_width_examples(
-): # TODO: Add type hint
+)
     "Test max-width utilities."
 ```
 
 ``` python
 def test_sizing_container_examples(
-): # TODO: Add type hint
+)
     "Test continer utility."
 ```
 
 ``` python
 def test_sizing_min_height_examples(
-): # TODO: Add type hint
+)
     "Test min-height utilities."
 ```
 
 ``` python
 def test_sizing_size_util_examples(
-): # TODO: Add type hint
+)
     "Test size utilities that set both width and height."
 ```
 
 ``` python
 def test_sizing_max_height_examples(
-): # TODO: Add type hint
+)
     "Test max-height utilities."
 ```
 
 ``` python
 def test_sizing_practical_examples(
-): # TODO: Add type hint
+)
     "Test sizing utilities in practical FastHTML component examples."
 ```
 
 ``` python
 def test_sizing_factory_documentation(
-): # TODO: Add type hint
+)
     "Test that factories have accessible documentation."
 ```
 
@@ -3129,7 +3296,7 @@ def full_screen(
 
 ``` python
 def test_sizing_helper_examples(
-): # TODO: Add type hint
+)
     "Test helper functions for common sizing patterns."
 ```
 
@@ -3181,55 +3348,55 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
 
 ``` python
 def test_spacing_basic_examples(
-): # TODO: Add type hint
+)
     "Test basic padding utilities with various scale values."
 ```
 
 ``` python
 def test_spacing_directional_examples(
-): # TODO: Add type hint
+)
     "Test directional padding utilities."
 ```
 
 ``` python
 def test_spacing_arbitrary_examples(
-): # TODO: Add type hint
+)
     "Test padding utilities with arbitrary and custom values."
 ```
 
 ``` python
 def test_spacing_margin_examples(
-): # TODO: Add type hint
+)
     "Test basic margin utilities with various scale values."
 ```
 
 ``` python
 def test_spacing_margin_directional_examples(
-): # TODO: Add type hint
+)
     "Test directional margin utilities."
 ```
 
 ``` python
 def test_spacing_negative_examples(
-): # TODO: Add type hint
+)
     "Test negative margin utilities."
 ```
 
 ``` python
 def test_spacing_logical_examples(
-): # TODO: Add type hint
+)
     "Test logical properties for padding and margin utilities."
 ```
 
 ``` python
 def test_spacing_space_between_examples(
-): # TODO: Add type hint
+)
     "Test space between child elements utilities."
 ```
 
 ``` python
 def test_spacing_practical_examples(
-): # TODO: Add type hint
+)
     "Test spacing utilities in practical FastHTML component examples."
 ```
 
@@ -3262,13 +3429,13 @@ def margin(
 
 ``` python
 def test_spacing_helper_examples(
-): # TODO: Add type hint
+)
     "Test helper functions for common spacing patterns."
 ```
 
 ``` python
 def test_spacing_factory_documentation(
-): # TODO: Add type hint
+)
     "Test that factories have accessible documentation."
 ```
 

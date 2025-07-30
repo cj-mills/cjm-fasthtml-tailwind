@@ -23,7 +23,7 @@ w = ScaledFactory("w", SIZE_CONFIG, "Width utilities for setting element width")
 
 # %% ../../nbs/utilities/sizing.ipynb 7
 def test_sizing_width_examples(
-): # TODO: Add type hint
+):
     """Test width utilities with various scales and values."""
     # Numeric scales
     assert str(w(0)) == "w-0"
@@ -49,7 +49,7 @@ test_sizing_width_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 9
 def test_sizing_width_named_examples(
-): # TODO: Add type hint
+):
     """Test width utilities with named container sizes."""
     # Named container sizes
     assert str(w._3xs) == "w-3xs" # (16rem / 256px)
@@ -67,7 +67,7 @@ test_sizing_width_named_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 11
 def test_sizing_width_viewport_examples(
-): # TODO: Add type hint
+):
     """Test width utilities with viewport units."""
     # Viewport width units
     assert str(w.svw) == "w-svw" # (small viewport width)
@@ -84,7 +84,7 @@ test_sizing_width_viewport_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 13
 def test_sizing_arbitrary_examples(
-): # TODO: Add type hint
+):
     """Test sizing utilities with arbitrary and custom values."""
     # Arbitrary values
     assert str(w("300px")) == "w-[300px]"
@@ -104,7 +104,7 @@ h = ScaledFactory("h", SIZE_CONFIG, "Height utilities for setting element height
 
 # %% ../../nbs/utilities/sizing.ipynb 17
 def test_sizing_height_examples(
-): # TODO: Add type hint
+):
     """Test height utilities with various scales and values."""
     # Numeric scales
     assert str(h(0)) == "h-0"
@@ -126,7 +126,7 @@ test_sizing_height_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 19
 def test_sizing_height_viewport_examples(
-): # TODO: Add type hint
+):
     """Test height utilities with viewport units."""
     # Viewport height units
     assert str(h.svh) == "h-svh" # (small viewport height)
@@ -149,7 +149,7 @@ min_w = ScaledFactory("min-w", SIZE_CONFIG, "Minimum width utilities for setting
 
 # %% ../../nbs/utilities/sizing.ipynb 22
 def test_sizing_min_width_examples(
-): # TODO: Add type hint
+):
     """Test min-width utilities."""
     # Numeric scales
     assert str(min_w(0)) == "min-w-0"
@@ -177,7 +177,7 @@ max_w = ScaledFactory("max-w", SIZE_CONFIG, "Maximum width utilities for setting
 
 # %% ../../nbs/utilities/sizing.ipynb 25
 def test_sizing_max_width_examples(
-): # TODO: Add type hint
+):
     """Test max-width utilities."""
     # Named sizes (commonly used for content containers)
     assert str(max_w.xs) == "max-w-xs"
@@ -212,7 +212,7 @@ container = SingleValueFactory(
 
 # %% ../../nbs/utilities/sizing.ipynb 27
 def test_sizing_container_examples(
-): # TODO: Add type hint
+):
     """Test continer utility."""
     # Test that container works with combine_classes
     result = combine_classes(container, "mx-auto", "px-4")
@@ -231,7 +231,7 @@ min_h = ScaledFactory("min-h", SIZE_CONFIG, "Minimum height utilities for settin
 
 # %% ../../nbs/utilities/sizing.ipynb 30
 def test_sizing_min_height_examples(
-): # TODO: Add type hint
+):
     """Test min-height utilities."""
     # Numeric scales
     assert str(min_h(0)) == "min-h-0"
@@ -258,7 +258,7 @@ size_util = ScaledFactory("size", SIZE_CONFIG, "Size utilities for setting both 
 
 # %% ../../nbs/utilities/sizing.ipynb 35
 def test_sizing_size_util_examples(
-): # TODO: Add type hint
+):
     """Test size utilities that set both width and height."""
     # Size utilities set both width and height
     assert str(size_util(16)) == "size-16"
@@ -283,7 +283,7 @@ test_sizing_size_util_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 36
 def test_sizing_max_height_examples(
-): # TODO: Add type hint
+):
     """Test max-height utilities."""
     # Numeric scales
     assert str(max_h(0)) == "max-h-0"
@@ -307,7 +307,7 @@ test_sizing_max_height_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 38
 def test_sizing_practical_examples(
-): # TODO: Add type hint
+):
     """Test sizing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Article, Header, Main, Aside
     
@@ -369,7 +369,7 @@ test_sizing_practical_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 39
 def test_sizing_factory_documentation(
-): # TODO: Add type hint
+):
     """Test that factories have accessible documentation."""
     # Test factory documentation
     assert w.describe() == "Width utilities for setting element width"
@@ -432,7 +432,7 @@ def full_screen(
 
 # %% ../../nbs/utilities/sizing.ipynb 45
 def test_sizing_helper_examples(
-): # TODO: Add type hint
+):
     """Test helper functions for common sizing patterns."""
     # Test helper functions
     assert size(w=32, h=16) == "w-32 h-16"

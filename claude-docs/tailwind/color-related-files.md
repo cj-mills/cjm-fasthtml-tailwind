@@ -7,7 +7,7 @@ The following files in the `/mnt/SN850X_8TB_EXT4/Projects/GitHub/cj-mills/cjm-fa
 3. [utility_classes/filters.md](utility_classes/filters.md)
 4. [utility_classes/effects.md](utility_classes/effects.md)
 5. [utility_classes/borders.md](utility_classes/borders.md)
-6. [utility_classes/backgrounds.md](utility_classes/backgrounds.md)
+6. ~~[utility_classes/backgrounds.md](utility_classes/backgrounds.md)~~
 7. [utility_classes/typography.md](utility_classes/typography.md)
 
 

@@ -26,7 +26,7 @@ pe = ScaledFactory("pe", SPACING_CONFIG, "Padding inline-end utilities (logical 
 
 # %% ../../nbs/utilities/spacing.ipynb 7
 def test_spacing_basic_examples(
-): # TODO: Add type hint
+):
     """Test basic padding utilities with various scale values."""
     # Numeric scales
     assert str(p(0)) == "p-0"
@@ -43,7 +43,7 @@ test_spacing_basic_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 9
 def test_spacing_directional_examples(
-): # TODO: Add type hint
+):
     """Test directional padding utilities."""
     # Individual sides
     assert str(p.t(4)) == "pt-4" # (top)
@@ -60,7 +60,7 @@ test_spacing_directional_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 11
 def test_spacing_arbitrary_examples(
-): # TODO: Add type hint
+):
     """Test padding utilities with arbitrary and custom values."""
     # Arbitrary values
     assert str(p("10px")) == "p-[10px]"
@@ -83,7 +83,7 @@ me = ScaledFactory("me", SPACING_CONFIG, "Margin inline-end utilities (logical p
 
 # %% ../../nbs/utilities/spacing.ipynb 15
 def test_spacing_margin_examples(
-): # TODO: Add type hint
+):
     """Test basic margin utilities with various scale values."""
     # Numeric scales
     assert str(m(0)) == "m-0"
@@ -100,7 +100,7 @@ test_spacing_margin_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 17
 def test_spacing_margin_directional_examples(
-): # TODO: Add type hint
+):
     """Test directional margin utilities."""
     # Individual sides
     assert str(m.t(4)) == "mt-4" # (top)
@@ -120,7 +120,7 @@ test_spacing_margin_directional_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 19
 def test_spacing_negative_examples(
-): # TODO: Add type hint
+):
     """Test negative margin utilities."""
     # Negative values using negative=True
     assert str(m(4, negative=True)) == "-m-4"
@@ -140,7 +140,7 @@ test_spacing_negative_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 20
 def test_spacing_logical_examples(
-): # TODO: Add type hint
+):
     """Test logical properties for padding and margin utilities."""
     # Logical padding properties
     assert str(ps(4)) == "ps-4" # (padding-inline-start)
@@ -196,7 +196,7 @@ space = SpaceFactory() # The space factory
 
 # %% ../../nbs/utilities/spacing.ipynb 23
 def test_spacing_space_between_examples(
-): # TODO: Add type hint
+):
     """Test space between child elements utilities."""
     # Horizontal spacing between children
     assert str(space.x(4)) == "space-x-4"
@@ -221,7 +221,7 @@ test_spacing_space_between_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 25
 def test_spacing_practical_examples(
-): # TODO: Add type hint
+):
     """Test spacing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, P, Button, H2
     
@@ -327,7 +327,7 @@ def margin(
 
 # %% ../../nbs/utilities/spacing.ipynb 29
 def test_spacing_helper_examples(
-): # TODO: Add type hint
+):
     """Test helper functions for common spacing patterns."""
     # Test pad helper
     assert pad(4) == "p-4"
@@ -344,7 +344,7 @@ test_spacing_helper_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 30
 def test_spacing_factory_documentation(
-): # TODO: Add type hint
+):
     """Test that factories have accessible documentation."""
     # Test main factory documentation
     assert p.describe() == "Padding utilities for controlling element padding"
