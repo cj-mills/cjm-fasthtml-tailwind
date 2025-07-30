@@ -18,7 +18,9 @@ from .factory_extraction import extract_factories_from_module
 from .helper_discovery import get_module_helpers
 
 # %% ../../nbs/cli/test_code.ipynb 4
-def create_test_script(code: str) -> str:
+def create_test_script(
+    code: str  # TODO: Add description
+) -> str:  # TODO: Add return description
     """Create a test script with necessary imports and the provided code."""
     # Build the import statements dynamically based on discovered modules
     imports = ["from fasthtml.common import *"]

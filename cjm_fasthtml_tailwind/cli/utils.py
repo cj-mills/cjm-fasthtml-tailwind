@@ -30,7 +30,10 @@ class SearchResult:
     score: float = 1.0  # Relevance score for fuzzy matching
 
 # %% ../../nbs/cli/utils.ipynb 7
-def print_header(title: str, width: int = 60):
+def print_header(
+    title: str,  # TODO: Add description
+    width: int = 60  # TODO: Add description
+): # TODO: Add type hint
     """Print a formatted header with title and separator."""
     print(title)
     print("=" * width)
@@ -38,7 +41,11 @@ def print_header(title: str, width: int = 60):
         print()  # Add extra line after colon headers
 
 # %% ../../nbs/cli/utils.ipynb 8
-def print_not_found(item_type: str, item_name: str, module_name: Optional[str] = None):
+def print_not_found(
+    item_type: str,  # TODO: Add description
+    item_name: str,  # TODO: Add description
+    module_name: Optional[str] = None  # TODO: Add description
+): # TODO: Add type hint
     """Print a standardized not found message."""
     if module_name:
         print(f"No {item_type} '{item_name}' found in module '{module_name}' or module doesn't exist.")
@@ -47,7 +54,11 @@ def print_not_found(item_type: str, item_name: str, module_name: Optional[str] =
         print(f"No {item_type} found in any utility modules.")
 
 # %% ../../nbs/cli/utils.ipynb 9
-def print_total(item_type: str, count: int, across_modules: bool = False):
+def print_total(
+    item_type: str,  # TODO: Add description
+    count: int,  # TODO: Add description
+    across_modules: bool = False  # TODO: Add description
+): # TODO: Add type hint
     """Print a standardized total count message."""
     if across_modules:
         print(f"\nTotal {item_type} across all modules: {count}")
@@ -55,12 +66,10 @@ def print_total(item_type: str, count: int, across_modules: bool = False):
         print(f"\nTotal {item_type}: {count}")
 
 # %% ../../nbs/cli/utils.ipynb 10
-def print_helpful_instructions(instructions: List[Tuple[str, Optional[str]]]):
-    """Print helpful instructions section.
-    
-    Args:
-        instructions: List of (description, example) tuples
-    """
+def print_helpful_instructions(
+    instructions: List[Tuple[str, Optional[str]]]  # List of (description, example) tuples
+):
+    "Print helpful instructions section."
     print("\nTo explore further:")
     for desc, example in instructions:
         print(f"  {desc}")
@@ -117,7 +126,10 @@ def simple_item_formatter(
     doc_field: str  # Name of the field containing the documentation
 ) -> Callable[[Any], str]:  # Formatter function
     """Create a simple formatter for items with name and documentation fields."""
-    def formatter(item):
+    def formatter(
+        item  # TODO: Add type hint and description
+    ): # TODO: Add type hint
+        "TODO: Add function description"
         name = getattr(item, name_field, "Unknown")
         doc = getattr(item, doc_field, "No documentation available")
         return f"{name}: {doc}"
@@ -128,19 +140,25 @@ def indented_item_formatter(
     prefix: str = "  "  # Indentation prefix
 ) -> Callable[[Any], Callable[[Any], str]]:  # Returns a formatter factory
     """Create a formatter that indents items with a prefix."""
-    def make_formatter(inner_formatter: Callable[[Any], str]) -> Callable[[Any], str]:
-        def formatter(item):
+    def make_formatter(
+        inner_formatter: Callable[[Any], str]  # TODO: Add description
+    ) -> Callable[[Any], str]:  # TODO: Add return description
+        "TODO: Add function description"
+        def formatter(
+            item  # TODO: Add type hint and description
+        ): # TODO: Add type hint
+            "TODO: Add function description"
             return prefix + inner_formatter(item)
         return formatter
     return make_formatter
 
 # %% ../../nbs/cli/utils.ipynb 16
 def extract_match_context(
-    text: str, 
-    query: str, 
-    case_sensitive: bool = False, 
-    context_size: int = 30
-) -> str:
+    text: str,   # TODO: Add description
+    query: str,   # TODO: Add description
+    case_sensitive: bool = False,   # TODO: Add description
+    context_size: int = 30  # TODO: Add description
+) -> str:  # TODO: Add return description
     """Extract context around a match in text."""
     text_search = text if case_sensitive else text.lower()
     query_search = query if case_sensitive else query.lower()
@@ -159,10 +177,10 @@ def extract_match_context(
 
 # %% ../../nbs/cli/utils.ipynb 17
 def extract_source_line_context(
-    source: str, 
-    query: str, 
-    case_sensitive: bool = False
-) -> str:
+    source: str,   # TODO: Add description
+    query: str,   # TODO: Add description
+    case_sensitive: bool = False  # TODO: Add description
+) -> str:  # TODO: Add return description
     """Extract line context for a match in source code."""
     source_search = source if case_sensitive else source.lower()
     query_search = query if case_sensitive else query.lower()
@@ -185,12 +203,12 @@ def extract_source_line_context(
 
 # %% ../../nbs/cli/utils.ipynb 18
 def create_search_result(
-    content_type: str,
-    module_name: str,
-    item_name: str,
-    match_context: str,
-    match_location: str
-) -> SearchResult:
+    content_type: str,  # TODO: Add description
+    module_name: str,  # TODO: Add description
+    item_name: str,  # TODO: Add description
+    match_context: str,  # TODO: Add description
+    match_location: str  # TODO: Add description
+) -> SearchResult:  # TODO: Add return description
     """Create a SearchResult with standard fields."""
     return SearchResult(
         content_type=content_type,
@@ -213,14 +231,14 @@ def search_in_text(
 
 # %% ../../nbs/cli/utils.ipynb 20
 def search_in_name_and_text(
-    query: str,
-    item_name: str,
-    text: str,
-    content_type: str,
-    module_name: str,
-    text_location: str,
-    case_sensitive: bool = False
-) -> List[SearchResult]:
+    query: str,  # TODO: Add description
+    item_name: str,  # TODO: Add description
+    text: str,  # TODO: Add description
+    content_type: str,  # TODO: Add description
+    module_name: str,  # TODO: Add description
+    text_location: str,  # TODO: Add description
+    case_sensitive: bool = False  # TODO: Add description
+) -> List[SearchResult]:  # TODO: Add return description
     """Search in both name and text fields, returning search results."""
     results = []
     
@@ -248,7 +266,9 @@ def search_in_name_and_text(
     return results
 
 # %% ../../nbs/cli/utils.ipynb 21
-def check_factory_usage_patterns(factory_name: str) -> List[str]:
+def check_factory_usage_patterns(
+    factory_name: str  # TODO: Add description
+) -> List[str]:  # TODO: Add return description
     """Get regex patterns to match common factory usage patterns."""
     import re
     
@@ -411,7 +431,7 @@ def discover_utility_modules(
 
 # %% ../../nbs/cli/utils.ipynb 31
 def iterate_all_modules_with_items(
-    extractor_func,  # Function to extract items from a module
+    extractor_func,    # Function to extract items from a module - TODO: Add type hint
     module_filter: Optional[str] = None  # Optional specific module to filter for
 ) -> Dict[str, List[Any]]:  # Dictionary mapping module names to their items
     """Generic iterator for extracting items from all modules."""
@@ -469,7 +489,9 @@ def extract_helper_names_from_test(
     return sorted(list(helper_names))
 
 # %% ../../nbs/cli/utils.ipynb 37
-def load_code_from_file(filepath: str) -> Optional[str]:
+def load_code_from_file(
+    filepath: str  # TODO: Add description
+) -> Optional[str]:  # TODO: Add return description
     """Load code from a file."""
     try:
         path = Path(filepath).expanduser().resolve()

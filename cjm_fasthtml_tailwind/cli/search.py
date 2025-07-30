@@ -10,7 +10,7 @@ from typing import Dict, List, Tuple, Any, Optional
 from dataclasses import dataclass
 from cjm_fasthtml_tailwind.cli.utils import (
     SearchResult, search_in_name_and_text, 
-    search_in_fields, discover_utility_modules, list_utility_modules, search_in_text
+    search_in_fields, discover_utility_modules, list_utility_modules, search_in_text, search_in_source_code
 )
 from .factory_extraction import list_all_factories
 from .example_discovery import list_all_examples

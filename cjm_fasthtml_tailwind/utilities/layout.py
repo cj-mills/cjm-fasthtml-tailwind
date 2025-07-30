@@ -64,7 +64,8 @@ sr_only = SingleValueFactory("sr-only", "Hide element visually but keep it avail
 not_sr_only = SingleValueFactory("not-sr-only", "Undo sr-only, making element visible again")
 
 # %% ../../nbs/utilities/layout.ipynb 6
-def test_layout_display_examples():
+def test_layout_display_examples(
+): # TODO: Add type hint
     """Test display utilities with various values."""
     # Test display utilities with dot notation
     assert display_tw.block == "block"
@@ -98,7 +99,8 @@ POSITION_VALUES = { # Position utilities
 position = SimpleFactory(POSITION_VALUES, "Position utilities for controlling how an element is positioned in the document") # The position factory
 
 # %% ../../nbs/utilities/layout.ipynb 9
-def test_layout_position_examples():
+def test_layout_position_examples(
+): # TODO: Add type hint
     """Test position utilities."""
     # Test position utilities with dot notation
     assert position.static == "static"
@@ -203,7 +205,8 @@ start = ScaledFactory("start", INSET_CONFIG, "Logical start position utilities (
 end = ScaledFactory("end", INSET_CONFIG, "Logical end position utilities (right in LTR, left in RTL)")
 
 # %% ../../nbs/utilities/layout.ipynb 12
-def test_layout_inset_examples():
+def test_layout_inset_examples(
+): # TODO: Add type hint
     """Test inset utilities for positioning elements."""
     # Test inset utilities
     assert str(inset(0)) == "inset-0"
@@ -274,7 +277,8 @@ class OverflowFactory(BaseFactory):
 overflow = OverflowFactory() # The overflow factory
 
 # %% ../../nbs/utilities/layout.ipynb 15
-def test_layout_overflow_examples():
+def test_layout_overflow_examples(
+): # TODO: Add type hint
     """Test overflow utilities for content handling."""
     # Test overflow utilities
     assert overflow.auto == "overflow-auto"
@@ -307,7 +311,8 @@ Z_INDEX_CONFIG = ScaleConfig( # Z-index configuration
 z = ScaledFactory("z", Z_INDEX_CONFIG, "Z-index utilities for controlling the stack order of an element") # The z-index factory
 
 # %% ../../nbs/utilities/layout.ipynb 18
-def test_layout_z_index_examples():
+def test_layout_z_index_examples(
+): # TODO: Add type hint
     """Test z-index utilities for stack ordering."""
     # Test z-index utilities
     assert str(z(0)) == "z-0"
@@ -359,7 +364,8 @@ CLEAR_VALUES = {
 clear = SimpleFactory(CLEAR_VALUES, "Clear utilities for controlling wrapping behavior after floating elements") # The clear factory
 
 # %% ../../nbs/utilities/layout.ipynb 23
-def test_layout_float_clear_examples():
+def test_layout_float_clear_examples(
+): # TODO: Add type hint
     """Test float and clear utilities for content wrapping."""
     # Test float utilities
     assert float_tw.right == "float-right"
@@ -445,7 +451,8 @@ object_position = ObjectPositionFactory(
 ) # The object position factory
 
 # %% ../../nbs/utilities/layout.ipynb 28
-def test_layout_object_examples():
+def test_layout_object_examples(
+): # TODO: Add type hint
     """Test object fit and position utilities."""
     # Test object fit utilities
     assert object_fit.contain == "object-contain"
@@ -486,7 +493,8 @@ BOX_SIZING_VALUES = {
 box = SimpleFactory(BOX_SIZING_VALUES, "Box sizing utilities for controlling how the browser calculates element size") # The box sizing factory
 
 # %% ../../nbs/utilities/layout.ipynb 33
-def test_layout_visibility_examples():
+def test_layout_visibility_examples(
+): # TODO: Add type hint
     """Test visibility and box sizing utilities."""
     # Test visibility utilities
     assert visibility.visible == "visible"
@@ -559,7 +567,8 @@ class AspectRatioFactory(SimpleFactory):
 aspect = AspectRatioFactory(ASPECT_RATIO_VALUES, "Aspect ratio utilities for controlling element proportions") # The aspect ratio factory
 
 # %% ../../nbs/utilities/layout.ipynb 38
-def test_layout_aspect_columns_examples():
+def test_layout_aspect_columns_examples(
+): # TODO: Add type hint
     """Test aspect ratio and columns utilities."""
     # Test aspect ratio utilities with dot notation
     assert aspect.auto == "aspect-auto"
@@ -590,7 +599,8 @@ COLUMNS_CONFIG = ScaleConfig( # Columns configuration with container sizes
 columns = ScaledFactory("columns", COLUMNS_CONFIG, "Columns utilities for controlling the number of columns within an element") # The columns factory
 
 # %% ../../nbs/utilities/layout.ipynb 41
-def test_layout_columns_examples():
+def test_layout_columns_examples(
+): # TODO: Add type hint
     """Test columns utilities."""
     # Test columns utilities
     assert str(columns(1)) == "columns-1"
@@ -736,7 +746,8 @@ class OverscrollFactory(BaseFactory):
 overscroll = OverscrollFactory() # The overscroll factory
 
 # %% ../../nbs/utilities/layout.ipynb 48
-def test_layout_other_utilities_examples():
+def test_layout_other_utilities_examples(
+): # TODO: Add type hint
     """Test isolation, break, box decoration, and overscroll utilities."""
     # Test isolation utilities
     assert isolation.isolate == "isolate"
@@ -763,7 +774,8 @@ def test_layout_other_utilities_examples():
 test_layout_other_utilities_examples()
 
 # %% ../../nbs/utilities/layout.ipynb 50
-def test_layout_practical_examples():
+def test_layout_practical_examples(
+): # TODO: Add type hint
     """Test layout utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Header, Nav, Main, Section, Article, Aside
     
@@ -808,7 +820,8 @@ def test_layout_practical_examples():
 test_layout_practical_examples()
 
 # %% ../../nbs/utilities/layout.ipynb 51
-def test_layout_factory_documentation():
+def test_layout_factory_documentation(
+): # TODO: Add type hint
     """Test that factories have accessible documentation."""
     # Test factory documentation
     assert display_tw.describe() == "Display utilities for controlling the display box type of an element"
@@ -869,7 +882,8 @@ def full_bleed(
     return combine_classes(position.relative, left("1/2"), right("1/2"), "-mx-[50vw]", "w-screen")
 
 # %% ../../nbs/utilities/layout.ipynb 57
-def test_layout_helper_examples():
+def test_layout_helper_examples(
+): # TODO: Add type hint
     """Test helper functions for common layout patterns."""
     # Test helper functions
     assert center_absolute() == "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"

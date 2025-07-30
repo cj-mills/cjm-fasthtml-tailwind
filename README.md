@@ -14,12 +14,14 @@ pip install cjm-fasthtml-tailwind
     nbs/
     ├── builders/ (1)
     │   └── scales.ipynb  # Numeric and named scale builders for Tailwind CSS utilities
-    ├── cli/ (8)
+    ├── cli/ (10)
     │   ├── core_utils_discovery.ipynb  # Functions to discover and display core utility functions like combine_classes:
     │   ├── example_discovery.ipynb     # Functions to discover and extract test example functions:
     │   ├── explorer.ipynb              # CLI tool for API exploration of cjm-fasthtml-tailwind utilities
     │   ├── factory_extraction.ipynb    # Functions to extract BaseFactory instances from modules:
     │   ├── helper_discovery.ipynb      # Functions to discover and extract helper functions:
+    │   ├── imports.ipynb               # Functions for getting import statements.
+    │   ├── pattern_scanner.ipynb       # Scan Python code for replaceable CSS class patterns
     │   ├── search.ipynb                # Functions to search across all library components:
     │   ├── test_code.ipynb             # Functions to test code snippets using the library:
     │   └── utils.ipynb                 # Utility functions for CLI tools
@@ -33,7 +35,7 @@ pip install cjm-fasthtml-tailwind
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         └── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
 
-Total: 16 notebooks across 4 directories
+Total: 18 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -45,6 +47,8 @@ graph LR
     cli_explorer[cli.explorer<br/>explorer]
     cli_factory_extraction[cli.factory_extraction<br/>Factory Extraction]
     cli_helper_discovery[cli.helper_discovery<br/>Helper Function Discovery]
+    cli_imports[cli.imports<br/>imports]
+    cli_pattern_scanner[cli.pattern_scanner<br/>pattern_scanner]
     cli_search[cli.search<br/>Search Functions]
     cli_test_code[cli.test_code<br/>Test Code Functionality]
     cli_utils[cli.utils<br/>utils]
@@ -58,70 +62,53 @@ graph LR
 
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_utils
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_search
-    cli_explorer --> cli_test_code
-    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_core_utils_discovery
-    cli_factory_extraction --> cli_utils
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_utils
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_search
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_imports
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_example_discovery
+    cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_utils
+    cli_helper_discovery --> cli_example_discovery
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_helper_discovery
+    cli_imports --> cli_factory_extraction
+    cli_imports --> cli_utils
     cli_search --> cli_utils
     cli_search --> cli_example_discovery
     cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
-    cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
-    core_testing --> utilities_spacing
     core_testing --> utilities_sizing
-    core_testing --> core_base
-    core_testing --> core_resources
-    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_layout
+    core_testing --> core_base
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_spacing
+    core_testing --> core_resources
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
     utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
 ```
 
-*34 cross-module dependencies detected*
+*40 cross-module dependencies detected*
 
 ## CLI Reference
 
 ### `cjm-tailwind-explore` Command
 
-    usage: cjm-tailwind-explore [-h]
-                                {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports}
-                                ...
-
-    Explore cjm-fasthtml-tailwind utility factories and modules
-
-    positional arguments:
-      {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports}
-                            Available commands
-        modules             List all utility modules
-        factories           List factories
-        factory             Show detailed info for a specific factory
-        examples            Show usage examples
-        example             Show source code for a specific example
-        helpers             Show helper functions
-        helper              Show source code for a specific helper
-        search              Search across all library components
-        test-code           Test code snippets using the library
-        core-utils          List core utility functions
-        core-util           Show source code for a core utility
-        imports             Show recommended import statements
-
-    options:
-      -h, --help            show this help message and exit
+CLI command `cjm-tailwind-explore` found but help text unavailable.
 
 For detailed help on any command, use
 `cjm-tailwind-explore <command> --help`.
@@ -426,17 +413,8 @@ from cjm_fasthtml_tailwind.cli.core_utils_discovery import (
 #### Functions
 
 ``` python
-def get_core_utilities() -> List[CoreUtilityInfo]:
-    """Get information about core utility functions."""
-    utilities = []
-    
-    # Define core utilities to expose
-    core_utils = [
-        ('combine_classes', 'cjm_fasthtml_tailwind.core.base'),
-        ('get_tailwind_headers', 'cjm_fasthtml_tailwind.core.resources'),
-    ]
-    
-    for util_name, module_path in core_utils
+def get_core_utilities(
+) -> List[CoreUtilityInfo]:  # TODO: Add return description
     "Get information about core utility functions."
 ```
 
@@ -466,7 +444,9 @@ class CoreUtilityInfo:
 from cjm_fasthtml_tailwind.cli.example_discovery import (
     ExampleInfo,
     extract_test_examples_from_module,
-    list_all_examples
+    list_all_examples,
+    list_module_examples,
+    get_example_by_name
 )
 ```
 
@@ -484,6 +464,21 @@ def extract_test_examples_from_module(
 def list_all_examples(
 ) -> Dict[str, List[ExampleInfo]]:  # Dictionary mapping module names to their examples
     "List all test example functions across all utility modules."
+```
+
+``` python
+def list_module_examples(
+    module_name: str  # Name of the module to inspect
+) -> List[ExampleInfo]:  # List of ExampleInfo objects
+    "List all test example functions in a specific utility module."
+```
+
+``` python
+def get_example_by_name(
+    module_name: str,  # Name of the module
+    feature: str  # Feature name (e.g., 'basic', 'directional')
+) -> Optional[ExampleInfo]:  # ExampleInfo object or None if not found
+    "Get a specific example by module name and feature."
 ```
 
 #### Classes
@@ -509,11 +504,6 @@ class ExampleInfo:
 
 ``` python
 from cjm_fasthtml_tailwind.cli.explorer import (
-    get_recommended_imports,
-    list_module_factories,
-    list_module_examples,
-    get_example_by_name,
-    get_factory_by_name,
     display_modules,
     display_module_factories,
     display_all_factories,
@@ -529,6 +519,13 @@ from cjm_fasthtml_tailwind.cli.explorer import (
     display_core_utilities,
     display_imports,
     display_test_code_result,
+    get_example_modules,
+    get_example_factories,
+    get_example_features,
+    get_example_helpers,
+    get_example_core_utils,
+    get_combine_classes_example,
+    get_example_test_code,
     add_modules_parser,
     add_factories_parser,
     add_factory_parser,
@@ -541,9 +538,11 @@ from cjm_fasthtml_tailwind.cli.explorer import (
     add_core_utils_parser,
     add_core_util_parser,
     add_imports_parser,
+    add_scan_parser,
     dispatch_command,
     handle_search_command,
     handle_test_code_command,
+    handle_scan_command,
     setup_argument_parser,
     main
 )
@@ -552,296 +551,291 @@ from cjm_fasthtml_tailwind.cli.explorer import (
 #### Functions
 
 ``` python
-def get_recommended_imports(
-    modules: Optional[List[str]] = None  # Specific modules to include, or None for all
-) -> List[str]:  # List of import statements
-    "Get recommended import statements for using the library."
-```
-
-``` python
-def list_module_factories(
-    module_name: str  # Name of the module to inspect (e.g., 'spacing', 'sizing')
-) -> List[FactoryInfo]:  # List of FactoryInfo objects for the module
-    "List all factory instances in a specific utility module."
-```
-
-``` python
-def list_module_examples(
-    module_name: str  # Name of the module to inspect
-) -> List[ExampleInfo]:  # List of ExampleInfo objects
-    "List all test example functions in a specific utility module."
-```
-
-``` python
-def get_example_by_name(
-    module_name: str,  # Name of the module
-    feature: str  # Feature name (e.g., 'basic', 'directional')
-) -> Optional[ExampleInfo]:  # ExampleInfo object or None if not found
-    "Get a specific example by module name and feature."
-```
-
-``` python
-def get_factory_by_name(
-    module_name: str,  # Name of the module
-    factory_name: str  # Name of the factory (e.g., 'p', 'w', 'flex')
-) -> Optional[FactoryInfo]:  # FactoryInfo object or None if not found
-    "Get a specific factory by module name and factory name."
-```
-
-``` python
-def display_modules():
-    """Display all available utility modules with their documentation."""
-    modules = list_utility_modules()
-    
-    # Convert dict to list of tuples for the formatter
-    module_list = [(name, doc) for name, doc in modules.items()]
-    
-    # Create formatter
-    def module_formatter(item)
+def display_modules(
+): # TODO: Add type hint
     "Display all available utility modules with their documentation."
 ```
 
 ``` python
-def display_module_factories(module_name: str):
-    """Display all factories in a specific module."""
-    factories = list_module_factories(module_name)
-    
-    if not factories
+def display_module_factories(
+    module_name: str  # TODO: Add description
+): # TODO: Add type hint
     "Display all factories in a specific module."
 ```
 
 ``` python
-def display_all_factories():
-    """Display all factories across all modules."""
-    all_factories = list_all_factories()
-    
-    # Create formatter using simple_item_formatter
-    factory_formatter = simple_item_formatter('name', 'doc')
-    indented_formatter = indented_item_formatter("  ")
-    
-    # Instructions
-    instructions = []
-    if all_factories
+def display_all_factories(
+): # TODO: Add type hint
     "Display all factories across all modules."
 ```
 
 ``` python
-def display_module_examples(module_name: str):
-    """Display all usage examples in a specific module."""
-    examples = list_module_examples(module_name)
-    
-    if not examples
+def display_module_examples(
+    module_name: str  # TODO: Add description
+): # TODO: Add type hint
     "Display all usage examples in a specific module."
 ```
 
 ``` python
-def display_all_examples():
-    """Display all usage examples across all modules."""
-    all_examples = list_all_examples()
-    
-    # Create formatter
-    def example_formatter(item)
+def display_all_examples(
+): # TODO: Add type hint
     "Display all usage examples across all modules."
 ```
 
 ``` python
-def display_example_source(module_name: str, feature: str):
-    """Display the source code of a specific example function."""
-    example = get_example_by_name(module_name, feature)
-    
-    if not example
+def display_example_source(
+    module_name: str,  # TODO: Add description
+    feature: str  # TODO: Add description
+): # TODO: Add type hint
     "Display the source code of a specific example function."
 ```
 
 ``` python
-def display_module_helpers(module_name: str):
-    """Display helper functions available in a specific module."""
-    helpers = get_module_helpers(module_name)
-    
-    if not helpers
+def display_module_helpers(
+    module_name: str  # TODO: Add description
+): # TODO: Add type hint
     "Display helper functions available in a specific module."
 ```
 
 ``` python
-def display_helper_source(module_name: str, helper_name: str):
-    """Display the source code of a specific helper function."""
-    helpers = get_module_helpers(module_name)
-    
-    helper_info = None
-    for h in helpers
+def display_helper_source(
+    module_name: str,  # TODO: Add description
+    helper_name: str  # TODO: Add description
+): # TODO: Add type hint
     "Display the source code of a specific helper function."
 ```
 
 ``` python
-def display_all_helpers():
-    """Display all helper functions across all modules."""
-    all_helpers = {}
-    
-    for module_name, module in discover_utility_modules()
+def display_all_helpers(
+): # TODO: Add type hint
     "Display all helper functions across all modules."
 ```
 
 ``` python
-def display_factory_info(module_name: str, factory_name: str):
-    """Display detailed information about a specific factory."""
-    factory_info = get_factory_by_name(module_name, factory_name)
-    
-    if not factory_info
+def display_factory_info(
+    module_name: str,  # TODO: Add description
+    factory_name: str  # TODO: Add description
+): # TODO: Add type hint
     "Display detailed information about a specific factory."
 ```
 
 ``` python
-def display_search_results(results: List[SearchResult], query: str):
-    """Display search results in a formatted way."""
-    if not results
+def display_search_results(
+    results: List[SearchResult],  # TODO: Add description
+    query: str  # TODO: Add description
+): # TODO: Add type hint
     "Display search results in a formatted way."
 ```
 
 ``` python
-def display_core_utility_source(util_name: str):
-    """Display the source code of a specific core utility function."""
-    utilities = get_core_utilities()
-    
-    util_info = None
-    for u in utilities
+def display_core_utility_source(
+    util_name: str  # TODO: Add description
+): # TODO: Add type hint
     "Display the source code of a specific core utility function."
 ```
 
 ``` python
-def display_core_utilities():
-    """Display all core utility functions."""
-    utilities = get_core_utilities()
-    
-    if not utilities
+def display_core_utilities(
+): # TODO: Add type hint
     "Display all core utility functions."
 ```
 
 ``` python
-def display_imports(modules: Optional[List[str]] = None):
-    """Display recommended import statements."""
-    imports = get_recommended_imports(modules)
-    
-    if modules
+def display_imports(
+    modules: Optional[List[str]] = None  # TODO: Add description
+): # TODO: Add type hint
     "Display recommended import statements."
 ```
 
 ``` python
-def display_test_code_result(success: bool, stdout: str, stderr: str, code: str):
-    """Display the results of test code execution."""
-    print("Test Code Execution Result:")
-    print("=" * 60)
-    
-    # Show the code that was tested
-    print("\nCode tested:")
-    print("-" * 40)
-    print(code)
-    print("-" * 40)
-    
-    # Show the result
-    if success
+def display_test_code_result(
+    success: bool,  # TODO: Add description
+    stdout: str,  # TODO: Add description
+    stderr: str,  # TODO: Add description
+    code: str  # TODO: Add description
+): # TODO: Add type hint
     "Display the results of test code execution."
 ```
 
 ``` python
-def add_modules_parser(subparsers)
+def get_example_modules(
+    limit: int = 2  # TODO: Add description
+) -> str:  # TODO: Add return description
+    "Get example module names dynamically."
+```
+
+``` python
+def get_example_factories(
+    module_name: str = None,  # TODO: Add description
+    limit: int = 4  # TODO: Add description
+) -> str:  # TODO: Add return description
+    "Get example factory names dynamically."
+```
+
+``` python
+def get_example_features(
+    module_name: str = None,  # TODO: Add description
+    limit: int = 3  # TODO: Add description
+) -> str:  # TODO: Add return description
+    "Get example feature names dynamically."
+```
+
+``` python
+def get_example_helpers(
+    module_name: str = None,  # TODO: Add description
+    limit: int = 2  # TODO: Add description
+) -> str:  # TODO: Add return description
+    "Get example helper function names dynamically."
+```
+
+``` python
+def get_example_core_utils(
+    limit: int = 2  # TODO: Add description
+) -> str:  # TODO: Add return description
+    "Get example core utility names dynamically."
+```
+
+``` python
+def get_combine_classes_example(
+) -> str:  # TODO: Add return description
+    "Get a dynamic example of combine_classes usage."
+```
+
+``` python
+def get_example_test_code(
+    limit_chars: int = 50  # TODO: Add description
+) -> str:  # TODO: Add return description
+    "Get an actual code example from test functions."
+```
+
+``` python
+def add_modules_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'modules' command parser."
 ```
 
 ``` python
-def add_factories_parser(subparsers)
+def add_factories_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'factories' command parser."
 ```
 
 ``` python
-def add_factory_parser(subparsers)
+def add_factory_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'factory' command parser."
 ```
 
 ``` python
-def add_examples_parser(subparsers)
+def add_examples_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'examples' command parser."
 ```
 
 ``` python
-def add_example_parser(subparsers)
+def add_example_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'example' command parser."
 ```
 
 ``` python
-def add_helpers_parser(subparsers)
+def add_helpers_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'helpers' command parser."
 ```
 
 ``` python
-def add_helper_parser(subparsers)
+def add_helper_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'helper' command parser."
 ```
 
 ``` python
-def add_search_parser(subparsers)
+def add_search_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'search' command parser."
 ```
 
 ``` python
-def add_test_code_parser(subparsers)
+def add_test_code_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'test-code' command parser."
 ```
 
 ``` python
-def add_core_utils_parser(subparsers)
+def add_core_utils_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'core-utils' command parser."
 ```
 
 ``` python
-def add_core_util_parser(subparsers)
+def add_core_util_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'core-util' command parser."
 ```
 
 ``` python
-def add_imports_parser(subparsers)
+def add_imports_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Add the 'imports' command parser."
 ```
 
 ``` python
-def dispatch_command(args):
-    """Dispatch the parsed arguments to the appropriate handler."""
-    if args.command == 'modules'
+def add_scan_parser(
+    subparsers  # TODO: Add type hint and description
+): # TODO: Add type hint
+    "Add the 'scan' command parser."
+```
+
+``` python
+def dispatch_command(
+    args  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Dispatch the parsed arguments to the appropriate handler."
 ```
 
 ``` python
-def handle_search_command(args):
-    """Handle the search command."""
-    # Determine which content types to search
-    if args.search_in == 'all'
+def handle_search_command(
+    args  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Handle the search command."
 ```
 
 ``` python
-def handle_test_code_command(args):
-    """Handle the test-code command."""
-    # Get code from command line or file
-    code = None
-    if args.file
+def handle_test_code_command(
+    args  # TODO: Add type hint and description
+): # TODO: Add type hint
     "Handle the test-code command."
 ```
 
 ``` python
-def setup_argument_parser()
+def handle_scan_command(
+    args  # TODO: Add type hint and description
+): # TODO: Add type hint
+    "Handle the scan command."
+```
+
+``` python
+def setup_argument_parser(
+): # TODO: Add type hint
     "Set up the main argument parser with all subcommands."
 ```
 
 ``` python
-def main():
-    """CLI entry point for exploring cjm-fasthtml-tailwind utilities."""
-    # Set up the argument parser
-    parser = setup_argument_parser()
-    
-    # Parse arguments
-    args = parser.parse_args()
-    
-    # If no command specified, show help
-    if args.command is None
+def main(
+): # TODO: Add type hint
     "CLI entry point for exploring cjm-fasthtml-tailwind utilities."
 ```
 
@@ -855,7 +849,9 @@ def main():
 from cjm_fasthtml_tailwind.cli.factory_extraction import (
     FactoryInfo,
     extract_factories_from_module,
-    list_all_factories
+    list_all_factories,
+    list_module_factories,
+    get_factory_by_name
 )
 ```
 
@@ -873,6 +869,21 @@ def extract_factories_from_module(
 def list_all_factories(
 ) -> Dict[str, List[FactoryInfo]]:  # Dictionary mapping module names to their factories
     "List all factory instances across all utility modules."
+```
+
+``` python
+def list_module_factories(
+    module_name: str  # Name of the module to inspect (e.g., 'spacing', 'sizing')
+) -> List[FactoryInfo]:  # List of FactoryInfo objects for the module
+    "List all factory instances in a specific utility module."
+```
+
+``` python
+def get_factory_by_name(
+    module_name: str,  # Name of the module
+    factory_name: str  # Name of the factory (e.g., 'p', 'w', 'flex')
+) -> Optional[FactoryInfo]:  # FactoryInfo object or None if not found
+    "Get a specific factory by module name and factory name."
 ```
 
 #### Classes
@@ -989,92 +1000,110 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
 #### Functions
 
 ``` python
-def test_flexbox_and_grid_basis_examples()
+def test_flexbox_and_grid_basis_examples(
+): # TODO: Add type hint
     "Test flex basis utilities with various scale values."
 ```
 
 ``` python
-def test_flexbox_and_grid_direction_examples()
+def test_flexbox_and_grid_direction_examples(
+): # TODO: Add type hint
     "Test flex direction utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_wrap_examples()
+def test_flexbox_and_grid_wrap_examples(
+): # TODO: Add type hint
     "Test flex wrap utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_flex_examples()
+def test_flexbox_and_grid_flex_examples(
+): # TODO: Add type hint
     "Test flex utilities for combined grow/shrink properties."
 ```
 
 ``` python
-def test_flexbox_and_grid_grow_examples()
+def test_flexbox_and_grid_grow_examples(
+): # TODO: Add type hint
     "Test flex grow utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_shrink_examples()
+def test_flexbox_and_grid_shrink_examples(
+): # TODO: Add type hint
     "Test flex shrink utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_order_examples()
+def test_flexbox_and_grid_order_examples(
+): # TODO: Add type hint
     "Test order utilities for flex and grid items."
 ```
 
 ``` python
-def test_flexbox_and_grid_template_columns_examples()
+def test_flexbox_and_grid_template_columns_examples(
+): # TODO: Add type hint
     "Test grid template columns utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_template_rows_examples()
+def test_flexbox_and_grid_template_rows_examples(
+): # TODO: Add type hint
     "Test grid template rows utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_column_examples()
+def test_flexbox_and_grid_column_examples(
+): # TODO: Add type hint
     "Test grid column utilities including span, start, and end."
 ```
 
 ``` python
-def test_flexbox_and_grid_row_examples()
+def test_flexbox_and_grid_row_examples(
+): # TODO: Add type hint
     "Test grid row utilities including span, start, and end."
 ```
 
 ``` python
-def test_flexbox_and_grid_flow_examples()
+def test_flexbox_and_grid_flow_examples(
+): # TODO: Add type hint
     "Test grid auto flow utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_auto_cols_rows_examples()
+def test_flexbox_and_grid_auto_cols_rows_examples(
+): # TODO: Add type hint
     "Test grid auto columns and rows utilities."
 ```
 
 ``` python
-def test_flexbox_and_grid_gap_examples()
+def test_flexbox_and_grid_gap_examples(
+): # TODO: Add type hint
     "Test gap utilities for flexbox and grid containers."
 ```
 
 ``` python
-def test_flexbox_and_grid_justify_examples()
+def test_flexbox_and_grid_justify_examples(
+): # TODO: Add type hint
     "Test justify utilities for flex and grid containers."
 ```
 
 ``` python
-def test_flexbox_and_grid_align_examples()
+def test_flexbox_and_grid_align_examples(
+): # TODO: Add type hint
     "Test align utilities for flex and grid containers."
 ```
 
 ``` python
-def test_flexbox_and_grid_place_examples()
+def test_flexbox_and_grid_place_examples(
+): # TODO: Add type hint
     "Test place utilities for grid containers."
 ```
 
 ``` python
-def test_flexbox_and_grid_practical_examples()
+def test_flexbox_and_grid_practical_examples(
+): # TODO: Add type hint
     "Test flexbox and grid utilities in practical FastHTML component examples."
 ```
 
@@ -1113,12 +1142,14 @@ def responsive_grid(
 ```
 
 ``` python
-def test_flexbox_and_grid_helper_examples()
+def test_flexbox_and_grid_helper_examples(
+): # TODO: Add type hint
     "Test helper functions for common flexbox and grid patterns."
 ```
 
 ``` python
-def test_flexbox_and_grid_factory_documentation()
+def test_flexbox_and_grid_factory_documentation(
+): # TODO: Add type hint
     "Test that factories have accessible documentation."
 ```
 
@@ -1445,6 +1476,27 @@ class HelperInfo:
     source: str  # Source code of the function
 ```
 
+### imports (`imports.ipynb`)
+
+> Functions for getting import statements.
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.imports import (
+    get_recommended_imports
+)
+```
+
+#### Functions
+
+``` python
+def get_recommended_imports(
+    modules: Optional[List[str]] = None  # Specific modules to include, or None for all
+) -> List[str]:  # List of import statements
+    "Get recommended import statements for using the library."
+```
+
 ### layout (`layout.ipynb`)
 
 > Display, position, overflow, z-index and other layout utilities for
@@ -1528,67 +1580,80 @@ from cjm_fasthtml_tailwind.utilities.layout import (
 #### Functions
 
 ``` python
-def test_layout_display_examples()
+def test_layout_display_examples(
+): # TODO: Add type hint
     "Test display utilities with various values."
 ```
 
 ``` python
-def test_layout_position_examples()
+def test_layout_position_examples(
+): # TODO: Add type hint
     "Test position utilities."
 ```
 
 ``` python
-def test_layout_inset_examples()
+def test_layout_inset_examples(
+): # TODO: Add type hint
     "Test inset utilities for positioning elements."
 ```
 
 ``` python
-def test_layout_overflow_examples()
+def test_layout_overflow_examples(
+): # TODO: Add type hint
     "Test overflow utilities for content handling."
 ```
 
 ``` python
-def test_layout_z_index_examples()
+def test_layout_z_index_examples(
+): # TODO: Add type hint
     "Test z-index utilities for stack ordering."
 ```
 
 ``` python
-def test_layout_float_clear_examples()
+def test_layout_float_clear_examples(
+): # TODO: Add type hint
     "Test float and clear utilities for content wrapping."
 ```
 
 ``` python
-def test_layout_object_examples()
+def test_layout_object_examples(
+): # TODO: Add type hint
     "Test object fit and position utilities."
 ```
 
 ``` python
-def test_layout_visibility_examples()
+def test_layout_visibility_examples(
+): # TODO: Add type hint
     "Test visibility and box sizing utilities."
 ```
 
 ``` python
-def test_layout_aspect_columns_examples()
+def test_layout_aspect_columns_examples(
+): # TODO: Add type hint
     "Test aspect ratio and columns utilities."
 ```
 
 ``` python
-def test_layout_columns_examples()
+def test_layout_columns_examples(
+): # TODO: Add type hint
     "Test columns utilities."
 ```
 
 ``` python
-def test_layout_other_utilities_examples()
+def test_layout_other_utilities_examples(
+): # TODO: Add type hint
     "Test isolation, break, box decoration, and overscroll utilities."
 ```
 
 ``` python
-def test_layout_practical_examples()
+def test_layout_practical_examples(
+): # TODO: Add type hint
     "Test layout utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_layout_factory_documentation()
+def test_layout_factory_documentation(
+): # TODO: Add type hint
     "Test that factories have accessible documentation."
 ```
 
@@ -1619,7 +1684,8 @@ def full_bleed(
 ```
 
 ``` python
-def test_layout_helper_examples()
+def test_layout_helper_examples(
+): # TODO: Add type hint
     "Test helper functions for common layout patterns."
 ```
 
@@ -1790,6 +1856,274 @@ break_util  # The break factory
 BOX_DECORATION_VALUES = {2 items}
 OVERSCROLL_VALUES = [3 items]
 overscroll  # The overscroll factory
+```
+
+### pattern_scanner (`pattern_scanner.ipynb`)
+
+> Scan Python code for replaceable CSS class patterns
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.pattern_scanner import *
+```
+
+#### Functions
+
+``` python
+def scan_python_code(
+    code: str  # Python source code as a string
+) -> List[ClsPattern]:  # List of ClsPattern objects found in the code
+    "Scan Python code for cls= patterns."
+```
+
+``` python
+def extract_css_classes_from_node(
+    node: ast.AST  # TODO: Add description
+) -> List[str]:  # TODO: Add return description
+    """
+    Recursively extract CSS classes from an AST node.
+    Handles various patterns including combine_classes calls.
+    """
+```
+
+``` python
+def display_patterns(
+    patterns: List[ClsPattern],  # List of ClsPattern objects to display
+    show_context: bool = True  # Whether to show the code context
+) -> None:  # TODO: Add return description
+    "Display found patterns in a formatted way."
+```
+
+``` python
+def get_unique_css_classes(
+    patterns: List[ClsPattern]  # List of ClsPattern objects
+) -> Set[str]:  # Set of unique CSS class strings
+    "Extract all unique CSS classes from a list of patterns."
+```
+
+``` python
+def get_available_css_classes(
+    assertion_patterns: List[AssertionPattern]  # List of assertion patterns from test examples
+) -> Set[str]:  # Set of unique CSS class strings available in the library
+    "Extract all unique CSS classes from assertion patterns. This handles multi-class assertion strings by splitting them."
+```
+
+``` python
+def collect_all_assertion_patterns(
+) -> List[AssertionPattern]:  # List of AssertionPattern objects from all modules
+    "Collect assertion patterns from all test examples in the library."
+```
+
+``` python
+def tokenize_css_class(
+    css_class: str  # CSS class string (e.g., "bg-blue-500" or "hover:text-white")
+) -> List[str]:  # List of tokens (e.g., ["bg", "blue", "500"] or ["hover:text", "white"])
+    "Tokenize a CSS class by splitting on hyphens. Handles modifiers (hover:, focus:, etc.) separately."
+```
+
+``` python
+def find_pattern_matches(
+    css_class: str,  # CSS class to match (e.g., "px-8" or "hover:text-white")
+    available_classes: Set[str]  # Set of available CSS classes from the library
+) -> Tuple[Optional[str], List[str]]:  # Tuple of (matched_pattern, similar_classes) - matched_pattern: Pattern prefix that matches (e.g., "px" for "px-8") - similar_classes: List of similar classes with the same pattern
+    "Find pattern matches for a CSS class by progressively reducing tokens."
+```
+
+``` python
+def match_css_class(
+    css_class: str,  # CSS class to match
+    available_classes: Set[str]  # Set of available CSS classes from the library
+) -> CSSClassMatch:  # CSSClassMatch object with match details
+    "Match a CSS class against available library classes."
+```
+
+``` python
+def match_css_classes(
+    css_classes: List[str],  # List of CSS classes to match
+    available_classes: Set[str]  # Set of available CSS classes from the library
+) -> Dict[str, CSSClassMatch]:  # Dictionary mapping CSS classes to their match results
+    "Match multiple CSS classes against available library classes."
+```
+
+``` python
+def display_match_results(
+    matches: Dict[str, CSSClassMatch]  # Dictionary of CSS classes to their match results
+) -> None:  # TODO: Add return description
+    "Display match results in a formatted way."
+```
+
+``` python
+def analyze_code_patterns(
+    code: str  # Python source code to analyze
+) -> Dict[str, Any]:  # Dictionary with analysis results including patterns found and suggestions
+    "Analyze Python code for replaceable CSS patterns."
+```
+
+``` python
+def display_code_analysis(
+    code: str  # Python source code to analyze
+) -> None:  # TODO: Add return description
+    "Analyze and display replaceable patterns in Python code."
+```
+
+``` python
+def find_assertion_for_class(
+    css_class: str,  # The CSS class to find (e.g., "px-6")
+    assertion_patterns: List[AssertionPattern]  # List of all assertion patterns from tests
+) -> Optional[AssertionPattern]:  # AssertionPattern if found, None otherwise
+    "Find the assertion pattern that demonstrates how to use a specific CSS class. Prioritizes exact single-class matches over multi-class assertions."
+```
+
+``` python
+def find_pattern_examples(
+    pattern_prefix: str,  # Pattern prefix to match (e.g., "px" for px-* pattern)
+    assertion_patterns: List[AssertionPattern]  # List of all assertion patterns from tests
+) -> List[AssertionPattern]:  # List of AssertionPattern objects that match the pattern
+    "Find assertion examples that match a pattern prefix."
+```
+
+``` python
+def get_migration_suggestions(
+    matches: Dict[str, CSSClassMatch],  # Dictionary of CSS class matches
+    assertion_patterns: List[AssertionPattern]  # List of all assertion patterns from tests
+) -> Dict[str, List[str]]:  # Dictionary mapping CSS classes to their migration suggestions
+    "Generate migration suggestions for matched CSS classes."
+```
+
+``` python
+def display_migration_suggestions(
+    code: str  # Python source code to analyze
+) -> None:  # TODO: Add return description
+    "Analyze code and display migration suggestions."
+```
+
+``` python
+def analyze_and_suggest(
+    code: str  # Python source code to analyze
+) -> None:  # TODO: Add return description
+    "Perform complete analysis of code with migration suggestions."
+```
+
+``` python
+def scan_python_file(
+    file_path: str  # Path to the Python file
+) -> List[ClsPattern]:  # List of ClsPattern objects found in the file
+    "Scan a Python file for cls= patterns."
+```
+
+``` python
+def scan_jupyter_notebook(
+    notebook_path: str  # Path to the Jupyter notebook (.ipynb)
+) -> List[ClsPattern]:  # List of ClsPattern objects found in the notebook
+    "Scan a Jupyter notebook for cls= patterns."
+```
+
+``` python
+def detect_input_type(
+    input_source: str  # Code string or file path
+) -> InputType:  # InputType enum value
+    "Detect the type of input based on the source string."
+```
+
+``` python
+def scan_input(
+    input_source: str,  # Code string, Python file path, or notebook path
+    input_type: Optional[InputType] = None  # Optional explicit input type. If None, will auto-detect.
+) -> List[ClsPattern]:  # List of ClsPattern objects found
+    "Scan various input types for cls= patterns."
+```
+
+``` python
+def analyze_input(
+    input_source: str,  # Code string, Python file path, or notebook path
+    input_type: Optional[InputType] = None  # Optional explicit input type. If None, will auto-detect.
+) -> Dict[str, Any]:  # Dictionary with analysis results
+    "Analyze any input type for replaceable CSS patterns."
+```
+
+``` python
+def display_input_analysis(
+    input_source: str,  # Code string, Python file path, or notebook path
+    input_type: Optional[InputType] = None  # Optional explicit input type. If None, will auto-detect.
+) -> None:  # TODO: Add return description
+    "Analyze and display replaceable patterns from any input type."
+```
+
+``` python
+def analyze_and_suggest_input(
+    input_source: str,  # Code string, Python file path, or notebook path
+    input_type: Optional[InputType] = None  # Optional explicit input type. If None, will auto-detect.
+) -> None:  # TODO: Add return description
+    "Perform complete analysis with migration suggestions for any input type."
+```
+
+#### Classes
+
+``` python
+@dataclass
+class ClsPattern:
+    "Represents a cls= pattern found in code."
+    
+    line_number: int  # Line number where pattern was found
+    full_expression: str  # The full cls=... expression
+    css_classes: List[str]  # Individual CSS classes extracted
+    context: str  # Code context around the pattern
+    uses_combine_classes: bool  # Whether combine_classes is used
+```
+
+``` python
+class ClsPatternVisitor:
+    def __init__(
+        self,
+        source_lines: List[str]  # TODO: Add description
+    )
+    "AST visitor to find cls= patterns in Python code."
+    
+    def __init__(
+            self,
+            source_lines: List[str]  # TODO: Add description
+        )
+        "Initialize with source code lines for context extraction."
+    
+    def visit_Call(
+            self,
+            node: ast.Call  # TODO: Add description
+        ) -> None:  # TODO: Add return description
+        "Visit function calls to find cls= keyword arguments."
+```
+
+``` python
+@dataclass
+class AssertionPattern:
+    "Represents a pattern extracted from a test assertion."
+    
+    css_class: str  # The CSS class string (e.g., "p-4")
+    factory_expression: str  # The factory expression (e.g., "p(4)")
+    module_name: str  # Module where this was found
+    example_name: str  # Test function name
+```
+
+``` python
+class MatchType(Enum):
+    "Type of match found for a CSS class."
+```
+
+``` python
+@dataclass
+class CSSClassMatch:
+    "Represents a match result for a CSS class."
+    
+    css_class: str  # The CSS class being matched
+    match_type: MatchType  # Type of match found
+    matched_pattern: Optional[str]  # The pattern it matches (for PATTERN type)
+    similar_classes: List[str]  # Similar classes found in library
+    suggested_replacement: Optional[str]  # Suggested replacement from library
+```
+
+``` python
+class InputType(Enum):
+    "Type of input being scanned."
 ```
 
 ### resources (`resources.ipynb`)
@@ -2136,72 +2470,86 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
 #### Functions
 
 ``` python
-def test_sizing_width_examples()
+def test_sizing_width_examples(
+): # TODO: Add type hint
     "Test width utilities with various scales and values."
 ```
 
 ``` python
-def test_sizing_width_named_examples()
+def test_sizing_width_named_examples(
+): # TODO: Add type hint
     "Test width utilities with named container sizes."
 ```
 
 ``` python
-def test_sizing_width_viewport_examples()
+def test_sizing_width_viewport_examples(
+): # TODO: Add type hint
     "Test width utilities with viewport units."
 ```
 
 ``` python
-def test_sizing_arbitrary_examples()
+def test_sizing_arbitrary_examples(
+): # TODO: Add type hint
     "Test sizing utilities with arbitrary and custom values."
 ```
 
 ``` python
-def test_sizing_height_examples()
+def test_sizing_height_examples(
+): # TODO: Add type hint
     "Test height utilities with various scales and values."
 ```
 
 ``` python
-def test_sizing_height_viewport_examples()
+def test_sizing_height_viewport_examples(
+): # TODO: Add type hint
     "Test height utilities with viewport units."
 ```
 
 ``` python
-def test_sizing_min_width_examples()
+def test_sizing_min_width_examples(
+): # TODO: Add type hint
     "Test min-width utilities."
 ```
 
 ``` python
-def test_sizing_max_width_examples()
+def test_sizing_max_width_examples(
+): # TODO: Add type hint
     "Test max-width utilities."
 ```
 
 ``` python
-def test_sizing_container_examples()
+def test_sizing_container_examples(
+): # TODO: Add type hint
     "Test continer utility."
 ```
 
 ``` python
-def test_sizing_min_height_examples()
+def test_sizing_min_height_examples(
+): # TODO: Add type hint
     "Test min-height utilities."
 ```
 
 ``` python
-def test_sizing_size_util_examples()
+def test_sizing_size_util_examples(
+): # TODO: Add type hint
     "Test size utilities that set both width and height."
 ```
 
 ``` python
-def test_sizing_max_height_examples()
+def test_sizing_max_height_examples(
+): # TODO: Add type hint
     "Test max-height utilities."
 ```
 
 ``` python
-def test_sizing_practical_examples()
+def test_sizing_practical_examples(
+): # TODO: Add type hint
     "Test sizing utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_sizing_factory_documentation()
+def test_sizing_factory_documentation(
+): # TODO: Add type hint
     "Test that factories have accessible documentation."
 ```
 
@@ -2237,7 +2585,8 @@ def full_screen(
 ```
 
 ``` python
-def test_sizing_helper_examples()
+def test_sizing_helper_examples(
+): # TODO: Add type hint
     "Test helper functions for common sizing patterns."
 ```
 
@@ -2288,47 +2637,56 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
 #### Functions
 
 ``` python
-def test_spacing_basic_examples()
+def test_spacing_basic_examples(
+): # TODO: Add type hint
     "Test basic padding utilities with various scale values."
 ```
 
 ``` python
-def test_spacing_directional_examples()
+def test_spacing_directional_examples(
+): # TODO: Add type hint
     "Test directional padding utilities."
 ```
 
 ``` python
-def test_spacing_arbitrary_examples()
+def test_spacing_arbitrary_examples(
+): # TODO: Add type hint
     "Test padding utilities with arbitrary and custom values."
 ```
 
 ``` python
-def test_spacing_margin_examples()
+def test_spacing_margin_examples(
+): # TODO: Add type hint
     "Test basic margin utilities with various scale values."
 ```
 
 ``` python
-def test_spacing_margin_directional_examples()
+def test_spacing_margin_directional_examples(
+): # TODO: Add type hint
     "Test directional margin utilities."
 ```
 
 ``` python
-def test_spacing_negative_examples()
+def test_spacing_negative_examples(
+): # TODO: Add type hint
     "Test negative margin utilities."
 ```
 
 ``` python
-def test_spacing_logical_examples()
+def test_spacing_logical_examples(
+): # TODO: Add type hint
     "Test logical properties for padding and margin utilities."
 ```
 
 ``` python
-def test_spacing_space_between_examples()
+def test_spacing_space_between_examples(
+): # TODO: Add type hint
     "Test space between child elements utilities."
 ```
 
 ``` python
-def test_spacing_practical_examples()
+def test_spacing_practical_examples(
+): # TODO: Add type hint
     "Test spacing utilities in practical FastHTML component examples."
 ```
 
@@ -2360,12 +2718,14 @@ def margin(
 ```
 
 ``` python
-def test_spacing_helper_examples()
+def test_spacing_helper_examples(
+): # TODO: Add type hint
     "Test helper functions for common spacing patterns."
 ```
 
 ``` python
-def test_spacing_factory_documentation()
+def test_spacing_factory_documentation(
+): # TODO: Add type hint
     "Test that factories have accessible documentation."
 ```
 
@@ -2433,13 +2793,9 @@ from cjm_fasthtml_tailwind.cli.test_code import (
 #### Functions
 
 ``` python
-def create_test_script(code: str) -> str:
-    """Create a test script with necessary imports and the provided code."""
-    # Build the import statements dynamically based on discovered modules
-    imports = ["from fasthtml.common import *"]
-    
-    # Add imports for factories from each utility module
-    for module_name, module in discover_utility_modules()
+def create_test_script(
+    code: str  # TODO: Add description
+) -> str:  # TODO: Add return description
     "Create a test script with necessary imports and the provided code."
 ```
 
@@ -2541,43 +2897,36 @@ from cjm_fasthtml_tailwind.cli.utils import (
 #### Functions
 
 ``` python
-def print_header(title: str, width: int = 60):
-    """Print a formatted header with title and separator."""
-    print(title)
-    print("=" * width)
-    if title.endswith(":")
+def print_header(
+    title: str,  # TODO: Add description
+    width: int = 60  # TODO: Add description
+): # TODO: Add type hint
     "Print a formatted header with title and separator."
 ```
 
 ``` python
-def print_not_found(item_type: str, item_name: str, module_name: Optional[str] = None):
-    """Print a standardized not found message."""
-    if module_name
+def print_not_found(
+    item_type: str,  # TODO: Add description
+    item_name: str,  # TODO: Add description
+    module_name: Optional[str] = None  # TODO: Add description
+): # TODO: Add type hint
     "Print a standardized not found message."
 ```
 
 ``` python
-def print_total(item_type: str, count: int, across_modules: bool = False):
-    """Print a standardized total count message."""
-    if across_modules
+def print_total(
+    item_type: str,  # TODO: Add description
+    count: int,  # TODO: Add description
+    across_modules: bool = False  # TODO: Add description
+): # TODO: Add type hint
     "Print a standardized total count message."
 ```
 
 ``` python
-def print_helpful_instructions(instructions: List[Tuple[str, Optional[str]]]):
-    """Print helpful instructions section.
-    
-    Args:
-        instructions: List of (description, example) tuples
-    """
-    print("\nTo explore further:")
-    for desc, example in instructions
-    """
-    Print helpful instructions section.
-    
-    Args:
-        instructions: List of (description, example) tuples
-    """
+def print_helpful_instructions(
+    instructions: List[Tuple[str, Optional[str]]]  # List of (description, example) tuples
+)
+    "Print helpful instructions section."
 ```
 
 ``` python
@@ -2614,31 +2963,31 @@ def indented_item_formatter(
 
 ``` python
 def extract_match_context(
-    text: str, 
-    query: str, 
-    case_sensitive: bool = False, 
-    context_size: int = 30
-) -> str
+    text: str,   # TODO: Add description
+    query: str,   # TODO: Add description
+    case_sensitive: bool = False,   # TODO: Add description
+    context_size: int = 30  # TODO: Add description
+) -> str:  # TODO: Add return description
     "Extract context around a match in text."
 ```
 
 ``` python
 def extract_source_line_context(
-    source: str, 
-    query: str, 
-    case_sensitive: bool = False
-) -> str
+    source: str,   # TODO: Add description
+    query: str,   # TODO: Add description
+    case_sensitive: bool = False  # TODO: Add description
+) -> str:  # TODO: Add return description
     "Extract line context for a match in source code."
 ```
 
 ``` python
 def create_search_result(
-    content_type: str,
-    module_name: str,
-    item_name: str,
-    match_context: str,
-    match_location: str
-) -> SearchResult
+    content_type: str,  # TODO: Add description
+    module_name: str,  # TODO: Add description
+    item_name: str,  # TODO: Add description
+    match_context: str,  # TODO: Add description
+    match_location: str  # TODO: Add description
+) -> SearchResult:  # TODO: Add return description
     "Create a SearchResult with standard fields."
 ```
 
@@ -2653,19 +3002,21 @@ def search_in_text(
 
 ``` python
 def search_in_name_and_text(
-    query: str,
-    item_name: str,
-    text: str,
-    content_type: str,
-    module_name: str,
-    text_location: str,
-    case_sensitive: bool = False
-) -> List[SearchResult]
+    query: str,  # TODO: Add description
+    item_name: str,  # TODO: Add description
+    text: str,  # TODO: Add description
+    content_type: str,  # TODO: Add description
+    module_name: str,  # TODO: Add description
+    text_location: str,  # TODO: Add description
+    case_sensitive: bool = False  # TODO: Add description
+) -> List[SearchResult]:  # TODO: Add return description
     "Search in both name and text fields, returning search results."
 ```
 
 ``` python
-def check_factory_usage_patterns(factory_name: str) -> List[str]
+def check_factory_usage_patterns(
+    factory_name: str  # TODO: Add description
+) -> List[str]:  # TODO: Add return description
     "Get regex patterns to match common factory usage patterns."
 ```
 
@@ -2731,7 +3082,7 @@ def discover_utility_modules(
 
 ``` python
 def iterate_all_modules_with_items(
-    extractor_func,  # Function to extract items from a module
+    extractor_func,    # Function to extract items from a module - TODO: Add type hint
     module_filter: Optional[str] = None  # Optional specific module to filter for
 ) -> Dict[str, List[Any]]:  # Dictionary mapping module names to their items
     "Generic iterator for extracting items from all modules."
@@ -2745,9 +3096,9 @@ def extract_helper_names_from_test(
 ```
 
 ``` python
-def load_code_from_file(filepath: str) -> Optional[str]:
-    """Load code from a file."""
-    try
+def load_code_from_file(
+    filepath: str  # TODO: Add description
+) -> Optional[str]:  # TODO: Add return description
     "Load code from a file."
 ```
 

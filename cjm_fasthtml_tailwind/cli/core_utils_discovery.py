@@ -24,7 +24,8 @@ class CoreUtilityInfo:
     import_statement: str  # How to import this utility
 
 # %% ../../nbs/cli/core_utils_discovery.ipynb 5
-def get_core_utilities() -> List[CoreUtilityInfo]:
+def get_core_utilities(
+) -> List[CoreUtilityInfo]:  # TODO: Add return description
     """Get information about core utility functions."""
     utilities = []
     

@@ -54,7 +54,8 @@ FLEX_BASIS_CONFIG = ScaleConfig( # Create configuration for flex basis - similar
 basis = ScaledFactory("basis", FLEX_BASIS_CONFIG, "Flex basis utilities for controlling the initial size of flex items") # The flex basis factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 6
-def test_flexbox_and_grid_basis_examples():
+def test_flexbox_and_grid_basis_examples(
+): # TODO: Add type hint
     """Test flex basis utilities with various scale values."""
     # Test flex basis utilities
     assert str(basis(0)) == "basis-0"
@@ -91,7 +92,8 @@ FLEX_DIRECTION_VALUES = { # Flex direction utilities
 flex_direction = SimpleFactory(FLEX_DIRECTION_VALUES, "Flex direction utilities for controlling the direction of flex items") # The flex direction factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 9
-def test_flexbox_and_grid_direction_examples():
+def test_flexbox_and_grid_direction_examples(
+): # TODO: Add type hint
     """Test flex direction utilities."""
     # Test flex direction utilities
     assert flex_direction.row == "flex-row"
@@ -113,7 +115,8 @@ FLEX_WRAP_VALUES = { # Flex wrap utilities
 flex_wrap = SimpleFactory(FLEX_WRAP_VALUES, "Flex wrap utilities for controlling how flex items wrap") # The flex wrap factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 12
-def test_flexbox_and_grid_wrap_examples():
+def test_flexbox_and_grid_wrap_examples(
+): # TODO: Add type hint
     """Test flex wrap utilities."""
     # Test flex wrap utilities
     assert flex_wrap.nowrap == "flex-nowrap"
@@ -141,7 +144,8 @@ FLEX_CONFIG = ScaleConfig( # Flex configuration - supports numeric values and sp
 flex = ScaledFactory("flex", FLEX_CONFIG, "Flex utilities for controlling how flex items both grow and shrink") # The flex factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 15
-def test_flexbox_and_grid_flex_examples():
+def test_flexbox_and_grid_flex_examples(
+): # TODO: Add type hint
     """Test flex utilities for combined grow/shrink properties."""
     # Test flex utilities
     assert str(flex(1)) == "flex-1"
@@ -198,7 +202,8 @@ class GrowFactory(ScaledFactory):
 grow = GrowFactory() # The flex grow factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 18
-def test_flexbox_and_grid_grow_examples():
+def test_flexbox_and_grid_grow_examples(
+): # TODO: Add type hint
     """Test flex grow utilities."""
     # Test flex grow utilities
     assert str(grow()) == "grow-1" # which becomes grow-1
@@ -253,7 +258,8 @@ class ShrinkFactory(ScaledFactory):
 shrink = ShrinkFactory() # The flex shrink factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 21
-def test_flexbox_and_grid_shrink_examples():
+def test_flexbox_and_grid_shrink_examples(
+): # TODO: Add type hint
     """Test flex shrink utilities."""
     # Test flex shrink utilities
     assert str(shrink()) == "shrink-1" # which becomes shrink-1
@@ -285,7 +291,8 @@ ORDER_CONFIG = ScaleConfig( # Order configuration - supports numeric values incl
 order = ScaledFactory("order", ORDER_CONFIG, "Order utilities for controlling the order of flex and grid items") # The order factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 24
-def test_flexbox_and_grid_order_examples():
+def test_flexbox_and_grid_order_examples(
+): # TODO: Add type hint
     """Test order utilities for flex and grid items."""
     # Test order utilities
     assert str(order(1)) == "order-1"
@@ -322,7 +329,8 @@ GRID_COLS_CONFIG = ScaleConfig( # Grid template columns configuration
 grid_cols = ScaledFactory("grid-cols", GRID_COLS_CONFIG, "Grid template columns utilities for specifying the columns in a grid layout") # The grid columns factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 27
-def test_flexbox_and_grid_template_columns_examples():
+def test_flexbox_and_grid_template_columns_examples(
+): # TODO: Add type hint
     """Test grid template columns utilities."""
     # Test grid template columns
     assert str(grid_cols(1)) == "grid-cols-1"
@@ -355,7 +363,8 @@ GRID_ROWS_CONFIG = ScaleConfig( # Grid template rows configuration (same as colu
 grid_rows = ScaledFactory("grid-rows", GRID_ROWS_CONFIG, "Grid template rows utilities for specifying the rows in a grid layout") # The grid rows factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 30
-def test_flexbox_and_grid_template_rows_examples():
+def test_flexbox_and_grid_template_rows_examples(
+): # TODO: Add type hint
     """Test grid template rows utilities."""
     # Test grid template rows
     assert str(grid_rows(1)) == "grid-rows-1"
@@ -435,7 +444,8 @@ class ColFactory(ScaledFactory):
 col = ColFactory() # The grid column factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 33
-def test_flexbox_and_grid_column_examples():
+def test_flexbox_and_grid_column_examples(
+): # TODO: Add type hint
     """Test grid column utilities including span, start, and end."""
     # Test grid column utilities
     assert str(col_span(1)) == "col-span-1"
@@ -526,7 +536,8 @@ class RowFactory(ScaledFactory):
 row = RowFactory() # The grid row factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 36
-def test_flexbox_and_grid_row_examples():
+def test_flexbox_and_grid_row_examples(
+): # TODO: Add type hint
     """Test grid row utilities including span, start, and end."""
     # Test grid row utilities
     assert str(row_span(1)) == "row-span-1"
@@ -566,7 +577,8 @@ GRID_FLOW_VALUES = { # Grid auto flow utilities
 grid_flow = SimpleFactory(GRID_FLOW_VALUES, "Grid auto flow utilities for controlling how elements in a grid are auto-placed") # The grid flow factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 39
-def test_flexbox_and_grid_flow_examples():
+def test_flexbox_and_grid_flow_examples(
+): # TODO: Add type hint
     """Test grid auto flow utilities."""
     # Test grid auto flow utilities
     assert grid_flow.row == "grid-flow-row"
@@ -659,7 +671,8 @@ auto_cols = AutoColsFactory() # The auto columns factory
 auto_rows = AutoRowsFactory() # The auto rows factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 42
-def test_flexbox_and_grid_auto_cols_rows_examples():
+def test_flexbox_and_grid_auto_cols_rows_examples(
+): # TODO: Add type hint
     """Test grid auto columns and rows utilities."""
     # Test grid auto columns/rows
     assert auto_cols.auto == "auto-cols-auto"
@@ -729,7 +742,8 @@ gap = GapFactory() # The gap factory
 # Note: gap.y creates gap-y-* classes (row-gap)
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 45
-def test_flexbox_and_grid_gap_examples():
+def test_flexbox_and_grid_gap_examples(
+): # TODO: Add type hint
     """Test gap utilities for flexbox and grid containers."""
     # Test gap utilities
     assert str(gap(0)) == "gap-0"
@@ -795,7 +809,8 @@ JUSTIFY_SELF_VALUES = { # Justify self values
 justify_self = SimpleFactory(JUSTIFY_SELF_VALUES, "Justify self utilities for aligning individual grid items along their inline axis") # The justify self factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 52
-def test_flexbox_and_grid_justify_examples():
+def test_flexbox_and_grid_justify_examples(
+): # TODO: Add type hint
     """Test justify utilities for flex and grid containers."""
     # Test justify utilities
     assert justify.start == "justify-start"
@@ -860,7 +875,8 @@ ALIGN_SELF_VALUES = { # Align self values
 self_align = SimpleFactory(ALIGN_SELF_VALUES, "Align self utilities for positioning individual flex/grid items along container's cross axis") # The align self factory (renamed to avoid conflict with Python's self)
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 59
-def test_flexbox_and_grid_align_examples():
+def test_flexbox_and_grid_align_examples(
+): # TODO: Add type hint
     """Test align utilities for flex and grid containers."""
     # Test align utilities
     assert content.center == "content-center"
@@ -924,7 +940,8 @@ PLACE_SELF_VALUES = { # Place self values
 place_self = SimpleFactory(PLACE_SELF_VALUES, "Place self utilities for aligning individual items both horizontally and vertically") # The place self factory
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 66
-def test_flexbox_and_grid_place_examples():
+def test_flexbox_and_grid_place_examples(
+): # TODO: Add type hint
     """Test place utilities for grid containers."""
     # Test place utilities
     assert place_content.center == "place-content-center"
@@ -940,7 +957,8 @@ def test_flexbox_and_grid_place_examples():
 test_flexbox_and_grid_place_examples()
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 68
-def test_flexbox_and_grid_practical_examples():
+def test_flexbox_and_grid_practical_examples(
+): # TODO: Add type hint
     """Test flexbox and grid utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Header, Nav, Main, Article, Aside, Footer, Img, Button, H1, H2, P
     
@@ -1070,7 +1088,8 @@ def responsive_grid(
     )
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 75
-def test_flexbox_and_grid_helper_examples():
+def test_flexbox_and_grid_helper_examples(
+): # TODO: Add type hint
     """Test helper functions for common flexbox and grid patterns."""
     # Test helper functions
     assert flex_center() == "flex justify-center items-center"
@@ -1084,7 +1103,8 @@ def test_flexbox_and_grid_helper_examples():
 test_flexbox_and_grid_helper_examples()
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 76
-def test_flexbox_and_grid_factory_documentation():
+def test_flexbox_and_grid_factory_documentation(
+): # TODO: Add type hint
     """Test that factories have accessible documentation."""
     # Test factory documentation
     assert basis.describe() == "Flex basis utilities for controlling the initial size of flex items"
