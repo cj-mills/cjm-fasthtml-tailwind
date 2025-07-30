@@ -30,16 +30,17 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (7)
+    └── utilities/ (8)
         ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
         ├── filters.ipynb           # Filter utilities for Tailwind CSS
         ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
+        ├── interactivity.ipynb     # Interactivity utilities for Tailwind CSS
         ├── layout.ipynb            # Display, position, overflow, z-index and other layout utilities for Tailwind CSS
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         ├── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
         └── svg.ipynb               # SVG utilities for Tailwind CSS
 
-Total: 22 notebooks across 4 directories
+Total: 23 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -63,6 +64,7 @@ graph LR
     utilities_backgrounds[utilities.backgrounds<br/>backgrounds]
     utilities_filters[utilities.filters<br/>filters]
     utilities_flexbox_and_grid[utilities.flexbox_and_grid<br/>flexbox_and_grid]
+    utilities_interactivity[utilities.interactivity<br/>interactivity]
     utilities_layout[utilities.layout<br/>layout]
     utilities_sizing[utilities.sizing<br/>sizing]
     utilities_spacing[utilities.spacing<br/>spacing]
@@ -71,56 +73,59 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_utils
     cli_explorer --> cli_helper_discovery
-    cli_explorer --> cli_search
+    cli_explorer --> cli_utils
     cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_test_code
-    cli_explorer --> cli_imports
+    cli_explorer --> cli_search
     cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_imports
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_example_discovery
     cli_helper_discovery --> cli_utils
-    cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_helper_discovery
-    cli_imports --> cli_factory_extraction
+    cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_utils
+    cli_imports --> cli_helper_discovery
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
     cli_search --> cli_factory_extraction
+    cli_search --> cli_example_discovery
+    cli_test_code --> cli_utils
     cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
-    cli_test_code --> cli_utils
-    core_testing --> utilities_sizing
     core_testing --> utilities_layout
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> core_resources
     core_testing --> utilities_spacing
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_sizing
     core_testing --> core_base
+    core_testing --> core_resources
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
-    utilities_filters --> builders_colors
     utilities_filters --> core_base
+    utilities_filters --> builders_colors
     utilities_filters --> builders_scales
-    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_layout --> builders_scales
+    utilities_flexbox_and_grid --> builders_scales
+    utilities_interactivity --> core_base
+    utilities_interactivity --> builders_colors
+    utilities_interactivity --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> builders_scales
+    utilities_layout --> builders_scales
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
     utilities_svg --> core_base
-    utilities_svg --> builders_scales
     utilities_svg --> builders_colors
+    utilities_svg --> builders_scales
 ```
 
-*50 cross-module dependencies detected*
+*53 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -2168,6 +2173,188 @@ def get_recommended_imports(
     modules: Optional[List[str]] = None  # Specific modules to include, or None for all
 ) -> List[str]:  # List of import statements
     "Get recommended import statements for using the library."
+```
+
+### interactivity (`interactivity.ipynb`)
+
+> Interactivity utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.interactivity import (
+    accent,
+    appearance,
+    caret,
+    scheme,
+    cursor,
+    field_sizing,
+    pointer_events,
+    resize,
+    scroll,
+    scroll_m,
+    scroll_ms,
+    scroll_me,
+    scroll_p,
+    scroll_ps,
+    scroll_pe,
+    snap_align,
+    snap_stop,
+    snap,
+    touch,
+    select,
+    will_change,
+    test_interactivity_accent_examples,
+    test_interactivity_appearance_examples,
+    test_interactivity_caret_examples,
+    test_interactivity_scheme_examples,
+    CursorFactory,
+    test_interactivity_cursor_examples,
+    test_interactivity_field_sizing_examples,
+    test_interactivity_pointer_events_examples,
+    test_interactivity_resize_examples,
+    test_interactivity_scroll_behavior_examples,
+    test_interactivity_scroll_margin_examples,
+    test_interactivity_scroll_padding_examples,
+    test_interactivity_scroll_snap_examples,
+    test_interactivity_touch_action_examples,
+    test_interactivity_user_select_examples,
+    WillChangeFactory,
+    test_interactivity_will_change_examples,
+    test_interactivity_form_examples,
+    test_interactivity_touch_mobile_examples,
+    test_interactivity_factory_documentation,
+    test_interactivity_advanced_examples
+)
+```
+
+#### Functions
+
+``` python
+def test_interactivity_accent_examples()
+    "Test accent color utilities."
+```
+
+``` python
+def test_interactivity_appearance_examples()
+    "Test appearance utilities."
+```
+
+``` python
+def test_interactivity_caret_examples()
+    "Test caret color utilities."
+```
+
+``` python
+def test_interactivity_scheme_examples()
+    "Test color scheme utilities."
+```
+
+``` python
+def test_interactivity_cursor_examples()
+    "Test cursor utilities."
+```
+
+``` python
+def test_interactivity_field_sizing_examples()
+    "Test field sizing utilities."
+```
+
+``` python
+def test_interactivity_pointer_events_examples()
+    "Test pointer events utilities."
+```
+
+``` python
+def test_interactivity_resize_examples()
+    "Test resize utilities."
+```
+
+``` python
+def test_interactivity_scroll_behavior_examples()
+    "Test scroll behavior utilities."
+```
+
+``` python
+def test_interactivity_scroll_margin_examples()
+    "Test scroll margin utilities."
+```
+
+``` python
+def test_interactivity_scroll_padding_examples()
+    "Test scroll padding utilities."
+```
+
+``` python
+def test_interactivity_scroll_snap_examples()
+    "Test scroll snap utilities."
+```
+
+``` python
+def test_interactivity_touch_action_examples()
+    "Test touch action utilities."
+```
+
+``` python
+def test_interactivity_user_select_examples()
+    "Test user select utilities."
+```
+
+``` python
+def test_interactivity_will_change_examples()
+    "Test will-change utilities."
+```
+
+``` python
+def test_interactivity_form_examples()
+    "Test interactivity utilities in form components."
+```
+
+``` python
+def test_interactivity_scroll_snap_examples()
+    "Test scroll snap utilities in carousel/gallery components."
+```
+
+``` python
+def test_interactivity_touch_mobile_examples()
+    "Test touch and mobile interaction utilities."
+```
+
+``` python
+def test_interactivity_factory_documentation()
+    "Test that interactivity factories have accessible documentation."
+```
+
+``` python
+def test_interactivity_advanced_examples()
+    "Test advanced combinations of interactivity utilities."
+```
+
+#### Classes
+
+``` python
+class CursorFactory(SimpleFactory):
+    "Factory for cursor utilities with arbitrary value support."
+    
+```
+
+``` python
+class WillChangeFactory(SimpleFactory):
+    "Factory for will-change utilities with arbitrary value support."
+    
+```
+
+#### Variables
+
+``` python
+accent  # The accent color factory
+caret  # The caret color factory
+scroll_m  # The scroll margin factory
+scroll_ms  # scroll-margin-inline-start
+scroll_me  # scroll-margin-inline-end
+scroll_p  # The scroll padding factory
+scroll_ps  # scroll-padding-inline-start
+scroll_pe  # scroll-padding-inline-end
 ```
 
 ### layout (`layout.ipynb`)
