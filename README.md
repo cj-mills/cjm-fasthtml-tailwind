@@ -12,7 +12,8 @@ pip install cjm-fasthtml-tailwind
 ## Project Structure
 
     nbs/
-    ├── builders/ (1)
+    ├── builders/ (2)
+    │   ├── colors.ipynb  # Color system builders for Tailwind CSS utilities
     │   └── scales.ipynb  # Numeric and named scale builders for Tailwind CSS utilities
     ├── cli/ (10)
     │   ├── core_utils_discovery.ipynb  # Functions to discover and display core utility functions like combine_classes:
@@ -29,18 +30,20 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (4)
+    └── utilities/ (5)
+        ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
         ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
         ├── layout.ipynb            # Display, position, overflow, z-index and other layout utilities for Tailwind CSS
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         └── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
 
-Total: 18 notebooks across 4 directories
+Total: 20 notebooks across 4 directories
 
 ## Module Dependencies
 
 ``` mermaid
 graph LR
+    builders_colors[builders.colors<br/>colors]
     builders_scales[builders.scales<br/>scales]
     cli_core_utils_discovery[cli.core_utils_discovery<br/>Core Utilities Discovery]
     cli_example_discovery[cli.example_discovery<br/>Example Discovery]
@@ -55,43 +58,48 @@ graph LR
     core_base[core.base<br/>base]
     core_resources[core.resources<br/>resources]
     core_testing[core.testing<br/>testing]
+    utilities_backgrounds[utilities.backgrounds<br/>backgrounds]
     utilities_flexbox_and_grid[utilities.flexbox_and_grid<br/>flexbox_and_grid]
     utilities_layout[utilities.layout<br/>layout]
     utilities_sizing[utilities.sizing<br/>sizing]
     utilities_spacing[utilities.spacing<br/>spacing]
 
+    builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_utils
     cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_core_utils_discovery
     cli_explorer --> cli_search
-    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_imports
+    cli_explorer --> cli_helper_discovery
     cli_factory_extraction --> core_base
     cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_utils
     cli_imports --> cli_helper_discovery
     cli_imports --> cli_factory_extraction
-    cli_imports --> cli_utils
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_factory_extraction
+    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
+    cli_test_code --> cli_utils
     cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
-    cli_test_code --> cli_utils
-    core_testing --> utilities_sizing
-    core_testing --> utilities_layout
-    core_testing --> core_base
     core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_layout
+    core_testing --> utilities_sizing
     core_testing --> utilities_spacing
     core_testing --> core_resources
+    core_testing --> core_base
+    utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> core_base
+    utilities_backgrounds --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
     utilities_layout --> core_base
@@ -102,13 +110,96 @@ graph LR
     utilities_spacing --> builders_scales
 ```
 
-*40 cross-module dependencies detected*
+*44 cross-module dependencies detected*
 
 ## CLI Reference
 
 ### `cjm-tailwind-explore` Command
 
-CLI command `cjm-tailwind-explore` found but help text unavailable.
+    usage: cjm-tailwind-explore [-h]
+                                {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
+                                ...
+
+    cjm-fasthtml-tailwind CLI Explorer
+
+    This tool helps you explore the cjm-fasthtml-tailwind library, which provides:
+    - Python-native Tailwind CSS v4 utility class builders for FastHTML projects
+    - Type-safe, dynamic CSS class generation without hardcoded strings
+    - Comprehensive utility factories (bg, bg_attachment, bg_clip, bg_conic, etc.)
+    - Helper functions for common patterns
+    - Full integration with FastHTML components
+
+    Purpose: This CLI tool enables autonomous exploration of the library's API by:
+    - Discovering all available utility modules and their documentation
+    - Listing factory instances with their built-in documentation
+    - Showing usage examples from test functions
+    - Providing source code for helper functions
+    - Searching across all library components
+    - Testing code snippets with automatic imports
+    - Generating recommended import statements
+    - Scanning existing code for replaceable CSS patterns
+
+    All information is dynamically extracted from the library itself - nothing is hardcoded.
+
+    positional arguments:
+      {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
+                            Available commands
+        modules             List all utility modules
+        factories           List factories
+        factory             Show detailed info for a specific factory
+        examples            Show usage examples
+        example             Show source code for a specific example
+        helpers             Show helper functions
+        helper              Show source code for a specific helper
+        search              Search across all library components
+        test-code           Test code snippets using the library
+        core-utils          List core utility functions
+        core-util           Show source code for a core utility
+        imports             Show recommended import statements
+        scan                Scan code for replaceable CSS patterns
+
+    options:
+      -h, --help            show this help message and exit
+
+    Getting Started:
+      1. List all modules:     cjm-tailwind-explore modules
+      2. View factories:       cjm-tailwind-explore factories
+      3. Search for patterns:  cjm-tailwind-explore search <query>
+      4. Test code:           cjm-tailwind-explore test-code "<code>"
+      5. Get imports:         cjm-tailwind-explore imports
+      6. Scan existing code:  cjm-tailwind-explore scan <file>
+
+    Exploration Workflow:
+      - Start with 'modules' to see available utility categories
+      - Use 'factories -m <module>' to explore specific modules
+      - Use 'factory <module> <name>' for detailed factory information
+      - Use 'examples' to see test-based usage patterns
+      - Use 'search' to find specific functionality
+      - Use 'test-code' to verify your understanding
+      - Use 'scan' to analyze existing code for migration opportunities
+
+    Key Concepts:
+      - Factories: Objects that generate CSS classes (e.g., bg, bg_attachment, bg_clip, bg_conic)
+      - Modules: Categories of utilities (backgrounds, flexbox_and_grid, layout, etc.)
+      - Examples: Test functions demonstrating usage patterns
+      - Helpers: Convenience functions for common patterns
+
+    Tips for Coding Assistants:
+      - Use 'search --include-source' to find usage patterns in code
+      - Use 'test-code' to validate generated code before using it
+      - Use 'imports' to get all necessary import statements
+      - Use 'scan' to identify replaceable hardcoded CSS classes
+      - Factory names are intuitive: bg, bg_attachment, bg_clip, bg_conic
+      - Combine utilities with combine_classes() function
+      - All factories support method chaining and attribute access
+
+    Example Usage Flow:
+      cjm-tailwind-explore modules                    # See what's available
+      cjm-tailwind-explore factories -m backgrounds       # Explore backgrounds utilities
+      cjm-tailwind-explore factory backgrounds bg          # Learn about bg factory
+      cjm-tailwind-explore example backgrounds arbitrary      # See usage examples
+      cjm-tailwind-explore test-code 'print(str(bg("#123456")))'   # Test your understanding
+      cjm-tailwind-explore scan app.py                # Analyze existing code
 
 For detailed help on any command, use
 `cjm-tailwind-explore <command> --help`.
@@ -116,6 +207,207 @@ For detailed help on any command, use
 ## Module Overview
 
 Detailed documentation for each module in the project:
+
+### backgrounds (`backgrounds.ipynb`)
+
+> Background utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.backgrounds import (
+    bg_attachment,
+    bg_clip,
+    bg,
+    bg_none,
+    bg_linear,
+    bg_radial,
+    bg_conic,
+    from_color,
+    via_color,
+    to_color,
+    bg_origin,
+    bg_position,
+    bg_repeat,
+    bg_size,
+    test_backgrounds_attachment_examples,
+    test_backgrounds_clip_examples,
+    test_backgrounds_color_examples,
+    test_backgrounds_opacity_examples,
+    GradientUtility,
+    GradientFactory,
+    GradientStopUtility,
+    GradientStopFactory,
+    test_backgrounds_gradient_examples,
+    test_backgrounds_gradient_stops_examples,
+    test_backgrounds_gradient_composition_examples,
+    test_backgrounds_origin_examples,
+    test_backgrounds_position_examples,
+    test_backgrounds_repeat_examples,
+    test_backgrounds_size_examples,
+    test_backgrounds_arbitrary_examples,
+    test_backgrounds_practical_examples,
+    test_backgrounds_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def test_backgrounds_attachment_examples()
+    "Test background attachment utilities."
+```
+
+``` python
+def test_backgrounds_clip_examples()
+    "Test background clip utilities."
+```
+
+``` python
+def test_backgrounds_color_examples()
+    "Test background color utilities with various color values."
+```
+
+``` python
+def test_backgrounds_opacity_examples()
+    "Test background colors with opacity modifiers."
+```
+
+``` python
+def test_backgrounds_gradient_examples()
+    "Test gradient background utilities."
+```
+
+``` python
+def test_backgrounds_gradient_stops_examples()
+    "Test gradient color stop utilities."
+```
+
+``` python
+def test_backgrounds_gradient_composition_examples()
+    "Test composing gradient backgrounds with color stops."
+```
+
+``` python
+def test_backgrounds_origin_examples()
+    "Test background origin utilities."
+```
+
+``` python
+def test_backgrounds_position_examples()
+    "Test background position utilities."
+```
+
+``` python
+def test_backgrounds_repeat_examples()
+    "Test background repeat utilities."
+```
+
+``` python
+def test_backgrounds_size_examples()
+    "Test background size utilities."
+```
+
+``` python
+def test_backgrounds_arbitrary_examples()
+    "Test background utilities with arbitrary values."
+```
+
+``` python
+def test_backgrounds_practical_examples()
+    "Test background utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_backgrounds_factory_documentation()
+    "Test that background factories have accessible documentation."
+```
+
+#### Classes
+
+``` python
+class GradientUtility:
+    def __init__(
+        self,
+        gradient_type: str,  # Type of gradient (linear, radial, conic)
+        value: Optional[Union[str, int]] = None,  # Direction, angle, or custom value
+        negative: bool = False  # Whether to negate the angle
+    )
+    "Utility class for gradient backgrounds with angle support."
+    
+    def __init__(
+            self,
+            gradient_type: str,  # Type of gradient (linear, radial, conic)
+            value: Optional[Union[str, int]] = None,  # Direction, angle, or custom value
+            negative: bool = False  # Whether to negate the angle
+        )
+        "Initialize gradient utility."
+```
+
+``` python
+class GradientFactory:
+    def __init__(
+        self,
+        gradient_type: str,  # Type of gradient (linear, radial, conic)
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for gradient utilities with angle and direction support."
+    
+    def __init__(
+            self,
+            gradient_type: str,  # Type of gradient (linear, radial, conic)
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize gradient factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about this gradient factory."
+```
+
+``` python
+class GradientStopUtility:
+    def __init__(
+        self,
+        stop_type: str,  # Type of stop (from, via, to)
+        value: Optional[Union[ColorValue, str, int]] = None,  # Color or percentage
+        is_position: bool = False  # Whether this is a position value
+    )
+    "Utility class for gradient color stops with percentage support."
+    
+    def __init__(
+            self,
+            stop_type: str,  # Type of stop (from, via, to)
+            value: Optional[Union[ColorValue, str, int]] = None,  # Color or percentage
+            is_position: bool = False  # Whether this is a position value
+        )
+        "Initialize gradient stop utility."
+```
+
+``` python
+class GradientStopFactory:
+    def __init__(
+        self,
+        stop_type: str,  # Type of stop (from, via, to)
+        doc: Optional[str] = None  # Documentation
+    )
+    "Enhanced factory for gradient color stops with percentage support."
+    
+    def __init__(
+            self,
+            stop_type: str,  # Type of stop (from, via, to)
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize gradient stop factory."
+```
+
+#### Variables
+
+``` python
+bg  # The background color factory
+bg_none  # Remove background image
+```
 
 ### base (`base.ipynb`)
 
@@ -394,6 +686,215 @@ BREAKPOINTS = {5 items}  # Common breakpoints
 STATE_MODIFIERS = [39 items]  # Common state modifiers
 T
 DIRECTIONS = {6 items}  # Common directions
+```
+
+### colors (`colors.ipynb`)
+
+> Color system builders for Tailwind CSS utilities
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.builders.colors import (
+    SPECIAL_COLORS,
+    ColorSpec,
+    ColorValue,
+    ColorFamily,
+    ColorShade,
+    is_valid_color_family,
+    is_valid_shade,
+    parse_color_spec,
+    ColoredUtility,
+    ColoredFactory,
+    ColorFamilyProxy,
+    test_colors_enum_examples,
+    test_colors_validation_examples,
+    test_colors_factory_examples,
+    test_colors_opacity_examples,
+    test_colors_arbitrary_examples,
+    test_colors_proxy_examples,
+    test_colors_multiple_utilities_examples,
+    test_colors_practical_usage_examples,
+    get_all_color_families,
+    get_all_shades,
+    get_all_color_specs,
+    test_colors_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def is_valid_color_family(
+    value: str  # The value to check
+) -> bool:  # True if value is a valid color family
+    "Check if a value is a valid Tailwind color family."
+```
+
+``` python
+def is_valid_shade(
+    value: str  # The value to check
+) -> bool:  # True if value is a valid shade
+    "Check if a value is a valid Tailwind shade."
+```
+
+``` python
+def parse_color_spec(
+    value: ColorSpec  # The color specification to parse
+) -> tuple[str, Optional[str]]:  # Tuple of (color_family, shade) or (special_color, None)
+    """
+    Parse a color specification into family and shade.
+    
+    Examples:
+    - "red-500" -> ("red", "500")
+    - ("red", "500") -> ("red", "500")
+    - "transparent" -> ("transparent", None)
+    """
+```
+
+``` python
+def test_colors_enum_examples()
+    "Test color family and shade enums."
+```
+
+``` python
+def test_colors_validation_examples()
+    "Test color validation functions."
+```
+
+``` python
+def test_colors_factory_examples()
+    "Test ColoredFactory with various color specifications."
+```
+
+``` python
+def test_colors_opacity_examples()
+    "Test opacity modifiers with color utilities."
+```
+
+``` python
+def test_colors_arbitrary_examples()
+    "Test arbitrary color values and custom properties."
+```
+
+``` python
+def test_colors_proxy_examples()
+    "Test ColorFamilyProxy for dot notation access."
+```
+
+``` python
+def test_colors_multiple_utilities_examples()
+    "Test color system with multiple utility types."
+```
+
+``` python
+def test_colors_practical_usage_examples()
+    "Test practical usage patterns with FastHTML components."
+```
+
+``` python
+def get_all_color_families() -> List[str]
+    "Get list of all Tailwind color family names."
+```
+
+``` python
+def get_all_shades() -> List[str]
+    "Get list of all Tailwind shade values."
+```
+
+``` python
+def get_all_color_specs() -> List[str]:
+    """Get list of all valid color-shade combinations."""
+    specs = []
+    for family in ColorFamily
+    "Get list of all valid color-shade combinations."
+```
+
+``` python
+def test_colors_factory_documentation()
+    "Test that color factories have proper documentation."
+```
+
+#### Classes
+
+``` python
+class ColorFamily(str, Enum):
+    "Tailwind CSS color families."
+```
+
+``` python
+class ColorShade(str, Enum):
+    "Tailwind CSS color shade values."
+```
+
+``` python
+class ColoredUtility:
+    def __init__(
+        self,
+        prefix: str,  # The utility prefix (e.g., 'bg', 'text', 'border')
+        color: Optional[ColorValue] = None,  # The color value
+        opacity: Optional[Union[int, str]] = None  # Optional opacity value (0-100 or arbitrary)
+    )
+    "Utility class with color and opacity support."
+    
+    def __init__(
+            self,
+            prefix: str,  # The utility prefix (e.g., 'bg', 'text', 'border')
+            color: Optional[ColorValue] = None,  # The color value
+            opacity: Optional[Union[int, str]] = None  # Optional opacity value (0-100 or arbitrary)
+        )
+        "Initialize with prefix, optional color, and optional opacity."
+    
+    def opacity(
+            self,
+            value: Union[int, str]  # Opacity value (0-100 or arbitrary)
+        ) -> 'ColoredUtility':  # Self for chaining
+        "Set opacity value."
+```
+
+``` python
+class ColoredFactory:
+    def __init__(
+        self,
+        prefix: str,  # The utility prefix (e.g., 'bg', 'text', 'border')
+        doc: Optional[str] = None  # Optional documentation string
+    )
+    "Factory for creating color-based utilities."
+    
+    def __init__(
+            self,
+            prefix: str,  # The utility prefix (e.g., 'bg', 'text', 'border')
+            doc: Optional[str] = None  # Optional documentation string
+        )
+        "Initialize factory with prefix and documentation."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about this color factory."
+```
+
+``` python
+class ColorFamilyProxy:
+    def __init__(
+        self,
+        prefix: str,  # The utility prefix
+        color_family: str  # The color family name
+    )
+    "Proxy for accessing color shades via dot notation."
+    
+    def __init__(
+            self,
+            prefix: str,  # The utility prefix
+            color_family: str  # The color family name
+        )
+        "Initialize with prefix and color family."
+```
+
+#### Variables
+
+``` python
+SPECIAL_COLORS = {5 items}
 ```
 
 ### Core Utilities Discovery (`core_utils_discovery.ipynb`)
@@ -1865,7 +2366,40 @@ overscroll  # The overscroll factory
 #### Import
 
 ``` python
-from cjm_fasthtml_tailwind.cli.pattern_scanner import *
+from cjm_fasthtml_tailwind.cli.pattern_scanner import (
+    ClsPattern,
+    ClsPatternVisitor,
+    scan_python_code,
+    extract_css_classes_from_node,
+    display_patterns,
+    get_unique_css_classes,
+    AssertionPattern,
+    get_available_css_classes,
+    extract_assertion_patterns,
+    collect_all_assertion_patterns,
+    MatchType,
+    CSSClassMatch,
+    tokenize_css_class,
+    find_pattern_matches,
+    match_css_class,
+    match_css_classes,
+    display_match_results,
+    analyze_code_patterns,
+    display_code_analysis,
+    find_assertion_for_class,
+    find_pattern_examples,
+    get_migration_suggestions,
+    display_migration_suggestions,
+    analyze_and_suggest,
+    scan_python_file,
+    scan_jupyter_notebook,
+    InputType,
+    detect_input_type,
+    scan_input,
+    analyze_input,
+    display_input_analysis,
+    analyze_and_suggest_input
+)
 ```
 
 #### Functions
@@ -1907,6 +2441,15 @@ def get_available_css_classes(
     assertion_patterns: List[AssertionPattern]  # List of assertion patterns from test examples
 ) -> Set[str]:  # Set of unique CSS class strings available in the library
     "Extract all unique CSS classes from assertion patterns. This handles multi-class assertion strings by splitting them."
+```
+
+``` python
+def extract_assertion_patterns(
+    source_code: str,  # Source code of the test function
+    module_name: str,  # Name of the module containing the test
+    example_name: str  # Name of the test function
+) -> List[AssertionPattern]:  # List of AssertionPattern objects
+    "Extract assertion patterns from test example source code."
 ```
 
 ``` python
