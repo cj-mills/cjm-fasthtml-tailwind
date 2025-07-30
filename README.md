@@ -67,39 +67,39 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_utils
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_test_code
-    cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_search
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_utils
     cli_explorer --> cli_imports
+    cli_explorer --> cli_search
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_helper_discovery
-    cli_factory_extraction --> core_base
+    cli_explorer --> cli_core_utils_discovery
     cli_factory_extraction --> cli_utils
-    cli_helper_discovery --> cli_utils
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_utils
+    cli_helper_discovery --> cli_utils
     cli_imports --> cli_helper_discovery
     cli_imports --> cli_factory_extraction
-    cli_search --> cli_utils
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_utils
     cli_search --> cli_factory_extraction
-    cli_search --> cli_example_discovery
+    cli_search --> cli_utils
     cli_search --> cli_helper_discovery
-    cli_test_code --> cli_utils
+    cli_search --> cli_example_discovery
     cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_utils
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_layout
-    core_testing --> utilities_sizing
     core_testing --> utilities_spacing
+    core_testing --> utilities_sizing
+    core_testing --> utilities_layout
     core_testing --> core_resources
     core_testing --> core_base
-    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> builders_colors
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
     utilities_layout --> core_base

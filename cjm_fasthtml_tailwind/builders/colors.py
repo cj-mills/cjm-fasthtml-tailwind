@@ -229,20 +229,13 @@ class ColoredFactory(BaseFactory):
     
     def __getattr__(
         self,
-        name: str  # Attribute name (color-shade or special value)
-    ) -> Union[ColoredUtility, 'ColorFamilyProxy']:  # ColoredUtility or proxy for shades
+        name: str  # Attribute name (special value or arbitrary)
+    ) -> ColoredUtility:  # ColoredUtility for arbitrary values
         """
-        Handle attribute access for colors.
-        Examples: bg.red_500, text.blue_300, border.transparent
+        Handle attribute access for arbitrary color values.
+        Note: For standard colors, use the structured approach: bg.red._500
         """
-        # Handle underscore notation for color-shade (e.g., red_500)
-        if "_" in name:
-            parts = name.split("_", 1)
-            if len(parts) == 2 and is_valid_color_family(parts[0]):
-                color_spec = f"{parts[0]}-{parts[1]}"
-                return ColoredUtility(self.prefix, color_spec)
-        
-        # Handle arbitrary color values
+        # Only handle arbitrary color values here
         return ColoredUtility(self.prefix, name.replace("_", "-"))
     
     def get_info(
@@ -259,8 +252,8 @@ class ColoredFactory(BaseFactory):
                 'shades': shades,
                 'special_colors': list(SPECIAL_COLORS.keys()),
                 'usage_examples': [
-                    f'{self.prefix}.red_500',
-                    f'{self.prefix}.blue_300.opacity(75)',
+                    f'{self.prefix}.red._500',
+                    f'{self.prefix}.blue._300.opacity(75)',
                     f'{self.prefix}("red-500", opacity=50)',
                     f'{self.prefix}.transparent',
                     f'{self.prefix}("#ff0000")',
@@ -286,6 +279,19 @@ class ColorFamilyProxy:
         """Initialize with prefix and color family."""
         self.prefix = prefix
         self.color_family = color_family
+        
+        # Add shade properties for autocomplete
+        self._50 = ColoredUtility(prefix, f"{color_family}-50")
+        self._100 = ColoredUtility(prefix, f"{color_family}-100")
+        self._200 = ColoredUtility(prefix, f"{color_family}-200")
+        self._300 = ColoredUtility(prefix, f"{color_family}-300")
+        self._400 = ColoredUtility(prefix, f"{color_family}-400")
+        self._500 = ColoredUtility(prefix, f"{color_family}-500")
+        self._600 = ColoredUtility(prefix, f"{color_family}-600")
+        self._700 = ColoredUtility(prefix, f"{color_family}-700")
+        self._800 = ColoredUtility(prefix, f"{color_family}-800")
+        self._900 = ColoredUtility(prefix, f"{color_family}-900")
+        self._950 = ColoredUtility(prefix, f"{color_family}-950")
     
     def __getattr__(
         self,
@@ -362,10 +368,10 @@ def test_colors_factory_examples():
     """Test ColoredFactory with various color specifications."""
     bg = ColoredFactory("bg")
     
-    # Test standard colors
-    assert str(bg.red_500) == "bg-red-500"
-    assert str(bg.blue_300) == "bg-blue-300"
-    assert str(bg.green_950) == "bg-green-950"
+    # Test standard colors with structured approach
+    assert str(bg.red._500) == "bg-red-500"
+    assert str(bg.blue._300) == "bg-blue-300"
+    assert str(bg.green._950) == "bg-green-950"
     
     # Test special colors
     assert str(bg.transparent) == "bg-transparent"
@@ -385,13 +391,13 @@ def test_colors_opacity_examples():
     bg = ColoredFactory("bg")
     
     # Test opacity with standard colors
-    assert str(bg.red_500.opacity(50)) == "bg-red-500/50"
-    assert str(bg.blue_300.opacity(75)) == "bg-blue-300/75"
+    assert str(bg.red._500.opacity(50)) == "bg-red-500/50"
+    assert str(bg.blue._300.opacity(75)) == "bg-blue-300/75"
     assert str(bg.black.opacity(10)) == "bg-black/10"
     
     # Test opacity with arbitrary values
-    assert str(bg.red_500.opacity("[0.87]")) == "bg-red-500/[0.87]"
-    assert str(bg.blue_300.opacity("(--my-opacity)")) == "bg-blue-300/(--my-opacity)"
+    assert str(bg.red._500.opacity("[0.87]")) == "bg-red-500/[0.87]"
+    assert str(bg.blue._300.opacity("(--my-opacity)")) == "bg-blue-300/(--my-opacity)"
     
     # Test opacity in factory call
     assert str(bg("green-600", opacity=25)) == "bg-green-600/25"
@@ -431,6 +437,23 @@ def test_colors_proxy_examples():
     assert str(bg.red._500) == "bg-red-500"
     assert str(bg.red._950) == "bg-red-950"
     
+    # Test all shade attributes are available for autocomplete
+    assert hasattr(bg.red, '_50')
+    assert hasattr(bg.red, '_100')
+    assert hasattr(bg.red, '_200')
+    assert hasattr(bg.red, '_300')
+    assert hasattr(bg.red, '_400')
+    assert hasattr(bg.red, '_500')
+    assert hasattr(bg.red, '_600')
+    assert hasattr(bg.red, '_700')
+    assert hasattr(bg.red, '_800')
+    assert hasattr(bg.red, '_900')
+    assert hasattr(bg.red, '_950')
+    
+    # Verify they are ColoredUtility instances
+    assert isinstance(bg.blue._300, ColoredUtility)
+    assert isinstance(bg.green._600, ColoredUtility)
+    
     # Test call syntax on proxy
     assert str(bg.blue("300")) == "bg-blue-300"
     assert str(bg.green(ColorShade.SHADE_600)) == "bg-green-600"
@@ -448,14 +471,14 @@ def test_colors_multiple_utilities_examples():
     border = ColoredFactory("border", "Border color utilities")
     
     # Test same color across different utilities
-    assert str(bg.red_500) == "bg-red-500"
-    assert str(text.red_500) == "text-red-500"
-    assert str(border.red_500) == "border-red-500"
+    assert str(bg.red._500) == "bg-red-500"
+    assert str(text.red._500) == "text-red-500"
+    assert str(border.red._500) == "border-red-500"
     
     # Test with opacity
-    assert str(bg.blue_300.opacity(50)) == "bg-blue-300/50"
-    assert str(text.blue_300.opacity(50)) == "text-blue-300/50"
-    assert str(border.blue_300.opacity(50)) == "border-blue-300/50"
+    assert str(bg.blue._300.opacity(50)) == "bg-blue-300/50"
+    assert str(text.blue._300.opacity(50)) == "text-blue-300/50"
+    assert str(border.blue._300.opacity(50)) == "border-blue-300/50"
     
     # Test special colors
     assert str(bg.transparent) == "bg-transparent"
@@ -477,10 +500,10 @@ def test_colors_practical_usage_examples():
     
     # Create a colored card component
     card = Div(
-        P("Hello World", cls=str(text.gray_700)),
+        P("Hello World", cls=str(text.gray._700)),
         cls=combine_classes(
             bg.white,
-            border.gray_200,
+            border.gray._200,
             "rounded-lg p-4 border"
         )
     )

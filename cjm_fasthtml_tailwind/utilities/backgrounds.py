@@ -70,10 +70,33 @@ bg = ColoredFactory("bg", "Background color utilities for controlling an element
 # %% ../../nbs/utilities/backgrounds.ipynb 13
 def test_backgrounds_color_examples():
     """Test background color utilities with various color values."""
-    # Standard colors
-    assert str(bg.red_500) == "bg-red-500"
-    assert str(bg.blue_300) == "bg-blue-300"
-    assert str(bg.green_950) == "bg-green-950"
+    # Test all 22 Tailwind color families
+    assert str(bg.red._500) == "bg-red-500"
+    assert str(bg.orange._500) == "bg-orange-500"
+    assert str(bg.amber._500) == "bg-amber-500"
+    assert str(bg.yellow._500) == "bg-yellow-500"
+    assert str(bg.lime._500) == "bg-lime-500"
+    assert str(bg.green._500) == "bg-green-500"
+    assert str(bg.emerald._500) == "bg-emerald-500"
+    assert str(bg.teal._500) == "bg-teal-500"
+    assert str(bg.cyan._500) == "bg-cyan-500"
+    assert str(bg.sky._500) == "bg-sky-500"
+    assert str(bg.blue._500) == "bg-blue-500"
+    assert str(bg.indigo._500) == "bg-indigo-500"
+    assert str(bg.violet._500) == "bg-violet-500"
+    assert str(bg.purple._500) == "bg-purple-500"
+    assert str(bg.fuchsia._500) == "bg-fuchsia-500"
+    assert str(bg.pink._500) == "bg-pink-500"
+    assert str(bg.rose._500) == "bg-rose-500"
+    assert str(bg.slate._500) == "bg-slate-500"
+    assert str(bg.gray._500) == "bg-gray-500"
+    assert str(bg.zinc._500) == "bg-zinc-500"
+    assert str(bg.neutral._500) == "bg-neutral-500"
+    assert str(bg.stone._500) == "bg-stone-500"
+    
+    # Test different shades
+    assert str(bg.blue._300) == "bg-blue-300"
+    assert str(bg.green._950) == "bg-green-950"
     
     # Special colors
     assert str(bg.transparent) == "bg-transparent"
@@ -85,25 +108,25 @@ def test_backgrounds_color_examples():
 # Run the tests
 test_backgrounds_color_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 15
+# %% ../../nbs/utilities/backgrounds.ipynb 16
 def test_backgrounds_opacity_examples():
     """Test background colors with opacity modifiers."""
     # Standard opacity values
-    assert str(bg.red_500.opacity(50)) == "bg-red-500/50"
-    assert str(bg.blue_300.opacity(75)) == "bg-blue-300/75"
+    assert str(bg.red._500.opacity(50)) == "bg-red-500/50"
+    assert str(bg.blue._300.opacity(75)) == "bg-blue-300/75"
     assert str(bg.black.opacity(10)) == "bg-black/10"
     
     # Arbitrary opacity values
-    assert str(bg.green_600.opacity("[0.87]")) == "bg-green-600/[0.87]"
-    assert str(bg.purple_400.opacity("(--my-opacity)")) == "bg-purple-400/(--my-opacity)"
+    assert str(bg.green._600.opacity("[0.87]")) == "bg-green-600/[0.87]"
+    assert str(bg.purple._400.opacity("(--my-opacity)")) == "bg-purple-400/(--my-opacity)"
 
 # Run the tests
 test_backgrounds_opacity_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 18
+# %% ../../nbs/utilities/backgrounds.ipynb 19
 bg_none = SingleValueFactory("bg-none", "Remove background image") # Remove background image
 
-# %% ../../nbs/utilities/backgrounds.ipynb 20
+# %% ../../nbs/utilities/backgrounds.ipynb 21
 class GradientUtility(BaseUtility):
     """Utility class for gradient backgrounds with angle support."""
     
@@ -177,7 +200,7 @@ class GradientUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/backgrounds.ipynb 22
+# %% ../../nbs/utilities/backgrounds.ipynb 23
 class GradientFactory(BaseFactory):
     """Factory for gradient utilities with angle and direction support."""
     
@@ -266,7 +289,7 @@ bg_linear = GradientFactory("linear", "Linear gradient utilities for creating gr
 bg_radial = GradientFactory("radial", "Radial gradient utilities for creating circular gradient backgrounds") 
 bg_conic = GradientFactory("conic", "Conic gradient utilities for creating conical gradient backgrounds")
 
-# %% ../../nbs/utilities/backgrounds.ipynb 24
+# %% ../../nbs/utilities/backgrounds.ipynb 25
 class GradientStopUtility(BaseUtility):
     """Utility class for gradient color stops with percentage support."""
     
@@ -325,7 +348,7 @@ class GradientStopUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/backgrounds.ipynb 25
+# %% ../../nbs/utilities/backgrounds.ipynb 26
 class GradientStopFactory(ColoredFactory):
     """Enhanced factory for gradient color stops with percentage support."""
     
@@ -376,7 +399,7 @@ from_color = GradientStopFactory("from", "Gradient from color/position utilities
 via_color = GradientStopFactory("via", "Gradient via color/position utilities for defining the middle color or position of a gradient")
 to_color = GradientStopFactory("to", "Gradient to color/position utilities for defining the ending color or position of a gradient")
 
-# %% ../../nbs/utilities/backgrounds.ipynb 27
+# %% ../../nbs/utilities/backgrounds.ipynb 28
 def test_backgrounds_gradient_examples():
     """Test gradient background utilities."""
     # Test bg-none
@@ -415,12 +438,12 @@ def test_backgrounds_gradient_examples():
 # Run the tests
 test_backgrounds_gradient_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 28
+# %% ../../nbs/utilities/backgrounds.ipynb 29
 def test_backgrounds_gradient_stops_examples():
     """Test gradient color stop utilities."""
     # Test from colors
-    assert str(from_color.red_500) == "from-red-500"
-    assert str(from_color.blue_300) == "from-blue-300"
+    assert str(from_color.red._500) == "from-red-500"
+    assert str(from_color.blue._300) == "from-blue-300"
     assert str(from_color.transparent) == "from-transparent"
     assert str(from_color.black.opacity(50)) == "from-black/50"
     
@@ -436,20 +459,20 @@ def test_backgrounds_gradient_stops_examples():
     assert str(from_color("10px")) == "from-[10px]"
     
     # Test via colors
-    assert str(via_color.green_400) == "via-green-400"
-    assert str(via_color.purple_600) == "via-purple-600"
+    assert str(via_color.green._400) == "via-green-400"
+    assert str(via_color.purple._600) == "via-purple-600"
     assert str(via_color.white) == "via-white"
-    assert str(via_color.yellow_200.opacity(75)) == "via-yellow-200/75"
+    assert str(via_color.yellow._200.opacity(75)) == "via-yellow-200/75"
     
     # Test via percentages
     assert str(via_color._50) == "via-50%"
     assert str(via_color(75)) == "via-75%"
     
     # Test to colors
-    assert str(to_color.pink_500) == "to-pink-500"
-    assert str(to_color.indigo_700) == "to-indigo-700"
+    assert str(to_color.pink._500) == "to-pink-500"
+    assert str(to_color.indigo._700) == "to-indigo-700"
     assert str(to_color.current) == "to-current"
-    assert str(to_color.cyan_300.opacity(25)) == "to-cyan-300/25"
+    assert str(to_color.cyan._300.opacity(25)) == "to-cyan-300/25"
     
     # Test to percentages
     assert str(to_color._100) == "to-100%"
@@ -459,7 +482,7 @@ def test_backgrounds_gradient_stops_examples():
 # Run the tests
 test_backgrounds_gradient_stops_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 31
+# %% ../../nbs/utilities/backgrounds.ipynb 32
 def test_backgrounds_gradient_composition_examples():
     """Test composing gradient backgrounds with color stops."""
     from fasthtml.common import Div
@@ -469,8 +492,8 @@ def test_backgrounds_gradient_composition_examples():
         "Gradient Background",
         cls=combine_classes(
             bg_linear.to_r,
-            from_color.blue_500,
-            to_color.purple_600,
+            from_color.blue._500,
+            to_color.purple._600,
             "p-8 text-white"
         )
     )
@@ -483,9 +506,9 @@ def test_backgrounds_gradient_composition_examples():
         "Three Color Gradient",
         cls=combine_classes(
             bg_linear.to_br,
-            from_color.red_400,
-            via_color.yellow_500,
-            to_color.green_600,
+            from_color.red._400,
+            via_color.yellow._500,
+            to_color.green._600,
             "p-8 text-white"
         )
     )
@@ -496,8 +519,8 @@ def test_backgrounds_gradient_composition_examples():
         "Angled Gradient",
         cls=combine_classes(
             bg_linear._45,
-            from_color.indigo_500,
-            to_color.pink_500,
+            from_color.indigo._500,
+            to_color.pink._500,
             "p-8"
         )
     )
@@ -508,8 +531,8 @@ def test_backgrounds_gradient_composition_examples():
         "Radial Gradient",
         cls=combine_classes(
             bg_radial(),
-            from_color.indigo_300,
-            to_color.pink_500,
+            from_color.indigo._300,
+            to_color.pink._500,
             "p-16"
         )
     )
@@ -520,9 +543,9 @@ def test_backgrounds_gradient_composition_examples():
         "Conic Gradient",
         cls=combine_classes(
             bg_conic._180,
-            from_color.red_500,
-            via_color.yellow_500,
-            to_color.blue_500,
+            from_color.red._500,
+            via_color.yellow._500,
+            to_color.blue._500,
             "p-16"
         )
     )
@@ -546,11 +569,11 @@ def test_backgrounds_gradient_composition_examples():
         "Gradient with positions",
         cls=combine_classes(
             bg_linear.to_r,
-            from_color.blue_500,
+            from_color.blue._500,
             from_color._10,  # Start at 10%
-            via_color.green_500,
+            via_color.green._500,
             via_color._50,   # Middle at 50%
-            to_color.red_500,
+            to_color.red._500,
             to_color._90,    # End at 90%
             "p-8"
         )
@@ -562,7 +585,7 @@ def test_backgrounds_gradient_composition_examples():
 # Run the tests
 test_backgrounds_gradient_composition_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 44
+# %% ../../nbs/utilities/backgrounds.ipynb 45
 bg_origin = SimpleFactory(
     {
         "border": "bg-origin-border",
@@ -572,7 +595,7 @@ bg_origin = SimpleFactory(
     "Background origin utilities for controlling how an element's background is positioned relative to borders, padding, and content"
 ) # Background origin factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 45
+# %% ../../nbs/utilities/backgrounds.ipynb 46
 def test_backgrounds_origin_examples():
     """Test background origin utilities."""
     assert bg_origin.border == "bg-origin-border"
@@ -582,7 +605,7 @@ def test_backgrounds_origin_examples():
 # Run the tests
 test_backgrounds_origin_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 47
+# %% ../../nbs/utilities/backgrounds.ipynb 48
 bg_position = SimpleFactory(
     {
         "top_left": "bg-top-left",
@@ -598,7 +621,7 @@ bg_position = SimpleFactory(
     "Background position utilities for controlling the position of an element's background image"
 ) # Background position factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 48
+# %% ../../nbs/utilities/backgrounds.ipynb 49
 def test_backgrounds_position_examples():
     """Test background position utilities."""
     assert bg_position.top_left == "bg-top-left"
@@ -610,7 +633,7 @@ def test_backgrounds_position_examples():
 # Run the tests
 test_backgrounds_position_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 50
+# %% ../../nbs/utilities/backgrounds.ipynb 51
 bg_repeat = SimpleFactory(
     {
         "repeat": "bg-repeat",
@@ -623,7 +646,7 @@ bg_repeat = SimpleFactory(
     "Background repeat utilities for controlling the repetition of an element's background image"
 ) # Background repeat factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 51
+# %% ../../nbs/utilities/backgrounds.ipynb 52
 def test_backgrounds_repeat_examples():
     """Test background repeat utilities."""
     assert bg_repeat.repeat == "bg-repeat"
@@ -634,7 +657,7 @@ def test_backgrounds_repeat_examples():
 # Run the tests
 test_backgrounds_repeat_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 53
+# %% ../../nbs/utilities/backgrounds.ipynb 54
 bg_size = SimpleFactory(
     {
         "auto": "bg-auto",
@@ -644,7 +667,7 @@ bg_size = SimpleFactory(
     "Background size utilities for controlling the background size of an element's background image"
 ) # Background size factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 54
+# %% ../../nbs/utilities/backgrounds.ipynb 55
 def test_backgrounds_size_examples():
     """Test background size utilities."""
     assert bg_size.auto == "bg-auto"
@@ -654,7 +677,7 @@ def test_backgrounds_size_examples():
 # Run the tests
 test_backgrounds_size_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 56
+# %% ../../nbs/utilities/backgrounds.ipynb 57
 def test_backgrounds_arbitrary_examples():
     """Test background utilities with arbitrary values."""
     # Arbitrary color values
@@ -669,7 +692,7 @@ def test_backgrounds_arbitrary_examples():
 # Run the tests
 test_backgrounds_arbitrary_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 64
+# %% ../../nbs/utilities/backgrounds.ipynb 59
 def test_backgrounds_practical_examples():
     """Test background utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, H1, P, Section
@@ -678,7 +701,7 @@ def test_backgrounds_practical_examples():
     card = Div(
         H1("Welcome", cls="text-white"),
         P("This is a card with a blue background"),
-        cls=combine_classes(bg.blue_500, "p-6 rounded-lg")
+        cls=combine_classes(bg.blue._500, "p-6 rounded-lg")
     )
     assert "bg-blue-500" in card.attrs['class']
     
@@ -706,8 +729,8 @@ def test_backgrounds_practical_examples():
             bg_clip.text,
             "text-transparent",
             bg_linear.to_r,
-            from_color.blue_500,
-            to_color.purple_600
+            from_color.blue._500,
+            to_color.purple._600
         )
     )
     assert "bg-clip-text" in gradient_text.attrs['class']
@@ -718,7 +741,7 @@ def test_backgrounds_practical_examples():
 # Run the tests
 test_backgrounds_practical_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 66
+# %% ../../nbs/utilities/backgrounds.ipynb 61
 def test_backgrounds_factory_documentation():
     """Test that background factories have accessible documentation."""
     # Test color factory
