@@ -8,7 +8,8 @@ __all__ = ['p', 'ps', 'pe', 'm', 'ms', 'me', 'space', 'test_spacing_basic_exampl
            'test_spacing_margin_directional_examples', 'test_spacing_negative_examples',
            'test_spacing_logical_examples', 'SpaceFactory', 'test_spacing_space_between_examples',
            'test_spacing_practical_examples', 'pad', 'margin', 'test_spacing_helper_examples',
-           'test_spacing_modifier_examples', 'test_spacing_factory_documentation']
+           'test_spacing_modifier_examples', 'test_spacing_enhanced_factory_examples',
+           'test_spacing_factory_documentation']
 
 # %% ../../nbs/utilities/spacing.ipynb 3
 from typing import Optional, Union, Dict, Any
@@ -160,7 +161,7 @@ def test_spacing_logical_examples(
 test_spacing_logical_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 22
-from ..core.base import BaseFactory, SingleValueFactory
+from ..core.base import BaseFactory, SingleValueFactory, SingleValueUtility
 
 # Create space between factories
 # Note: space utilities use a hyphenated prefix pattern
@@ -373,6 +374,39 @@ def test_spacing_modifier_examples(
 test_spacing_modifier_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 32
+def test_spacing_enhanced_factory_examples(
+):
+    """Test enhanced SingleValueFactory support in spacing utilities."""
+    # Test space reverse utilities with modifiers
+    assert str(space.x_reverse) == "space-x-reverse"
+    assert str(space.x_reverse.hover) == "hover:space-x-reverse"
+    
+    assert str(space.y_reverse) == "space-y-reverse"
+    assert str(space.y_reverse.md) == "md:space-y-reverse"
+    assert str(space.y_reverse.dark) == "dark:space-y-reverse"
+    
+    # Test combining space utilities with modifiers
+    from fasthtml.common import Div, Ul, Li
+    
+    # Responsive list spacing
+    list_container = Ul(
+        Li("Item 1"),
+        Li("Item 2"),
+        Li("Item 3"),
+        cls=combine_classes(
+            space.y(2),           # Default spacing
+            space.y(4).md,        # Larger spacing on medium screens
+            "flex flex-col"
+        )
+    )
+    
+    assert "space-y-2" in list_container.attrs['class']
+    assert "md:space-y-4" in list_container.attrs['class']
+
+# Run the tests
+test_spacing_enhanced_factory_examples()
+
+# %% ../../nbs/utilities/spacing.ipynb 33
 def test_spacing_factory_documentation(
 ):
     """Test that factories have accessible documentation."""

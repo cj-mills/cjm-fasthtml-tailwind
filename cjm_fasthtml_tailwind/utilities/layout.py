@@ -14,7 +14,8 @@ __all__ = ['DISPLAY_VALUES', 'display_tw', 'sr_only', 'not_sr_only', 'POSITION_V
            'test_layout_z_index_examples', 'FloatFactory', 'test_layout_float_clear_examples', 'ObjectPositionFactory',
            'test_layout_object_examples', 'test_layout_visibility_examples', 'AspectRatioFactory',
            'test_layout_aspect_columns_examples', 'test_layout_columns_examples', 'BreakFactory', 'OverscrollFactory',
-           'test_layout_other_utilities_examples', 'test_layout_practical_examples', 'test_layout_modifier_examples',
+           'test_layout_other_utilities_examples', 'test_layout_practical_examples',
+           'test_layout_enhanced_factories_examples', 'test_layout_modifier_examples',
            'test_layout_factory_documentation', 'center_absolute', 'stack_context', 'sticky_top', 'full_bleed',
            'test_layout_helper_examples']
 
@@ -24,7 +25,7 @@ from dataclasses import dataclass
 from cjm_fasthtml_tailwind.core.base import (
     TailwindScale, combine_classes, StandardUtility, UtilityFactory,
     is_numeric_scale, is_fraction, is_custom_property, is_arbitrary_value,
-    BaseFactory, SingleValueFactory
+    BaseFactory, SingleValueFactory, SingleValueUtility
 )
 from cjm_fasthtml_tailwind.builders.scales import (
     ScaledFactory, DirectionalScaledFactory, ScaleConfig, INSET_CONFIG,
@@ -68,17 +69,17 @@ def test_layout_display_examples(
 ):
     """Test display utilities with various values."""
     # Test display utilities with dot notation
-    assert display_tw.block == "block"
-    assert display_tw.inline == "inline"
-    assert display_tw.flex == "flex"
-    assert display_tw.grid == "grid"
-    assert display_tw.hidden == "hidden"
-    assert display_tw.inline_flex == "inline-flex"
+    assert str(display_tw.block) == "block"
+    assert str(display_tw.inline) == "inline"
+    assert str(display_tw.flex) == "flex"
+    assert str(display_tw.grid) == "grid"
+    assert str(display_tw.hidden) == "hidden"
+    assert str(display_tw.inline_flex) == "inline-flex"
     
     # Table display utilities
-    assert display_tw.table == "table"
-    assert display_tw.table_row == "table-row"
-    assert display_tw.table_cell == "table-cell"
+    assert str(display_tw.table) == "table"
+    assert str(display_tw.table_row) == "table-row"
+    assert str(display_tw.table_cell) == "table-cell"
     
     # Special utilities
     assert str(sr_only) == "sr-only"
@@ -103,16 +104,16 @@ def test_layout_position_examples(
 ):
     """Test position utilities."""
     # Test position utilities with dot notation
-    assert position.static == "static"
-    assert position.relative == "relative"
-    assert position.absolute == "absolute"
-    assert position.fixed == "fixed"
-    assert position.sticky == "sticky"
+    assert str(position.static) == "static"
+    assert str(position.relative) == "relative"
+    assert str(position.absolute) == "absolute"
+    assert str(position.fixed) == "fixed"
+    assert str(position.sticky) == "sticky"
 
 # Run the tests
 test_layout_position_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 11
+# %% ../../nbs/utilities/layout.ipynb 12
 # For inset, we need special handling because it uses hyphens in directional variants
 class InsetDirectionalFactory(BaseFactory):
     """Special factory for inset utilities that use hyphenated directions."""
@@ -204,7 +205,7 @@ left = ScaledFactory("left", INSET_CONFIG, "Left position utilities for controll
 start = ScaledFactory("start", INSET_CONFIG, "Logical start position utilities (left in LTR, right in RTL)")
 end = ScaledFactory("end", INSET_CONFIG, "Logical end position utilities (right in LTR, left in RTL)")
 
-# %% ../../nbs/utilities/layout.ipynb 12
+# %% ../../nbs/utilities/layout.ipynb 13
 def test_layout_inset_examples(
 ):
     """Test inset utilities for positioning elements."""
@@ -229,7 +230,7 @@ def test_layout_inset_examples(
 # Run the tests
 test_layout_inset_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 14
+# %% ../../nbs/utilities/layout.ipynb 15
 OVERFLOW_VALUES = ["auto", "hidden", "clip", "visible", "scroll"] # Overflow values
 
 class OverflowFactory(BaseFactory):
@@ -241,21 +242,31 @@ class OverflowFactory(BaseFactory):
         # Create base overflow utilities
         self._values = {value: f"overflow-{value}" for value in OVERFLOW_VALUES}
         
-        # Create x and y sub-factories
-        self.x = type('OverflowX', (), {
-            value: f"overflow-x-{value}" for value in OVERFLOW_VALUES
-        })()
-        self.y = type('OverflowY', (), {
-            value: f"overflow-y-{value}" for value in OVERFLOW_VALUES
-        })()
+        # Cache for utility instances
+        self._utility_cache = {}
+        
+        # Create x and y sub-factories using SimpleFactory for modifier support
+        from cjm_fasthtml_tailwind.builders.scales import SimpleFactory
+        self.x = SimpleFactory(
+            {value: f"overflow-x-{value}" for value in OVERFLOW_VALUES},
+            "Horizontal overflow utilities"
+        )
+        self.y = SimpleFactory(
+            {value: f"overflow-y-{value}" for value in OVERFLOW_VALUES},
+            "Vertical overflow utilities"
+        )
     
     def __getattr__(
         self,
         name: str  # The attribute name to look up in overflow values
-    ) -> str:  # The corresponding overflow CSS class
+    ) -> SingleValueUtility:  # A utility instance with the overflow class
         "Get overflow utility by attribute name."
         if name in self._values:
-            return self._values[name]
+            css_value = self._values[name]
+            # Return cached utility instance or create new one
+            if css_value not in self._utility_cache:
+                self._utility_cache[css_value] = SingleValueUtility(css_value)
+            return self._utility_cache[css_value]
         raise AttributeError(f"'OverflowFactory' object has no attribute '{name}'")
     
     def get_info(
@@ -264,38 +275,39 @@ class OverflowFactory(BaseFactory):
         """Get information about the overflow factory."""
         return {
             'description': self._doc,
-            'valid_inputs': 'Access values as attributes',
+            'valid_inputs': 'Access values as attributes with modifier support',
             'options': {
                 'available_values': OVERFLOW_VALUES,
                 'directional_variants': {
                     'x': 'horizontal overflow',
                     'y': 'vertical overflow'
-                }
+                },
+                'supports_modifiers': True
             }
         }
 
 overflow = OverflowFactory() # The overflow factory
 
-# %% ../../nbs/utilities/layout.ipynb 15
+# %% ../../nbs/utilities/layout.ipynb 16
 def test_layout_overflow_examples(
 ):
     """Test overflow utilities for content handling."""
     # Test overflow utilities
-    assert overflow.auto == "overflow-auto"
-    assert overflow.hidden == "overflow-hidden"
-    assert overflow.visible == "overflow-visible"
+    assert str(overflow.auto) == "overflow-auto"
+    assert str(overflow.hidden) == "overflow-hidden"
+    assert str(overflow.visible) == "overflow-visible"
     
     # Directional overflow utilities
-    assert overflow.x.auto == "overflow-x-auto"
-    assert overflow.y.scroll == "overflow-y-scroll"
-    assert overflow.x.visible == "overflow-x-visible"
-    assert overflow.y.visible == "overflow-y-visible"
-    assert overflow.y.clip == "overflow-y-clip"
+    assert str(overflow.x.auto) == "overflow-x-auto"
+    assert str(overflow.y.scroll) == "overflow-y-scroll"
+    assert str(overflow.x.visible) == "overflow-x-visible"
+    assert str(overflow.y.visible) == "overflow-y-visible"
+    assert str(overflow.y.clip) == "overflow-y-clip"
 
 # Run the tests
 test_layout_overflow_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 17
+# %% ../../nbs/utilities/layout.ipynb 18
 Z_INDEX_CONFIG = ScaleConfig( # Z-index configuration
     numeric=True,  # Support numeric values 0-50
     decimals=False,
@@ -310,7 +322,7 @@ Z_INDEX_CONFIG = ScaleConfig( # Z-index configuration
 # Create z-index factory
 z = ScaledFactory("z", Z_INDEX_CONFIG, "Z-index utilities for controlling the stack order of an element") # The z-index factory
 
-# %% ../../nbs/utilities/layout.ipynb 18
+# %% ../../nbs/utilities/layout.ipynb 19
 def test_layout_z_index_examples(
 ):
     """Test z-index utilities for stack ordering."""
@@ -327,7 +339,7 @@ def test_layout_z_index_examples(
 # Run the tests
 test_layout_z_index_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 20
+# %% ../../nbs/utilities/layout.ipynb 21
 # Float utilities
 FLOAT_VALUES = {
     "right": "float-right",
@@ -349,7 +361,7 @@ class FloatFactory(SimpleFactory):
 
 float_tw = FloatFactory(FLOAT_VALUES, "Float utilities for controlling the wrapping of content around an element")  # Renamed to avoid conflict with Python's float
 
-# %% ../../nbs/utilities/layout.ipynb 22
+# %% ../../nbs/utilities/layout.ipynb 23
 # Clear utilities
 CLEAR_VALUES = {
     "left": "clear-left",
@@ -363,29 +375,29 @@ CLEAR_VALUES = {
 # Create clear factory
 clear = SimpleFactory(CLEAR_VALUES, "Clear utilities for controlling wrapping behavior after floating elements") # The clear factory
 
-# %% ../../nbs/utilities/layout.ipynb 23
+# %% ../../nbs/utilities/layout.ipynb 24
 def test_layout_float_clear_examples(
 ):
     """Test float and clear utilities for content wrapping."""
     # Test float utilities
-    assert float_tw.right == "float-right"
-    assert float_tw.left == "float-left"
-    assert float_tw.start == "float-start"
-    assert float_tw.end == "float-end"
-    assert float_tw.none == "float-none"
+    assert str(float_tw.right) == "float-right"
+    assert str(float_tw.left) == "float-left"
+    assert str(float_tw.start) == "float-start"
+    assert str(float_tw.end) == "float-end"
+    assert str(float_tw.none) == "float-none"
     
     # Test clear utilities
-    assert clear.left == "clear-left"
-    assert clear.right == "clear-right"
-    assert clear.both == "clear-both"
-    assert clear.start == "clear-start"
-    assert clear.end == "clear-end"
-    assert clear.none == "clear-none"
+    assert str(clear.left) == "clear-left"
+    assert str(clear.right) == "clear-right"
+    assert str(clear.both) == "clear-both"
+    assert str(clear.start) == "clear-start"
+    assert str(clear.end) == "clear-end"
+    assert str(clear.none) == "clear-none"
 
 # Run the tests
 test_layout_float_clear_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 25
+# %% ../../nbs/utilities/layout.ipynb 26
 # Object fit utilities
 OBJECT_FIT_VALUES = {
     "contain": "object-contain",
@@ -398,7 +410,7 @@ OBJECT_FIT_VALUES = {
 # Create object fit factory
 object_fit = SimpleFactory(OBJECT_FIT_VALUES, "Object fit utilities for controlling how replaced element content should be resized") # The object fit factory
 
-# %% ../../nbs/utilities/layout.ipynb 27
+# %% ../../nbs/utilities/layout.ipynb 28
 # Object position utilities - combines fixed positions with custom value support
 OBJECT_POSITION_VALUES = {
     "top-left": "object-top-left",
@@ -450,28 +462,28 @@ object_position = ObjectPositionFactory(
     "Object position utilities for controlling content positioning within its container"
 ) # The object position factory
 
-# %% ../../nbs/utilities/layout.ipynb 28
+# %% ../../nbs/utilities/layout.ipynb 29
 def test_layout_object_examples(
 ):
     """Test object fit and position utilities."""
     # Test object fit utilities
-    assert object_fit.contain == "object-contain"
-    assert object_fit.cover == "object-cover"
-    assert object_fit.fill == "object-fill"
-    assert object_fit.none == "object-none"
-    assert object_fit.scale_down == "object-scale-down"
+    assert str(object_fit.contain) == "object-contain"
+    assert str(object_fit.cover) == "object-cover"
+    assert str(object_fit.fill) == "object-fill"
+    assert str(object_fit.none) == "object-none"
+    assert str(object_fit.scale_down) == "object-scale-down"
     
     # Test object position utilities with dot notation
-    assert object_position.center == "object-center"
-    assert object_position.top == "object-top"
-    assert object_position.bottom_right == "object-bottom-right"
-    assert object_position("50% 25%") == "object-[50% 25%]"
-    assert object_position("--custom-position") == "object-(--custom-position)"
+    assert str(object_position.center) == "object-center"
+    assert str(object_position.top) == "object-top"
+    assert str(object_position.bottom_right) == "object-bottom-right"
+    assert str(object_position("50% 25%")) == "object-[50% 25%]"
+    assert str(object_position("--custom-position")) == "object-(--custom-position)"
 
 # Run the tests
 test_layout_object_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 30
+# %% ../../nbs/utilities/layout.ipynb 31
 # Visibility utilities
 VISIBILITY_VALUES = {
     "visible": "visible",
@@ -482,7 +494,7 @@ VISIBILITY_VALUES = {
 # Create visibility factory
 visibility = SimpleFactory(VISIBILITY_VALUES, "Visibility utilities for controlling the visibility of an element") # The visibility factory
 
-# %% ../../nbs/utilities/layout.ipynb 32
+# %% ../../nbs/utilities/layout.ipynb 33
 # Box sizing utilities
 BOX_SIZING_VALUES = {
     "border": "box-border",
@@ -492,23 +504,23 @@ BOX_SIZING_VALUES = {
 # Create box sizing factory
 box = SimpleFactory(BOX_SIZING_VALUES, "Box sizing utilities for controlling how the browser calculates element size") # The box sizing factory
 
-# %% ../../nbs/utilities/layout.ipynb 33
+# %% ../../nbs/utilities/layout.ipynb 34
 def test_layout_visibility_examples(
 ):
     """Test visibility and box sizing utilities."""
     # Test visibility utilities
-    assert visibility.visible == "visible"
-    assert visibility.invisible == "invisible"
-    assert visibility.collapse == "collapse"
+    assert str(visibility.visible) == "visible"
+    assert str(visibility.invisible) == "invisible"
+    assert str(visibility.collapse) == "collapse"
     
     # Test box sizing utilities
-    assert box.border == "box-border"
-    assert box.content == "box-content"
+    assert str(box.border) == "box-border"
+    assert str(box.content) == "box-content"
 
 # Run the tests
 test_layout_visibility_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 35
+# %% ../../nbs/utilities/layout.ipynb 36
 # Isolation utilities
 ISOLATION_VALUES = {
     "isolate": "isolate",
@@ -518,7 +530,7 @@ ISOLATION_VALUES = {
 # Create isolation factory
 isolation = SimpleFactory(ISOLATION_VALUES, "Isolation utilities for creating a new stacking context") # The isolation factory
 
-# %% ../../nbs/utilities/layout.ipynb 37
+# %% ../../nbs/utilities/layout.ipynb 38
 # Aspect ratio utilities - fixed values with custom ratio support
 ASPECT_RATIO_VALUES = {
     "auto": "aspect-auto",
@@ -566,22 +578,22 @@ class AspectRatioFactory(SimpleFactory):
 # Create aspect ratio factory
 aspect = AspectRatioFactory(ASPECT_RATIO_VALUES, "Aspect ratio utilities for controlling element proportions") # The aspect ratio factory
 
-# %% ../../nbs/utilities/layout.ipynb 38
+# %% ../../nbs/utilities/layout.ipynb 39
 def test_layout_aspect_columns_examples(
 ):
     """Test aspect ratio and columns utilities."""
     # Test aspect ratio utilities with dot notation
-    assert aspect.auto == "aspect-auto"
-    assert aspect.square == "aspect-square"
-    assert aspect.video == "aspect-video"
-    assert aspect("16/9") == "aspect-16/9"
-    assert aspect("4/3") == "aspect-4/3"
-    assert aspect("--custom") == "aspect-(--custom)"
+    assert str(aspect.auto) == "aspect-auto"
+    assert str(aspect.square) == "aspect-square"
+    assert str(aspect.video) == "aspect-video"
+    assert str(aspect("16/9")) == "aspect-16/9"
+    assert str(aspect("4/3")) == "aspect-4/3"
+    assert str(aspect("--custom")) == "aspect-(--custom)"
 
 # Run the tests
 test_layout_aspect_columns_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 40
+# %% ../../nbs/utilities/layout.ipynb 41
 from ..core.base import CONTAINER_SCALES
 
 COLUMNS_CONFIG = ScaleConfig( # Columns configuration with container sizes
@@ -598,7 +610,7 @@ COLUMNS_CONFIG = ScaleConfig( # Columns configuration with container sizes
 # Create columns factory
 columns = ScaledFactory("columns", COLUMNS_CONFIG, "Columns utilities for controlling the number of columns within an element") # The columns factory
 
-# %% ../../nbs/utilities/layout.ipynb 41
+# %% ../../nbs/utilities/layout.ipynb 42
 def test_layout_columns_examples(
 ):
     """Test columns utilities."""
@@ -619,7 +631,7 @@ def test_layout_columns_examples(
 # Run the tests
 test_layout_columns_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 43
+# %% ../../nbs/utilities/layout.ipynb 44
 # Break utilities - organized by type
 BREAK_BEFORE_VALUES = {
     "auto": "break-before-auto",
@@ -683,7 +695,7 @@ class BreakFactory(BaseFactory):
 # Create the break factory
 break_util = BreakFactory() # The break factory
 
-# %% ../../nbs/utilities/layout.ipynb 45
+# %% ../../nbs/utilities/layout.ipynb 46
 # Box decoration break utilities
 BOX_DECORATION_VALUES = {
     "clone": "box-decoration-clone",
@@ -696,7 +708,7 @@ box_decoration = SimpleFactory(
     "Box decoration break utilities for controlling element fragment rendering across breaks"
 ) # The box decoration factory
 
-# %% ../../nbs/utilities/layout.ipynb 47
+# %% ../../nbs/utilities/layout.ipynb 48
 # Overscroll behavior values
 OVERSCROLL_VALUES = ["auto", "contain", "none"]
 
@@ -745,35 +757,35 @@ class OverscrollFactory(BaseFactory):
 # Create the overscroll factory
 overscroll = OverscrollFactory() # The overscroll factory
 
-# %% ../../nbs/utilities/layout.ipynb 48
+# %% ../../nbs/utilities/layout.ipynb 49
 def test_layout_other_utilities_examples(
 ):
     """Test isolation, break, box decoration, and overscroll utilities."""
     # Test isolation utilities
-    assert isolation.isolate == "isolate"
-    assert isolation.auto == "isolation-auto"
+    assert str(isolation.isolate) == "isolate"
+    assert str(isolation.auto) == "isolation-auto"
     
     # Test break utilities
-    assert break_util.before.auto == "break-before-auto"
-    assert break_util.before.page == "break-before-page"
-    assert break_util.after.column == "break-after-column"
-    assert break_util.inside.avoid == "break-inside-avoid"
+    assert str(break_util.before.auto) == "break-before-auto"
+    assert str(break_util.before.page) == "break-before-page"
+    assert str(break_util.after.column) == "break-after-column"
+    assert str(break_util.inside.avoid) == "break-inside-avoid"
     
     # Test box decoration break utilities
-    assert box_decoration.clone == "box-decoration-clone"
-    assert box_decoration.slice == "box-decoration-slice"
+    assert str(box_decoration.clone) == "box-decoration-clone"
+    assert str(box_decoration.slice) == "box-decoration-slice"
     
     # Test overscroll behavior utilities
-    assert overscroll.auto == "overscroll-auto"
-    assert overscroll.contain == "overscroll-contain"
-    assert overscroll.none == "overscroll-none"
-    assert overscroll.x.auto == "overscroll-x-auto"
-    assert overscroll.y.contain == "overscroll-y-contain"
+    assert str(overscroll.auto) == "overscroll-auto"
+    assert str(overscroll.contain) == "overscroll-contain"
+    assert str(overscroll.none) == "overscroll-none"
+    assert str(overscroll.x.auto) == "overscroll-x-auto"
+    assert str(overscroll.y.contain) == "overscroll-y-contain"
 
 # Run the tests
 test_layout_other_utilities_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 50
+# %% ../../nbs/utilities/layout.ipynb 51
 def test_layout_practical_examples(
 ):
     """Test layout utilities in practical FastHTML component examples."""
@@ -819,20 +831,87 @@ def test_layout_practical_examples(
 # Run the tests
 test_layout_practical_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 51
+# %% ../../nbs/utilities/layout.ipynb 52
+def test_layout_enhanced_factories_examples(
+):
+    """Test enhanced factories with modifier support in practical examples."""
+    from fasthtml.common import Div, Nav, Button, Span
+    
+    # Mobile navigation with responsive display
+    mobile_nav = Nav(
+        Button("Menu", cls="md:hidden"),
+        Div(
+            "Navigation items",
+            cls=combine_classes(
+                display_tw.none.md,  # Hidden by default, shown on md+
+                position.fixed.md,   # Fixed position on larger screens
+                "w-full md:w-auto"
+            )
+        )
+    )
+    assert "md:none" in mobile_nav.children[1].attrs['class']
+    assert "md:fixed" in mobile_nav.children[1].attrs['class']
+    
+    # Dropdown menu with hover states
+    dropdown = Div(
+        Button("Options", cls="relative"),
+        Div(
+            "Dropdown content",
+            cls=combine_classes(
+                display_tw.none.group("hover"),  # Show on parent hover
+                position.absolute,
+                "mt-2 bg-white shadow-lg"
+            )
+        ),
+        cls="group relative"
+    )
+    assert "group-hover:none" in dropdown.children[1].attrs['class']
+    
+    # Accessible skip link
+    skip_link = Div(
+        "Skip to content",
+        cls=combine_classes(
+            sr_only.focus,           # Hidden but shown on focus
+            position.absolute.focus, # Position when focused
+            "top-4 left-4 bg-white p-2 z-50"
+        )
+    )
+    assert "focus:sr-only" in skip_link.attrs['class']
+    assert "focus:absolute" in skip_link.attrs['class']
+    
+    # Responsive overflow handling
+    table_container = Div(
+        "Table content",
+        cls=combine_classes(
+            overflow.x.auto,              # Always allow horizontal scroll
+            overflow.y.hidden.md,         # Hide vertical scroll on medium+
+            "border rounded"
+        )
+    )
+    assert "overflow-x-auto" in table_container.attrs['class']
+    assert "md:overflow-y-hidden" in table_container.attrs['class']
+
+# Run the tests
+test_layout_enhanced_factories_examples()
+
+# %% ../../nbs/utilities/layout.ipynb 53
 def test_layout_modifier_examples(
 ):
     """Test layout utilities with modifiers for conditional styling."""
-    # Test display utilities with modifiers
-    assert display_tw.hidden == "hidden"
-    assert display_tw.block == "block"
-    # Note: display utilities return strings, not utilities, so they don't have modifiers
-    # This is intentional as they use SimpleFactory
+    # Test display utilities with modifiers (now supported!)
+    assert str(display_tw.hidden) == "hidden"
+    assert str(display_tw.block) == "block"
+    assert str(display_tw.hidden.hover) == "hover:hidden"
+    assert str(display_tw.block.md) == "md:block"
+    assert str(display_tw.flex.dark) == "dark:flex"
     
-    # Test position utilities with modifiers
-    # Note: position utilities also use SimpleFactory and return strings
+    # Test position utilities with modifiers (now supported!)
+    assert str(position.fixed) == "fixed"
+    assert str(position.absolute.hover) == "hover:absolute"
+    assert str(position.relative.lg) == "lg:relative"
+    assert str(position.sticky.md.dark) == "dark:md:sticky"
     
-    # Test inset utilities with modifiers (these support modifiers)
+    # Test inset utilities with modifiers (these already supported modifiers)
     assert str(inset(0).hover) == "hover:inset-0"
     assert str(top(4).md) == "md:top-4"
     assert str(bottom.auto.lg) == "lg:bottom-auto"
@@ -843,22 +922,45 @@ def test_layout_modifier_examples(
     assert str(z(50).lg) == "lg:z-50"
     assert str(z.auto.dark) == "dark:z-auto"
     
+    # Test overflow utilities with modifiers (now supported!)
+    assert str(overflow.hidden) == "overflow-hidden"
+    assert str(overflow.auto.hover) == "hover:overflow-auto"
+    assert str(overflow.x.scroll.md) == "md:overflow-x-scroll"
+    assert str(overflow.y.hidden.dark) == "dark:overflow-y-hidden"
+    
+    # Test float utilities with modifiers (now supported!)
+    assert str(float_tw.right) == "float-right"
+    assert str(float_tw.left.hover) == "hover:float-left"
+    assert str(float_tw.none.lg) == "lg:float-none"
+    
+    # Test clear utilities with modifiers (now supported!)
+    assert str(clear.both) == "clear-both"
+    assert str(clear.left.md) == "md:clear-left"
+    assert str(clear.none.hover) == "hover:clear-none"
+    
+    # Test SingleValueFactory utilities with modifiers
+    assert str(sr_only) == "sr-only"
+    assert str(sr_only.hover) == "hover:sr-only"
+    assert str(not_sr_only.focus) == "focus:not-sr-only"
+    
     # Test responsive inset
     assert str(inset.x(4).sm) == "sm:inset-x-4"
     assert str(inset.y(8).md) == "md:inset-y-8"
     
     # Test group/peer modifiers
     assert str(z(20).group("hover")) == "group-hover:z-20"
-    assert str(inset(0).peer("checked")) == "peer-checked:inset-0"
+    assert str(position.fixed.group("focus")) == "group-focus:fixed"
+    assert str(display_tw.none.peer("checked")) == "peer-checked:none"
     
     # Test arbitrary modifiers
     assert str(top(0).aria("expanded")) == "aria-expanded:top-0"
-    assert str(z(30).data("open")) == "data-[open]:z-30"
+    assert str(position.absolute.data("open")) == "data-[open]:absolute"
+    assert str(display_tw.block.has(":checked")) == "has-[:checked]:block"
 
 # Run the tests
 test_layout_modifier_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 52
+# %% ../../nbs/utilities/layout.ipynb 54
 def test_layout_factory_documentation(
 ):
     """Test that factories have accessible documentation."""
@@ -888,7 +990,7 @@ def test_layout_factory_documentation(
 # Run the tests
 test_layout_factory_documentation()
 
-# %% ../../nbs/utilities/layout.ipynb 54
+# %% ../../nbs/utilities/layout.ipynb 56
 def center_absolute(
 ) -> str:  # Combined CSS classes for centering an element
     """Center an absolutely positioned element."""
@@ -900,27 +1002,27 @@ def center_absolute(
         "-translate-y-1/2"
     )
 
-# %% ../../nbs/utilities/layout.ipynb 55
+# %% ../../nbs/utilities/layout.ipynb 57
 def stack_context(
     z_value: int = 10  # The z-index value for the stacking context
 ) -> str:  # Combined CSS classes for creating a stacking context
     """Create a stacking context with z-index."""
     return combine_classes(position.relative, z(z_value))
 
-# %% ../../nbs/utilities/layout.ipynb 56
+# %% ../../nbs/utilities/layout.ipynb 58
 def sticky_top(
     offset: TailwindScale = 0  # Top offset value (e.g., 0, 4, '1rem')
 ) -> str:  # Combined CSS classes for sticky positioning
     """Make element sticky at top with optional offset."""
     return combine_classes(position.sticky, top(offset))
 
-# %% ../../nbs/utilities/layout.ipynb 57
+# %% ../../nbs/utilities/layout.ipynb 59
 def full_bleed(
 ) -> str:  # Combined CSS classes for full-bleed layout
     """Make element break out of container constraints."""
     return combine_classes(position.relative, left("1/2"), right("1/2"), "-mx-[50vw]", "w-screen")
 
-# %% ../../nbs/utilities/layout.ipynb 58
+# %% ../../nbs/utilities/layout.ipynb 60
 def test_layout_helper_examples(
 ):
     """Test helper functions for common layout patterns."""

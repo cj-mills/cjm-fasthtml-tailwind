@@ -31,8 +31,8 @@ border_collapse = SimpleFactory(
 # %% ../../nbs/utilities/tables.ipynb 6
 def test_tables_border_collapse_examples():
     """Test border collapse utilities."""
-    assert border_collapse.collapse == "border-collapse"
-    assert border_collapse.separate == "border-separate"
+    assert str(border_collapse.collapse) == "border-collapse"
+    assert str(border_collapse.separate) == "border-separate"
 
 # Run the tests
 test_tables_border_collapse_examples()
@@ -146,8 +146,8 @@ table_layout = SimpleFactory(
 # %% ../../nbs/utilities/tables.ipynb 17
 def test_tables_layout_examples():
     """Test table layout utilities."""
-    assert table_layout.auto == "table-auto"
-    assert table_layout.fixed == "table-fixed"
+    assert str(table_layout.auto) == "table-auto"
+    assert str(table_layout.fixed) == "table-fixed"
 
 # Run the tests
 test_tables_layout_examples()
@@ -164,8 +164,8 @@ caption_side = SimpleFactory(
 # %% ../../nbs/utilities/tables.ipynb 20
 def test_tables_caption_side_examples():
     """Test caption side utilities."""
-    assert caption_side.top == "caption-top"
-    assert caption_side.bottom == "caption-bottom"
+    assert str(caption_side.top) == "caption-top"
+    assert str(caption_side.bottom) == "caption-bottom"
 
 # Run the tests
 test_tables_caption_side_examples()
@@ -174,8 +174,8 @@ test_tables_caption_side_examples()
 def test_tables_all_utilities():
     """Comprehensive test of all table utilities."""
     # Border collapse
-    assert border_collapse.collapse == "border-collapse"
-    assert border_collapse.separate == "border-separate"
+    assert str(border_collapse.collapse) == "border-collapse"
+    assert str(border_collapse.separate) == "border-separate"
     
     # Border spacing - basic
     assert str(border_spacing(2)) == "border-spacing-2"
@@ -190,12 +190,12 @@ def test_tables_all_utilities():
     assert str(border_spacing.x("0.5rem")) == "border-spacing-x-[0.5rem]"
     
     # Table layout
-    assert table_layout.auto == "table-auto"
-    assert table_layout.fixed == "table-fixed"
+    assert str(table_layout.auto) == "table-auto"
+    assert str(table_layout.fixed) == "table-fixed"
     
     # Caption side
-    assert caption_side.top == "caption-top"
-    assert caption_side.bottom == "caption-bottom"
+    assert str(caption_side.top) == "caption-top"
+    assert str(caption_side.bottom) == "caption-bottom"
 
 # Run the comprehensive test
 test_tables_all_utilities()
@@ -266,7 +266,7 @@ def test_tables_practical_examples():
     
     # Fixed layout table with caption
     fixed_table = Table(
-        Caption("User Information", cls=caption_side.top),
+        Caption("User Information", cls=str(caption_side.top)),
         Thead(
             Tr(
                 Th("ID", cls="w-20"),
@@ -292,7 +292,7 @@ def test_tables_practical_examples():
     
     # Auto layout table (default behavior)
     auto_table = Table(
-        Caption("Sales Data", cls=caption_side.bottom),
+        Caption("Sales Data", cls=str(caption_side.bottom)),
         Thead(
             Tr(Th("Month"), Th("Revenue"), Th("Growth"))
         ),
@@ -314,7 +314,7 @@ def test_tables_practical_examples():
 # Run the tests
 test_tables_practical_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 26
+# %% ../../nbs/utilities/tables.ipynb 27
 def test_tables_complex_example():
     """Test a complex table example with various styling."""
     from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption, Div
@@ -409,7 +409,7 @@ def test_tables_complex_example():
 # Run the test
 test_tables_complex_example()
 
-# %% ../../nbs/utilities/tables.ipynb 28
+# %% ../../nbs/utilities/tables.ipynb 29
 def test_tables_factory_documentation():
     """Test that table factories have accessible documentation."""
     # Test border collapse factory

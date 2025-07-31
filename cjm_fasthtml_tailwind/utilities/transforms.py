@@ -43,8 +43,8 @@ backface = SimpleFactory(BACKFACE_VALUES, "Backface visibility utilities for con
 # %% ../../nbs/utilities/transforms.ipynb 6
 def test_transforms_backface_examples():
     """Test backface visibility utilities."""
-    assert backface.hidden == "backface-hidden"
-    assert backface.visible == "backface-visible"
+    assert str(backface.hidden) == "backface-hidden"
+    assert str(backface.visible) == "backface-visible"
 
 # Run the test
 test_transforms_backface_examples()
@@ -105,12 +105,12 @@ perspective = PerspectiveFactory(PERSPECTIVE_VALUES, "Perspective utilities for 
 def test_transforms_perspective_examples():
     """Test perspective utilities."""
     # Named perspectives
-    assert perspective.dramatic == "perspective-dramatic"
-    assert perspective.near == "perspective-near"
-    assert perspective.normal == "perspective-normal"
-    assert perspective.midrange == "perspective-midrange"
-    assert perspective.distant == "perspective-distant"
-    assert perspective.none == "perspective-none"
+    assert str(perspective.dramatic) == "perspective-dramatic"
+    assert str(perspective.near) == "perspective-near"
+    assert str(perspective.normal) == "perspective-normal"
+    assert str(perspective.midrange) == "perspective-midrange"
+    assert str(perspective.distant) == "perspective-distant"
+    assert str(perspective.none) == "perspective-none"
     
     # Custom perspectives
     assert perspective("500px") == "perspective-[500px]"
@@ -175,10 +175,10 @@ perspective_origin = PerspectiveOriginFactory(
 def test_transforms_perspective_origin_examples():
     """Test perspective origin utilities."""
     # Fixed positions
-    assert perspective_origin.center == "perspective-origin-center"
-    assert perspective_origin.top == "perspective-origin-top"
-    assert perspective_origin.bottom_right == "perspective-origin-bottom-right"
-    assert perspective_origin.top_left == "perspective-origin-top-left"
+    assert str(perspective_origin.center) == "perspective-origin-center"
+    assert str(perspective_origin.top) == "perspective-origin-top"
+    assert str(perspective_origin.bottom_right) == "perspective-origin-bottom-right"
+    assert str(perspective_origin.top_left) == "perspective-origin-top-left"
     
     # Custom positions
     assert perspective_origin("50% 25%") == "perspective-origin-[50% 25%]"
@@ -729,9 +729,9 @@ transform = TransformFactory(TRANSFORM_VALUES, "Transform utilities for transfor
 def test_transforms_transform_examples():
     """Test transform utilities."""
     # Special values
-    assert transform.none == "transform-none"
-    assert transform.gpu == "transform-gpu"
-    assert transform.cpu == "transform-cpu"
+    assert str(transform.none) == "transform-none"
+    assert str(transform.gpu) == "transform-gpu"
+    assert str(transform.cpu) == "transform-cpu"
     
     # Custom transforms
     assert transform("npu") == "transform-npu"
@@ -795,10 +795,10 @@ origin = TransformOriginFactory(
 def test_transforms_origin_examples():
     """Test transform origin utilities."""
     # Fixed positions
-    assert origin.center == "origin-center"
-    assert origin.top == "origin-top"
-    assert origin.bottom_right == "origin-bottom-right"
-    assert origin.top_left == "origin-top-left"
+    assert str(origin.center) == "origin-center"
+    assert str(origin.top) == "origin-top"
+    assert str(origin.bottom_right) == "origin-bottom-right"
+    assert str(origin.top_left) == "origin-top-left"
     
     # Custom positions
     assert origin("50% 25%") == "origin-[50% 25%]"
@@ -820,8 +820,8 @@ transform_style = SimpleFactory(TRANSFORM_STYLE_VALUES, "Transform style utiliti
 # %% ../../nbs/utilities/transforms.ipynb 30
 def test_transforms_style_examples():
     """Test transform style utilities."""
-    assert transform_style._3d == "transform-3d"
-    assert transform_style.flat == "transform-flat"
+    assert str(transform_style._3d) == "transform-3d"
+    assert str(transform_style.flat) == "transform-flat"
 
 # Run the test
 test_transforms_style_examples()

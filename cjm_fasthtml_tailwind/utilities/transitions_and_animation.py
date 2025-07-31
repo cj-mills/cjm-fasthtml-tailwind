@@ -130,13 +130,13 @@ transition = TransitionPropertyFactory(
 def test_transitions_and_animation_property_examples():
     """Test transition property utilities."""
     # Test predefined transition properties
-    assert transition.default == "transition"
-    assert transition.all == "transition-all"
-    assert transition.colors == "transition-colors"
-    assert transition.opacity == "transition-opacity"
-    assert transition.shadow == "transition-shadow"
-    assert transition.transform == "transition-transform"
-    assert transition.none == "transition-none"
+    assert str(transition.default) == "transition"
+    assert str(transition.all) == "transition-all"
+    assert str(transition.colors) == "transition-colors"
+    assert str(transition.opacity) == "transition-opacity"
+    assert str(transition.shadow) == "transition-shadow"
+    assert str(transition.transform) == "transition-transform"
+    assert str(transition.none) == "transition-none"
     
     # Test custom properties
     assert transition("--my-transition") == "transition-(--my-transition)"
@@ -162,8 +162,8 @@ transition_behavior = SimpleFactory(
 # %% ../../nbs/utilities/transitions_and_animation.ipynb 11
 def test_transitions_and_animation_behavior_examples():
     """Test transition behavior utilities."""
-    assert transition_behavior.normal == "transition-normal"
-    assert transition_behavior.discrete == "transition-discrete"
+    assert str(transition_behavior.normal) == "transition-normal"
+    assert str(transition_behavior.discrete) == "transition-discrete"
 
 # Run the tests
 test_transitions_and_animation_behavior_examples()
@@ -358,11 +358,11 @@ ease = EaseFactory(
 def test_transitions_and_animation_timing_examples():
     """Test transition timing function utilities."""
     # Test predefined easing functions
-    assert ease.linear == "ease-linear"
-    assert ease._in == "ease-in"  # Note: 'in' is a Python keyword, so we use 'in_'
-    assert ease.out == "ease-out"
-    assert ease.in_out == "ease-in-out"
-    assert ease.initial == "ease-initial"
+    assert str(ease.linear) == "ease-linear"
+    assert str(ease._in) == "ease-in"  # Note: 'in' is a Python keyword, so we use 'in_'
+    assert str(ease.out) == "ease-out"
+    assert str(ease.in_out) == "ease-in-out"
+    assert str(ease.initial) == "ease-initial"
     
     # Test custom properties
     assert ease("--my-ease") == "ease-(--my-ease)"
@@ -527,11 +527,11 @@ animate = AnimationFactory(
 def test_transitions_and_animation_examples():
     """Test animation utilities."""
     # Test predefined animations
-    assert animate.spin == "animate-spin"
-    assert animate.ping == "animate-ping"
-    assert animate.pulse == "animate-pulse"
-    assert animate.bounce == "animate-bounce"
-    assert animate.none == "animate-none"
+    assert str(animate.spin) == "animate-spin"
+    assert str(animate.ping) == "animate-ping"
+    assert str(animate.pulse) == "animate-pulse"
+    assert str(animate.bounce) == "animate-bounce"
+    assert str(animate.none) == "animate-none"
     
     # Test custom properties
     assert animate("--my-animation") == "animate-(--my-animation)"

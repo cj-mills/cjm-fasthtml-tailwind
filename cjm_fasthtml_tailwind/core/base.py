@@ -9,8 +9,8 @@ __all__ = ['TailwindScale', 'TailwindFraction', 'TailwindArbitrary', 'TailwindCu
            'STATE_MODIFIERS', 'CHILD_MODIFIERS', 'ALL_MODIFIER_GROUPS', 'CONTAINER_SCALES', 'BREAKPOINTS', 'T',
            'DIRECTIONS', 'is_numeric_scale', 'is_fraction', 'is_custom_property', 'is_arbitrary_value',
            'TailwindBuilder', 'BaseUtility', 'ModifierMixin', 'ModifierGroup', 'StandardUtility', 'NamedScale',
-           'Breakpoint', 'BaseFactory', 'UtilityFactory', 'combine_classes', 'SingleValueFactory', 'Direction',
-           'DirectionalUtility', 'NegativeableUtility']
+           'Breakpoint', 'BaseFactory', 'UtilityFactory', 'combine_classes', 'SingleValueUtility', 'SingleValueFactory',
+           'Direction', 'DirectionalUtility', 'NegativeableUtility']
 
 # %% ../../nbs/core/base.ipynb 3
 from typing import Union, Optional, Literal, Protocol, runtime_checkable, TypeVar, Generic, Callable, Any, Dict, List, Tuple
@@ -732,8 +732,43 @@ def combine_classes(
     return " ".join(classes)
 
 # %% ../../nbs/core/base.ipynb 51
+class SingleValueUtility(BaseUtility, ModifierMixin):
+    """A utility that represents a single fixed value."""
+    
+    def __init__(
+        self,
+        value: str  # The complete utility class string (e.g., "container", "sr-only")
+    ):
+        """Initialize with a complete utility value."""
+        # For single values, the entire value is the prefix
+        super().__init__(value)
+        # No additional value needed
+        self._value = None
+    
+    def _format_value(
+        self,
+        value: TailwindValue  # Not used for single value utilities
+    ) -> str:  # Empty string since value is in prefix
+        """Single value utilities don't format values."""
+        return ""
+    
+    def _build_class(
+        self,
+        value: Optional[TailwindValue] = None  # Ignored for single value utilities
+    ) -> str:  # The complete CSS class string with modifiers
+        """Build the complete CSS class string."""
+        # For single values, the prefix IS the class
+        base_class = self.prefix
+        
+        # Apply modifiers
+        if self._modifiers:
+            return ":".join(self._modifiers + [base_class])
+        
+        return base_class
+
+# %% ../../nbs/core/base.ipynb 52
 class SingleValueFactory(BaseFactory):
-    """Factory for a single utility class string with documentation."""
+    """Factory for a single utility class with modifier support."""
     
     def __init__(
         self,
@@ -743,6 +778,8 @@ class SingleValueFactory(BaseFactory):
         """Initialize with a value and documentation."""
         super().__init__(doc)
         self._value = value
+        # Create a cached instance for property access
+        self._instance = SingleValueUtility(value)
     
     def __str__(
         self
@@ -752,9 +789,9 @@ class SingleValueFactory(BaseFactory):
     
     def __call__(
         self
-    ) -> str:  # The utility class string
-        """Return the utility class string when called."""
-        return self._value
+    ) -> SingleValueUtility:  # A SingleValueUtility instance
+        """Return a new SingleValueUtility instance when called."""
+        return SingleValueUtility(self._value)
     
     def build(
         self
@@ -762,26 +799,45 @@ class SingleValueFactory(BaseFactory):
         """Build and return the utility class string."""
         return self._value
     
+    # Delegate modifier properties to the cached instance
+    def __getattr__(
+        self,
+        name: str  # Attribute name to delegate
+    ) -> Any:  # The result from the cached instance
+        """Delegate modifier access to the cached instance."""
+        # Check if it's a modifier property
+        if hasattr(self._instance, name):
+            attr = getattr(self._instance, name)
+            # If it's a property or method that returns a utility, we need to handle it
+            if callable(attr) or isinstance(attr, property):
+                # Get the actual value
+                result = getattr(self._instance, name)
+                if isinstance(result, BaseUtility):
+                    return result
+            return attr
+        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+    
     def get_info(
         self
     ) -> Dict[str, Any]:  # Dictionary with factory information
         """Get information about this single-value factory."""
         return {
             'description': self._doc,
-            'valid_inputs': 'No inputs - returns a fixed value',
+            'valid_inputs': 'No inputs - returns a fixed value with modifier support',
             'options': {
-                'value': self._value
+                'value': self._value,
+                'supports_modifiers': True
             }
         }
 
-# %% ../../nbs/core/base.ipynb 54
+# %% ../../nbs/core/base.ipynb 55
 @dataclass
 class Direction:
     """Represents a directional variant."""
     suffix: str
     css_suffix: str
 
-# %% ../../nbs/core/base.ipynb 55
+# %% ../../nbs/core/base.ipynb 56
 DIRECTIONS = { # Common directions
     "t": Direction("t", "top"),      # top
     "r": Direction("r", "right"),    # right
@@ -791,7 +847,7 @@ DIRECTIONS = { # Common directions
     "y": Direction("y", "block"),    # vertical
 }
 
-# %% ../../nbs/core/base.ipynb 56
+# %% ../../nbs/core/base.ipynb 57
 class DirectionalUtility(StandardUtility):
     """Base class for utilities with directional variants."""
     
@@ -807,7 +863,7 @@ class DirectionalUtility(StandardUtility):
             full_prefix = prefix
         super().__init__(full_prefix)
 
-# %% ../../nbs/core/base.ipynb 59
+# %% ../../nbs/core/base.ipynb 60
 class NegativeableUtility(StandardUtility):
     """Utility class that supports negative values."""
     

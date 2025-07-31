@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from cjm_fasthtml_tailwind.core.base import (
     NamedScale, CONTAINER_SCALES, TailwindScale, 
     BaseUtility, StandardUtility, DirectionalUtility,
-    UtilityFactory, is_numeric_scale, BaseFactory
+    UtilityFactory, is_numeric_scale, BaseFactory, SingleValueUtility
 )
 
 # %% ../../nbs/builders/scales.ipynb 5
@@ -443,7 +443,7 @@ def list_scale_values(
 
 # %% ../../nbs/builders/scales.ipynb 42
 class SimpleFactory(BaseFactory):
-    """Factory for utilities that are simple string values."""
+    """Factory for utilities that are simple string values with modifier support."""
     
     def __init__(
         self,
@@ -454,19 +454,30 @@ class SimpleFactory(BaseFactory):
         doc = doc or "Factory for simple utility values"
         super().__init__(doc)
         self._values = values_dict
+        # Cache utility instances for each value
+        self._utility_cache = {}
     
     def __getattr__(
         self,
         name: str  # The attribute name to look up
-    ) -> str:  # The corresponding CSS value from the dictionary
-        "Get CSS value by attribute name, converting underscores to hyphens."
+    ) -> Union[SingleValueUtility, Any]:  # A SingleValueUtility instance or attribute
+        "Get utility instance by attribute name, converting underscores to hyphens."
         # Handle underscore to hyphen conversion for multi-word values
         key = name.replace("_", "-")
+        css_value = None
+        
         if key in self._values:
-            return self._values[key]
-        # Also check without conversion
-        if name in self._values:
-            return self._values[name]
+            css_value = self._values[key]
+        elif name in self._values:
+            css_value = self._values[name]
+        
+        if css_value is not None:
+            # Return cached utility instance or create new one
+            if css_value not in self._utility_cache:
+                from cjm_fasthtml_tailwind.core.base import SingleValueUtility
+                self._utility_cache[css_value] = SingleValueUtility(css_value)
+            return self._utility_cache[css_value]
+        
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
     
     def get_info(
@@ -475,8 +486,9 @@ class SimpleFactory(BaseFactory):
         """Get information about this simple factory."""
         return {
             'description': self._doc,
-            'valid_inputs': 'No inputs - access values as attributes',
+            'valid_inputs': 'No inputs - access values as attributes with modifier support',
             'options': {
-                'available_values': list(self._values.keys())
+                'available_values': list(self._values.keys()),
+                'supports_modifiers': True
             }
         }

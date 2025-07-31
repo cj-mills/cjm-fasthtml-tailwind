@@ -36,7 +36,7 @@ filter_none = SingleValueFactory("filter-none", "Remove all filters from an elem
 def test_filters_control_examples():
     """Test filter control utilities."""
     assert str(filter_none) == "filter-none"
-    assert filter_none() == "filter-none"
+    assert str(filter_none()) == "filter-none"
     assert filter_none.build() == "filter-none"
 
 # Run the tests
@@ -85,14 +85,14 @@ blur = SimpleFactory(
 def test_filters_blur_examples():
     """Test blur filter utilities."""
     # Test named blur scales
-    assert blur.none == "blur-none"
-    assert blur.xs == "blur-xs"
-    assert blur.sm == "blur-sm"
-    assert blur.md == "blur-md"
-    assert blur.lg == "blur-lg"
-    assert blur.xl == "blur-xl"
-    assert blur._2xl == "blur-2xl"
-    assert blur._3xl == "blur-3xl"
+    assert str(blur.none) == "blur-none"
+    assert str(blur.xs) == "blur-xs"
+    assert str(blur.sm) == "blur-sm"
+    assert str(blur.md) == "blur-md"
+    assert str(blur.lg) == "blur-lg"
+    assert str(blur.xl) == "blur-xl"
+    assert str(blur._2xl) == "blur-2xl"
+    assert str(blur._3xl) == "blur-3xl"
 
 # Run the tests
 test_filters_blur_examples()
@@ -205,13 +205,13 @@ drop_shadow_color = ColoredFactory("drop-shadow", "Drop shadow color utilities f
 def test_filters_drop_shadow_examples():
     """Test drop shadow filter utilities."""
     # Test named drop shadow scales
-    assert drop_shadow.none == "drop-shadow-none"
-    assert drop_shadow.xs == "drop-shadow-xs"
-    assert drop_shadow.sm == "drop-shadow-sm"
-    assert drop_shadow.md == "drop-shadow-md"
-    assert drop_shadow.lg == "drop-shadow-lg"
-    assert drop_shadow.xl == "drop-shadow-xl"
-    assert drop_shadow._2xl == "drop-shadow-2xl"
+    assert str(drop_shadow.none) == "drop-shadow-none"
+    assert str(drop_shadow.xs) == "drop-shadow-xs"
+    assert str(drop_shadow.sm) == "drop-shadow-sm"
+    assert str(drop_shadow.md) == "drop-shadow-md"
+    assert str(drop_shadow.lg) == "drop-shadow-lg"
+    assert str(drop_shadow.xl) == "drop-shadow-xl"
+    assert str(drop_shadow._2xl) == "drop-shadow-2xl"
     
     # Test drop shadow colors - all 22 Tailwind color families
     assert str(drop_shadow_color.red._500) == "drop-shadow-red-500"
@@ -453,10 +453,10 @@ def test_filters_backdrop_examples():
     assert str(backdrop_filter_none) == "backdrop-filter-none"
     
     # Test backdrop blur
-    assert backdrop_blur.none == "backdrop-blur-none"
-    assert backdrop_blur.sm == "backdrop-blur-sm"
-    assert backdrop_blur.lg == "backdrop-blur-lg"
-    assert backdrop_blur._2xl == "backdrop-blur-2xl"
+    assert str(backdrop_blur.none) == "backdrop-blur-none"
+    assert str(backdrop_blur.sm) == "backdrop-blur-sm"
+    assert str(backdrop_blur.lg) == "backdrop-blur-lg"
+    assert str(backdrop_blur._2xl) == "backdrop-blur-2xl"
     
     # Test backdrop brightness
     assert str(backdrop_brightness(50)) == "backdrop-brightness-50"

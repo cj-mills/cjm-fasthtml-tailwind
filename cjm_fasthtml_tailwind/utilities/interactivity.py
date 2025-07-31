@@ -84,8 +84,8 @@ appearance = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 9
 def test_interactivity_appearance_examples():
     """Test appearance utilities."""
-    assert appearance.none == "appearance-none"
-    assert appearance.auto == "appearance-auto"
+    assert str(appearance.none) == "appearance-none"
+    assert str(appearance.auto) == "appearance-auto"
 
 # Run the tests
 test_interactivity_appearance_examples()
@@ -151,12 +151,12 @@ scheme = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 15
 def test_interactivity_scheme_examples():
     """Test color scheme utilities."""
-    assert scheme.normal == "scheme-normal"
-    assert scheme.dark == "scheme-dark"
-    assert scheme.light == "scheme-light"
-    assert scheme.light_dark == "scheme-light-dark"
-    assert scheme.only_dark == "scheme-only-dark"
-    assert scheme.only_light == "scheme-only-light"
+    assert str(scheme.normal) == "scheme-normal"
+    assert str(scheme.dark) == "scheme-dark"
+    assert str(scheme.light) == "scheme-light"
+    assert str(scheme.light_dark) == "scheme-light-dark"
+    assert str(scheme.only_dark) == "scheme-only-dark"
+    assert str(scheme.only_light) == "scheme-only-light"
 
 # Run the tests
 test_interactivity_scheme_examples()
@@ -275,8 +275,8 @@ field_sizing = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 22
 def test_interactivity_field_sizing_examples():
     """Test field sizing utilities."""
-    assert field_sizing.fixed == "field-sizing-fixed"
-    assert field_sizing.content == "field-sizing-content"
+    assert str(field_sizing.fixed) == "field-sizing-fixed"
+    assert str(field_sizing.content) == "field-sizing-content"
 
 # Run the tests
 test_interactivity_field_sizing_examples()
@@ -293,8 +293,8 @@ pointer_events = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 25
 def test_interactivity_pointer_events_examples():
     """Test pointer events utilities."""
-    assert pointer_events.auto == "pointer-events-auto"
-    assert pointer_events.none == "pointer-events-none"
+    assert str(pointer_events.auto) == "pointer-events-auto"
+    assert str(pointer_events.none) == "pointer-events-none"
 
 # Run the tests
 test_interactivity_pointer_events_examples()
@@ -313,10 +313,10 @@ resize = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 28
 def test_interactivity_resize_examples():
     """Test resize utilities."""
-    assert resize.none == "resize-none"
-    assert resize.both == "resize"
-    assert resize.y == "resize-y"
-    assert resize.x == "resize-x"
+    assert str(resize.none) == "resize-none"
+    assert str(resize.both) == "resize"
+    assert str(resize.y) == "resize-y"
+    assert str(resize.x) == "resize-x"
 
 # Run the tests
 test_interactivity_resize_examples()
@@ -333,8 +333,8 @@ scroll = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 31
 def test_interactivity_scroll_behavior_examples():
     """Test scroll behavior utilities."""
-    assert scroll.auto == "scroll-auto"
-    assert scroll.smooth == "scroll-smooth"
+    assert str(scroll.auto) == "scroll-auto"
+    assert str(scroll.smooth) == "scroll-smooth"
 
 # Run the tests
 test_interactivity_scroll_behavior_examples()
@@ -454,22 +454,22 @@ snap = SimpleFactory(
 def test_interactivity_scroll_snap_examples():
     """Test scroll snap utilities."""
     # Snap align
-    assert snap_align.start == "snap-start"
-    assert snap_align.end == "snap-end"
-    assert snap_align.center == "snap-center"
-    assert snap_align.none == "snap-align-none"
+    assert str(snap_align.start) == "snap-start"
+    assert str(snap_align.end) == "snap-end"
+    assert str(snap_align.center) == "snap-center"
+    assert str(snap_align.none) == "snap-align-none"
     
     # Snap stop
-    assert snap_stop.normal == "snap-normal"
-    assert snap_stop.always == "snap-always"
+    assert str(snap_stop.normal) == "snap-normal"
+    assert str(snap_stop.always) == "snap-always"
     
     # Snap type
-    assert snap.none == "snap-none"
-    assert snap.x == "snap-x"
-    assert snap.y == "snap-y"
-    assert snap.both == "snap-both"
-    assert snap.mandatory == "snap-mandatory"
-    assert snap.proximity == "snap-proximity"
+    assert str(snap.none) == "snap-none"
+    assert str(snap.x) == "snap-x"
+    assert str(snap.y) == "snap-y"
+    assert str(snap.both) == "snap-both"
+    assert str(snap.mandatory) == "snap-mandatory"
+    assert str(snap.proximity) == "snap-proximity"
 
 # Run the tests
 test_interactivity_scroll_snap_examples()
@@ -494,16 +494,16 @@ touch = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 48
 def test_interactivity_touch_action_examples():
     """Test touch action utilities."""
-    assert touch.auto == "touch-auto"
-    assert touch.none == "touch-none"
-    assert touch.pan_x == "touch-pan-x"
-    assert touch.pan_left == "touch-pan-left"
-    assert touch.pan_right == "touch-pan-right"
-    assert touch.pan_y == "touch-pan-y"
-    assert touch.pan_up == "touch-pan-up"
-    assert touch.pan_down == "touch-pan-down"
-    assert touch.pinch_zoom == "touch-pinch-zoom"
-    assert touch.manipulation == "touch-manipulation"
+    assert str(touch.auto) == "touch-auto"
+    assert str(touch.none) == "touch-none"
+    assert str(touch.pan_x) == "touch-pan-x"
+    assert str(touch.pan_left) == "touch-pan-left"
+    assert str(touch.pan_right) == "touch-pan-right"
+    assert str(touch.pan_y) == "touch-pan-y"
+    assert str(touch.pan_up) == "touch-pan-up"
+    assert str(touch.pan_down) == "touch-pan-down"
+    assert str(touch.pinch_zoom) == "touch-pinch-zoom"
+    assert str(touch.manipulation) == "touch-manipulation"
 
 # Run the tests
 test_interactivity_touch_action_examples()
@@ -522,10 +522,10 @@ select = SimpleFactory(
 # %% ../../nbs/utilities/interactivity.ipynb 51
 def test_interactivity_user_select_examples():
     """Test user select utilities."""
-    assert select.none == "select-none"
-    assert select.text == "select-text"
-    assert select.all == "select-all"
-    assert select.auto == "select-auto"
+    assert str(select.none) == "select-none"
+    assert str(select.text) == "select-text"
+    assert str(select.all) == "select-all"
+    assert str(select.auto) == "select-auto"
 
 # Run the tests
 test_interactivity_user_select_examples()
@@ -572,10 +572,10 @@ will_change = WillChangeFactory(
 def test_interactivity_will_change_examples():
     """Test will-change utilities."""
     # Standard values
-    assert will_change.auto == "will-change-auto"
-    assert will_change.scroll == "will-change-scroll"
-    assert will_change.contents == "will-change-contents"
-    assert will_change.transform == "will-change-transform"
+    assert str(will_change.auto) == "will-change-auto"
+    assert str(will_change.scroll) == "will-change-scroll"
+    assert str(will_change.contents) == "will-change-contents"
+    assert str(will_change.transform) == "will-change-transform"
     
     # Custom properties and arbitrary values
     assert will_change("--custom-property") == "will-change---custom-property"

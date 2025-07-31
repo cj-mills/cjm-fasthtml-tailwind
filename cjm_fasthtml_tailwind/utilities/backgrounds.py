@@ -35,9 +35,9 @@ bg_attachment = SimpleFactory(
 # %% ../../nbs/utilities/backgrounds.ipynb 6
 def test_backgrounds_attachment_examples():
     """Test background attachment utilities."""
-    assert bg_attachment.fixed == "bg-fixed"
-    assert bg_attachment.local == "bg-local"
-    assert bg_attachment.scroll == "bg-scroll"
+    assert str(bg_attachment.fixed) == "bg-fixed"
+    assert str(bg_attachment.local) == "bg-local"
+    assert str(bg_attachment.scroll) == "bg-scroll"
 
 # Run the tests
 test_backgrounds_attachment_examples()
@@ -56,10 +56,10 @@ bg_clip = SimpleFactory(
 # %% ../../nbs/utilities/backgrounds.ipynb 9
 def test_backgrounds_clip_examples():
     """Test background clip utilities."""
-    assert bg_clip.border == "bg-clip-border"
-    assert bg_clip.padding == "bg-clip-padding"
-    assert bg_clip.content == "bg-clip-content"
-    assert bg_clip.text == "bg-clip-text"
+    assert str(bg_clip.border) == "bg-clip-border"
+    assert str(bg_clip.padding) == "bg-clip-padding"
+    assert str(bg_clip.content) == "bg-clip-content"
+    assert str(bg_clip.text) == "bg-clip-text"
 
 # Run the tests
 test_backgrounds_clip_examples()
@@ -598,9 +598,9 @@ bg_origin = SimpleFactory(
 # %% ../../nbs/utilities/backgrounds.ipynb 35
 def test_backgrounds_origin_examples():
     """Test background origin utilities."""
-    assert bg_origin.border == "bg-origin-border"
-    assert bg_origin.padding == "bg-origin-padding"
-    assert bg_origin.content == "bg-origin-content"
+    assert str(bg_origin.border) == "bg-origin-border"
+    assert str(bg_origin.padding) == "bg-origin-padding"
+    assert str(bg_origin.content) == "bg-origin-content"
 
 # Run the tests
 test_backgrounds_origin_examples()
@@ -624,11 +624,11 @@ bg_position = SimpleFactory(
 # %% ../../nbs/utilities/backgrounds.ipynb 38
 def test_backgrounds_position_examples():
     """Test background position utilities."""
-    assert bg_position.top_left == "bg-top-left"
-    assert bg_position.top == "bg-top"
-    assert bg_position.top_right == "bg-top-right"
-    assert bg_position.center == "bg-center"
-    assert bg_position.bottom == "bg-bottom"
+    assert str(bg_position.top_left) == "bg-top-left"
+    assert str(bg_position.top) == "bg-top"
+    assert str(bg_position.top_right) == "bg-top-right"
+    assert str(bg_position.center) == "bg-center"
+    assert str(bg_position.bottom) == "bg-bottom"
 
 # Run the tests
 test_backgrounds_position_examples()
@@ -649,10 +649,10 @@ bg_repeat = SimpleFactory(
 # %% ../../nbs/utilities/backgrounds.ipynb 41
 def test_backgrounds_repeat_examples():
     """Test background repeat utilities."""
-    assert bg_repeat.repeat == "bg-repeat"
-    assert bg_repeat.repeat_x == "bg-repeat-x"
-    assert bg_repeat.repeat_y == "bg-repeat-y"
-    assert bg_repeat.no_repeat == "bg-no-repeat"
+    assert str(bg_repeat.repeat) == "bg-repeat"
+    assert str(bg_repeat.repeat_x) == "bg-repeat-x"
+    assert str(bg_repeat.repeat_y) == "bg-repeat-y"
+    assert str(bg_repeat.no_repeat) == "bg-no-repeat"
 
 # Run the tests
 test_backgrounds_repeat_examples()
@@ -670,9 +670,9 @@ bg_size = SimpleFactory(
 # %% ../../nbs/utilities/backgrounds.ipynb 44
 def test_backgrounds_size_examples():
     """Test background size utilities."""
-    assert bg_size.auto == "bg-auto"
-    assert bg_size.cover == "bg-cover"
-    assert bg_size.contain == "bg-contain"
+    assert str(bg_size.auto) == "bg-auto"
+    assert str(bg_size.cover) == "bg-cover"
+    assert str(bg_size.contain) == "bg-contain"
 
 # Run the tests
 test_backgrounds_size_examples()

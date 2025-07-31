@@ -1322,24 +1322,24 @@ mix_blend = SimpleFactory(
 # %% ../../nbs/utilities/effects.ipynb 75
 def test_effects_mix_blend_examples():
     """Test mix blend mode utilities."""
-    assert mix_blend.normal == "mix-blend-normal"
-    assert mix_blend.multiply == "mix-blend-multiply"
-    assert mix_blend.screen == "mix-blend-screen"
-    assert mix_blend.overlay == "mix-blend-overlay"
-    assert mix_blend.darken == "mix-blend-darken"
-    assert mix_blend.lighten == "mix-blend-lighten"
-    assert mix_blend.color_dodge == "mix-blend-color-dodge"
-    assert mix_blend.color_burn == "mix-blend-color-burn"
-    assert mix_blend.hard_light == "mix-blend-hard-light"
-    assert mix_blend.soft_light == "mix-blend-soft-light"
-    assert mix_blend.difference == "mix-blend-difference"
-    assert mix_blend.exclusion == "mix-blend-exclusion"
-    assert mix_blend.hue == "mix-blend-hue"
-    assert mix_blend.saturation == "mix-blend-saturation"
-    assert mix_blend.color == "mix-blend-color"
-    assert mix_blend.luminosity == "mix-blend-luminosity"
-    assert mix_blend.plus_darker == "mix-blend-plus-darker"
-    assert mix_blend.plus_lighter == "mix-blend-plus-lighter"
+    assert str(mix_blend.normal) == "mix-blend-normal"
+    assert str(mix_blend.multiply) == "mix-blend-multiply"
+    assert str(mix_blend.screen) == "mix-blend-screen"
+    assert str(mix_blend.overlay) == "mix-blend-overlay"
+    assert str(mix_blend.darken) == "mix-blend-darken"
+    assert str(mix_blend.lighten) == "mix-blend-lighten"
+    assert str(mix_blend.color_dodge) == "mix-blend-color-dodge"
+    assert str(mix_blend.color_burn) == "mix-blend-color-burn"
+    assert str(mix_blend.hard_light) == "mix-blend-hard-light"
+    assert str(mix_blend.soft_light) == "mix-blend-soft-light"
+    assert str(mix_blend.difference) == "mix-blend-difference"
+    assert str(mix_blend.exclusion) == "mix-blend-exclusion"
+    assert str(mix_blend.hue) == "mix-blend-hue"
+    assert str(mix_blend.saturation) == "mix-blend-saturation"
+    assert str(mix_blend.color) == "mix-blend-color"
+    assert str(mix_blend.luminosity) == "mix-blend-luminosity"
+    assert str(mix_blend.plus_darker) == "mix-blend-plus-darker"
+    assert str(mix_blend.plus_lighter) == "mix-blend-plus-lighter"
 
 # Run the tests
 test_effects_mix_blend_examples()
@@ -1370,22 +1370,22 @@ bg_blend = SimpleFactory(
 # %% ../../nbs/utilities/effects.ipynb 78
 def test_effects_bg_blend_examples():
     """Test background blend mode utilities."""
-    assert bg_blend.normal == "bg-blend-normal"
-    assert bg_blend.multiply == "bg-blend-multiply"
-    assert bg_blend.screen == "bg-blend-screen"
-    assert bg_blend.overlay == "bg-blend-overlay"
-    assert bg_blend.darken == "bg-blend-darken"
-    assert bg_blend.lighten == "bg-blend-lighten"
-    assert bg_blend.color_dodge == "bg-blend-color-dodge"
-    assert bg_blend.color_burn == "bg-blend-color-burn"
-    assert bg_blend.hard_light == "bg-blend-hard-light"
-    assert bg_blend.soft_light == "bg-blend-soft-light"
-    assert bg_blend.difference == "bg-blend-difference"
-    assert bg_blend.exclusion == "bg-blend-exclusion"
-    assert bg_blend.hue == "bg-blend-hue"
-    assert bg_blend.saturation == "bg-blend-saturation"
-    assert bg_blend.color == "bg-blend-color"
-    assert bg_blend.luminosity == "bg-blend-luminosity"
+    assert str(bg_blend.normal) == "bg-blend-normal"
+    assert str(bg_blend.multiply) == "bg-blend-multiply"
+    assert str(bg_blend.screen) == "bg-blend-screen"
+    assert str(bg_blend.overlay) == "bg-blend-overlay"
+    assert str(bg_blend.darken) == "bg-blend-darken"
+    assert str(bg_blend.lighten) == "bg-blend-lighten"
+    assert str(bg_blend.color_dodge) == "bg-blend-color-dodge"
+    assert str(bg_blend.color_burn) == "bg-blend-color-burn"
+    assert str(bg_blend.hard_light) == "bg-blend-hard-light"
+    assert str(bg_blend.soft_light) == "bg-blend-soft-light"
+    assert str(bg_blend.difference) == "bg-blend-difference"
+    assert str(bg_blend.exclusion) == "bg-blend-exclusion"
+    assert str(bg_blend.hue) == "bg-blend-hue"
+    assert str(bg_blend.saturation) == "bg-blend-saturation"
+    assert str(bg_blend.color) == "bg-blend-color"
+    assert str(bg_blend.luminosity) == "bg-blend-luminosity"
 
 # Run the tests
 test_effects_bg_blend_examples()
@@ -1407,13 +1407,13 @@ mask_clip = SimpleFactory(
 # %% ../../nbs/utilities/effects.ipynb 82
 def test_effects_mask_clip_examples():
     """Test mask clip utilities."""
-    assert mask_clip.border == "mask-clip-border"
-    assert mask_clip.padding == "mask-clip-padding"
-    assert mask_clip.content == "mask-clip-content"
-    assert mask_clip.fill == "mask-clip-fill"
-    assert mask_clip.stroke == "mask-clip-stroke"
-    assert mask_clip.view == "mask-clip-view"
-    assert mask_clip.no_clip == "mask-no-clip"
+    assert str(mask_clip.border) == "mask-clip-border"
+    assert str(mask_clip.padding) == "mask-clip-padding"
+    assert str(mask_clip.content) == "mask-clip-content"
+    assert str(mask_clip.fill) == "mask-clip-fill"
+    assert str(mask_clip.stroke) == "mask-clip-stroke"
+    assert str(mask_clip.view) == "mask-clip-view"
+    assert str(mask_clip.no_clip) == "mask-no-clip"
 
 # Run the tests
 test_effects_mask_clip_examples()
@@ -1432,10 +1432,10 @@ mask_composite = SimpleFactory(
 # %% ../../nbs/utilities/effects.ipynb 85
 def test_effects_mask_composite_examples():
     """Test mask composite utilities."""
-    assert mask_composite.add == "mask-add"
-    assert mask_composite.subtract == "mask-subtract"
-    assert mask_composite.intersect == "mask-intersect"
-    assert mask_composite.exclude == "mask-exclude"
+    assert str(mask_composite.add) == "mask-add"
+    assert str(mask_composite.subtract) == "mask-subtract"
+    assert str(mask_composite.intersect) == "mask-intersect"
+    assert str(mask_composite.exclude) == "mask-exclude"
 
 # Run the tests
 test_effects_mask_composite_examples()
@@ -2304,40 +2304,40 @@ test_effects_mask_conic_examples()
 def test_effects_mask_properties_examples():
     """Test mask property utilities (mode, origin, position, etc.)."""
     # Test mask mode
-    assert mask_mode.alpha == "mask-alpha"
-    assert mask_mode.luminance == "mask-luminance"
-    assert mask_mode.match == "mask-match"
+    assert str(mask_mode.alpha) == "mask-alpha"
+    assert str(mask_mode.luminance) == "mask-luminance"
+    assert str(mask_mode.match) == "mask-match"
     
     # Test mask origin
-    assert mask_origin.border == "mask-origin-border"
-    assert mask_origin.padding == "mask-origin-padding"
-    assert mask_origin.content == "mask-origin-content"
-    assert mask_origin.fill == "mask-origin-fill"
-    assert mask_origin.stroke == "mask-origin-stroke"
-    assert mask_origin.view == "mask-origin-view"
+    assert str(mask_origin.border) == "mask-origin-border"
+    assert str(mask_origin.padding) == "mask-origin-padding"
+    assert str(mask_origin.content) == "mask-origin-content"
+    assert str(mask_origin.fill) == "mask-origin-fill"
+    assert str(mask_origin.stroke) == "mask-origin-stroke"
+    assert str(mask_origin.view) == "mask-origin-view"
     
     # Test mask position
-    assert mask_position.top_left == "mask-top-left"
-    assert mask_position.top == "mask-top"
-    assert mask_position.center == "mask-center"
-    assert mask_position.bottom_right == "mask-bottom-right"
+    assert str(mask_position.top_left) == "mask-top-left"
+    assert str(mask_position.top) == "mask-top"
+    assert str(mask_position.center) == "mask-center"
+    assert str(mask_position.bottom_right) == "mask-bottom-right"
     
     # Test mask repeat
-    assert mask_repeat.repeat == "mask-repeat"
-    assert mask_repeat.no_repeat == "mask-no-repeat"
-    assert mask_repeat.repeat_x == "mask-repeat-x"
-    assert mask_repeat.repeat_y == "mask-repeat-y"
-    assert mask_repeat.repeat_space == "mask-repeat-space"
-    assert mask_repeat.repeat_round == "mask-repeat-round"
+    assert str(mask_repeat.repeat) == "mask-repeat"
+    assert str(mask_repeat.no_repeat) == "mask-no-repeat"
+    assert str(mask_repeat.repeat_x) == "mask-repeat-x"
+    assert str(mask_repeat.repeat_y) == "mask-repeat-y"
+    assert str(mask_repeat.repeat_space) == "mask-repeat-space"
+    assert str(mask_repeat.repeat_round) == "mask-repeat-round"
     
     # Test mask size
-    assert mask_size.auto == "mask-auto"
-    assert mask_size.cover == "mask-cover"
-    assert mask_size.contain == "mask-contain"
+    assert str(mask_size.auto) == "mask-auto"
+    assert str(mask_size.cover) == "mask-cover"
+    assert str(mask_size.contain) == "mask-contain"
     
     # Test mask type
-    assert mask_type.alpha == "mask-type-alpha"
-    assert mask_type.luminance == "mask-type-luminance"
+    assert str(mask_type.alpha) == "mask-type-alpha"
+    assert str(mask_type.luminance) == "mask-type-luminance"
 
 # Run the tests
 test_effects_mask_properties_examples()

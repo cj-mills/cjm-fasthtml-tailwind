@@ -713,12 +713,12 @@ border_style = SimpleFactory(
 # %% ../../nbs/utilities/borders.ipynb 39
 def test_borders_style_examples():
     """Test border style utilities."""
-    assert border_style.solid == "border-solid"
-    assert border_style.dashed == "border-dashed"
-    assert border_style.dotted == "border-dotted"
-    assert border_style.double == "border-double"
-    assert border_style.hidden == "border-hidden"
-    assert border_style.none == "border-none"
+    assert str(border_style.solid) == "border-solid"
+    assert str(border_style.dashed) == "border-dashed"
+    assert str(border_style.dotted) == "border-dotted"
+    assert str(border_style.double) == "border-double"
+    assert str(border_style.hidden) == "border-hidden"
+    assert str(border_style.none) == "border-none"
 
 # Run the tests
 test_borders_style_examples()
@@ -740,12 +740,12 @@ divide_style = SimpleFactory(
 # %% ../../nbs/utilities/borders.ipynb 44
 def test_borders_divide_style_examples():
     """Test divide style utilities."""
-    assert divide_style.solid == "divide-solid"
-    assert divide_style.dashed == "divide-dashed"
-    assert divide_style.dotted == "divide-dotted"
-    assert divide_style.double == "divide-double"
-    assert divide_style.hidden == "divide-hidden"
-    assert divide_style.none == "divide-none"
+    assert str(divide_style.solid) == "divide-solid"
+    assert str(divide_style.dashed) == "divide-dashed"
+    assert str(divide_style.dotted) == "divide-dotted"
+    assert str(divide_style.double) == "divide-double"
+    assert str(divide_style.hidden) == "divide-hidden"
+    assert str(divide_style.none) == "divide-none"
 
 # Run the tests
 test_borders_divide_style_examples()
@@ -921,11 +921,11 @@ outline_hidden = SingleValueFactory(
 # %% ../../nbs/utilities/borders.ipynb 61
 def test_borders_outline_style_examples():
     """Test outline style utilities."""
-    assert outline_style.solid == "outline-solid"
-    assert outline_style.dashed == "outline-dashed"
-    assert outline_style.dotted == "outline-dotted"
-    assert outline_style.double == "outline-double"
-    assert outline_style.none == "outline-none"
+    assert str(outline_style.solid) == "outline-solid"
+    assert str(outline_style.dashed) == "outline-dashed"
+    assert str(outline_style.dotted) == "outline-dotted"
+    assert str(outline_style.double) == "outline-double"
+    assert str(outline_style.none) == "outline-none"
     
     # Test special outline-hidden utility
     assert str(outline_hidden) == "outline-hidden"

@@ -96,10 +96,10 @@ def test_flexbox_and_grid_direction_examples(
 ): # TODO: Add type hint
     """Test flex direction utilities."""
     # Test flex direction utilities
-    assert flex_direction.row == "flex-row"
-    assert flex_direction.row_reverse == "flex-row-reverse"
-    assert flex_direction.col == "flex-col"
-    assert flex_direction.col_reverse == "flex-col-reverse"
+    assert str(flex_direction.row) == "flex-row"
+    assert str(flex_direction.row_reverse) == "flex-row-reverse"
+    assert str(flex_direction.col) == "flex-col"
+    assert str(flex_direction.col_reverse) == "flex-col-reverse"
 
 # Run the tests
 test_flexbox_and_grid_direction_examples()
@@ -119,9 +119,9 @@ def test_flexbox_and_grid_wrap_examples(
 ): # TODO: Add type hint
     """Test flex wrap utilities."""
     # Test flex wrap utilities
-    assert flex_wrap.nowrap == "flex-nowrap"
-    assert flex_wrap.wrap == "flex-wrap"
-    assert flex_wrap.wrap_reverse == "flex-wrap-reverse"
+    assert str(flex_wrap.nowrap) == "flex-nowrap"
+    assert str(flex_wrap.wrap) == "flex-wrap"
+    assert str(flex_wrap.wrap_reverse) == "flex-wrap-reverse"
 
 # Run the tests
 test_flexbox_and_grid_wrap_examples()
@@ -581,11 +581,11 @@ def test_flexbox_and_grid_flow_examples(
 ): # TODO: Add type hint
     """Test grid auto flow utilities."""
     # Test grid auto flow utilities
-    assert grid_flow.row == "grid-flow-row"
-    assert grid_flow.col == "grid-flow-col"
-    assert grid_flow.dense == "grid-flow-dense"
-    assert grid_flow.row_dense == "grid-flow-row-dense"
-    assert grid_flow.col_dense == "grid-flow-col-dense"
+    assert str(grid_flow.row) == "grid-flow-row"
+    assert str(grid_flow.col) == "grid-flow-col"
+    assert str(grid_flow.dense) == "grid-flow-dense"
+    assert str(grid_flow.row_dense) == "grid-flow-row-dense"
+    assert str(grid_flow.col_dense) == "grid-flow-col-dense"
 
 # Run the tests
 test_flexbox_and_grid_flow_examples()
@@ -675,17 +675,17 @@ def test_flexbox_and_grid_auto_cols_rows_examples(
 ): # TODO: Add type hint
     """Test grid auto columns and rows utilities."""
     # Test grid auto columns/rows
-    assert auto_cols.auto == "auto-cols-auto"
-    assert auto_cols.min == "auto-cols-min"
-    assert auto_cols.max == "auto-cols-max"
-    assert auto_cols.fr == "auto-cols-fr"
+    assert str(auto_cols.auto) == "auto-cols-auto"
+    assert str(auto_cols.min) == "auto-cols-min"
+    assert str(auto_cols.max) == "auto-cols-max"
+    assert str(auto_cols.fr) == "auto-cols-fr"
     assert str(auto_cols("200px")) == "auto-cols-[200px]"
     assert str(auto_cols("--size")) == "auto-cols-(--size)"
     
-    assert auto_rows.auto == "auto-rows-auto"
-    assert auto_rows.min == "auto-rows-min"
-    assert auto_rows.max == "auto-rows-max"
-    assert auto_rows.fr == "auto-rows-fr"
+    assert str(auto_rows.auto) == "auto-rows-auto"
+    assert str(auto_rows.min) == "auto-rows-min"
+    assert str(auto_rows.max) == "auto-rows-max"
+    assert str(auto_rows.fr) == "auto-rows-fr"
     assert str(auto_rows("minmax(0, 1fr)")) == "auto-rows-[minmax(0, 1fr)]"
 
 # Run the tests
@@ -813,16 +813,16 @@ def test_flexbox_and_grid_justify_examples(
 ): # TODO: Add type hint
     """Test justify utilities for flex and grid containers."""
     # Test justify utilities
-    assert justify.start == "justify-start"
-    assert justify.center == "justify-center"
-    assert justify.between == "justify-between"
-    assert justify.evenly == "justify-evenly"
+    assert str(justify.start) == "justify-start"
+    assert str(justify.center) == "justify-center"
+    assert str(justify.between) == "justify-between"
+    assert str(justify.evenly) == "justify-evenly"
     
-    assert justify_items.center == "justify-items-center"
-    assert justify_items.stretch == "justify-items-stretch"
+    assert str(justify_items.center) == "justify-items-center"
+    assert str(justify_items.stretch) == "justify-items-stretch"
     
-    assert justify_self.auto == "justify-self-auto"
-    assert justify_self.end == "justify-self-end"
+    assert str(justify_self.auto) == "justify-self-auto"
+    assert str(justify_self.end) == "justify-self-end"
 
 # Run the tests
 test_flexbox_and_grid_justify_examples()
@@ -879,17 +879,17 @@ def test_flexbox_and_grid_align_examples(
 ): # TODO: Add type hint
     """Test align utilities for flex and grid containers."""
     # Test align utilities
-    assert content.center == "content-center"
-    assert content.between == "content-between"
-    assert content.stretch == "content-stretch"
+    assert str(content.center) == "content-center"
+    assert str(content.between) == "content-between"
+    assert str(content.stretch) == "content-stretch"
     
-    assert items.center == "items-center"
-    assert items.start == "items-start"
-    assert items.baseline == "items-baseline"
+    assert str(items.center) == "items-center"
+    assert str(items.start) == "items-start"
+    assert str(items.baseline) == "items-baseline"
     
-    assert self_align.auto == "self-auto"
-    assert self_align.center == "self-center"
-    assert self_align.stretch == "self-stretch"
+    assert str(self_align.auto) == "self-auto"
+    assert str(self_align.center) == "self-center"
+    assert str(self_align.stretch) == "self-stretch"
 
 # Run the tests
 test_flexbox_and_grid_align_examples()
@@ -944,14 +944,14 @@ def test_flexbox_and_grid_place_examples(
 ): # TODO: Add type hint
     """Test place utilities for grid containers."""
     # Test place utilities
-    assert place_content.center == "place-content-center"
-    assert place_content.between == "place-content-between"
+    assert str(place_content.center) == "place-content-center"
+    assert str(place_content.between) == "place-content-between"
     
-    assert place_items.center == "place-items-center"
-    assert place_items.stretch == "place-items-stretch"
+    assert str(place_items.center) == "place-items-center"
+    assert str(place_items.stretch) == "place-items-stretch"
     
-    assert place_self.auto == "place-self-auto"
-    assert place_self.center == "place-self-center"
+    assert str(place_self.auto) == "place-self-auto"
+    assert str(place_self.center) == "place-self-center"
 
 # Run the tests
 test_flexbox_and_grid_place_examples()

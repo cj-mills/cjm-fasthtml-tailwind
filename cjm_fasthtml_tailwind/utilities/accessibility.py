@@ -33,8 +33,8 @@ def test_accessibility_forced_color_adjust_examples(
 ):
     """Test forced color adjust utilities."""
     # Test forced color adjust utilities with dot notation
-    assert forced_color_adjust.auto == "forced-color-adjust-auto"
-    assert forced_color_adjust.none == "forced-color-adjust-none"
+    assert str(forced_color_adjust.auto) == "forced-color-adjust-auto"
+    assert str(forced_color_adjust.none) == "forced-color-adjust-none"
 
 # Run the tests
 test_accessibility_forced_color_adjust_examples()

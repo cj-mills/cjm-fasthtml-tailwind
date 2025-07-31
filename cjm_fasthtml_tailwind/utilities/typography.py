@@ -52,9 +52,9 @@ font = SimpleFactory(
 # %% ../../nbs/utilities/typography.ipynb 6
 def test_typography_font_family_examples():
     """Test font family utilities."""
-    assert font.sans == "font-sans"
-    assert font.serif == "font-serif"
-    assert font.mono == "font-mono"
+    assert str(font.sans) == "font-sans"
+    assert str(font.serif) == "font-serif"
+    assert str(font.mono) == "font-mono"
 
 # Run the tests
 test_typography_font_family_examples()
@@ -254,15 +254,15 @@ font_stretch = SimpleFactory(
 # %% ../../nbs/utilities/typography.ipynb 21
 def test_typography_font_stretch_examples():
     """Test font stretch utilities."""
-    assert font_stretch.ultra_condensed == "font-stretch-ultra-condensed"
-    assert font_stretch.extra_condensed == "font-stretch-extra-condensed"
-    assert font_stretch.condensed == "font-stretch-condensed"
-    assert font_stretch.semi_condensed == "font-stretch-semi-condensed"
-    assert font_stretch.normal == "font-stretch-normal"
-    assert font_stretch.semi_expanded == "font-stretch-semi-expanded"
-    assert font_stretch.expanded == "font-stretch-expanded"
-    assert font_stretch.extra_expanded == "font-stretch-extra-expanded"
-    assert font_stretch.ultra_expanded == "font-stretch-ultra-expanded"
+    assert str(font_stretch.ultra_condensed) == "font-stretch-ultra-condensed"
+    assert str(font_stretch.extra_condensed) == "font-stretch-extra-condensed"
+    assert str(font_stretch.condensed) == "font-stretch-condensed"
+    assert str(font_stretch.semi_condensed) == "font-stretch-semi-condensed"
+    assert str(font_stretch.normal) == "font-stretch-normal"
+    assert str(font_stretch.semi_expanded) == "font-stretch-semi-expanded"
+    assert str(font_stretch.expanded) == "font-stretch-expanded"
+    assert str(font_stretch.extra_expanded) == "font-stretch-extra-expanded"
+    assert str(font_stretch.ultra_expanded) == "font-stretch-ultra-expanded"
 
 # Run the tests
 test_typography_font_stretch_examples()
@@ -523,11 +523,11 @@ def test_typography_list_styles_examples():
     """Test list styles utilities."""
     
     # List styles
-    assert list_position.inside == "list-inside"
-    assert list_position.outside == "list-outside"
-    assert list_style.disc == "list-disc"
-    assert list_style.decimal == "list-decimal"
-    assert list_style.none == "list-none"
+    assert str(list_position.inside) == "list-inside"
+    assert str(list_position.outside) == "list-outside"
+    assert str(list_style.disc) == "list-disc"
+    assert str(list_style.decimal) == "list-decimal"
+    assert str(list_style.none) == "list-none"
 
 # Run the tests
 test_typography_list_styles_examples()
@@ -549,12 +549,12 @@ text_align = SimpleFactory(
 def test_typography_text_alignment_examples():
     """Test text alignment utilities."""
     # Text alignment
-    assert text_align.left == "text-left"
-    assert text_align.center == "text-center"
-    assert text_align.right == "text-right"
-    assert text_align.justify == "text-justify"
-    assert text_align.start == "text-start"
-    assert text_align.end == "text-end"
+    assert str(text_align.left) == "text-left"
+    assert str(text_align.center) == "text-center"
+    assert str(text_align.right) == "text-right"
+    assert str(text_align.justify) == "text-justify"
+    assert str(text_align.start) == "text-start"
+    assert str(text_align.end) == "text-end"
 
 # Run the tests
 test_typography_text_alignment_examples()
@@ -745,11 +745,11 @@ def test_typography_text_decoration_examples():
     assert str(decoration.stone._500) == "decoration-stone-500"
     
     # Decoration styles
-    assert decoration_style.solid == "decoration-solid"
-    assert decoration_style.double == "decoration-double"
-    assert decoration_style.dotted == "decoration-dotted"
-    assert decoration_style.dashed == "decoration-dashed"
-    assert decoration_style.wavy == "decoration-wavy"
+    assert str(decoration_style.solid) == "decoration-solid"
+    assert str(decoration_style.double) == "decoration-double"
+    assert str(decoration_style.dotted) == "decoration-dotted"
+    assert str(decoration_style.dashed) == "decoration-dashed"
+    assert str(decoration_style.wavy) == "decoration-wavy"
     
     # Decoration thickness
     assert str(decoration_thickness(0)) == "decoration-0"
@@ -889,14 +889,14 @@ def test_typography_vertical_align_examples():
     """Test vertical align utilities."""
     
     # Vertical align
-    assert align.baseline == "align-baseline"
-    assert align.top == "align-top"
-    assert align.middle == "align-middle"
-    assert align.bottom == "align-bottom"
-    assert align.text_top == "align-text-top"
-    assert align.text_bottom == "align-text-bottom"
-    assert align.sub == "align-sub"
-    assert align.super == "align-super"
+    assert str(align.baseline) == "align-baseline"
+    assert str(align.top) == "align-top"
+    assert str(align.middle) == "align-middle"
+    assert str(align.bottom) == "align-bottom"
+    assert str(align.text_top) == "align-text-top"
+    assert str(align.text_bottom) == "align-text-bottom"
+    assert str(align.sub) == "align-sub"
+    assert str(align.super) == "align-super"
 
 # Run the tests
 test_typography_vertical_align_examples()
@@ -919,12 +919,12 @@ def test_typography_whitespace_examples():
     """Test whitespace utilities."""
     
     # White space
-    assert whitespace.normal == "whitespace-normal"
-    assert whitespace.nowrap == "whitespace-nowrap"
-    assert whitespace.pre == "whitespace-pre"
-    assert whitespace.pre_line == "whitespace-pre-line"
-    assert whitespace.pre_wrap == "whitespace-pre-wrap"
-    assert whitespace.break_spaces == "whitespace-break-spaces"
+    assert str(whitespace.normal) == "whitespace-normal"
+    assert str(whitespace.nowrap) == "whitespace-nowrap"
+    assert str(whitespace.pre) == "whitespace-pre"
+    assert str(whitespace.pre_line) == "whitespace-pre-line"
+    assert str(whitespace.pre_wrap) == "whitespace-pre-wrap"
+    assert str(whitespace.break_spaces) == "whitespace-break-spaces"
 
 # Run the tests
 test_typography_whitespace_examples()
@@ -978,9 +978,9 @@ def test_typography_hyphens_examples():
     """Test hyphens utilities."""
     
     # Hyphens
-    assert hyphens.none == "hyphens-none"
-    assert hyphens.manual == "hyphens-manual"
-    assert hyphens.auto == "hyphens-auto"
+    assert str(hyphens.none) == "hyphens-none"
+    assert str(hyphens.manual) == "hyphens-manual"
+    assert str(hyphens.auto) == "hyphens-auto"
 
 # Run the tests
 test_typography_hyphens_examples()

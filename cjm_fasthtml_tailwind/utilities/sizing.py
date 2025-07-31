@@ -220,7 +220,7 @@ def test_sizing_container_examples(
     
     # Test different ways to use container
     assert str(container) == "container"
-    assert container() == "container"
+    assert str(container()) == "container"
     assert container.build() == "container"
 
 # Run the tests
