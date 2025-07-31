@@ -4,7 +4,7 @@ This directory contains extracted Tailwind CSS classes organized by section.
 
 ## Sections
 
-- [Accessibility](./accessibility.md)
+- ~~[Accessibility](./accessibility.md)~~
 - ~~[Backgrounds](./backgrounds.md)~~
 - ~~[Borders](./borders.md)~~
 - ~~[Effects](./effects.md)~~

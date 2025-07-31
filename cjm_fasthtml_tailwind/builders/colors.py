@@ -7,14 +7,14 @@ __all__ = ['SPECIAL_COLORS', 'ColorSpec', 'ColorValue', 'ColorFamily', 'ColorSha
            'parse_color_spec', 'ColoredUtility', 'ColoredFactory', 'ColorFamilyProxy', 'test_colors_enum_examples',
            'test_colors_validation_examples', 'test_colors_factory_examples', 'test_colors_opacity_examples',
            'test_colors_arbitrary_examples', 'test_colors_proxy_examples', 'test_colors_multiple_utilities_examples',
-           'test_colors_practical_usage_examples', 'get_all_color_families', 'get_all_shades', 'get_all_color_specs',
-           'test_colors_factory_documentation']
+           'test_colors_practical_usage_examples', 'test_colors_modifier_examples', 'get_all_color_families',
+           'get_all_shades', 'get_all_color_specs', 'test_colors_factory_documentation']
 
 # %% ../../nbs/builders/colors.ipynb 3
 from typing import Dict, List, Union, Optional, Any
 from enum import Enum
 from cjm_fasthtml_tailwind.core.base import (
-    BaseUtility, StandardUtility, BaseFactory,
+    BaseUtility, StandardUtility, BaseFactory, ModifierMixin,
     TailwindValue, is_custom_property, is_arbitrary_value
 )
 
@@ -120,7 +120,7 @@ def parse_color_spec(
     return (value, None)
 
 # %% ../../nbs/builders/colors.ipynb 16
-class ColoredUtility(BaseUtility):
+class ColoredUtility(BaseUtility, ModifierMixin):
     """Utility class with color and opacity support."""
     
     def __init__(
@@ -542,17 +542,57 @@ def test_colors_practical_usage_examples():
 # Run the test
 test_colors_practical_usage_examples()
 
-# %% ../../nbs/builders/colors.ipynb 40
+# %% ../../nbs/builders/colors.ipynb 39
+def test_colors_modifier_examples():
+    """Test color utilities with modifiers for conditional styling."""
+    bg = ColoredFactory("bg")
+    text = ColoredFactory("text")
+    border = ColoredFactory("border")
+    
+    # Test hover states
+    assert str(bg.red._500.hover) == "hover:bg-red-500"
+    assert str(text.blue._700.hover) == "hover:text-blue-700"
+    assert str(border.gray._300.hover) == "hover:border-gray-300"
+    
+    # Test with opacity and modifiers
+    assert str(bg.black.opacity(50).hover) == "hover:bg-black/50"
+    assert str(text.white.hover.opacity(75)) == "hover:text-white/75"
+    
+    # Test responsive modifiers
+    assert str(bg.red._500.md) == "md:bg-red-500"
+    assert str(text.blue._700.lg) == "lg:text-blue-700"
+    assert str(border.transparent.sm) == "sm:border-transparent"
+    
+    # Test dark mode
+    assert str(bg.gray._900.dark) == "dark:bg-gray-900"
+    assert str(text.gray._100.dark) == "dark:text-gray-100"
+    
+    # Test chained modifiers
+    assert str(bg.blue._600.hover.dark) == "dark:hover:bg-blue-600"
+    assert str(text.red._500.md.hover.dark) == "dark:hover:md:text-red-500"
+    
+    # Test group and peer modifiers
+    assert str(bg.gray._100.group("hover")) == "group-hover:bg-gray-100"
+    assert str(text.blue._600.peer("checked")) == "peer-checked:text-blue-600"
+    
+    # Test arbitrary modifiers
+    assert str(bg.green._500.aria("selected")) == "aria-selected:bg-green-500"
+    assert str(text.red._600.data("active")) == "data-[active]:text-red-600"
+
+# Run the test
+test_colors_modifier_examples()
+
+# %% ../../nbs/builders/colors.ipynb 41
 def get_all_color_families() -> List[str]:
     """Get list of all Tailwind color family names."""
     return [c.value for c in ColorFamily]
 
-# %% ../../nbs/builders/colors.ipynb 41
+# %% ../../nbs/builders/colors.ipynb 42
 def get_all_shades() -> List[str]:
     """Get list of all Tailwind shade values."""
     return [s.value for s in ColorShade]
 
-# %% ../../nbs/builders/colors.ipynb 42
+# %% ../../nbs/builders/colors.ipynb 43
 def get_all_color_specs() -> List[str]:
     """Get list of all valid color-shade combinations."""
     specs = []
@@ -561,7 +601,7 @@ def get_all_color_specs() -> List[str]:
             specs.append(f"{family.value}-{shade.value}")
     return specs
 
-# %% ../../nbs/builders/colors.ipynb 45
+# %% ../../nbs/builders/colors.ipynb 46
 def test_colors_factory_documentation():
     """Test that color factories have proper documentation."""
     bg = ColoredFactory("bg", "Background color utilities")

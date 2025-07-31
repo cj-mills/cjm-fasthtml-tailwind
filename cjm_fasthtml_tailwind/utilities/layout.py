@@ -14,7 +14,7 @@ __all__ = ['DISPLAY_VALUES', 'display_tw', 'sr_only', 'not_sr_only', 'POSITION_V
            'test_layout_z_index_examples', 'FloatFactory', 'test_layout_float_clear_examples', 'ObjectPositionFactory',
            'test_layout_object_examples', 'test_layout_visibility_examples', 'AspectRatioFactory',
            'test_layout_aspect_columns_examples', 'test_layout_columns_examples', 'BreakFactory', 'OverscrollFactory',
-           'test_layout_other_utilities_examples', 'test_layout_practical_examples',
+           'test_layout_other_utilities_examples', 'test_layout_practical_examples', 'test_layout_modifier_examples',
            'test_layout_factory_documentation', 'center_absolute', 'stack_context', 'sticky_top', 'full_bleed',
            'test_layout_helper_examples']
 
@@ -820,6 +820,45 @@ def test_layout_practical_examples(
 test_layout_practical_examples()
 
 # %% ../../nbs/utilities/layout.ipynb 51
+def test_layout_modifier_examples(
+):
+    """Test layout utilities with modifiers for conditional styling."""
+    # Test display utilities with modifiers
+    assert display_tw.hidden == "hidden"
+    assert display_tw.block == "block"
+    # Note: display utilities return strings, not utilities, so they don't have modifiers
+    # This is intentional as they use SimpleFactory
+    
+    # Test position utilities with modifiers
+    # Note: position utilities also use SimpleFactory and return strings
+    
+    # Test inset utilities with modifiers (these support modifiers)
+    assert str(inset(0).hover) == "hover:inset-0"
+    assert str(top(4).md) == "md:top-4"
+    assert str(bottom.auto.lg) == "lg:bottom-auto"
+    assert str(left.negative(2).hover) == "hover:-left-2"
+    
+    # Test z-index with modifiers
+    assert str(z(10).hover) == "hover:z-10"
+    assert str(z(50).lg) == "lg:z-50"
+    assert str(z.auto.dark) == "dark:z-auto"
+    
+    # Test responsive inset
+    assert str(inset.x(4).sm) == "sm:inset-x-4"
+    assert str(inset.y(8).md) == "md:inset-y-8"
+    
+    # Test group/peer modifiers
+    assert str(z(20).group("hover")) == "group-hover:z-20"
+    assert str(inset(0).peer("checked")) == "peer-checked:inset-0"
+    
+    # Test arbitrary modifiers
+    assert str(top(0).aria("expanded")) == "aria-expanded:top-0"
+    assert str(z(30).data("open")) == "data-[open]:z-30"
+
+# Run the tests
+test_layout_modifier_examples()
+
+# %% ../../nbs/utilities/layout.ipynb 52
 def test_layout_factory_documentation(
 ):
     """Test that factories have accessible documentation."""
@@ -849,7 +888,7 @@ def test_layout_factory_documentation(
 # Run the tests
 test_layout_factory_documentation()
 
-# %% ../../nbs/utilities/layout.ipynb 53
+# %% ../../nbs/utilities/layout.ipynb 54
 def center_absolute(
 ) -> str:  # Combined CSS classes for centering an element
     """Center an absolutely positioned element."""
@@ -861,27 +900,27 @@ def center_absolute(
         "-translate-y-1/2"
     )
 
-# %% ../../nbs/utilities/layout.ipynb 54
+# %% ../../nbs/utilities/layout.ipynb 55
 def stack_context(
     z_value: int = 10  # The z-index value for the stacking context
 ) -> str:  # Combined CSS classes for creating a stacking context
     """Create a stacking context with z-index."""
     return combine_classes(position.relative, z(z_value))
 
-# %% ../../nbs/utilities/layout.ipynb 55
+# %% ../../nbs/utilities/layout.ipynb 56
 def sticky_top(
     offset: TailwindScale = 0  # Top offset value (e.g., 0, 4, '1rem')
 ) -> str:  # Combined CSS classes for sticky positioning
     """Make element sticky at top with optional offset."""
     return combine_classes(position.sticky, top(offset))
 
-# %% ../../nbs/utilities/layout.ipynb 56
+# %% ../../nbs/utilities/layout.ipynb 57
 def full_bleed(
 ) -> str:  # Combined CSS classes for full-bleed layout
     """Make element break out of container constraints."""
     return combine_classes(position.relative, left("1/2"), right("1/2"), "-mx-[50vw]", "w-screen")
 
-# %% ../../nbs/utilities/layout.ipynb 57
+# %% ../../nbs/utilities/layout.ipynb 58
 def test_layout_helper_examples(
 ):
     """Test helper functions for common layout patterns."""

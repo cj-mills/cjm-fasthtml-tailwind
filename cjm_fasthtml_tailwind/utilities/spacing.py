@@ -8,7 +8,7 @@ __all__ = ['p', 'ps', 'pe', 'm', 'ms', 'me', 'space', 'test_spacing_basic_exampl
            'test_spacing_margin_directional_examples', 'test_spacing_negative_examples',
            'test_spacing_logical_examples', 'SpaceFactory', 'test_spacing_space_between_examples',
            'test_spacing_practical_examples', 'pad', 'margin', 'test_spacing_helper_examples',
-           'test_spacing_factory_documentation']
+           'test_spacing_modifier_examples', 'test_spacing_factory_documentation']
 
 # %% ../../nbs/utilities/spacing.ipynb 3
 from typing import Optional, Union, Dict, Any
@@ -342,7 +342,37 @@ def test_spacing_helper_examples(
 # Run the tests
 test_spacing_helper_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 30
+# %% ../../nbs/utilities/spacing.ipynb 31
+def test_spacing_modifier_examples(
+):
+    """Test spacing utilities with modifiers for conditional styling."""
+    # Test hover states
+    assert str(p(4).hover) == "hover:p-4"
+    assert str(m.x(8).hover) == "hover:mx-8"
+    assert str(p.t(2).hover.focus) == "focus:hover:pt-2"
+    
+    # Test responsive modifiers
+    assert str(p(4).sm) == "sm:p-4"
+    assert str(m.x(8).md) == "md:mx-8"
+    assert str(p.y(0).lg) == "lg:py-0"
+    assert str(m.negative(4).xl) == "xl:-m-4"
+    
+    # Test dark mode
+    assert str(p(8).dark) == "dark:p-8"
+    assert str(m.x.auto.dark) == "dark:mx-auto"
+    
+    # Test chained modifiers
+    assert str(p(4).hover.md) == "md:hover:p-4"
+    assert str(m(8).dark.lg.hover) == "hover:lg:dark:m-8"
+    
+    # Test with space utilities
+    assert str(space.x(4).hover) == "hover:space-x-4"
+    assert str(space.y(2).md) == "md:space-y-2"
+
+# Run the tests
+test_spacing_modifier_examples()
+
+# %% ../../nbs/utilities/spacing.ipynb 32
 def test_spacing_factory_documentation(
 ):
     """Test that factories have accessible documentation."""

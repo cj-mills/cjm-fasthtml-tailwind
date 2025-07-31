@@ -4,10 +4,13 @@
 
 # %% auto 0
 __all__ = ['TailwindScale', 'TailwindFraction', 'TailwindArbitrary', 'TailwindCustomProperty', 'TailwindValue',
-           'CONTAINER_SCALES', 'BREAKPOINTS', 'STATE_MODIFIERS', 'T', 'DIRECTIONS', 'is_numeric_scale', 'is_fraction',
-           'is_custom_property', 'is_arbitrary_value', 'TailwindBuilder', 'BaseUtility', 'StandardUtility',
-           'NamedScale', 'Breakpoint', 'BaseFactory', 'UtilityFactory', 'combine_classes', 'SingleValueFactory',
-           'Direction', 'DirectionalUtility', 'NegativeableUtility']
+           'PSEUDO_CLASS_MODIFIERS', 'PSEUDO_ELEMENT_MODIFIERS', 'RESPONSIVE_MODIFIERS', 'THEME_MODIFIERS',
+           'MOTION_MODIFIERS', 'PRINT_MODIFIERS', 'ORIENTATION_MODIFIERS', 'CONTRAST_MODIFIERS', 'DIRECTION_MODIFIERS',
+           'STATE_MODIFIERS', 'CHILD_MODIFIERS', 'ALL_MODIFIER_GROUPS', 'CONTAINER_SCALES', 'BREAKPOINTS', 'T',
+           'DIRECTIONS', 'is_numeric_scale', 'is_fraction', 'is_custom_property', 'is_arbitrary_value',
+           'TailwindBuilder', 'BaseUtility', 'ModifierMixin', 'ModifierGroup', 'StandardUtility', 'NamedScale',
+           'Breakpoint', 'BaseFactory', 'UtilityFactory', 'combine_classes', 'SingleValueFactory', 'Direction',
+           'DirectionalUtility', 'NegativeableUtility']
 
 # %% ../../nbs/core/base.ipynb 3
 from typing import Union, Optional, Literal, Protocol, runtime_checkable, TypeVar, Generic, Callable, Any, Dict, List, Tuple
@@ -140,10 +143,395 @@ class BaseUtility(ABC):
     ) -> str:  # The built CSS class string
         """Return the built CSS class string."""
         return self._build_class()
+    
+    def with_modifiers(
+        self,
+        *modifiers: str  # Modifier strings to apply (e.g., 'hover', 'focus', 'dark')
+    ) -> 'BaseUtility':  # A new instance with the modifiers applied
+        """
+        Create a new instance with additional modifiers.
+        Modifiers are applied in the order they are passed.
+        """
+        # Create a shallow copy to avoid modifying the original
+        import copy
+        new_instance = copy.copy(self)
+        new_instance._modifiers = list(modifiers) + self._modifiers
+        return new_instance
 
 # %% ../../nbs/core/base.ipynb 16
-class StandardUtility(BaseUtility):
-    """Standard utility class with common value formatting."""
+class ModifierMixin:
+    """Mixin to add modifier support to any utility with convenient property access."""
+    
+    # Pseudo-class modifiers
+    @property
+    def hover(self) -> 'BaseUtility':
+        """Apply hover modifier."""
+        return self.with_modifiers("hover")
+    
+    @property
+    def focus(self) -> 'BaseUtility':
+        """Apply focus modifier."""
+        return self.with_modifiers("focus")
+    
+    @property
+    def active(self) -> 'BaseUtility':
+        """Apply active modifier."""
+        return self.with_modifiers("active")
+    
+    @property
+    def visited(self) -> 'BaseUtility':
+        """Apply visited modifier."""
+        return self.with_modifiers("visited")
+    
+    @property
+    def disabled(self) -> 'BaseUtility':
+        """Apply disabled modifier."""
+        return self.with_modifiers("disabled")
+    
+    @property
+    def checked(self) -> 'BaseUtility':
+        """Apply checked modifier."""
+        return self.with_modifiers("checked")
+    
+    @property
+    def required(self) -> 'BaseUtility':
+        """Apply required modifier."""
+        return self.with_modifiers("required")
+    
+    @property
+    def invalid(self) -> 'BaseUtility':
+        """Apply invalid modifier."""
+        return self.with_modifiers("invalid")
+    
+    @property
+    def valid(self) -> 'BaseUtility':
+        """Apply valid modifier."""
+        return self.with_modifiers("valid")
+    
+    # Pseudo-element modifiers
+    @property
+    def before(self) -> 'BaseUtility':
+        """Apply before pseudo-element modifier."""
+        return self.with_modifiers("before")
+    
+    @property
+    def after(self) -> 'BaseUtility':
+        """Apply after pseudo-element modifier."""
+        return self.with_modifiers("after")
+    
+    @property
+    def placeholder(self) -> 'BaseUtility':
+        """Apply placeholder modifier."""
+        return self.with_modifiers("placeholder")
+    
+    @property
+    def selection(self) -> 'BaseUtility':
+        """Apply selection modifier."""
+        return self.with_modifiers("selection")
+    
+    # Responsive modifiers
+    @property
+    def sm(self) -> 'BaseUtility':
+        """Apply small breakpoint modifier."""
+        return self.with_modifiers("sm")
+    
+    @property
+    def md(self) -> 'BaseUtility':
+        """Apply medium breakpoint modifier."""
+        return self.with_modifiers("md")
+    
+    @property
+    def lg(self) -> 'BaseUtility':
+        """Apply large breakpoint modifier."""
+        return self.with_modifiers("lg")
+    
+    @property
+    def xl(self) -> 'BaseUtility':
+        """Apply extra large breakpoint modifier."""
+        return self.with_modifiers("xl")
+    
+    @property
+    def _2xl(self) -> 'BaseUtility':
+        """Apply 2xl breakpoint modifier."""
+        return self.with_modifiers("2xl")
+    
+    # Theme modifiers
+    @property
+    def dark(self) -> 'BaseUtility':
+        """Apply dark mode modifier."""
+        return self.with_modifiers("dark")
+    
+    # Motion modifiers
+    @property
+    def motion_reduce(self) -> 'BaseUtility':
+        """Apply reduced motion modifier."""
+        return self.with_modifiers("motion-reduce")
+    
+    @property
+    def motion_safe(self) -> 'BaseUtility':
+        """Apply safe motion modifier."""
+        return self.with_modifiers("motion-safe")
+    
+    # Structural modifiers
+    @property
+    def first(self) -> 'BaseUtility':
+        """Apply first child modifier."""
+        return self.with_modifiers("first")
+    
+    @property
+    def last(self) -> 'BaseUtility':
+        """Apply last child modifier."""
+        return self.with_modifiers("last")
+    
+    @property
+    def odd(self) -> 'BaseUtility':
+        """Apply odd child modifier."""
+        return self.with_modifiers("odd")
+    
+    @property
+    def even(self) -> 'BaseUtility':
+        """Apply even child modifier."""
+        return self.with_modifiers("even")
+    
+    # Group and peer modifiers
+    def group(
+        self, 
+        state: Optional[str] = None,  # Optional state like 'hover', 'focus'
+        name: Optional[str] = None    # Optional group name for nested groups
+    ) -> 'BaseUtility':  # The utility with group modifier applied
+        """Apply group modifier with optional state and name."""
+        modifier = "group"
+        if name:
+            modifier = f"group/{name}"
+        if state:
+            modifier = f"{modifier}-{state}"
+        return self.with_modifiers(modifier)
+    
+    def peer(
+        self, 
+        state: Optional[str] = None,  # Optional state like 'hover', 'focus'
+        name: Optional[str] = None    # Optional peer name for multiple peers
+    ) -> 'BaseUtility':  # The utility with peer modifier applied
+        """Apply peer modifier with optional state and name."""
+        modifier = "peer"
+        if name:
+            modifier = f"peer/{name}"
+        if state:
+            modifier = f"{modifier}-{state}"
+        return self.with_modifiers(modifier)
+    
+    # Arbitrary modifiers
+    def has(
+        self,
+        selector: str  # CSS selector for :has() pseudo-class
+    ) -> 'BaseUtility':  # The utility with has modifier applied
+        """Apply has modifier with a selector."""
+        return self.with_modifiers(f"has-[{selector}]")
+    
+    def aria(
+        self,
+        attribute: str,  # ARIA attribute name
+        value: Optional[str] = None  # Optional value for the attribute
+    ) -> 'BaseUtility':  # The utility with aria modifier applied
+        """Apply aria modifier with attribute and optional value."""
+        if value:
+            return self.with_modifiers(f"aria-[{attribute}={value}]")
+        return self.with_modifiers(f"aria-{attribute}")
+    
+    def data(
+        self,
+        attribute: str,  # Data attribute name
+        value: Optional[str] = None  # Optional value for the attribute
+    ) -> 'BaseUtility':  # The utility with data modifier applied
+        """Apply data modifier with attribute and optional value."""
+        if value:
+            return self.with_modifiers(f"data-[{attribute}={value}]")
+        return self.with_modifiers(f"data-[{attribute}]")
+    
+    def arbitrary(
+        self,
+        selector: str  # Arbitrary CSS selector
+    ) -> 'BaseUtility':  # The utility with arbitrary modifier applied
+        """Apply arbitrary modifier with custom selector."""
+        return self.with_modifiers(f"[{selector}]")
+
+# %% ../../nbs/core/base.ipynb 18
+@dataclass
+class ModifierGroup:
+    """Group of related modifiers with descriptions."""
+    name: str
+    description: str
+    modifiers: Dict[str, str]  # modifier_name -> tailwind_variant
+
+# Pseudo-class modifiers
+PSEUDO_CLASS_MODIFIERS = ModifierGroup(
+    "Pseudo Classes",
+    "Style elements based on pseudo-class states",
+    {
+        # Interactive states
+        "hover": "hover",
+        "focus": "focus",
+        "focus_within": "focus-within",
+        "focus_visible": "focus-visible",
+        "active": "active",
+        "visited": "visited",
+        "target": "target",
+        
+        # Form states
+        "disabled": "disabled",
+        "enabled": "enabled",
+        "checked": "checked",
+        "indeterminate": "indeterminate",
+        "default": "default",
+        "required": "required",
+        "valid": "valid",
+        "invalid": "invalid",
+        "in_range": "in-range",
+        "out_of_range": "out-of-range",
+        "placeholder_shown": "placeholder-shown",
+        "autofill": "autofill",
+        "read_only": "read-only",
+        
+        # Structural states
+        "first": "first",
+        "last": "last",
+        "only": "only",
+        "odd": "odd",
+        "even": "even",
+        "first_of_type": "first-of-type",
+        "last_of_type": "last-of-type",
+        "only_of_type": "only-of-type",
+        "empty": "empty",
+    }
+)
+
+# Pseudo-element modifiers
+PSEUDO_ELEMENT_MODIFIERS = ModifierGroup(
+    "Pseudo Elements",
+    "Style pseudo-elements of an element",
+    {
+        "before": "before",
+        "after": "after",
+        "first_letter": "first-letter",
+        "first_line": "first-line",
+        "marker": "marker",
+        "selection": "selection",
+        "file": "file",
+        "backdrop": "backdrop",
+        "placeholder": "placeholder",
+    }
+)
+
+# Responsive modifiers
+RESPONSIVE_MODIFIERS = ModifierGroup(
+    "Responsive",
+    "Apply styles at specific breakpoints",
+    {
+        "sm": "sm",      # >= 640px
+        "md": "md",      # >= 768px
+        "lg": "lg",      # >= 1024px
+        "xl": "xl",      # >= 1280px
+        "2xl": "2xl",    # >= 1536px
+    }
+)
+
+# Dark mode and theme modifiers
+THEME_MODIFIERS = ModifierGroup(
+    "Theme",
+    "Apply styles based on color scheme preference",
+    {
+        "dark": "dark",
+        "light": "light",  # For explicit light mode styling
+    }
+)
+
+# Motion modifiers
+MOTION_MODIFIERS = ModifierGroup(
+    "Motion",
+    "Apply styles based on motion preferences",
+    {
+        "motion_safe": "motion-safe",
+        "motion_reduce": "motion-reduce",
+    }
+)
+
+# Print modifier
+PRINT_MODIFIERS = ModifierGroup(
+    "Print",
+    "Apply styles for print media",
+    {
+        "print": "print",
+    }
+)
+
+# Orientation modifiers
+ORIENTATION_MODIFIERS = ModifierGroup(
+    "Orientation",
+    "Apply styles based on viewport orientation",
+    {
+        "portrait": "portrait",
+        "landscape": "landscape",
+    }
+)
+
+# Contrast modifiers
+CONTRAST_MODIFIERS = ModifierGroup(
+    "Contrast",
+    "Apply styles based on contrast preference",
+    {
+        "contrast_more": "contrast-more",
+        "contrast_less": "contrast-less",
+    }
+)
+
+# Direction modifiers
+DIRECTION_MODIFIERS = ModifierGroup(
+    "Direction",
+    "Apply styles based on text direction",
+    {
+        "rtl": "rtl",
+        "ltr": "ltr",
+    }
+)
+
+# Open/closed state modifiers
+STATE_MODIFIERS = ModifierGroup(
+    "State",
+    "Apply styles based on open/closed states",
+    {
+        "open": "open",
+        "closed": "closed",
+    }
+)
+
+# Child selector modifiers
+CHILD_MODIFIERS = ModifierGroup(
+    "Children",
+    "Apply styles to child elements",
+    {
+        "children": "*",      # Direct children
+        "descendants": "**",  # All descendants
+    }
+)
+
+# All modifier groups
+ALL_MODIFIER_GROUPS = [
+    PSEUDO_CLASS_MODIFIERS,
+    PSEUDO_ELEMENT_MODIFIERS,
+    RESPONSIVE_MODIFIERS,
+    THEME_MODIFIERS,
+    MOTION_MODIFIERS,
+    PRINT_MODIFIERS,
+    ORIENTATION_MODIFIERS,
+    CONTRAST_MODIFIERS,
+    DIRECTION_MODIFIERS,
+    STATE_MODIFIERS,
+    CHILD_MODIFIERS,
+]
+
+# %% ../../nbs/core/base.ipynb 19
+class StandardUtility(BaseUtility, ModifierMixin):
+    """Standard utility class with common value formatting and modifier support."""
     
     def _format_value(
         self,
@@ -168,7 +556,7 @@ class StandardUtility(BaseUtility):
             # Named values (like 'auto', 'full', etc.)
             return str(value)
 
-# %% ../../nbs/core/base.ipynb 18
+# %% ../../nbs/core/base.ipynb 21
 @dataclass
 class NamedScale:
     """Represents a named scale with optional CSS variable."""
@@ -182,7 +570,7 @@ class NamedScale:
         """Format as Tailwind class suffix."""
         return self.name
 
-# %% ../../nbs/core/base.ipynb 19
+# %% ../../nbs/core/base.ipynb 22
 CONTAINER_SCALES = [ # Common named scales used across utilities
     NamedScale("3xs", "--container-3xs", "16rem (256px)"),
     NamedScale("2xs", "--container-2xs", "18rem (288px)"),
@@ -199,14 +587,14 @@ CONTAINER_SCALES = [ # Common named scales used across utilities
     NamedScale("7xl", "--container-7xl", "80rem (1280px)"),
 ]
 
-# %% ../../nbs/core/base.ipynb 21
+# %% ../../nbs/core/base.ipynb 24
 @dataclass
 class Breakpoint:
     """Responsive breakpoint definition."""
     name: str
     min_width: Optional[str] = None
 
-# %% ../../nbs/core/base.ipynb 22
+# %% ../../nbs/core/base.ipynb 25
 BREAKPOINTS = { # Common breakpoints
     "sm": Breakpoint("sm", "640px"),
     "md": Breakpoint("md", "768px"),
@@ -215,7 +603,7 @@ BREAKPOINTS = { # Common breakpoints
     "2xl": Breakpoint("2xl", "1536px"),
 }
 
-# %% ../../nbs/core/base.ipynb 23
+# %% ../../nbs/core/base.ipynb 26
 STATE_MODIFIERS = [ # Common state modifiers
     "hover", "focus", "active", "visited", "target",
     "focus-within", "focus-visible", "disabled", "enabled",
@@ -229,7 +617,7 @@ STATE_MODIFIERS = [ # Common state modifiers
     "placeholder", "open", "closed",
 ]
 
-# %% ../../nbs/core/base.ipynb 25
+# %% ../../nbs/core/base.ipynb 28
 class BaseFactory(ABC):
     """Base factory class with documentation support."""
     
@@ -267,10 +655,10 @@ class BaseFactory(ABC):
         """
         pass
 
-# %% ../../nbs/core/base.ipynb 27
+# %% ../../nbs/core/base.ipynb 30
 T = TypeVar('T', bound=BaseUtility)
 
-# %% ../../nbs/core/base.ipynb 28
+# %% ../../nbs/core/base.ipynb 31
 class UtilityFactory(BaseFactory, Generic[T]):
     """Factory for creating utility instances with fluent API."""
     
@@ -318,7 +706,7 @@ class UtilityFactory(BaseFactory, Generic[T]):
             }
         }
 
-# %% ../../nbs/core/base.ipynb 37
+# %% ../../nbs/core/base.ipynb 43
 def combine_classes(
     *args: Union[str, BaseUtility, TailwindBuilder, BaseFactory, None]
 ) -> str:  # Space-separated class string
@@ -343,7 +731,7 @@ def combine_classes(
     
     return " ".join(classes)
 
-# %% ../../nbs/core/base.ipynb 40
+# %% ../../nbs/core/base.ipynb 51
 class SingleValueFactory(BaseFactory):
     """Factory for a single utility class string with documentation."""
     
@@ -386,14 +774,14 @@ class SingleValueFactory(BaseFactory):
             }
         }
 
-# %% ../../nbs/core/base.ipynb 43
+# %% ../../nbs/core/base.ipynb 54
 @dataclass
 class Direction:
     """Represents a directional variant."""
     suffix: str
     css_suffix: str
 
-# %% ../../nbs/core/base.ipynb 44
+# %% ../../nbs/core/base.ipynb 55
 DIRECTIONS = { # Common directions
     "t": Direction("t", "top"),      # top
     "r": Direction("r", "right"),    # right
@@ -403,7 +791,7 @@ DIRECTIONS = { # Common directions
     "y": Direction("y", "block"),    # vertical
 }
 
-# %% ../../nbs/core/base.ipynb 45
+# %% ../../nbs/core/base.ipynb 56
 class DirectionalUtility(StandardUtility):
     """Base class for utilities with directional variants."""
     
@@ -419,7 +807,7 @@ class DirectionalUtility(StandardUtility):
             full_prefix = prefix
         super().__init__(full_prefix)
 
-# %% ../../nbs/core/base.ipynb 48
+# %% ../../nbs/core/base.ipynb 59
 class NegativeableUtility(StandardUtility):
     """Utility class that supports negative values."""
     
