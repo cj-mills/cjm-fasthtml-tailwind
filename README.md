@@ -30,8 +30,9 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (10)
+    └── utilities/ (11)
         ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
+        ├── borders.ipynb           # Border utilities for Tailwind CSS
         ├── effects.ipynb           # Shadow, opacity and other visual effect utilities for Tailwind CSS
         ├── filters.ipynb           # Filter utilities for Tailwind CSS
         ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
@@ -42,7 +43,7 @@ pip install cjm-fasthtml-tailwind
         ├── svg.ipynb               # SVG utilities for Tailwind CSS
         └── typography.ipynb        # Typography utilities for Tailwind CSS
 
-Total: 25 notebooks across 4 directories
+Total: 26 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -64,6 +65,7 @@ graph LR
     core_resources[core.resources<br/>resources]
     core_testing[core.testing<br/>testing]
     utilities_backgrounds[utilities.backgrounds<br/>backgrounds]
+    utilities_borders[utilities.borders<br/>borders]
     utilities_effects[utilities.effects<br/>effects]
     utilities_filters[utilities.filters<br/>filters]
     utilities_flexbox_and_grid[utilities.flexbox_and_grid<br/>flexbox_and_grid]
@@ -77,71 +79,157 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_test_code
-    cli_explorer --> cli_utils
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_search
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_utils
     cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_imports
     cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_search
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_imports
     cli_explorer --> cli_helper_discovery
-    cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
+    cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_example_discovery
     cli_helper_discovery --> cli_utils
+    cli_imports --> cli_helper_discovery
     cli_imports --> cli_factory_extraction
     cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_utils
-    cli_imports --> cli_helper_discovery
+    cli_search --> cli_helper_discovery
     cli_search --> cli_utils
     cli_search --> cli_example_discovery
     cli_search --> cli_factory_extraction
-    cli_search --> cli_helper_discovery
+    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
-    cli_test_code --> cli_helper_discovery
-    core_testing --> utilities_sizing
     core_testing --> utilities_layout
     core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_sizing
     core_testing --> utilities_spacing
     core_testing --> core_base
     core_testing --> core_resources
-    utilities_backgrounds --> builders_scales
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> builders_scales
+    utilities_borders --> core_base
+    utilities_borders --> builders_colors
+    utilities_borders --> builders_scales
     utilities_effects --> core_base
     utilities_effects --> builders_colors
     utilities_effects --> builders_scales
-    utilities_filters --> builders_scales
     utilities_filters --> core_base
     utilities_filters --> builders_colors
-    utilities_flexbox_and_grid --> builders_scales
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_interactivity --> builders_scales
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_base
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> builders_colors
-    utilities_layout --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> core_base
+    utilities_layout --> builders_scales
     utilities_sizing --> builders_scales
-    utilities_spacing --> core_base
+    utilities_sizing --> core_base
     utilities_spacing --> builders_scales
-    utilities_svg --> builders_scales
+    utilities_spacing --> core_base
     utilities_svg --> core_base
     utilities_svg --> builders_colors
-    utilities_typography --> builders_scales
+    utilities_svg --> builders_scales
     utilities_typography --> core_base
+    utilities_typography --> builders_scales
     utilities_typography --> builders_colors
 ```
 
-*59 cross-module dependencies detected*
+*62 cross-module dependencies detected*
 
 ## CLI Reference
 
 ### `cjm-tailwind-explore` Command
 
-CLI command `cjm-tailwind-explore` found but help text unavailable.
+    usage: cjm-tailwind-explore [-h]
+                                {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
+                                ...
+
+    cjm-fasthtml-tailwind CLI Explorer
+
+    This tool helps you explore the cjm-fasthtml-tailwind library, which provides:
+    - Python-native Tailwind CSS v4 utility class builders for FastHTML projects
+    - Type-safe, dynamic CSS class generation without hardcoded strings
+    - Comprehensive utility factories (bg, bg_attachment, bg_clip, bg_conic, etc.)
+    - Helper functions for common patterns
+    - Full integration with FastHTML components
+
+    Purpose: This CLI tool enables autonomous exploration of the library's API by:
+    - Discovering all available utility modules and their documentation
+    - Listing factory instances with their built-in documentation
+    - Showing usage examples from test functions
+    - Providing source code for helper functions
+    - Searching across all library components
+    - Testing code snippets with automatic imports
+    - Generating recommended import statements
+    - Scanning existing code for replaceable CSS patterns
+
+    All information is dynamically extracted from the library itself - nothing is hardcoded.
+
+    positional arguments:
+      {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
+                            Available commands
+        modules             List all utility modules
+        factories           List factories
+        factory             Show detailed info for a specific factory
+        examples            Show usage examples
+        example             Show source code for a specific example
+        helpers             Show helper functions
+        helper              Show source code for a specific helper
+        search              Search across all library components
+        test-code           Test code snippets using the library
+        core-utils          List core utility functions
+        core-util           Show source code for a core utility
+        imports             Show recommended import statements
+        scan                Scan code for replaceable CSS patterns
+
+    options:
+      -h, --help            show this help message and exit
+
+    Getting Started:
+      1. List all modules:     cjm-tailwind-explore modules
+      2. View factories:       cjm-tailwind-explore factories
+      3. Search for patterns:  cjm-tailwind-explore search <query>
+      4. Test code:           cjm-tailwind-explore test-code "<code>"
+      5. Get imports:         cjm-tailwind-explore imports
+      6. Scan existing code:  cjm-tailwind-explore scan <file>
+
+    Exploration Workflow:
+      - Start with 'modules' to see available utility categories
+      - Use 'factories -m <module>' to explore specific modules
+      - Use 'factory <module> <name>' for detailed factory information
+      - Use 'examples' to see test-based usage patterns
+      - Use 'search' to find specific functionality
+      - Use 'test-code' to verify your understanding
+      - Use 'scan' to analyze existing code for migration opportunities
+
+    Key Concepts:
+      - Factories: Objects that generate CSS classes (e.g., bg, bg_attachment, bg_clip, bg_conic)
+      - Modules: Categories of utilities (backgrounds, borders, effects, etc.)
+      - Examples: Test functions demonstrating usage patterns
+      - Helpers: Convenience functions for common patterns
+
+    Tips for Coding Assistants:
+      - Use 'search --include-source' to find usage patterns in code
+      - Use 'test-code' to validate generated code before using it
+      - Use 'imports' to get all necessary import statements
+      - Use 'scan' to identify replaceable hardcoded CSS classes
+      - Factory names are intuitive: bg, bg_attachment, bg_clip, bg_conic
+      - Combine utilities with combine_classes() function
+      - All factories support method chaining and attribute access
+
+    Example Usage Flow:
+      cjm-tailwind-explore modules                    # See what's available
+      cjm-tailwind-explore factories -m backgrounds       # Explore backgrounds utilities
+      cjm-tailwind-explore factory backgrounds bg          # Learn about bg factory
+      cjm-tailwind-explore example backgrounds arbitrary      # See usage examples
+      cjm-tailwind-explore test-code 'print(str(bg("#123456")))'   # Test your understanding
+      cjm-tailwind-explore scan app.py                # Analyze existing code
 
 For detailed help on any command, use
 `cjm-tailwind-explore <command> --help`.
@@ -630,6 +718,294 @@ T
 DIRECTIONS = {6 items}  # Common directions
 ```
 
+### borders (`borders.ipynb`)
+
+> Border utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.borders import (
+    RADIUS_SCALES,
+    RADIUS_CONFIG,
+    rounded,
+    BORDER_WIDTH_CONFIG,
+    border,
+    divide,
+    border_color,
+    divide_color,
+    border_style,
+    divide_style,
+    OUTLINE_WIDTH_CONFIG,
+    outline,
+    outline_color,
+    outline_style,
+    outline_hidden,
+    OUTLINE_OFFSET_CONFIG,
+    outline_offset,
+    RoundedFactory,
+    test_borders_radius_examples,
+    BorderWidthUtility,
+    BorderWidthFactory,
+    BorderDirectionalFactory,
+    test_borders_width_examples,
+    DivideFactory,
+    test_borders_divide_examples,
+    BorderColorFactory,
+    test_borders_color_examples,
+    test_borders_divide_color_examples,
+    test_borders_style_examples,
+    test_borders_divide_style_examples,
+    OutlineWidthFactory,
+    test_borders_outline_width_examples,
+    test_borders_outline_color_examples,
+    test_borders_outline_style_examples,
+    test_borders_outline_offset_examples,
+    test_borders_practical_examples,
+    test_borders_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def test_borders_radius_examples()
+    "Test border radius utilities with all variants."
+```
+
+``` python
+def test_borders_width_examples()
+    "Test border width utilities with all variants."
+```
+
+``` python
+def test_borders_divide_examples()
+    "Test divide utilities for adding borders between children."
+```
+
+``` python
+def test_borders_color_examples()
+    "Test border color utilities with all variants."
+```
+
+``` python
+def test_borders_divide_color_examples()
+    "Test divide color utilities for borders between children."
+```
+
+``` python
+def test_borders_style_examples()
+    "Test border style utilities."
+```
+
+``` python
+def test_borders_divide_style_examples()
+    "Test divide style utilities."
+```
+
+``` python
+def test_borders_outline_width_examples()
+    "Test outline width utilities."
+```
+
+``` python
+def test_borders_outline_color_examples()
+    "Test outline color utilities."
+```
+
+``` python
+def test_borders_outline_style_examples()
+    "Test outline style utilities."
+```
+
+``` python
+def test_borders_outline_offset_examples()
+    "Test outline offset utilities."
+```
+
+``` python
+def test_borders_practical_examples()
+    "Test border utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_borders_factory_documentation()
+    "Test that border factories have accessible documentation."
+```
+
+#### Classes
+
+``` python
+class RoundedFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Optional documentation string
+    )
+    "Factory for creating border radius utilities with all variants."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Optional documentation string
+        )
+        "Initialize with documentation and create all sub-factories."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about the rounded factory."
+```
+
+``` python
+class BorderWidthUtility:
+    def __init__(
+        self,
+        prefix: str,  # The utility prefix (e.g., 'border', 'border-t')
+        config: ScaleConfig = BORDER_WIDTH_CONFIG,  # Configuration for valid values
+        has_default: bool = True  # Whether this utility has a default value (1px)
+    )
+    "Utility class for border width with default value support."
+    
+    def __init__(
+            self,
+            prefix: str,  # The utility prefix (e.g., 'border', 'border-t')
+            config: ScaleConfig = BORDER_WIDTH_CONFIG,  # Configuration for valid values
+            has_default: bool = True  # Whether this utility has a default value (1px)
+        )
+        "Initialize with prefix and configuration."
+```
+
+``` python
+class BorderWidthFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Optional documentation string
+    )
+    "Factory for creating border width utilities with directional variants."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Optional documentation string
+        )
+        "Initialize with documentation and create all sub-factories."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about the border width factory."
+```
+
+``` python
+class BorderDirectionalFactory:
+    def __init__(
+        self,
+        prefix: str,  # The utility prefix (e.g., 'border-t')
+        doc: str  # Documentation
+    )
+    "Factory for directional border width utilities."
+    
+    def __init__(
+            self,
+            prefix: str,  # The utility prefix (e.g., 'border-t')
+            doc: str  # Documentation
+        )
+        "Initialize with prefix and documentation."
+    
+    def describe(self) -> str
+        "Return the documentation for this factory."
+```
+
+``` python
+class DivideFactory:
+    def __init__(self):
+        """Initialize with divide utilities and reverse modifiers."""
+        super().__init__("Divide utilities for adding borders between child elements")
+        
+        # Create divide width factories
+        self.x = BorderDirectionalFactory("divide-x", "Horizontal divide between children")
+        self.y = BorderDirectionalFactory("divide-y", "Vertical divide between children")
+        
+        # Create reverse utilities
+        self.x_reverse = SingleValueFactory("divide-x-reverse", "Reverse the order of horizontal divide")
+        self.y_reverse = SingleValueFactory("divide-y-reverse", "Reverse the order of vertical divide")
+    
+    def get_info(
+        self
+    ) -> Dict[str, Any]:  # Dictionary with factory information
+    "Factory for creating divide utilities that add borders between children."
+    
+    def __init__(self):
+            """Initialize with divide utilities and reverse modifiers."""
+            super().__init__("Divide utilities for adding borders between child elements")
+            
+            # Create divide width factories
+            self.x = BorderDirectionalFactory("divide-x", "Horizontal divide between children")
+            self.y = BorderDirectionalFactory("divide-y", "Vertical divide between children")
+            
+            # Create reverse utilities
+            self.x_reverse = SingleValueFactory("divide-x-reverse", "Reverse the order of horizontal divide")
+            self.y_reverse = SingleValueFactory("divide-y-reverse", "Reverse the order of vertical divide")
+        
+        def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Initialize with divide utilities and reverse modifiers."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the divide factory."
+```
+
+``` python
+class BorderColorFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Optional documentation string
+    )
+    "Factory for creating border color utilities with directional variants."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Optional documentation string
+        )
+        "Initialize with documentation and create all sub-factories."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about the border color factory."
+```
+
+``` python
+class OutlineWidthFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Optional documentation string
+    )
+    "Factory for creating outline width utilities."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Optional documentation string
+        )
+        "Initialize with documentation."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get detailed information about the outline width factory."
+```
+
+#### Variables
+
+``` python
+RADIUS_SCALES = [8 items]  # Border radius named scales
+RADIUS_CONFIG  # Border radius configuration
+BORDER_WIDTH_CONFIG  # Border width configuration
+OUTLINE_WIDTH_CONFIG  # Outline width configuration
+OUTLINE_OFFSET_CONFIG  # Outline offset configuration
+```
+
 ### colors (`colors.ipynb`)
 
 > Color system builders for Tailwind CSS utilities
@@ -886,19 +1262,37 @@ class CoreUtilityInfo:
 ``` python
 from cjm_fasthtml_tailwind.utilities.effects import (
     SHADOW_SIZES,
+    shadow,
     shadow_color,
     INSET_SHADOW_SIZES,
+    inset_shadow,
     inset_shadow_color,
+    ring,
     ring_color,
+    inset_ring,
     inset_ring_color,
     TEXT_SHADOW_SIZES,
+    text_shadow,
     text_shadow_color,
+    opacity,
     mix_blend,
     bg_blend,
     mask_clip,
     mask_composite,
     mask,
     mask_linear,
+    mask_t_from,
+    mask_t_to,
+    mask_r_from,
+    mask_r_to,
+    mask_b_from,
+    mask_b_to,
+    mask_l_from,
+    mask_l_to,
+    mask_x_from,
+    mask_x_to,
+    mask_y_from,
+    mask_y_to,
     mask_radial,
     mask_circle,
     mask_ellipse,
@@ -1536,8 +1930,34 @@ class MaskConicFactory:
 
 ``` python
 SHADOW_SIZES = {8 items}
+shadow  # Create the shadow factory instance
+shadow_color  # Create shadow color factory using the existing ColoredFactory
 INSET_SHADOW_SIZES = {4 items}
+inset_shadow  # Create the inset shadow factory instance
+inset_shadow_color  # Create inset shadow color factory using the existing ColoredFactory
+ring  # Create the ring factory instance
+ring_color  # Create ring color factory using the existing ColoredFactory
+inset_ring  # Create the inset ring factory instance
+inset_ring_color  # Create inset ring color factory using the existing ColoredFactory
 TEXT_SHADOW_SIZES = {6 items}
+text_shadow  # Create the text shadow factory instance
+text_shadow_color  # Create text shadow color factory using the existing ColoredFactory
+opacity  # Create the opacity factory instance
+mask  # Create the basic mask image factory instance
+mask_linear  # Create the linear gradient mask factory instance
+mask_t_from  # Top direction - from
+mask_t_to  # Top direction - to
+mask_r_from  # Right direction - from
+mask_r_to  # Right direction - to
+mask_b_from  # Bottom direction - from
+mask_b_to  # Bottom direction - to
+mask_l_from  # Left direction - from
+mask_l_to  # Left direction - to
+mask_x_from  # Horizontal (x) direction - from
+mask_x_to  # Horizontal (x) direction - to
+mask_y_from  # Vertical (y) direction - from
+mask_y_to  # Vertical (y) direction - to
+mask_radial  # Create the radial gradient mask factory instance
 ```
 
 ### Example Discovery (`example_discovery.ipynb`)

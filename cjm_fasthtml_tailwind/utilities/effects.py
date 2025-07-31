@@ -178,12 +178,10 @@ class ShadowFactory(BaseFactory):
         }
 
 # %% ../../nbs/utilities/effects.ipynb 9
-# Create the shadow factory instance
-shadow = ShadowFactory("Box shadow utilities for adding depth to elements")
+shadow = ShadowFactory("Box shadow utilities for adding depth to elements") # Create the shadow factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 11
-# Create shadow color factory using the existing ColoredFactory
-shadow_color = ColoredFactory("shadow", "Shadow color utilities for customizing the color of box shadows")
+shadow_color = ColoredFactory("shadow", "Shadow color utilities for customizing the color of box shadows") # Create shadow color factory using the existing ColoredFactory
 
 # %% ../../nbs/utilities/effects.ipynb 13
 def test_effects_shadow_size_examples():
@@ -412,12 +410,10 @@ class InsetShadowFactory(BaseFactory):
         }
 
 # %% ../../nbs/utilities/effects.ipynb 24
-# Create the inset shadow factory instance
-inset_shadow = InsetShadowFactory("Inset box shadow utilities for adding inner depth to elements")
+inset_shadow = InsetShadowFactory("Inset box shadow utilities for adding inner depth to elements") # Create the inset shadow factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 26
-# Create inset shadow color factory using the existing ColoredFactory
-inset_shadow_color = ColoredFactory("inset-shadow", "Inset shadow color utilities for customizing the color of inner box shadows")
+inset_shadow_color = ColoredFactory("inset-shadow", "Inset shadow color utilities for customizing the color of inner box shadows") # Create inset shadow color factory using the existing ColoredFactory
 
 # %% ../../nbs/utilities/effects.ipynb 28
 def test_effects_inset_shadow_size_examples():
@@ -621,12 +617,10 @@ class RingFactory(BaseFactory):
         }
 
 # %% ../../nbs/utilities/effects.ipynb 36
-# Create the ring factory instance
-ring = RingFactory("Ring (outline) utilities for adding focus rings and outlines to elements")
+ring = RingFactory("Ring (outline) utilities for adding focus rings and outlines to elements") # Create the ring factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 38
-# Create ring color factory using the existing ColoredFactory
-ring_color = ColoredFactory("ring", "Ring color utilities for customizing the color of focus rings and outlines")
+ring_color = ColoredFactory("ring", "Ring color utilities for customizing the color of focus rings and outlines") # Create ring color factory using the existing ColoredFactory
 
 # %% ../../nbs/utilities/effects.ipynb 40
 def test_effects_ring_width_examples():
@@ -826,12 +820,10 @@ class InsetRingFactory(BaseFactory):
         }
 
 # %% ../../nbs/utilities/effects.ipynb 47
-# Create the inset ring factory instance
-inset_ring = InsetRingFactory("Inset ring (inner outline) utilities for adding inner focus rings and outlines to elements")
+inset_ring = InsetRingFactory("Inset ring (inner outline) utilities for adding inner focus rings and outlines to elements") # Create the inset ring factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 49
-# Create inset ring color factory using the existing ColoredFactory
-inset_ring_color = ColoredFactory("inset-ring", "Inset ring color utilities for customizing the color of inner focus rings and outlines")
+inset_ring_color = ColoredFactory("inset-ring", "Inset ring color utilities for customizing the color of inner focus rings and outlines") # Create inset ring color factory using the existing ColoredFactory
 
 # %% ../../nbs/utilities/effects.ipynb 51
 def test_effects_inset_ring_width_examples():
@@ -1045,12 +1037,10 @@ class TextShadowFactory(BaseFactory):
         }
 
 # %% ../../nbs/utilities/effects.ipynb 59
-# Create the text shadow factory instance
-text_shadow = TextShadowFactory("Text shadow utilities for adding shadows to text")
+text_shadow = TextShadowFactory("Text shadow utilities for adding shadows to text") # Create the text shadow factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 61
-# Create text shadow color factory using the existing ColoredFactory
-text_shadow_color = ColoredFactory("text-shadow", "Text shadow color utilities for customizing the color of text shadows")
+text_shadow_color = ColoredFactory("text-shadow", "Text shadow color utilities for customizing the color of text shadows") # Create text shadow color factory using the existing ColoredFactory
 
 # %% ../../nbs/utilities/effects.ipynb 63
 def test_effects_text_shadow_size_examples():
@@ -1265,8 +1255,7 @@ class OpacityFactory(BaseFactory):
         }
 
 # %% ../../nbs/utilities/effects.ipynb 70
-# Create the opacity factory instance
-opacity = OpacityFactory("Opacity utilities for controlling element transparency")
+opacity = OpacityFactory("Opacity utilities for controlling element transparency") # Create the opacity factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 72
 def test_effects_opacity_examples():
@@ -1545,8 +1534,7 @@ class MaskImageFactory(BaseFactory):
             }
         }
 
-# Create the basic mask image factory instance
-mask = MaskImageFactory("Basic mask image utilities for controlling element masks")
+mask = MaskImageFactory("Basic mask image utilities for controlling element masks") # Create the basic mask image factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 91
 class MaskLinearUtility(BaseUtility):
@@ -1670,8 +1658,7 @@ class MaskLinearFactory(BaseFactory):
             }
         }
 
-# Create the linear gradient mask factory instance
-mask_linear = MaskLinearFactory("Linear gradient mask utilities for creating gradient-based masks")
+mask_linear = MaskLinearFactory("Linear gradient mask utilities for creating gradient-based masks") # Create the linear gradient mask factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 94
 class MaskDirectionalUtility(BaseUtility):
@@ -1819,29 +1806,23 @@ class MaskDirectionalFactory(BaseFactory):
 
 # %% ../../nbs/utilities/effects.ipynb 96
 # Create directional mask gradient factories
-# Top direction
-mask_t_from = MaskDirectionalFactory('t', 'from')
-mask_t_to = MaskDirectionalFactory('t', 'to')
+mask_t_from = MaskDirectionalFactory('t', 'from') # Top direction - from
+mask_t_to = MaskDirectionalFactory('t', 'to') # Top direction - to
 
-# Right direction  
-mask_r_from = MaskDirectionalFactory('r', 'from')
-mask_r_to = MaskDirectionalFactory('r', 'to')
+mask_r_from = MaskDirectionalFactory('r', 'from') # Right direction - from
+mask_r_to = MaskDirectionalFactory('r', 'to') # Right direction - to
 
-# Bottom direction
-mask_b_from = MaskDirectionalFactory('b', 'from')
-mask_b_to = MaskDirectionalFactory('b', 'to')
+mask_b_from = MaskDirectionalFactory('b', 'from') # Bottom direction - from
+mask_b_to = MaskDirectionalFactory('b', 'to') # Bottom direction - to
 
-# Left direction
-mask_l_from = MaskDirectionalFactory('l', 'from')
-mask_l_to = MaskDirectionalFactory('l', 'to')
+mask_l_from = MaskDirectionalFactory('l', 'from') # Left direction - from
+mask_l_to = MaskDirectionalFactory('l', 'to') # Left direction - to
 
-# Horizontal (x) direction
-mask_x_from = MaskDirectionalFactory('x', 'from')
-mask_x_to = MaskDirectionalFactory('x', 'to')
+mask_x_from = MaskDirectionalFactory('x', 'from') # Horizontal (x) direction - from
+mask_x_to = MaskDirectionalFactory('x', 'to') # Horizontal (x) direction - to
 
-# Vertical (y) direction
-mask_y_from = MaskDirectionalFactory('y', 'from')
-mask_y_to = MaskDirectionalFactory('y', 'to')
+mask_y_from = MaskDirectionalFactory('y', 'from') # Vertical (y) direction - from
+mask_y_to = MaskDirectionalFactory('y', 'to') # Vertical (y) direction - to
 
 # %% ../../nbs/utilities/effects.ipynb 98
 class MaskRadialUtility(BaseUtility):
@@ -1933,8 +1914,7 @@ class MaskRadialFactory(BaseFactory):
             }
         }
 
-# Create the radial gradient mask factory instance
-mask_radial = MaskRadialFactory("Radial gradient mask utilities for creating circular gradient-based masks")
+mask_radial = MaskRadialFactory("Radial gradient mask utilities for creating circular gradient-based masks") # Create the radial gradient mask factory instance
 
 # %% ../../nbs/utilities/effects.ipynb 100
 # Radial gradient shape controls
