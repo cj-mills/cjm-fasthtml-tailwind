@@ -196,8 +196,6 @@ def test_tables_all_utilities():
     # Caption side
     assert caption_side.top == "caption-top"
     assert caption_side.bottom == "caption-bottom"
-    
-    print("✅ All table utilities work correctly!")
 
 # Run the comprehensive test
 test_tables_all_utilities()
@@ -448,8 +446,6 @@ def test_tables_factory_documentation():
     # Test directional sub-factories for border spacing
     assert border_spacing.x.describe() == "Horizontal border spacing"
     assert border_spacing.y.describe() == "Vertical border spacing"
-    
-    print("✅ All table factory documentation is accessible!")
 
 # Run the tests
 test_tables_factory_documentation()
