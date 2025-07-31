@@ -30,7 +30,8 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (14)
+    └── utilities/ (15)
+        ├── accessibility.ipynb              # Accessibility utilities for Tailwind CSS
         ├── backgrounds.ipynb                # Background utilities for Tailwind CSS
         ├── borders.ipynb                    # Border utilities for Tailwind CSS
         ├── effects.ipynb                    # Shadow, opacity and other visual effect utilities for Tailwind CSS
@@ -46,7 +47,7 @@ pip install cjm-fasthtml-tailwind
         ├── transitions_and_animation.ipynb  # Transition and animation utilities for Tailwind CSS
         └── typography.ipynb                 # Typography utilities for Tailwind CSS
 
-Total: 29 notebooks across 4 directories
+Total: 30 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -67,6 +68,7 @@ graph LR
     core_base[core.base<br/>base]
     core_resources[core.resources<br/>resources]
     core_testing[core.testing<br/>testing]
+    utilities_accessibility[utilities.accessibility<br/>accessibility]
     utilities_backgrounds[utilities.backgrounds<br/>backgrounds]
     utilities_borders[utilities.borders<br/>borders]
     utilities_effects[utilities.effects<br/>effects]
@@ -86,73 +88,76 @@ graph LR
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_utils
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_imports
+    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_test_code
-    cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_imports
+    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_search
     cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_helper_discovery
     cli_factory_extraction --> core_base
     cli_factory_extraction --> cli_utils
-    cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_utils
-    cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_helper_discovery
+    cli_helper_discovery --> cli_utils
     cli_imports --> cli_factory_extraction
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_utils
+    cli_imports --> cli_helper_discovery
     cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
+    cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
-    cli_test_code --> cli_utils
-    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_utils
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_sizing
     core_testing --> utilities_layout
+    core_testing --> utilities_sizing
     core_testing --> utilities_spacing
-    core_testing --> core_resources
     core_testing --> core_base
+    core_testing --> core_resources
+    utilities_accessibility --> utilities_layout
+    utilities_accessibility --> core_base
+    utilities_accessibility --> builders_scales
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
-    utilities_borders --> builders_scales
+    utilities_backgrounds --> builders_colors
     utilities_borders --> core_base
+    utilities_borders --> builders_scales
     utilities_borders --> builders_colors
     utilities_effects --> core_base
     utilities_effects --> builders_colors
     utilities_effects --> builders_scales
-    utilities_filters --> builders_scales
     utilities_filters --> core_base
+    utilities_filters --> builders_scales
     utilities_filters --> builders_colors
-    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_interactivity --> builders_scales
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_base
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> builders_colors
-    utilities_layout --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> core_base
+    utilities_layout --> builders_scales
     utilities_sizing --> builders_scales
-    utilities_spacing --> core_base
+    utilities_sizing --> core_base
     utilities_spacing --> builders_scales
-    utilities_svg --> builders_scales
+    utilities_spacing --> core_base
     utilities_svg --> core_base
+    utilities_svg --> builders_scales
     utilities_svg --> builders_colors
     utilities_tables --> core_base
     utilities_tables --> builders_scales
-    utilities_transforms --> builders_scales
     utilities_transforms --> core_base
-    utilities_transitions_and_animation --> builders_scales
+    utilities_transforms --> builders_scales
     utilities_transitions_and_animation --> core_base
-    utilities_typography --> builders_scales
+    utilities_transitions_and_animation --> builders_scales
     utilities_typography --> core_base
+    utilities_typography --> builders_scales
     utilities_typography --> builders_colors
 ```
 
-*68 cross-module dependencies detected*
+*71 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -169,7 +174,7 @@ graph LR
     This tool helps you explore the cjm-fasthtml-tailwind library, which provides:
     - Python-native Tailwind CSS v4 utility class builders for FastHTML projects
     - Type-safe, dynamic CSS class generation without hardcoded strings
-    - Comprehensive utility factories (bg, bg_attachment, bg_clip, bg_conic, etc.)
+    - Comprehensive utility factories (forced_color_adjust, not_sr_only, sr_only, etc.)
     - Helper functions for common patterns
     - Full integration with FastHTML components
 
@@ -223,8 +228,8 @@ graph LR
       - Use 'scan' to analyze existing code for migration opportunities
 
     Key Concepts:
-      - Factories: Objects that generate CSS classes (e.g., bg, bg_attachment, bg_clip, bg_conic)
-      - Modules: Categories of utilities (backgrounds, borders, effects, etc.)
+      - Factories: Objects that generate CSS classes (e.g., forced_color_adjust, not_sr_only, sr_only)
+      - Modules: Categories of utilities (accessibility, backgrounds, borders, etc.)
       - Examples: Test functions demonstrating usage patterns
       - Helpers: Convenience functions for common patterns
 
@@ -233,16 +238,16 @@ graph LR
       - Use 'test-code' to validate generated code before using it
       - Use 'imports' to get all necessary import statements
       - Use 'scan' to identify replaceable hardcoded CSS classes
-      - Factory names are intuitive: bg, bg_attachment, bg_clip, bg_conic
+      - Factory names are intuitive: forced_color_adjust, not_sr_only, sr_only
       - Combine utilities with combine_classes() function
       - All factories support method chaining and attribute access
 
     Example Usage Flow:
       cjm-tailwind-explore modules                    # See what's available
-      cjm-tailwind-explore factories -m backgrounds       # Explore backgrounds utilities
-      cjm-tailwind-explore factory backgrounds bg          # Learn about bg factory
-      cjm-tailwind-explore example backgrounds arbitrary      # See usage examples
-      cjm-tailwind-explore test-code 'print(str(bg("#123456")))'   # Test your understanding
+      cjm-tailwind-explore factories -m accessibility       # Explore accessibility utilities
+      cjm-tailwind-explore factory accessibility forced_color_adjust          # Learn about forced_color_adjust factory
+      cjm-tailwind-explore example accessibility forced_color_adjust      # See usage examples
+      cjm-tailwind-explore test-code 'print(str(sr_only))'   # Test your understanding
       cjm-tailwind-explore scan app.py                # Analyze existing code
 
 For detailed help on any command, use
@@ -251,6 +256,94 @@ For detailed help on any command, use
 ## Module Overview
 
 Detailed documentation for each module in the project:
+
+### accessibility (`accessibility.ipynb`)
+
+> Accessibility utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.accessibility import (
+    FORCED_COLOR_ADJUST_VALUES,
+    forced_color_adjust,
+    test_accessibility_forced_color_adjust_examples,
+    test_accessibility_screen_reader_examples,
+    test_accessibility_practical_examples,
+    test_accessibility_factory_documentation,
+    visually_hidden,
+    high_contrast_safe,
+    test_accessibility_helper_examples
+)
+```
+
+#### Functions
+
+``` python
+def test_accessibility_forced_color_adjust_examples(
+)
+    "Test forced color adjust utilities."
+```
+
+``` python
+def test_accessibility_screen_reader_examples(
+)
+    "Test screen reader utilities imported from layout module."
+```
+
+``` python
+def test_accessibility_practical_examples(
+)
+    "Test accessibility utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_accessibility_factory_documentation(
+)
+    "Test that factories have accessible documentation."
+```
+
+``` python
+def visually_hidden(
+    focusable: bool = False  # Whether the element should be visible when focused
+) -> str:  # CSS classes for hiding element visually
+    """
+    Hide an element visually but keep it available to screen readers.
+    
+    Args:
+        focusable: If True, element becomes visible when focused (useful for skip links)
+    
+    Returns:
+        CSS classes for visual hiding with optional focus visibility
+    """
+```
+
+``` python
+def high_contrast_safe(
+    *classes: str  # Additional CSS classes to combine
+) -> str:  # CSS classes including forced color adjust
+    """
+    Create classes that work well with high contrast mode.
+    
+    Args:
+        *classes: Additional CSS classes to include
+    
+    Returns:
+        Combined CSS classes with forced-color-adjust-auto
+    """
+```
+
+``` python
+def test_accessibility_helper_examples(
+)
+    "Test helper functions for common accessibility patterns."
+```
+
+#### Variables
+
+``` python
+FORCED_COLOR_ADJUST_VALUES = {2 items}
+```
 
 ### backgrounds (`backgrounds.ipynb`)
 
