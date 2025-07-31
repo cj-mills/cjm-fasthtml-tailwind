@@ -30,7 +30,7 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (11)
+    └── utilities/ (12)
         ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
         ├── borders.ipynb           # Border utilities for Tailwind CSS
         ├── effects.ipynb           # Shadow, opacity and other visual effect utilities for Tailwind CSS
@@ -41,9 +41,10 @@ pip install cjm-fasthtml-tailwind
         ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
         ├── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
         ├── svg.ipynb               # SVG utilities for Tailwind CSS
+        ├── tables.ipynb            # Table utilities for Tailwind CSS
         └── typography.ipynb        # Typography utilities for Tailwind CSS
 
-Total: 26 notebooks across 4 directories
+Total: 27 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -74,35 +75,36 @@ graph LR
     utilities_sizing[utilities.sizing<br/>sizing]
     utilities_spacing[utilities.spacing<br/>spacing]
     utilities_svg[utilities.svg<br/>svg]
+    utilities_tables[utilities.tables<br/>tables]
     utilities_typography[utilities.typography<br/>typography]
 
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_utils
     cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_search
-    cli_explorer --> cli_test_code
     cli_explorer --> cli_imports
+    cli_explorer --> cli_test_code
     cli_explorer --> cli_helper_discovery
-    cli_factory_extraction --> core_base
+    cli_explorer --> cli_core_utils_discovery
     cli_factory_extraction --> cli_utils
-    cli_helper_discovery --> cli_example_discovery
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
-    cli_imports --> cli_helper_discovery
+    cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_factory_extraction
-    cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_utils
-    cli_search --> cli_helper_discovery
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_helper_discovery
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_factory_extraction
-    cli_test_code --> cli_helper_discovery
+    cli_search --> cli_example_discovery
+    cli_search --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
+    cli_test_code --> cli_helper_discovery
     core_testing --> utilities_layout
     core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_sizing
@@ -110,42 +112,46 @@ graph LR
     core_testing --> core_base
     core_testing --> core_resources
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> builders_colors
     utilities_borders --> core_base
-    utilities_borders --> builders_colors
     utilities_borders --> builders_scales
-    utilities_effects --> core_base
+    utilities_borders --> builders_colors
     utilities_effects --> builders_colors
+    utilities_effects --> core_base
     utilities_effects --> builders_scales
-    utilities_filters --> core_base
     utilities_filters --> builders_colors
+    utilities_filters --> core_base
     utilities_filters --> builders_scales
-    utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_interactivity --> core_base
+    utilities_flexbox_and_grid --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> core_base
     utilities_interactivity --> builders_colors
-    utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
+    utilities_layout --> core_base
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
     utilities_svg --> core_base
     utilities_svg --> builders_colors
     utilities_svg --> builders_scales
-    utilities_typography --> core_base
+    utilities_tables --> core_base
+    utilities_tables --> builders_scales
     utilities_typography --> builders_scales
+    utilities_typography --> core_base
     utilities_typography --> builders_colors
 ```
 
-*62 cross-module dependencies detected*
+*64 cross-module dependencies detected*
 
 ## CLI Reference
 
 ### `cjm-tailwind-explore` Command
 
+    ✅ All table utilities work correctly!
+    ✅ All table factory documentation is accessible!
     usage: cjm-tailwind-explore [-h]
                                 {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
                                 ...
@@ -4856,6 +4862,128 @@ stroke_none  # Remove stroke
 stroke  # The stroke color factory
 STROKE_WIDTH_CONFIG
 stroke_width  # The stroke width factory
+```
+
+### tables (`tables.ipynb`)
+
+> Table utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.tables import (
+    border_collapse,
+    border_spacing,
+    table_layout,
+    caption_side,
+    test_tables_border_collapse_examples,
+    BorderSpacingFactory,
+    test_tables_border_spacing_basic_examples,
+    test_tables_border_spacing_directional_examples,
+    test_tables_border_spacing_arbitrary_examples,
+    test_tables_layout_examples,
+    test_tables_caption_side_examples,
+    test_tables_all_utilities,
+    test_tables_practical_examples,
+    test_tables_complex_example,
+    test_tables_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def test_tables_border_collapse_examples()
+    "Test border collapse utilities."
+```
+
+``` python
+def test_tables_border_spacing_basic_examples()
+    "Test basic border spacing utilities."
+```
+
+``` python
+def test_tables_border_spacing_directional_examples()
+    "Test directional border spacing utilities."
+```
+
+``` python
+def test_tables_border_spacing_arbitrary_examples()
+    "Test border spacing utilities with arbitrary values."
+```
+
+``` python
+def test_tables_layout_examples()
+    "Test table layout utilities."
+```
+
+``` python
+def test_tables_caption_side_examples()
+    "Test caption side utilities."
+```
+
+``` python
+def test_tables_all_utilities()
+    "Comprehensive test of all table utilities."
+```
+
+``` python
+def test_tables_practical_examples()
+    "Test table utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_tables_complex_example()
+    "Test a complex table example with various styling."
+```
+
+``` python
+def test_tables_factory_documentation()
+    "Test that table factories have accessible documentation."
+```
+
+#### Classes
+
+``` python
+class BorderSpacingFactory:
+    def __init__(self):
+        """Initialize with scaled factories for directional variants."""
+        super().__init__("Border spacing utilities for controlling the spacing between table borders")
+        # Create scaled factories with properly hyphenated prefixes
+        self._base = ScaledFactory("border-spacing", SPACING_CONFIG, "All sides border spacing")
+        self.x = ScaledFactory("border-spacing-x", SPACING_CONFIG, "Horizontal border spacing")
+        self.y = ScaledFactory("border-spacing-y", SPACING_CONFIG, "Vertical border spacing")
+    
+    def __call__(
+        self,
+        value: Optional[TailwindScale] = None  # The spacing value
+    ) -> StandardUtility:  # A border spacing utility for all sides
+    "Factory for border-spacing utilities with directional support."
+    
+    def __init__(self):
+            """Initialize with scaled factories for directional variants."""
+            super().__init__("Border spacing utilities for controlling the spacing between table borders")
+            # Create scaled factories with properly hyphenated prefixes
+            self._base = ScaledFactory("border-spacing", SPACING_CONFIG, "All sides border spacing")
+            self.x = ScaledFactory("border-spacing-x", SPACING_CONFIG, "Horizontal border spacing")
+            self.y = ScaledFactory("border-spacing-y", SPACING_CONFIG, "Vertical border spacing")
+        
+        def __call__(
+            self,
+            value: Optional[TailwindScale] = None  # The spacing value
+        ) -> StandardUtility:  # A border spacing utility for all sides
+        "Initialize with scaled factories for directional variants."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the border spacing factory."
+```
+
+#### Variables
+
+``` python
+border_spacing  # The border spacing factory
 ```
 
 ### Test Code Functionality (`test_code.ipynb`)
