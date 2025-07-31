@@ -30,7 +30,7 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (13)
+    └── utilities/ (14)
         ├── backgrounds.ipynb                # Background utilities for Tailwind CSS
         ├── borders.ipynb                    # Border utilities for Tailwind CSS
         ├── effects.ipynb                    # Shadow, opacity and other visual effect utilities for Tailwind CSS
@@ -42,10 +42,11 @@ pip install cjm-fasthtml-tailwind
         ├── spacing.ipynb                    # Padding and margin utilities for Tailwind CSS
         ├── svg.ipynb                        # SVG utilities for Tailwind CSS
         ├── tables.ipynb                     # Table utilities for Tailwind CSS
+        ├── transforms.ipynb                 # Transform, rotate, scale, skew, translate and other transformation utilities for Tailwind CSS
         ├── transitions_and_animation.ipynb  # Transition and animation utilities for Tailwind CSS
         └── typography.ipynb                 # Typography utilities for Tailwind CSS
 
-Total: 28 notebooks across 4 directories
+Total: 29 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -77,78 +78,81 @@ graph LR
     utilities_spacing[utilities.spacing<br/>spacing]
     utilities_svg[utilities.svg<br/>svg]
     utilities_tables[utilities.tables<br/>tables]
+    utilities_transforms[utilities.transforms<br/>transforms]
     utilities_transitions_and_animation[utilities.transitions_and_animation<br/>transitions_and_animation]
     utilities_typography[utilities.typography<br/>typography]
 
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_imports
     cli_explorer --> cli_utils
-    cli_explorer --> cli_helper_discovery
-    cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_search
     cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_imports
+    cli_explorer --> cli_search
+    cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_helper_discovery
     cli_factory_extraction --> core_base
     cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
+    cli_imports --> cli_utils
     cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_helper_discovery
-    cli_imports --> cli_utils
     cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
+    cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
-    cli_search --> cli_factory_extraction
-    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_utils
+    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
-    core_testing --> utilities_spacing
-    core_testing --> utilities_layout
     core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_sizing
-    core_testing --> core_base
+    core_testing --> utilities_layout
+    core_testing --> utilities_spacing
     core_testing --> core_resources
-    utilities_backgrounds --> builders_colors
+    core_testing --> core_base
     utilities_backgrounds --> core_base
+    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
-    utilities_borders --> builders_colors
-    utilities_borders --> core_base
     utilities_borders --> builders_scales
+    utilities_borders --> core_base
+    utilities_borders --> builders_colors
     utilities_effects --> core_base
     utilities_effects --> builders_colors
     utilities_effects --> builders_scales
-    utilities_filters --> builders_colors
-    utilities_filters --> core_base
     utilities_filters --> builders_scales
+    utilities_filters --> core_base
+    utilities_filters --> builders_colors
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_interactivity --> builders_colors
-    utilities_interactivity --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> core_base
+    utilities_interactivity --> builders_colors
     utilities_layout --> builders_scales
     utilities_layout --> core_base
     utilities_sizing --> core_base
     utilities_sizing --> builders_scales
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
-    utilities_svg --> builders_colors
-    utilities_svg --> core_base
     utilities_svg --> builders_scales
+    utilities_svg --> core_base
+    utilities_svg --> builders_colors
     utilities_tables --> core_base
     utilities_tables --> builders_scales
+    utilities_transforms --> builders_scales
+    utilities_transforms --> core_base
     utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_base
-    utilities_typography --> builders_colors
-    utilities_typography --> core_base
     utilities_typography --> builders_scales
+    utilities_typography --> core_base
+    utilities_typography --> builders_colors
 ```
 
-*66 cross-module dependencies detected*
+*68 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -5069,6 +5073,383 @@ def start_test_server(
         # Later, in another cell:
         server.stop()
     """
+```
+
+### transforms (`transforms.ipynb`)
+
+> Transform, rotate, scale, skew, translate and other transformation
+> utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.transforms import (
+    BACKFACE_VALUES,
+    backface,
+    PERSPECTIVE_VALUES,
+    perspective,
+    PERSPECTIVE_ORIGIN_VALUES,
+    perspective_origin,
+    ROTATE_ANGLES,
+    ROTATE_CONFIG,
+    rotate,
+    SCALE_VALUES,
+    SCALE_CONFIG,
+    scale_tw,
+    SKEW_ANGLES,
+    skew,
+    TRANSFORM_VALUES,
+    transform,
+    TRANSFORM_ORIGIN_VALUES,
+    origin,
+    TRANSFORM_STYLE_VALUES,
+    transform_style,
+    TRANSLATE_CONFIG,
+    translate,
+    test_transforms_backface_examples,
+    PerspectiveFactory,
+    test_transforms_perspective_examples,
+    PerspectiveOriginFactory,
+    test_transforms_perspective_origin_examples,
+    RotateUtility,
+    RotateFactory,
+    NegativeRotateFactory,
+    test_transforms_rotate_examples,
+    ScaleUtility,
+    ScaleFactory,
+    NegativeScaleFactory,
+    test_transforms_scale_examples,
+    SkewUtility,
+    SkewFactory,
+    NegativeSkewFactory,
+    test_transforms_skew_examples,
+    TransformFactory,
+    test_transforms_transform_examples,
+    TransformOriginFactory,
+    test_transforms_origin_examples,
+    test_transforms_style_examples,
+    TranslateFactory,
+    test_transforms_translate_examples,
+    test_transforms_practical_examples,
+    center_transform,
+    hover_scale,
+    flip_card_3d,
+    parallax_transform,
+    test_transforms_helper_examples,
+    test_transforms_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def test_transforms_backface_examples()
+    "Test backface visibility utilities."
+```
+
+``` python
+def test_transforms_perspective_examples()
+    "Test perspective utilities."
+```
+
+``` python
+def test_transforms_perspective_origin_examples()
+    "Test perspective origin utilities."
+```
+
+``` python
+def test_transforms_rotate_examples()
+    "Test rotate utilities."
+```
+
+``` python
+def test_transforms_scale_examples()
+    "Test scale utilities."
+```
+
+``` python
+def test_transforms_skew_examples()
+    "Test skew utilities."
+```
+
+``` python
+def test_transforms_transform_examples()
+    "Test transform utilities."
+```
+
+``` python
+def test_transforms_origin_examples()
+    "Test transform origin utilities."
+```
+
+``` python
+def test_transforms_style_examples()
+    "Test transform style utilities."
+```
+
+``` python
+def test_transforms_translate_examples()
+    "Test translate utilities."
+```
+
+``` python
+def test_transforms_practical_examples()
+    "Test transform utilities in practical FastHTML component examples."
+```
+
+``` python
+def center_transform() -> str
+    "Center an element using transform translate."
+```
+
+``` python
+def hover_scale(scale: int = 110) -> str
+    "Create a hover scale effect."
+```
+
+``` python
+def flip_card_3d(perspective_value: str = "normal") -> Dict[str, str]:
+    """Get classes for a 3D flip card effect."""
+    return {
+        "container": str(getattr(perspective, perspective_value)),
+    "Get classes for a 3D flip card effect."
+```
+
+``` python
+def parallax_transform(speed: float = 0.5) -> str
+    "Create a parallax transform effect."
+```
+
+``` python
+def test_transforms_helper_examples()
+    "Test helper functions for common transform patterns."
+```
+
+``` python
+def test_transforms_factory_documentation()
+    "Test that transform factories have accessible documentation."
+```
+
+#### Classes
+
+``` python
+class PerspectiveFactory(SimpleFactory):
+    "Factory for perspective with both named and custom values."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the perspective factory."
+```
+
+``` python
+class PerspectiveOriginFactory(SimpleFactory):
+    "Factory for perspective origin with both fixed and custom values."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the perspective origin factory."
+```
+
+``` python
+class RotateUtility(StandardUtility):
+    "Utility class for rotation with angle support."
+    
+```
+
+``` python
+class RotateFactory:
+    def __init__(self):
+        """Initialize with directional sub-factories."""
+        super().__init__("Rotate utilities for rotating elements")
+        self.x = ScaledFactory("rotate-x", ROTATE_CONFIG, "Rotate around X axis")
+        self.y = ScaledFactory("rotate-y", ROTATE_CONFIG, "Rotate around Y axis")
+        self.z = ScaledFactory("rotate-z", ROTATE_CONFIG, "Rotate around Z axis")
+    
+    def __call__(self, value: TailwindValue, negative: bool = False) -> RotateUtility
+    "Factory for rotation utilities with directional support."
+    
+    def __init__(self):
+            """Initialize with directional sub-factories."""
+            super().__init__("Rotate utilities for rotating elements")
+            self.x = ScaledFactory("rotate-x", ROTATE_CONFIG, "Rotate around X axis")
+            self.y = ScaledFactory("rotate-y", ROTATE_CONFIG, "Rotate around Y axis")
+            self.z = ScaledFactory("rotate-z", ROTATE_CONFIG, "Rotate around Z axis")
+        
+        def __call__(self, value: TailwindValue, negative: bool = False) -> RotateUtility
+        "Initialize with directional sub-factories."
+    
+    def negative(self) -> 'NegativeRotateFactory':
+            """Return a negative variant factory."""
+            return NegativeRotateFactory()
+        
+        def get_info(self) -> Dict[str, Any]
+        "Return a negative variant factory."
+    
+    def get_info(self) -> Dict[str, Any]:
+            """Get information about the rotate factory."""
+            return {
+                'description': self._doc,
+        "Get information about the rotate factory."
+```
+
+``` python
+class NegativeRotateFactory:
+    "Factory for negative rotation utilities."
+    
+```
+
+``` python
+class ScaleUtility(StandardUtility):
+    "Utility class for scaling with percentage support."
+    
+```
+
+``` python
+class ScaleFactory:
+    def __init__(self)
+    "Factory for scale utilities with directional and 3D support."
+    
+    def __init__(self)
+        "Initialize with directional sub-factories."
+    
+    def negative(self) -> 'NegativeScaleFactory':
+            """Return a negative variant factory."""
+            return NegativeScaleFactory()
+        
+        def get_info(self) -> Dict[str, Any]
+        "Return a negative variant factory."
+    
+    def get_info(self) -> Dict[str, Any]:
+            """Get information about the scale factory."""
+            return {
+                'description': self._doc,
+        "Get information about the scale factory."
+```
+
+``` python
+class NegativeScaleFactory:
+    "Factory for negative scale utilities."
+    
+```
+
+``` python
+class SkewUtility(StandardUtility):
+    "Utility class for skewing with angle support."
+    
+```
+
+``` python
+class SkewFactory:
+    def __init__(self)
+    "Factory for skew utilities with directional support."
+    
+    def __init__(self)
+        "Initialize with directional sub-factories."
+    
+    def negative(self) -> 'NegativeSkewFactory':
+            """Return a negative variant factory."""
+            return NegativeSkewFactory()
+        
+        def get_info(self) -> Dict[str, Any]
+        "Return a negative variant factory."
+    
+    def get_info(self) -> Dict[str, Any]:
+            """Get information about the skew factory."""
+            return {
+                'description': self._doc,
+        "Get information about the skew factory."
+```
+
+``` python
+class NegativeSkewFactory:
+    "Factory for negative skew utilities."
+    
+```
+
+``` python
+class TransformFactory(SimpleFactory):
+    "Factory for transform utilities with special and custom values."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the transform factory."
+```
+
+``` python
+class TransformOriginFactory(SimpleFactory):
+    "Factory for transform origin with both fixed and custom values."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the transform origin factory."
+```
+
+``` python
+class TranslateFactory:
+    def __init__(self):
+        """Initialize with directional sub-factories."""
+        super().__init__("Translate utilities for translating elements")
+        # Create directional translate factories
+        self.x = ScaledFactory("translate-x", TRANSLATE_CONFIG, "Translate along X axis")
+        self.y = ScaledFactory("translate-y", TRANSLATE_CONFIG, "Translate along Y axis")
+        self.z = ScaledFactory("translate-z", TRANSLATE_CONFIG, "Translate along Z axis")
+    
+    def __call__(self, value: TailwindScale, negative: bool = False) -> ScaledUtility
+    "Factory for translate utilities with directional and 3D support."
+    
+    def __init__(self):
+            """Initialize with directional sub-factories."""
+            super().__init__("Translate utilities for translating elements")
+            # Create directional translate factories
+            self.x = ScaledFactory("translate-x", TRANSLATE_CONFIG, "Translate along X axis")
+            self.y = ScaledFactory("translate-y", TRANSLATE_CONFIG, "Translate along Y axis")
+            self.z = ScaledFactory("translate-z", TRANSLATE_CONFIG, "Translate along Z axis")
+        
+        def __call__(self, value: TailwindScale, negative: bool = False) -> ScaledUtility
+        "Initialize with directional sub-factories."
+    
+    def negative(self) -> 'NegativeFactory':
+            """Return a negative variant factory."""
+            return NegativeFactory("translate", TRANSLATE_CONFIG)
+        
+        def get_info(self) -> Dict[str, Any]
+        "Return a negative variant factory."
+    
+    def get_info(self) -> Dict[str, Any]:
+            """Get information about the translate factory."""
+            from cjm_fasthtml_tailwind.builders.scales import NUMERIC_SCALE, DECIMAL_SCALE
+            return {
+                'description': self._doc,
+        "Get information about the translate factory."
+```
+
+#### Variables
+
+``` python
+BACKFACE_VALUES = {2 items}
+backface  # The backface visibility factory
+PERSPECTIVE_VALUES = {6 items}
+perspective  # The perspective factory
+PERSPECTIVE_ORIGIN_VALUES = {9 items}
+ROTATE_ANGLES = [9 items]  # Common rotation angles in degrees
+ROTATE_CONFIG
+rotate  # The rotate factory
+SCALE_VALUES = [10 items]  # Common scale percentages
+SCALE_CONFIG
+scale_tw  # The scale factory (renamed to avoid conflict with built-in scale)
+SKEW_ANGLES = [6 items]  # Common skew angles in degrees
+skew  # The skew factory
+TRANSFORM_VALUES = {3 items}
+transform  # The transform factory
+TRANSFORM_ORIGIN_VALUES = {9 items}
+TRANSFORM_STYLE_VALUES = {2 items}
+transform_style  # The transform style factory
+TRANSLATE_CONFIG
+translate  # The translate factory
 ```
 
 ### transitions_and_animation (`transitions_and_animation.ipynb`)
