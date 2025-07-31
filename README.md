@@ -30,21 +30,22 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (12)
-        ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
-        ├── borders.ipynb           # Border utilities for Tailwind CSS
-        ├── effects.ipynb           # Shadow, opacity and other visual effect utilities for Tailwind CSS
-        ├── filters.ipynb           # Filter utilities for Tailwind CSS
-        ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
-        ├── interactivity.ipynb     # Interactivity utilities for Tailwind CSS
-        ├── layout.ipynb            # Display, position, overflow, z-index and other layout utilities for Tailwind CSS
-        ├── sizing.ipynb            # Width, height, and min/max sizing utilities for Tailwind CSS
-        ├── spacing.ipynb           # Padding and margin utilities for Tailwind CSS
-        ├── svg.ipynb               # SVG utilities for Tailwind CSS
-        ├── tables.ipynb            # Table utilities for Tailwind CSS
-        └── typography.ipynb        # Typography utilities for Tailwind CSS
+    └── utilities/ (13)
+        ├── backgrounds.ipynb                # Background utilities for Tailwind CSS
+        ├── borders.ipynb                    # Border utilities for Tailwind CSS
+        ├── effects.ipynb                    # Shadow, opacity and other visual effect utilities for Tailwind CSS
+        ├── filters.ipynb                    # Filter utilities for Tailwind CSS
+        ├── flexbox_and_grid.ipynb           # Flexbox and CSS Grid utilities for Tailwind CSS
+        ├── interactivity.ipynb              # Interactivity utilities for Tailwind CSS
+        ├── layout.ipynb                     # Display, position, overflow, z-index and other layout utilities for Tailwind CSS
+        ├── sizing.ipynb                     # Width, height, and min/max sizing utilities for Tailwind CSS
+        ├── spacing.ipynb                    # Padding and margin utilities for Tailwind CSS
+        ├── svg.ipynb                        # SVG utilities for Tailwind CSS
+        ├── tables.ipynb                     # Table utilities for Tailwind CSS
+        ├── transitions_and_animation.ipynb  # Transition and animation utilities for Tailwind CSS
+        └── typography.ipynb                 # Typography utilities for Tailwind CSS
 
-Total: 27 notebooks across 4 directories
+Total: 28 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -76,75 +77,78 @@ graph LR
     utilities_spacing[utilities.spacing<br/>spacing]
     utilities_svg[utilities.svg<br/>svg]
     utilities_tables[utilities.tables<br/>tables]
+    utilities_transitions_and_animation[utilities.transitions_and_animation<br/>transitions_and_animation]
     utilities_typography[utilities.typography<br/>typography]
 
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_utils
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_search
     cli_explorer --> cli_imports
-    cli_explorer --> cli_test_code
+    cli_explorer --> cli_utils
     cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_core_utils_discovery
-    cli_factory_extraction --> cli_utils
+    cli_explorer --> cli_search
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_test_code
     cli_factory_extraction --> core_base
+    cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_factory_extraction
-    cli_imports --> cli_utils
     cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_helper_discovery
+    cli_imports --> cli_utils
+    cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
-    cli_test_code --> cli_factory_extraction
-    cli_test_code --> cli_utils
+    cli_search --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_utils
+    cli_test_code --> cli_factory_extraction
+    core_testing --> utilities_spacing
     core_testing --> utilities_layout
     core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_sizing
-    core_testing --> utilities_spacing
     core_testing --> core_base
     core_testing --> core_resources
+    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_scales
-    utilities_backgrounds --> builders_colors
+    utilities_borders --> builders_colors
     utilities_borders --> core_base
     utilities_borders --> builders_scales
-    utilities_borders --> builders_colors
-    utilities_effects --> builders_colors
     utilities_effects --> core_base
+    utilities_effects --> builders_colors
     utilities_effects --> builders_scales
     utilities_filters --> builders_colors
     utilities_filters --> core_base
     utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_interactivity --> builders_scales
-    utilities_interactivity --> core_base
     utilities_interactivity --> builders_colors
+    utilities_interactivity --> core_base
+    utilities_interactivity --> builders_scales
     utilities_layout --> builders_scales
     utilities_layout --> core_base
     utilities_sizing --> core_base
     utilities_sizing --> builders_scales
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
-    utilities_svg --> core_base
     utilities_svg --> builders_colors
+    utilities_svg --> core_base
     utilities_svg --> builders_scales
     utilities_tables --> core_base
     utilities_tables --> builders_scales
-    utilities_typography --> builders_scales
-    utilities_typography --> core_base
+    utilities_transitions_and_animation --> builders_scales
+    utilities_transitions_and_animation --> core_base
     utilities_typography --> builders_colors
+    utilities_typography --> core_base
+    utilities_typography --> builders_scales
 ```
 
-*64 cross-module dependencies detected*
+*66 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -5065,6 +5069,240 @@ def start_test_server(
         # Later, in another cell:
         server.stop()
     """
+```
+
+### transitions_and_animation (`transitions_and_animation.ipynb`)
+
+> Transition and animation utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.transitions_and_animation import (
+    transition,
+    transition_behavior,
+    DURATION_SCALE,
+    DURATION_CONFIG,
+    duration,
+    ease,
+    DELAY_SCALE,
+    DELAY_CONFIG,
+    delay,
+    animate,
+    TransitionPropertyFactory,
+    test_transitions_and_animation_property_examples,
+    test_transitions_and_animation_behavior_examples,
+    DurationFactory,
+    test_transitions_and_animation_duration_examples,
+    EaseFactory,
+    test_transitions_and_animation_timing_examples,
+    DelayFactory,
+    test_transitions_and_animation_delay_examples,
+    AnimationFactory,
+    test_transitions_and_animation_examples,
+    test_transitions_and_animation_practical_examples,
+    test_transitions_and_animation_composition_examples,
+    test_transitions_and_animation_factory_documentation,
+    smooth_transition,
+    hover_effect,
+    fade_in,
+    loading_spinner,
+    skeleton_loader,
+    test_transitions_and_animation_helper_examples
+)
+```
+
+#### Functions
+
+``` python
+def test_transitions_and_animation_property_examples()
+    "Test transition property utilities."
+```
+
+``` python
+def test_transitions_and_animation_behavior_examples()
+    "Test transition behavior utilities."
+```
+
+``` python
+def test_transitions_and_animation_duration_examples()
+    "Test transition duration utilities."
+```
+
+``` python
+def test_transitions_and_animation_timing_examples():
+    """Test transition timing function utilities."""
+    # Test predefined easing functions
+    assert ease.linear == "ease-linear"
+    assert ease._in == "ease-in"  # Note: 'in' is a Python keyword, so we use 'in_'
+    "Test transition timing function utilities."
+```
+
+``` python
+def test_transitions_and_animation_delay_examples()
+    "Test transition delay utilities."
+```
+
+``` python
+def test_transitions_and_animation_examples()
+    "Test animation utilities."
+```
+
+``` python
+def test_transitions_and_animation_practical_examples()
+    "Test transition and animation utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_transitions_and_animation_practical_examples()
+    "Test animation utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_transitions_and_animation_composition_examples()
+    "Test composing multiple transition utilities together."
+```
+
+``` python
+def test_transitions_and_animation_factory_documentation()
+    "Test that transition and animation factories have accessible documentation."
+```
+
+``` python
+def smooth_transition(
+    properties: str = "all",  # Which properties to transition (default: all)
+    duration_ms: int = 300,  # Duration in milliseconds
+    easing: str = "in-out"  # Easing function
+) -> str:  # Combined CSS classes for smooth transitions
+    "Create a smooth transition with common defaults."
+```
+
+``` python
+def hover_effect(
+    duration_ms: int = 200  # Duration in milliseconds
+) -> str:  # Combined CSS classes for hover effects
+    "Standard hover effect transition for interactive elements."
+```
+
+``` python
+def fade_in(
+    duration_ms: int = 500,  # Duration in milliseconds
+    delay_ms: Optional[int] = None  # Optional delay in milliseconds
+) -> str:  # Combined CSS classes for fade-in effect
+    "Fade-in transition for entering elements."
+```
+
+``` python
+def loading_spinner(
+) -> str:  # Combined CSS classes for a loading spinner
+    "Create a loading spinner animation."
+```
+
+``` python
+def skeleton_loader(
+) -> str:  # Combined CSS classes for a skeleton loader
+    "Create a skeleton loader animation for content placeholders."
+```
+
+``` python
+def test_transitions_and_animation_helper_examples()
+    "Test helper functions for common transition patterns."
+```
+
+#### Classes
+
+``` python
+class TransitionPropertyFactory(SimpleFactory):
+    "Factory for transition property utilities with custom value support."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the transition property factory."
+```
+
+``` python
+class TransitionPropertyFactory(SimpleFactory):
+    "Factory for transition property utilities with custom value support."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the transition property factory."
+```
+
+``` python
+class DurationFactory:
+    def __init__(
+        self,
+        prefix: str,
+        config: ScaleConfig,
+        doc: Optional[str] = None
+    )
+    "Factory for duration utilities with millisecond support."
+    
+    def __init__(
+            self,
+            prefix: str,
+            config: ScaleConfig,
+            doc: Optional[str] = None
+        )
+        "Initialize duration factory with autocomplete properties."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the duration factory."
+```
+
+``` python
+class EaseFactory(SimpleFactory):
+    "Factory for easing/timing function utilities with custom value support."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the ease factory."
+```
+
+``` python
+class DelayFactory:
+    def __init__(
+        self,
+        prefix: str,
+        config: ScaleConfig,
+        doc: Optional[str] = None
+    )
+    "Factory for delay utilities with millisecond support."
+    
+    def __init__(
+            self,
+            prefix: str,
+            config: ScaleConfig,
+            doc: Optional[str] = None
+        )
+        "Initialize delay factory with autocomplete properties."
+```
+
+``` python
+class AnimationFactory(SimpleFactory):
+    "Factory for animation utilities with custom value support."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about the animation factory."
+```
+
+#### Variables
+
+``` python
+DURATION_SCALE = [9 items]  # Standard Tailwind duration scale
+DURATION_CONFIG  # Duration configuration
+duration  # The duration factory
+DELAY_SCALE = [9 items]  # Standard Tailwind delay scale
+DELAY_CONFIG  # Delay configuration
+delay  # The delay factory
 ```
 
 ### typography (`typography.ipynb`)

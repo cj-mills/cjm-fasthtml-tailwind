@@ -15,7 +15,7 @@ This directory contains extracted Tailwind CSS classes organized by section.
 - ~~[SVG](./svg.md)~~
 - ~~[Sizing](./sizing.md)~~
 - ~~[Spacing](./spacing.md)~~
-- [Tables](./tables.md)
+- ~~[Tables](./tables.md)~~
 - [Transforms](./transforms.md)
 - [Transitions & Animation](./transitions_and_animation.md)
 - ~~[Typography](./typography.md)~~
