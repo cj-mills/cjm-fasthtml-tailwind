@@ -30,8 +30,9 @@ pip install cjm-fasthtml-tailwind
     │   ├── base.ipynb       # Base classes, types, and protocols for Tailwind CSS abstractions
     │   ├── resources.ipynb  # CDN resources and headers for Tailwind CSS
     │   └── testing.ipynb    # Standardized test page creation for Jupyter notebooks with FastHTML
-    └── utilities/ (9)
+    └── utilities/ (10)
         ├── backgrounds.ipynb       # Background utilities for Tailwind CSS
+        ├── effects.ipynb           # Shadow, opacity and other visual effect utilities for Tailwind CSS
         ├── filters.ipynb           # Filter utilities for Tailwind CSS
         ├── flexbox_and_grid.ipynb  # Flexbox and CSS Grid utilities for Tailwind CSS
         ├── interactivity.ipynb     # Interactivity utilities for Tailwind CSS
@@ -41,7 +42,7 @@ pip install cjm-fasthtml-tailwind
         ├── svg.ipynb               # SVG utilities for Tailwind CSS
         └── typography.ipynb        # Typography utilities for Tailwind CSS
 
-Total: 24 notebooks across 4 directories
+Total: 25 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -63,6 +64,7 @@ graph LR
     core_resources[core.resources<br/>resources]
     core_testing[core.testing<br/>testing]
     utilities_backgrounds[utilities.backgrounds<br/>backgrounds]
+    utilities_effects[utilities.effects<br/>effects]
     utilities_filters[utilities.filters<br/>filters]
     utilities_flexbox_and_grid[utilities.flexbox_and_grid<br/>flexbox_and_grid]
     utilities_interactivity[utilities.interactivity<br/>interactivity]
@@ -75,42 +77,45 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_search
-    cli_explorer --> cli_utils
     cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_imports
-    cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_test_code
-    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_utils
     cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_search
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_imports
     cli_explorer --> cli_core_utils_discovery
-    cli_factory_extraction --> core_base
+    cli_explorer --> cli_helper_discovery
     cli_factory_extraction --> cli_utils
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_example_discovery
     cli_helper_discovery --> cli_utils
+    cli_imports --> cli_factory_extraction
+    cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_utils
     cli_imports --> cli_helper_discovery
-    cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
     cli_search --> cli_example_discovery
-    cli_search --> cli_helper_discovery
     cli_search --> cli_factory_extraction
+    cli_search --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
     cli_test_code --> cli_helper_discovery
-    cli_test_code --> cli_factory_extraction
     core_testing --> utilities_sizing
     core_testing --> utilities_layout
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> core_base
     core_testing --> utilities_spacing
+    core_testing --> core_base
     core_testing --> core_resources
-    utilities_backgrounds --> builders_colors
-    utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_scales
-    utilities_filters --> builders_colors
+    utilities_backgrounds --> core_base
+    utilities_backgrounds --> builders_colors
+    utilities_effects --> core_base
+    utilities_effects --> builders_colors
+    utilities_effects --> builders_scales
     utilities_filters --> builders_scales
     utilities_filters --> core_base
+    utilities_filters --> builders_colors
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_interactivity --> builders_scales
@@ -122,104 +127,21 @@ graph LR
     utilities_sizing --> builders_scales
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
-    utilities_svg --> builders_colors
     utilities_svg --> builders_scales
     utilities_svg --> core_base
-    utilities_typography --> builders_colors
+    utilities_svg --> builders_colors
     utilities_typography --> builders_scales
     utilities_typography --> core_base
+    utilities_typography --> builders_colors
 ```
 
-*56 cross-module dependencies detected*
+*59 cross-module dependencies detected*
 
 ## CLI Reference
 
 ### `cjm-tailwind-explore` Command
 
-    usage: cjm-tailwind-explore [-h]
-                                {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
-                                ...
-
-    cjm-fasthtml-tailwind CLI Explorer
-
-    This tool helps you explore the cjm-fasthtml-tailwind library, which provides:
-    - Python-native Tailwind CSS v4 utility class builders for FastHTML projects
-    - Type-safe, dynamic CSS class generation without hardcoded strings
-    - Comprehensive utility factories (bg, bg_attachment, bg_clip, bg_conic, etc.)
-    - Helper functions for common patterns
-    - Full integration with FastHTML components
-
-    Purpose: This CLI tool enables autonomous exploration of the library's API by:
-    - Discovering all available utility modules and their documentation
-    - Listing factory instances with their built-in documentation
-    - Showing usage examples from test functions
-    - Providing source code for helper functions
-    - Searching across all library components
-    - Testing code snippets with automatic imports
-    - Generating recommended import statements
-    - Scanning existing code for replaceable CSS patterns
-
-    All information is dynamically extracted from the library itself - nothing is hardcoded.
-
-    positional arguments:
-      {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
-                            Available commands
-        modules             List all utility modules
-        factories           List factories
-        factory             Show detailed info for a specific factory
-        examples            Show usage examples
-        example             Show source code for a specific example
-        helpers             Show helper functions
-        helper              Show source code for a specific helper
-        search              Search across all library components
-        test-code           Test code snippets using the library
-        core-utils          List core utility functions
-        core-util           Show source code for a core utility
-        imports             Show recommended import statements
-        scan                Scan code for replaceable CSS patterns
-
-    options:
-      -h, --help            show this help message and exit
-
-    Getting Started:
-      1. List all modules:     cjm-tailwind-explore modules
-      2. View factories:       cjm-tailwind-explore factories
-      3. Search for patterns:  cjm-tailwind-explore search <query>
-      4. Test code:           cjm-tailwind-explore test-code "<code>"
-      5. Get imports:         cjm-tailwind-explore imports
-      6. Scan existing code:  cjm-tailwind-explore scan <file>
-
-    Exploration Workflow:
-      - Start with 'modules' to see available utility categories
-      - Use 'factories -m <module>' to explore specific modules
-      - Use 'factory <module> <name>' for detailed factory information
-      - Use 'examples' to see test-based usage patterns
-      - Use 'search' to find specific functionality
-      - Use 'test-code' to verify your understanding
-      - Use 'scan' to analyze existing code for migration opportunities
-
-    Key Concepts:
-      - Factories: Objects that generate CSS classes (e.g., bg, bg_attachment, bg_clip, bg_conic)
-      - Modules: Categories of utilities (backgrounds, filters, flexbox_and_grid, etc.)
-      - Examples: Test functions demonstrating usage patterns
-      - Helpers: Convenience functions for common patterns
-
-    Tips for Coding Assistants:
-      - Use 'search --include-source' to find usage patterns in code
-      - Use 'test-code' to validate generated code before using it
-      - Use 'imports' to get all necessary import statements
-      - Use 'scan' to identify replaceable hardcoded CSS classes
-      - Factory names are intuitive: bg, bg_attachment, bg_clip, bg_conic
-      - Combine utilities with combine_classes() function
-      - All factories support method chaining and attribute access
-
-    Example Usage Flow:
-      cjm-tailwind-explore modules                    # See what's available
-      cjm-tailwind-explore factories -m backgrounds       # Explore backgrounds utilities
-      cjm-tailwind-explore factory backgrounds bg          # Learn about bg factory
-      cjm-tailwind-explore example backgrounds arbitrary      # See usage examples
-      cjm-tailwind-explore test-code 'print(str(bg("#123456")))'   # Test your understanding
-      cjm-tailwind-explore scan app.py                # Analyze existing code
+CLI command `cjm-tailwind-explore` found but help text unavailable.
 
 For detailed help on any command, use
 `cjm-tailwind-explore <command> --help`.
@@ -953,6 +875,669 @@ class CoreUtilityInfo:
     docstring: str  # Function docstring
     source: str  # Source code
     import_statement: str  # How to import this utility
+```
+
+### effects (`effects.ipynb`)
+
+> Shadow, opacity and other visual effect utilities for Tailwind CSS
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.utilities.effects import (
+    SHADOW_SIZES,
+    shadow_color,
+    INSET_SHADOW_SIZES,
+    inset_shadow_color,
+    ring_color,
+    inset_ring_color,
+    TEXT_SHADOW_SIZES,
+    text_shadow_color,
+    mix_blend,
+    bg_blend,
+    mask_clip,
+    mask_composite,
+    mask,
+    mask_linear,
+    mask_radial,
+    mask_circle,
+    mask_ellipse,
+    mask_radial_closest_corner,
+    mask_radial_closest_side,
+    mask_radial_farthest_corner,
+    mask_radial_farthest_side,
+    mask_radial_at_top_left,
+    mask_radial_at_top,
+    mask_radial_at_top_right,
+    mask_radial_at_left,
+    mask_radial_at_center,
+    mask_radial_at_right,
+    mask_radial_at_bottom_left,
+    mask_radial_at_bottom,
+    mask_radial_at_bottom_right,
+    mask_radial_from,
+    mask_radial_to,
+    mask_conic,
+    mask_conic_from,
+    mask_conic_to,
+    mask_mode,
+    mask_origin,
+    mask_position,
+    mask_repeat,
+    mask_size,
+    mask_type,
+    ShadowUtility,
+    ShadowFactory,
+    test_effects_shadow_size_examples,
+    test_effects_shadow_arbitrary_examples,
+    test_effects_shadow_color_examples,
+    test_effects_shadow_color_arbitrary_examples,
+    InsetShadowUtility,
+    InsetShadowFactory,
+    test_effects_inset_shadow_size_examples,
+    test_effects_inset_shadow_arbitrary_examples,
+    test_effects_inset_shadow_color_examples,
+    RingUtility,
+    RingFactory,
+    test_effects_ring_width_examples,
+    test_effects_ring_color_examples,
+    InsetRingUtility,
+    InsetRingFactory,
+    test_effects_inset_ring_width_examples,
+    test_effects_inset_ring_color_examples,
+    TextShadowUtility,
+    TextShadowFactory,
+    test_effects_text_shadow_size_examples,
+    test_effects_text_shadow_arbitrary_examples,
+    test_effects_text_shadow_color_examples,
+    OpacityUtility,
+    OpacityFactory,
+    test_effects_opacity_examples,
+    test_effects_mix_blend_examples,
+    test_effects_bg_blend_examples,
+    test_effects_mask_clip_examples,
+    test_effects_mask_composite_examples,
+    MaskImageUtility,
+    MaskImageFactory,
+    MaskLinearUtility,
+    MaskLinearFactory,
+    MaskDirectionalUtility,
+    MaskDirectionalFactory,
+    MaskRadialUtility,
+    MaskRadialFactory,
+    MaskConicUtility,
+    MaskConicFactory,
+    test_effects_mask_basic_examples,
+    test_effects_mask_linear_examples,
+    test_effects_mask_directional_examples,
+    test_effects_mask_radial_examples,
+    test_effects_mask_conic_examples,
+    test_effects_mask_properties_examples,
+    test_effects_shadow_practical_examples,
+    test_effects_shadow_composition_examples,
+    test_effects_comprehensive_examples,
+    test_effects_mask_practical_examples,
+    test_effects_factory_documentation
+)
+```
+
+#### Functions
+
+``` python
+def test_effects_shadow_size_examples()
+    "Test shadow size utilities."
+```
+
+``` python
+def test_effects_shadow_arbitrary_examples()
+    "Test shadow utilities with arbitrary and custom values."
+```
+
+``` python
+def test_effects_shadow_color_examples()
+    "Test shadow color utilities with various color values."
+```
+
+``` python
+def test_effects_shadow_color_arbitrary_examples()
+    "Test shadow color utilities with arbitrary values."
+```
+
+``` python
+def test_effects_inset_shadow_size_examples()
+    "Test inset shadow size utilities."
+```
+
+``` python
+def test_effects_inset_shadow_arbitrary_examples()
+    "Test inset shadow utilities with arbitrary and custom values."
+```
+
+``` python
+def test_effects_inset_shadow_color_examples()
+    "Test inset shadow color utilities with various color values."
+```
+
+``` python
+def test_effects_ring_width_examples()
+    "Test ring width utilities."
+```
+
+``` python
+def test_effects_ring_color_examples()
+    "Test ring color utilities with various color values."
+```
+
+``` python
+def test_effects_inset_ring_width_examples()
+    "Test inset ring width utilities."
+```
+
+``` python
+def test_effects_inset_ring_color_examples()
+    "Test inset ring color utilities with various color values."
+```
+
+``` python
+def test_effects_text_shadow_size_examples()
+    "Test text shadow size utilities."
+```
+
+``` python
+def test_effects_text_shadow_arbitrary_examples()
+    "Test text shadow utilities with arbitrary and custom values."
+```
+
+``` python
+def test_effects_text_shadow_color_examples()
+    "Test text shadow color utilities with various color values."
+```
+
+``` python
+def test_effects_opacity_examples()
+    "Test opacity utilities with various values."
+```
+
+``` python
+def test_effects_mix_blend_examples()
+    "Test mix blend mode utilities."
+```
+
+``` python
+def test_effects_bg_blend_examples()
+    "Test background blend mode utilities."
+```
+
+``` python
+def test_effects_mask_clip_examples()
+    "Test mask clip utilities."
+```
+
+``` python
+def test_effects_mask_composite_examples()
+    "Test mask composite utilities."
+```
+
+``` python
+def test_effects_mask_basic_examples()
+    "Test basic mask image utilities."
+```
+
+``` python
+def test_effects_mask_linear_examples()
+    "Test linear gradient mask utilities."
+```
+
+``` python
+def test_effects_mask_directional_examples()
+    "Test directional mask gradient utilities."
+```
+
+``` python
+def test_effects_mask_radial_examples()
+    "Test radial gradient mask utilities."
+```
+
+``` python
+def test_effects_mask_conic_examples()
+    "Test conic gradient mask utilities."
+```
+
+``` python
+def test_effects_mask_properties_examples()
+    "Test mask property utilities (mode, origin, position, etc.)."
+```
+
+``` python
+def test_effects_shadow_practical_examples()
+    "Test shadow utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_effects_shadow_composition_examples()
+    "Test composing shadow size and color utilities."
+```
+
+``` python
+def test_effects_comprehensive_examples()
+    "Test comprehensive usage of all effect utilities."
+```
+
+``` python
+def test_effects_mask_practical_examples()
+    "Test mask utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_effects_factory_documentation()
+    "Test that effect factories have accessible documentation."
+```
+
+#### Classes
+
+``` python
+class ShadowUtility:
+    def __init__(
+        self,
+        size: Optional[str] = None,  # Shadow size or custom value
+    )
+    "Utility class for box shadows with size support."
+    
+    def __init__(
+            self,
+            size: Optional[str] = None,  # Shadow size or custom value
+        )
+        "Initialize shadow utility with optional size."
+```
+
+``` python
+class ShadowFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for shadow utilities with size and color support."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize shadow factory with size properties."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the shadow factory."
+```
+
+``` python
+class InsetShadowUtility:
+    def __init__(
+        self,
+        size: Optional[str] = None,  # Inset shadow size or custom value
+    )
+    "Utility class for inset box shadows with size support."
+    
+    def __init__(
+            self,
+            size: Optional[str] = None,  # Inset shadow size or custom value
+        )
+        "Initialize inset shadow utility with optional size."
+```
+
+``` python
+class InsetShadowFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for inset shadow utilities with size support."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize inset shadow factory with size properties."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the inset shadow factory."
+```
+
+``` python
+class RingUtility:
+    def __init__(
+        self,
+        width: Optional[Union[int, str]] = None,  # Ring width in pixels or custom value
+    )
+    "Utility class for ring (outline) shadows with width support."
+    
+    def __init__(
+            self,
+            width: Optional[Union[int, str]] = None,  # Ring width in pixels or custom value
+        )
+        "Initialize ring utility with optional width."
+```
+
+``` python
+class RingFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for ring utilities with width support."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize ring factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the ring factory."
+```
+
+``` python
+class InsetRingUtility:
+    def __init__(
+        self,
+        width: Optional[Union[int, str]] = None,  # Inset ring width in pixels or custom value
+    )
+    "Utility class for inset ring (outline) shadows with width support."
+    
+    def __init__(
+            self,
+            width: Optional[Union[int, str]] = None,  # Inset ring width in pixels or custom value
+        )
+        "Initialize inset ring utility with optional width."
+```
+
+``` python
+class InsetRingFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for inset ring utilities with width support."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize inset ring factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the inset ring factory."
+```
+
+``` python
+class TextShadowUtility:
+    def __init__(
+        self,
+        size: Optional[str] = None,  # Text shadow size or custom value
+    )
+    "Utility class for text shadows with size support."
+    
+    def __init__(
+            self,
+            size: Optional[str] = None,  # Text shadow size or custom value
+        )
+        "Initialize text shadow utility with optional size."
+```
+
+``` python
+class TextShadowFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for text shadow utilities with size support."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize text shadow factory with size properties."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the text shadow factory."
+```
+
+``` python
+class OpacityUtility:
+    def __init__(
+        self,
+        value: Optional[Union[int, str]] = None,  # Opacity value (0-100) or custom value
+    )
+    "Utility class for opacity with percentage support."
+    
+    def __init__(
+            self,
+            value: Optional[Union[int, str]] = None,  # Opacity value (0-100) or custom value
+        )
+        "Initialize opacity utility with optional value."
+```
+
+``` python
+class OpacityFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for opacity utilities."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize opacity factory with common opacity properties."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the opacity factory."
+```
+
+``` python
+class MaskImageUtility:
+    def __init__(
+        self,
+        value: Optional[str] = None,  # Mask image value (none, custom property, or arbitrary)
+    )
+    "Utility class for mask images."
+    
+    def __init__(
+            self,
+            value: Optional[str] = None,  # Mask image value (none, custom property, or arbitrary)
+        )
+        "Initialize mask image utility with optional value."
+```
+
+``` python
+class MaskImageFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for basic mask image utilities."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize mask image factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the mask image factory."
+```
+
+``` python
+class MaskLinearUtility:
+    def __init__(
+        self,
+        angle: Optional[Union[int, str]] = None,  # Angle in degrees or custom value
+        negative: bool = False  # Whether to negate the angle
+    )
+    "Utility class for linear gradient masks with angle support."
+    
+    def __init__(
+            self,
+            angle: Optional[Union[int, str]] = None,  # Angle in degrees or custom value
+            negative: bool = False  # Whether to negate the angle
+        )
+        "Initialize linear gradient mask utility."
+```
+
+``` python
+class MaskLinearFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for linear gradient mask utilities with angle support."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize linear gradient mask factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the linear gradient mask factory."
+```
+
+``` python
+class MaskDirectionalUtility:
+    def __init__(
+        self,
+        direction: str,  # Direction (t, r, b, l, x, y)
+        position: str,  # Position type (from or to)
+        value: Optional[Union[int, str]] = None,  # Value (number, percentage, color, etc.)
+    )
+    "Utility class for directional mask gradients with from/to support."
+    
+    def __init__(
+            self,
+            direction: str,  # Direction (t, r, b, l, x, y)
+            position: str,  # Position type (from or to)
+            value: Optional[Union[int, str]] = None,  # Value (number, percentage, color, etc.)
+        )
+        "Initialize directional mask gradient utility."
+```
+
+``` python
+class MaskDirectionalFactory:
+    def __init__(
+        self,
+        direction: str,  # Direction (t, r, b, l, x, y)
+        position: str,  # Position type (from or to)
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for directional mask gradient utilities."
+    
+    def __init__(
+            self,
+            direction: str,  # Direction (t, r, b, l, x, y)
+            position: str,  # Position type (from or to)
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize directional mask factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about this directional mask factory."
+```
+
+``` python
+class MaskRadialUtility:
+    def __init__(
+        self,
+        value: Optional[str] = None,  # Arbitrary radial gradient value
+    )
+    "Utility class for radial gradient masks."
+    
+    def __init__(
+            self,
+            value: Optional[str] = None,  # Arbitrary radial gradient value
+        )
+        "Initialize radial gradient mask utility."
+```
+
+``` python
+class MaskRadialFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for radial gradient mask utilities."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize radial gradient mask factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the radial gradient mask factory."
+```
+
+``` python
+class MaskConicUtility:
+    def __init__(
+        self,
+        angle: Optional[Union[int, str]] = None,  # Starting angle in degrees or custom value
+        negative: bool = False  # Whether to negate the angle
+    )
+    "Utility class for conic gradient masks with angle support."
+    
+    def __init__(
+            self,
+            angle: Optional[Union[int, str]] = None,  # Starting angle in degrees or custom value
+            negative: bool = False  # Whether to negate the angle
+        )
+        "Initialize conic gradient mask utility."
+```
+
+``` python
+class MaskConicFactory:
+    def __init__(
+        self,
+        doc: Optional[str] = None  # Documentation
+    )
+    "Factory for conic gradient mask utilities with angle support."
+    
+    def __init__(
+            self,
+            doc: Optional[str] = None  # Documentation
+        )
+        "Initialize conic gradient mask factory."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Factory information
+        "Get information about the conic gradient mask factory."
+```
+
+#### Variables
+
+``` python
+SHADOW_SIZES = {8 items}
+INSET_SHADOW_SIZES = {4 items}
+TEXT_SHADOW_SIZES = {6 items}
 ```
 
 ### Example Discovery (`example_discovery.ipynb`)
@@ -3949,12 +4534,23 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     subpixel_antialiased,
     italic,
     not_italic,
+    font_stretch,
+    normal_nums,
+    ordinal,
+    slashed_zero,
+    lining_nums,
+    oldstyle_nums,
+    proportional_nums,
+    tabular_nums,
+    diagonal_fractions,
+    stacked_fractions,
     TRACKING_CONFIG,
     tracking,
     LINE_CLAMP_CONFIG,
     line_clamp,
     LEADING_CONFIG,
     leading,
+    list_image,
     list_position,
     list_style,
     text_align,
@@ -3989,17 +4585,23 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     wrap_anywhere,
     wrap_normal,
     hyphens,
+    content,
     test_typography_font_family_examples,
     test_typography_font_size_examples,
     test_typography_font_smoothing_examples,
     test_typography_font_style_examples,
     FontFactory,
     test_typography_font_weight_examples,
+    test_typography_font_stretch_examples,
+    test_typography_font_variant_numeric_examples,
     test_typography_spacing_examples,
     LineClampFactory,
     test_typography_line_clamp_examples,
     LeadingFactory,
     test_typography_line_height_examples,
+    ListImageUtility,
+    ListImageFactory,
+    test_typography_list_image_examples,
     test_typography_list_styles_examples,
     test_typography_text_alignment_examples,
     TextFactory,
@@ -4015,6 +4617,9 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     test_typography_word_break_examples,
     test_typography_overflow_wrap_examples,
     test_typography_hyphens_examples,
+    ContentUtility,
+    ContentFactory,
+    test_typography_content_examples,
     test_typography_practical_examples,
     test_typography_factory_documentation
 )
