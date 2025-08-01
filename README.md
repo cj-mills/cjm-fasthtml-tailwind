@@ -87,36 +87,36 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_utils
-    cli_explorer --> cli_test_code
-    cli_explorer --> cli_imports
     cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_search
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_utils
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_test_code
     cli_explorer --> cli_core_utils_discovery
-    cli_factory_extraction --> core_base
+    cli_explorer --> cli_imports
     cli_factory_extraction --> cli_utils
-    cli_helper_discovery --> cli_example_discovery
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
+    cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_factory_extraction
+    cli_imports --> cli_helper_discovery
     cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_utils
-    cli_imports --> cli_helper_discovery
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
+    cli_search --> cli_example_discovery
+    cli_test_code --> cli_utils
     cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
-    cli_test_code --> cli_utils
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_layout
     core_testing --> utilities_sizing
     core_testing --> utilities_spacing
-    core_testing --> core_base
+    core_testing --> utilities_layout
+    core_testing --> utilities_flexbox_and_grid
     core_testing --> core_resources
+    core_testing --> core_base
     utilities_accessibility --> utilities_layout
     utilities_accessibility --> core_base
     utilities_accessibility --> builders_scales
@@ -132,10 +132,10 @@ graph LR
     utilities_filters --> core_base
     utilities_filters --> builders_scales
     utilities_filters --> builders_colors
-    utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_interactivity --> core_base
+    utilities_flexbox_and_grid --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> core_base
     utilities_interactivity --> builders_colors
     utilities_layout --> core_base
     utilities_layout --> builders_scales
@@ -144,16 +144,16 @@ graph LR
     utilities_spacing --> builders_scales
     utilities_spacing --> core_base
     utilities_svg --> core_base
-    utilities_svg --> builders_scales
     utilities_svg --> builders_colors
-    utilities_tables --> core_base
+    utilities_svg --> builders_scales
     utilities_tables --> builders_scales
-    utilities_transforms --> core_base
+    utilities_tables --> core_base
     utilities_transforms --> builders_scales
+    utilities_transforms --> core_base
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> builders_scales
-    utilities_typography --> core_base
     utilities_typography --> builders_scales
+    utilities_typography --> core_base
     utilities_typography --> builders_colors
 ```
 
@@ -163,8 +163,6 @@ graph LR
 
 ### `cjm-tailwind-explore` Command
 
-    ✅ All table utilities work correctly!
-    ✅ All table factory documentation is accessible!
     usage: cjm-tailwind-explore [-h]
                                 {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
                                 ...
@@ -247,7 +245,7 @@ graph LR
       cjm-tailwind-explore factories -m accessibility       # Explore accessibility utilities
       cjm-tailwind-explore factory accessibility forced_color_adjust          # Learn about forced_color_adjust factory
       cjm-tailwind-explore example accessibility forced_color_adjust      # See usage examples
-      cjm-tailwind-explore test-code 'print(str(sr_only))'   # Test your understanding
+      cjm-tailwind-explore test-code 'print(str(forced_color_adjust.auto))'   # Test your understanding
       cjm-tailwind-explore scan app.py                # Analyze existing code
 
 For detailed help on any command, use
@@ -559,9 +557,20 @@ from cjm_fasthtml_tailwind.core.base import (
     TailwindArbitrary,
     TailwindCustomProperty,
     TailwindValue,
+    PSEUDO_CLASS_MODIFIERS,
+    PSEUDO_ELEMENT_MODIFIERS,
+    RESPONSIVE_MODIFIERS,
+    THEME_MODIFIERS,
+    MOTION_MODIFIERS,
+    PRINT_MODIFIERS,
+    ORIENTATION_MODIFIERS,
+    CONTRAST_MODIFIERS,
+    DIRECTION_MODIFIERS,
+    STATE_MODIFIERS,
+    CHILD_MODIFIERS,
+    ALL_MODIFIER_GROUPS,
     CONTAINER_SCALES,
     BREAKPOINTS,
-    STATE_MODIFIERS,
     T,
     DIRECTIONS,
     is_numeric_scale,
@@ -570,12 +579,15 @@ from cjm_fasthtml_tailwind.core.base import (
     is_arbitrary_value,
     TailwindBuilder,
     BaseUtility,
+    ModifierMixin,
+    ModifierGroup,
     StandardUtility,
     NamedScale,
     Breakpoint,
     BaseFactory,
     UtilityFactory,
     combine_classes,
+    SingleValueUtility,
     SingleValueFactory,
     Direction,
     DirectionalUtility,
@@ -654,11 +666,273 @@ class BaseUtility:
             value: Optional[TailwindValue] = None  # Optional value to override the stored value
         ) -> str:  # The built CSS class string
         "Build and return the CSS class string."
+    
+    def with_modifiers(
+            self,
+            *modifiers: str  # Modifier strings to apply (e.g., 'hover', 'focus', 'dark')
+        ) -> 'BaseUtility':  # A new instance with the modifiers applied
+        "Create a new instance with additional modifiers.
+Modifiers are applied in the order they are passed."
 ```
 
 ``` python
-class StandardUtility(BaseUtility):
-    "Standard utility class with common value formatting."
+class ModifierMixin:
+    "Mixin to add modifier support to any utility with convenient property access."
+    
+    def hover(self) -> 'BaseUtility':
+            """Apply hover modifier."""
+            return self.with_modifiers("hover")
+        
+        @property
+        def focus(self) -> 'BaseUtility'
+        "Apply hover modifier."
+    
+    def focus(self) -> 'BaseUtility':
+            """Apply focus modifier."""
+            return self.with_modifiers("focus")
+        
+        @property
+        def active(self) -> 'BaseUtility'
+        "Apply focus modifier."
+    
+    def active(self) -> 'BaseUtility':
+            """Apply active modifier."""
+            return self.with_modifiers("active")
+        
+        @property
+        def visited(self) -> 'BaseUtility'
+        "Apply active modifier."
+    
+    def visited(self) -> 'BaseUtility':
+            """Apply visited modifier."""
+            return self.with_modifiers("visited")
+        
+        @property
+        def disabled(self) -> 'BaseUtility'
+        "Apply visited modifier."
+    
+    def disabled(self) -> 'BaseUtility':
+            """Apply disabled modifier."""
+            return self.with_modifiers("disabled")
+        
+        @property
+        def checked(self) -> 'BaseUtility'
+        "Apply disabled modifier."
+    
+    def checked(self) -> 'BaseUtility':
+            """Apply checked modifier."""
+            return self.with_modifiers("checked")
+        
+        @property
+        def required(self) -> 'BaseUtility'
+        "Apply checked modifier."
+    
+    def required(self) -> 'BaseUtility':
+            """Apply required modifier."""
+            return self.with_modifiers("required")
+        
+        @property
+        def invalid(self) -> 'BaseUtility'
+        "Apply required modifier."
+    
+    def invalid(self) -> 'BaseUtility':
+            """Apply invalid modifier."""
+            return self.with_modifiers("invalid")
+        
+        @property
+        def valid(self) -> 'BaseUtility'
+        "Apply invalid modifier."
+    
+    def valid(self) -> 'BaseUtility':
+            """Apply valid modifier."""
+            return self.with_modifiers("valid")
+        
+        # Pseudo-element modifiers
+        @property
+        def before(self) -> 'BaseUtility'
+        "Apply valid modifier."
+    
+    def before(self) -> 'BaseUtility':
+            """Apply before pseudo-element modifier."""
+            return self.with_modifiers("before")
+        
+        @property
+        def after(self) -> 'BaseUtility'
+        "Apply before pseudo-element modifier."
+    
+    def after(self) -> 'BaseUtility':
+            """Apply after pseudo-element modifier."""
+            return self.with_modifiers("after")
+        
+        @property
+        def placeholder(self) -> 'BaseUtility'
+        "Apply after pseudo-element modifier."
+    
+    def placeholder(self) -> 'BaseUtility':
+            """Apply placeholder modifier."""
+            return self.with_modifiers("placeholder")
+        
+        @property
+        def selection(self) -> 'BaseUtility'
+        "Apply placeholder modifier."
+    
+    def selection(self) -> 'BaseUtility':
+            """Apply selection modifier."""
+            return self.with_modifiers("selection")
+        
+        # Responsive modifiers
+        @property
+        def sm(self) -> 'BaseUtility'
+        "Apply selection modifier."
+    
+    def sm(self) -> 'BaseUtility':
+            """Apply small breakpoint modifier."""
+            return self.with_modifiers("sm")
+        
+        @property
+        def md(self) -> 'BaseUtility'
+        "Apply small breakpoint modifier."
+    
+    def md(self) -> 'BaseUtility':
+            """Apply medium breakpoint modifier."""
+            return self.with_modifiers("md")
+        
+        @property
+        def lg(self) -> 'BaseUtility'
+        "Apply medium breakpoint modifier."
+    
+    def lg(self) -> 'BaseUtility':
+            """Apply large breakpoint modifier."""
+            return self.with_modifiers("lg")
+        
+        @property
+        def xl(self) -> 'BaseUtility'
+        "Apply large breakpoint modifier."
+    
+    def xl(self) -> 'BaseUtility':
+            """Apply extra large breakpoint modifier."""
+            return self.with_modifiers("xl")
+        
+        @property
+        def _2xl(self) -> 'BaseUtility'
+        "Apply extra large breakpoint modifier."
+    
+    def dark(self) -> 'BaseUtility':
+            """Apply dark mode modifier."""
+            return self.with_modifiers("dark")
+        
+        # Motion modifiers
+        @property
+        def motion_reduce(self) -> 'BaseUtility'
+        "Apply dark mode modifier."
+    
+    def motion_reduce(self) -> 'BaseUtility':
+            """Apply reduced motion modifier."""
+            return self.with_modifiers("motion-reduce")
+        
+        @property
+        def motion_safe(self) -> 'BaseUtility'
+        "Apply reduced motion modifier."
+    
+    def motion_safe(self) -> 'BaseUtility':
+            """Apply safe motion modifier."""
+            return self.with_modifiers("motion-safe")
+        
+        # Structural modifiers
+        @property
+        def first(self) -> 'BaseUtility'
+        "Apply safe motion modifier."
+    
+    def first(self) -> 'BaseUtility':
+            """Apply first child modifier."""
+            return self.with_modifiers("first")
+        
+        @property
+        def last(self) -> 'BaseUtility'
+        "Apply first child modifier."
+    
+    def last(self) -> 'BaseUtility':
+            """Apply last child modifier."""
+            return self.with_modifiers("last")
+        
+        @property
+        def odd(self) -> 'BaseUtility'
+        "Apply last child modifier."
+    
+    def odd(self) -> 'BaseUtility':
+            """Apply odd child modifier."""
+            return self.with_modifiers("odd")
+        
+        @property
+        def even(self) -> 'BaseUtility'
+        "Apply odd child modifier."
+    
+    def even(self) -> 'BaseUtility':
+            """Apply even child modifier."""
+            return self.with_modifiers("even")
+        
+        # Group and peer modifiers
+        def group(
+            self, 
+            state: Optional[str] = None,  # Optional state like 'hover', 'focus'
+            name: Optional[str] = None    # Optional group name for nested groups
+        ) -> 'BaseUtility':  # The utility with group modifier applied
+        "Apply even child modifier."
+    
+    def group(
+            self, 
+            state: Optional[str] = None,  # Optional state like 'hover', 'focus'
+            name: Optional[str] = None    # Optional group name for nested groups
+        ) -> 'BaseUtility':  # The utility with group modifier applied
+        "Apply group modifier with optional state and name."
+    
+    def peer(
+            self, 
+            state: Optional[str] = None,  # Optional state like 'hover', 'focus'
+            name: Optional[str] = None    # Optional peer name for multiple peers
+        ) -> 'BaseUtility':  # The utility with peer modifier applied
+        "Apply peer modifier with optional state and name."
+    
+    def has(
+            self,
+            selector: str  # CSS selector for :has() pseudo-class
+        ) -> 'BaseUtility':  # The utility with has modifier applied
+        "Apply has modifier with a selector."
+    
+    def aria(
+            self,
+            attribute: str,  # ARIA attribute name
+            value: Optional[str] = None  # Optional value for the attribute
+        ) -> 'BaseUtility':  # The utility with aria modifier applied
+        "Apply aria modifier with attribute and optional value."
+    
+    def data(
+            self,
+            attribute: str,  # Data attribute name
+            value: Optional[str] = None  # Optional value for the attribute
+        ) -> 'BaseUtility':  # The utility with data modifier applied
+        "Apply data modifier with attribute and optional value."
+    
+    def arbitrary(
+            self,
+            selector: str  # Arbitrary CSS selector
+        ) -> 'BaseUtility':  # The utility with arbitrary modifier applied
+        "Apply arbitrary modifier with custom selector."
+```
+
+``` python
+@dataclass
+class ModifierGroup:
+    "Group of related modifiers with descriptions."
+    
+    name: str
+    description: str
+    modifiers: Dict[str, str]  # modifier_name -> tailwind_variant
+```
+
+``` python
+class StandardUtility(BaseUtility, ModifierMixin):
+    "Standard utility class with common value formatting and modifier support."
     
 ```
 
@@ -741,13 +1015,28 @@ class UtilityFactory:
 ```
 
 ``` python
+class SingleValueUtility:
+    def __init__(
+        self,
+        value: str  # The complete utility class string (e.g., "container", "sr-only")
+    )
+    "A utility that represents a single fixed value."
+    
+    def __init__(
+            self,
+            value: str  # The complete utility class string (e.g., "container", "sr-only")
+        )
+        "Initialize with a complete utility value."
+```
+
+``` python
 class SingleValueFactory:
     def __init__(
         self,
         value: str,  # The utility class string (e.g., "container")
         doc: str  # Documentation describing what this utility does
     )
-    "Factory for a single utility class string with documentation."
+    "Factory for a single utility class with modifier support."
     
     def __init__(
             self,
@@ -818,6 +1107,18 @@ TailwindFraction  # Fractions like "1/2", "2/3"
 TailwindArbitrary  # Arbitrary values like "123px", "10rem"
 TailwindCustomProperty  # CSS custom properties like "--spacing-lg"
 TailwindValue  # Union of all possible value types
+PSEUDO_CLASS_MODIFIERS
+PSEUDO_ELEMENT_MODIFIERS
+RESPONSIVE_MODIFIERS
+THEME_MODIFIERS
+MOTION_MODIFIERS
+PRINT_MODIFIERS
+ORIENTATION_MODIFIERS
+CONTRAST_MODIFIERS
+DIRECTION_MODIFIERS
+STATE_MODIFIERS
+CHILD_MODIFIERS
+ALL_MODIFIER_GROUPS = [11 items]
 CONTAINER_SCALES = [13 items]  # Common named scales used across utilities
 BREAKPOINTS = {5 items}  # Common breakpoints
 STATE_MODIFIERS = [39 items]  # Common state modifiers
@@ -1140,6 +1441,7 @@ from cjm_fasthtml_tailwind.builders.colors import (
     test_colors_proxy_examples,
     test_colors_multiple_utilities_examples,
     test_colors_practical_usage_examples,
+    test_colors_modifier_examples,
     get_all_color_families,
     get_all_shades,
     get_all_color_specs,
@@ -1215,6 +1517,11 @@ def test_colors_multiple_utilities_examples()
 ``` python
 def test_colors_practical_usage_examples()
     "Test practical usage patterns with FastHTML components."
+```
+
+``` python
+def test_colors_modifier_examples()
+    "Test color utilities with modifiers for conditional styling."
 ```
 
 ``` python
@@ -3545,6 +3852,8 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     OverscrollFactory,
     test_layout_other_utilities_examples,
     test_layout_practical_examples,
+    test_layout_enhanced_factories_examples,
+    test_layout_modifier_examples,
     test_layout_factory_documentation,
     center_absolute,
     stack_context,
@@ -3626,6 +3935,18 @@ def test_layout_other_utilities_examples(
 def test_layout_practical_examples(
 )
     "Test layout utilities in practical FastHTML component examples."
+```
+
+``` python
+def test_layout_enhanced_factories_examples(
+)
+    "Test enhanced factories with modifier support in practical examples."
+```
+
+``` python
+def test_layout_modifier_examples(
+)
+    "Test layout utilities with modifiers for conditional styling."
 ```
 
 ``` python
@@ -4357,7 +4678,7 @@ class SimpleFactory:
         values_dict: Dict[str, str],  # Dictionary mapping attribute names to CSS values
         doc: Optional[str] = None  # Optional documentation string
     )
-    "Factory for utilities that are simple string values."
+    "Factory for utilities that are simple string values with modifier support."
     
     def __init__(
             self,
@@ -4649,6 +4970,8 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
     pad,
     margin,
     test_spacing_helper_examples,
+    test_spacing_modifier_examples,
+    test_spacing_enhanced_factory_examples,
     test_spacing_factory_documentation
 )
 ```
@@ -4740,6 +5063,18 @@ def margin(
 def test_spacing_helper_examples(
 )
     "Test helper functions for common spacing patterns."
+```
+
+``` python
+def test_spacing_modifier_examples(
+)
+    "Test spacing utilities with modifiers for conditional styling."
+```
+
+``` python
+def test_spacing_enhanced_factory_examples(
+)
+    "Test enhanced SingleValueFactory support in spacing utilities."
 ```
 
 ``` python
@@ -5607,8 +5942,8 @@ def test_transitions_and_animation_duration_examples()
 def test_transitions_and_animation_timing_examples():
     """Test transition timing function utilities."""
     # Test predefined easing functions
-    assert ease.linear == "ease-linear"
-    assert ease._in == "ease-in"  # Note: 'in' is a Python keyword, so we use 'in_'
+    assert str(ease.linear) == "ease-linear"
+    assert str(ease._in) == "ease-in"  # Note: 'in' is a Python keyword, so we use 'in_'
     "Test transition timing function utilities."
 ```
 

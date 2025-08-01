@@ -4,7 +4,20 @@ website:
       - index.ipynb
       - section: builders
         contents:
+          - builders/colors.ipynb
           - builders/scales.ipynb
+      - section: cli
+        contents:
+          - cli/core_utils_discovery.ipynb
+          - cli/example_discovery.ipynb
+          - cli/explorer.ipynb
+          - cli/factory_extraction.ipynb
+          - cli/helper_discovery.ipynb
+          - cli/imports.ipynb
+          - cli/pattern_scanner.ipynb
+          - cli/search.ipynb
+          - cli/test_code.ipynb
+          - cli/utils.ipynb
       - section: core
         contents:
           - core/base.ipynb
@@ -12,7 +25,18 @@ website:
           - core/testing.ipynb
       - section: utilities
         contents:
+          - utilities/accessibility.ipynb
+          - utilities/backgrounds.ipynb
+          - utilities/borders.ipynb
+          - utilities/effects.ipynb
+          - utilities/filters.ipynb
           - utilities/flexbox_and_grid.ipynb
+          - utilities/interactivity.ipynb
           - utilities/layout.ipynb
           - utilities/sizing.ipynb
           - utilities/spacing.ipynb
+          - utilities/svg.ipynb
+          - utilities/tables.ipynb
+          - utilities/transforms.ipynb
+          - utilities/transitions_and_animation.ipynb
+          - utilities/typography.ipynb
