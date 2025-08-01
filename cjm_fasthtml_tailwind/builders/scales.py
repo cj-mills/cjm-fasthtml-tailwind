@@ -73,11 +73,26 @@ class ScaledUtility(StandardUtility):
         Format value according to Tailwind conventions with scale awareness:
         - Values with spaces: wrapped in brackets (arbitrary)
         - String numbers not in scale: wrapped in brackets
+        - Decimal strings when decimals disabled: wrapped in brackets
         - Otherwise: use standard formatting
         """
         # First check if it's a string containing spaces
         if isinstance(value, str) and ' ' in value:
             return f"[{value}]"
+        
+        # Check if it's a string that looks like a decimal
+        if isinstance(value, str) and '.' in value:
+            try:
+                float_val = float(value)
+                # If decimals are disabled in config, treat decimal strings as arbitrary
+                if not self.config.decimals:
+                    return f"[{value}]"
+                # If decimals are enabled, check if this specific decimal is in DECIMAL_SCALE
+                elif float_val not in DECIMAL_SCALE:
+                    return f"[{value}]"
+            except ValueError:
+                # Not a valid float, let parent handle it
+                pass
         
         # Check if it's a string number that should be arbitrary
         if isinstance(value, str) and value.isdigit():

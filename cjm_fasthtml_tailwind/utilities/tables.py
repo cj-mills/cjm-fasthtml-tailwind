@@ -204,6 +204,7 @@ test_tables_all_utilities()
 def test_tables_practical_examples():
     """Test table utilities in practical FastHTML component examples."""
     from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption
+    from cjm_fasthtml_tailwind.utilities.sizing import w, min_w
     
     # Basic table with collapsed borders
     basic_table = Table(
@@ -228,7 +229,7 @@ def test_tables_practical_examples():
         ),
         cls=combine_classes(
             border_collapse.collapse,
-            "w-full"
+            w.full
         )
     )
     assert "border-collapse" in basic_table.attrs['class']
@@ -242,7 +243,7 @@ def test_tables_practical_examples():
         cls=combine_classes(
             border_collapse.separate,
             border_spacing(2),
-            "w-full"
+            w.full
         )
     )
     assert "border-separate" in spaced_table.attrs['class']
@@ -258,7 +259,7 @@ def test_tables_practical_examples():
             border_collapse.separate,
             border_spacing.x(4),
             border_spacing.y(2),
-            "w-full"
+            w.full
         )
     )
     assert "border-spacing-x-4" in custom_spaced_table.attrs['class']
@@ -269,8 +270,8 @@ def test_tables_practical_examples():
         Caption("User Information", cls=str(caption_side.top)),
         Thead(
             Tr(
-                Th("ID", cls="w-20"),
-                Th("Name", cls="w-40"),
+                Th("ID", cls=str(w(20))),
+                Th("Name", cls=str(w(40))),
                 Th("Description")
             )
         ),
@@ -284,7 +285,7 @@ def test_tables_practical_examples():
         cls=combine_classes(
             table_layout.fixed,
             border_collapse.collapse,
-            "w-full"
+            w.full
         )
     )
     assert "table-fixed" in fixed_table.attrs['class']
@@ -304,7 +305,7 @@ def test_tables_practical_examples():
             table_layout.auto,
             border_collapse.separate,
             border_spacing.px,
-            "min-w-full"
+            min_w.full
         )
     )
     assert "table-auto" in auto_table.attrs['class']
@@ -318,6 +319,13 @@ test_tables_practical_examples()
 def test_tables_complex_example():
     """Test a complex table example with various styling."""
     from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption, Div
+    from cjm_fasthtml_tailwind.utilities.sizing import w
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.borders import border, border_color, rounded
+    from cjm_fasthtml_tailwind.utilities.typography import text, text_align, font
+    from cjm_fasthtml_tailwind.utilities.spacing import p, m
+    from cjm_fasthtml_tailwind.utilities.layout import overflow
+    from cjm_fasthtml_tailwind.utilities.effects import shadow
     
     # Create a styled data table
     data_table = Div(
@@ -326,56 +334,63 @@ def test_tables_complex_example():
                 "Quarterly Sales Report",
                 cls=combine_classes(
                     caption_side.top,
-                    "text-lg font-semibold text-gray-700 mb-2"
+                    text.lg,
+                    font.semibold,
+                    text.gray._700,
+                    m.b(2)
                 )
             ),
             Thead(
                 Tr(
-                    Th("Quarter", cls="text-left p-4 bg-gray-100"),
-                    Th("Product", cls="text-left p-4 bg-gray-100"),
-                    Th("Units Sold", cls="text-right p-4 bg-gray-100"),
-                    Th("Revenue", cls="text-right p-4 bg-gray-100"),
-                    cls="border-b-2 border-gray-300"
+                    Th("Quarter", cls=combine_classes(text_align.left, p(4), bg.gray._100)),
+                    Th("Product", cls=combine_classes(text_align.left, p(4), bg.gray._100)),
+                    Th("Units Sold", cls=combine_classes(text_align.right, p(4), bg.gray._100)),
+                    Th("Revenue", cls=combine_classes(text_align.right, p(4), bg.gray._100)),
+                    cls=combine_classes(border.b._2, border_color.gray._300)
                 )
             ),
             Tbody(
                 Tr(
-                    Td("Q1 2024", cls="p-4"),
-                    Td("Widget A", cls="p-4"),
-                    Td("1,234", cls="text-right p-4"),
-                    Td("$12,340", cls="text-right p-4"),
-                    cls="border-b border-gray-200"
+                    Td("Q1 2024", cls=str(p(4))),
+                    Td("Widget A", cls=str(p(4))),
+                    Td("1,234", cls=combine_classes(text_align.right, p(4))),
+                    Td("$12,340", cls=combine_classes(text_align.right, p(4))),
+                    cls=combine_classes(border.b(), border_color.gray._200)
                 ),
                 Tr(
-                    Td("Q1 2024", cls="p-4"),
-                    Td("Widget B", cls="p-4"),
-                    Td("567", cls="text-right p-4"),
-                    Td("$8,505", cls="text-right p-4"),
-                    cls="border-b border-gray-200"
+                    Td("Q1 2024", cls=str(p(4))),
+                    Td("Widget B", cls=str(p(4))),
+                    Td("567", cls=combine_classes(text_align.right, p(4))),
+                    Td("$8,505", cls=combine_classes(text_align.right, p(4))),
+                    cls=combine_classes(border.b(), border_color.gray._200)
                 ),
                 Tr(
-                    Td("Q2 2024", cls="p-4"),
-                    Td("Widget A", cls="p-4"),
-                    Td("1,567", cls="text-right p-4"),
-                    Td("$15,670", cls="text-right p-4"),
-                    cls="border-b border-gray-200"
+                    Td("Q2 2024", cls=str(p(4))),
+                    Td("Widget A", cls=str(p(4))),
+                    Td("1,567", cls=combine_classes(text_align.right, p(4))),
+                    Td("$15,670", cls=combine_classes(text_align.right, p(4))),
+                    cls=combine_classes(border.b(), border_color.gray._200)
                 ),
                 Tr(
-                    Td("Q2 2024", cls="p-4"),
-                    Td("Widget B", cls="p-4"),
-                    Td("890", cls="text-right p-4"),
-                    Td("$13,350", cls="text-right p-4"),
-                    cls="border-b border-gray-200"
+                    Td("Q2 2024", cls=str(p(4))),
+                    Td("Widget B", cls=str(p(4))),
+                    Td("890", cls=combine_classes(text_align.right, p(4))),
+                    Td("$13,350", cls=combine_classes(text_align.right, p(4))),
+                    cls=combine_classes(border.b(), border_color.gray._200)
                 )
             ),
             cls=combine_classes(
                 table_layout.fixed,
                 border_collapse.separate,
                 border_spacing(0),
-                "w-full bg-white shadow-sm rounded-lg overflow-hidden"
+                w.full,
+                bg.white,
+                shadow.sm,
+                rounded.lg,
+                overflow.hidden
             )
         ),
-        cls="p-6"
+        cls=str(p(6))
     )
     
     # Verify table utilities are applied
@@ -397,7 +412,7 @@ def test_tables_complex_example():
             border_spacing.x(1),
             border_spacing.y(0.5),
             table_layout.auto,
-            "text-sm"
+            text.sm
         )
     )
     

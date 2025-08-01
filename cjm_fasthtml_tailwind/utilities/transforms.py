@@ -936,14 +936,18 @@ test_transforms_translate_examples()
 def test_transforms_practical_examples():
     """Test transform utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Img, A
+    from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration, animate
+    from cjm_fasthtml_tailwind.utilities.layout import position, top, left
+    from cjm_fasthtml_tailwind.utilities.sizing import h, w
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     
     # Hover effect with scale and rotate
     hover_button = Button(
         "Hover Me",
         cls=combine_classes(
-            "hover:scale-110", 
-            "hover:rotate-3",
-            "transition-transform"
+            scale_tw(110).hover, 
+            rotate(3).hover,
+            transition.transform
         )
     )
     assert hover_button.attrs['class'] == "hover:scale-110 hover:rotate-3 transition-transform"
@@ -951,9 +955,9 @@ def test_transforms_practical_examples():
     # 3D card flip effect
     flip_card = Div(
         Div(
-            Div("Front", cls="backface-hidden"),
+            Div("Front", cls=str(backface.hidden)),
             Div("Back", cls=combine_classes(backface.hidden, str(rotate.y(180)))),
-            cls=combine_classes(transform_style._3d, "transition-transform duration-700", "hover:rotate-y-180")
+            cls=combine_classes(transform_style._3d, transition.transform, duration(700), rotate.y(180).hover)
         ),
         cls=combine_classes(perspective.normal)
     )
@@ -963,7 +967,9 @@ def test_transforms_practical_examples():
         Div(
             "Modal Content",
             cls=combine_classes(
-                "fixed top-1/2 left-1/2",
+                position.fixed,
+                top("1/2"),
+                left("1/2"),
                 str(translate.x.negative("1/2")),
                 str(translate.y.negative("1/2"))
             )
@@ -975,7 +981,8 @@ def test_transforms_practical_examples():
         cls=combine_classes(
             str(skew.y.negative(3)),
             origin.left,
-            "h-24 bg-gray-100"
+            h(24),
+            bg.gray._100
         )
     )
     
@@ -993,7 +1000,9 @@ def test_transforms_practical_examples():
     cube_face = lambda side: Div(
         side,
         cls=combine_classes(
-            "absolute w-full h-full",
+            position.absolute,
+            w.full,
+            h.full,
             backface.hidden if side != "Front" else ""
         )
     )
@@ -1007,7 +1016,7 @@ def test_transforms_practical_examples():
         cube_face("Right"),
         cls=combine_classes(
             transform_style._3d,
-            "animate-spin-3d"
+            animate("spin-3d")
         )
     )
 

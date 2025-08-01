@@ -361,17 +361,18 @@ def display_factory_info(
             print(f"  {info['valid_inputs']}")
         
         # Display options
-        print(f"\nOptions:")
-        if isinstance(info['options'], dict):
-            for key, value in info['options'].items():
-                if isinstance(value, dict):
-                    print(f"  {key}:")
-                    for sub_key, sub_value in value.items():
-                        print(f"    - {sub_key}: {sub_value}")
-                else:
-                    print(f"  - {key}: {value}")
-        else:
-            print(f"  {info['options']}")
+        if 'options' in info:
+            print(f"\nOptions:")
+            if isinstance(info['options'], dict):
+                for key, value in info['options'].items():
+                    if isinstance(value, dict):
+                        print(f"  {key}:")
+                        for sub_key, sub_value in value.items():
+                            print(f"    - {sub_key}: {sub_value}")
+                    else:
+                        print(f"  - {key}: {value}")
+            else:
+                print(f"  {info['options']}")
             
     except AttributeError:
         print("\nDetailed information not available for this factory.")

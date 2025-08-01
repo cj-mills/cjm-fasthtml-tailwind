@@ -780,41 +780,46 @@ def test_layout_practical_examples(
 ):
     """Test layout utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Header, Nav, Main, Section, Article, Aside
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.sizing import h, w
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify, gap
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
     
     # Fixed header with z-index
     header = Header(
         Nav("Navigation"),
-        cls=combine_classes(position.fixed, top(0), left(0), right(0), z(50), "bg-white")
+        cls=combine_classes(position.fixed, top(0), left(0), right(0), z(50), bg.white)
     )
     assert header.attrs['class'] == "fixed top-0 left-0 right-0 z-50 bg-white"
     
     # Sticky sidebar with scroll
     sidebar = Aside(
         "Sidebar content",
-        cls=combine_classes(position.sticky, top(20), "h-screen", overflow.y.auto)
+        cls=combine_classes(position.sticky, top(20), h.screen, overflow.y.auto)
     )
     assert sidebar.attrs['class'] == "sticky top-20 h-screen overflow-y-auto"
     
     # Modal overlay with z-index
     modal_overlay = Div(
         Div("Modal content", cls=combine_classes(position.relative, z(10))),
-        cls=combine_classes(position.fixed, inset(0), z(40), display_tw.flex, "items-center", "justify-center", "bg-black/50")
+        cls=combine_classes(position.fixed, inset(0), z(40), display_tw.flex, items.center, justify.center, bg.black.opacity(50))
     )
     assert modal_overlay.attrs['class'] == "fixed inset-0 z-40 flex items-center justify-center bg-black/50"
     assert modal_overlay.children[0].attrs['class'] == "relative z-10"
     
     # Image with aspect ratio and object fit
     image_container = Div(
-        Img(src="image.jpg", cls=combine_classes(object_fit.cover, object_position.center, "w-full", "h-full")),
-        cls=combine_classes(aspect.video, overflow.hidden, "rounded-lg")
+        Img(src="image.jpg", cls=combine_classes(object_fit.cover, object_position.center, w.full, h.full)),
+        cls=combine_classes(aspect.video, overflow.hidden, rounded.lg)
     )
     assert image_container.attrs['class'] == "aspect-video overflow-hidden rounded-lg"
     assert image_container.children[0].attrs['class'] == "object-cover object-center w-full h-full"
     
     # Multi-column layout
+    # Note: 'prose' is from Tailwind Typography plugin and doesn't have a factory yet
     article = Article(
         "Lorem ipsum dolor sit amet...",
-        cls=combine_classes(columns(2), "gap-8", "prose")
+        cls=combine_classes(columns(2), gap(8), "prose")
     )
     assert article.attrs['class'] == "columns-2 gap-8 prose"
 

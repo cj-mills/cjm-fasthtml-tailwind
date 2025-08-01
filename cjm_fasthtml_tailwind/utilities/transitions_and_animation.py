@@ -10,7 +10,7 @@ __all__ = ['transition', 'transition_behavior', 'DURATION_SCALE', 'DURATION_CONF
            'test_transitions_and_animation_timing_examples', 'DelayFactory',
            'test_transitions_and_animation_delay_examples', 'AnimationFactory',
            'test_transitions_and_animation_examples', 'test_transitions_and_animation_practical_examples',
-           'test_transitions_and_animation_composition_examples',
+           'test_transitions_and_animation_animation_examples', 'test_transitions_and_animation_composition_examples',
            'test_transitions_and_animation_factory_documentation', 'smooth_transition', 'hover_effect', 'fade_in',
            'loading_spinner', 'skeleton_loader', 'test_transitions_and_animation_helper_examples']
 
@@ -549,12 +549,20 @@ test_transitions_and_animation_examples()
 def test_transitions_and_animation_practical_examples():
     """Test transition and animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Span, A, Img
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
+    from cjm_fasthtml_tailwind.utilities.effects import shadow
+    from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, translate
+    from cjm_fasthtml_tailwind.utilities.effects import opacity
+    from cjm_fasthtml_tailwind.utilities.transforms import transform
     
     # Button with hover transition
     button = Button(
         "Hover me",
         cls=combine_classes(
-            "bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded",
+            bg.blue._500, bg.blue._700.hover, text.white, p.x(4), p.y(2), rounded.full,
             transition.colors,
             duration._300,
             ease.in_out
@@ -568,7 +576,7 @@ def test_transitions_and_animation_practical_examples():
     card = Card(
         "Content",
         cls=combine_classes(
-            "shadow-md hover:shadow-xl",
+            shadow.md, shadow.xl.hover,
             transition.shadow,
             duration._200
         )
@@ -580,7 +588,7 @@ def test_transitions_and_animation_practical_examples():
     scale_div = Div(
         "Scale on hover",
         cls=combine_classes(
-            "hover:scale-110",
+            scale_tw(110).hover,
             transition.transform,
             duration._150,
             ease.out
@@ -594,7 +602,7 @@ def test_transitions_and_animation_practical_examples():
     delayed_link = A(
         "Delayed hover",
         cls=combine_classes(
-            "text-gray-600 hover:text-blue-500",
+            text.gray._600, text.blue._500.hover,
             transition.colors,
             duration._500,
             delay._200
@@ -606,7 +614,7 @@ def test_transitions_and_animation_practical_examples():
     multi_transition = Div(
         "Multiple transitions",
         cls=combine_classes(
-            "opacity-50 hover:opacity-100 transform hover:translate-y-1",
+            opacity._50, opacity._100.hover, transform.gpu, translate.y(1).hover,
             transition("opacity, transform"),
             duration._300
         )
@@ -617,14 +625,19 @@ def test_transitions_and_animation_practical_examples():
 test_transitions_and_animation_practical_examples()
 
 # %% ../../nbs/utilities/transitions_and_animation.ipynb 27
-def test_transitions_and_animation_practical_examples():
+def test_transitions_and_animation_animation_examples():
     """Test animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Span, Button
+    from cjm_fasthtml_tailwind.utilities.borders import border, border_color, rounded
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.layout import position, top, right
+    from cjm_fasthtml_tailwind.utilities.typography import text
     
     # Loading spinner
     spinner = Div(
         cls=combine_classes(
-            "border-2 border-gray-200 border-t-blue-500 rounded-full w-6 h-6",
+            border._2, border_color.gray._200, border_color.t.blue._500, rounded.full, w(6), h(6),
             animate.spin
         )
     )
@@ -633,7 +646,7 @@ def test_transitions_and_animation_practical_examples():
     # Ping notification
     notification_dot = Span(
         cls=combine_classes(
-            "absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full",
+            position.absolute, top.negative(1), right.negative(1), h(3), w(3), bg.red._500, rounded.full,
             animate.ping
         )
     )
@@ -642,7 +655,7 @@ def test_transitions_and_animation_practical_examples():
     # Pulse skeleton loader
     skeleton = Div(
         cls=combine_classes(
-            "h-4 bg-gray-200 rounded",
+            h(4), bg.gray._200, rounded.full,
             animate.pulse
         )
     )
@@ -652,7 +665,7 @@ def test_transitions_and_animation_practical_examples():
     arrow = Div(
         "↓",
         cls=combine_classes(
-            "text-2xl",
+            text._2xl,
             animate.bounce
         )
     )
@@ -677,21 +690,24 @@ def test_transitions_and_animation_practical_examples():
     assert "animate-(--custom-fade-in)" in var_animated.attrs['class']
 
 # Run the tests
-test_transitions_and_animation_practical_examples()
+test_transitions_and_animation_animation_examples()
 
 # %% ../../nbs/utilities/transitions_and_animation.ipynb 28
 def test_transitions_and_animation_composition_examples():
     """Test composing multiple transition utilities together."""
     from fasthtml.common import Div, Button
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg_linear, from_color, to_color
+    from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, translate, transform
+    from cjm_fasthtml_tailwind.utilities.effects import shadow, opacity
     
     # Complete transition setup
     interactive_element = Button(
         "Interactive",
         cls=combine_classes(
-            "bg-gradient-to-r from-blue-500 to-purple-600",
-            "hover:from-blue-600 hover:to-purple-700",
-            "transform hover:scale-105 active:scale-95",
-            "shadow-lg hover:shadow-xl",
+            bg_linear.to_r, from_color.blue._500, to_color.purple._600,
+            from_color.blue._600.hover, to_color.purple._700.hover,
+            transform.gpu, scale_tw(105).hover, scale_tw(95).active,
+            shadow.lg, shadow.xl.hover,
             transition.all,  # Transition all properties
             duration._300,
             ease.in_out,
@@ -707,8 +723,8 @@ def test_transitions_and_animation_composition_examples():
     multi_property = Div(
         "Multi-property transitions",
         cls=combine_classes(
-            "opacity-75 hover:opacity-100",
-            "transform hover:translate-x-2",
+            opacity._75, opacity._100.hover,
+            transform.gpu, translate.x(2).hover,
             transition("opacity, transform"),
             duration("200ms"),  # Custom duration
             ease("cubic-bezier(0.4, 0, 0.2, 1)")  # Custom easing
@@ -723,7 +739,7 @@ def test_transitions_and_animation_composition_examples():
         "Loading...",
         cls=combine_classes(
             animate.pulse,
-            "hover:opacity-50",
+            opacity._50.hover,
             transition.opacity,
             duration._150
         )
@@ -847,8 +863,9 @@ def fade_in(
 def loading_spinner(
 ) -> str:  # Combined CSS classes for a loading spinner
     """Create a loading spinner animation."""
+    from cjm_fasthtml_tailwind.utilities.borders import border, border_color, rounded
     return combine_classes(
-        "border-2 border-gray-200 border-t-current rounded-full",
+        border._2, border_color.gray._200, border_color.t.current, rounded.full,
         animate.spin
     )
 
@@ -856,8 +873,9 @@ def loading_spinner(
 def skeleton_loader(
 ) -> str:  # Combined CSS classes for a skeleton loader
     """Create a skeleton loader animation for content placeholders."""
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     return combine_classes(
-        "bg-gray-200",
+        bg.gray._200,
         animate.pulse
     )
 

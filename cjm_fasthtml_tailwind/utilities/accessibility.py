@@ -59,6 +59,17 @@ def test_accessibility_practical_examples(
 ):
     """Test accessibility utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Span, Input, Label, Nav, A
+    from cjm_fasthtml_tailwind.utilities.layout import position, top, left, display_tw
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.transitions_and_animation import animate
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, items
+    from cjm_fasthtml_tailwind.core.base import combine_classes
+    from cjm_fasthtml_tailwind.utilities.layout import sr_only, not_sr_only
+    from cjm_fasthtml_tailwind.utilities.accessibility import forced_color_adjust
     
     # Skip link for keyboard navigation
     skip_link = A(
@@ -66,13 +77,13 @@ def test_accessibility_practical_examples(
         href="#main-content",
         cls=combine_classes(
             sr_only,
-            "focus:not-sr-only",
-            "focus:absolute",
-            "focus:top-4",
-            "focus:left-4",
-            "bg-white",
-            "p-2",
-            "rounded"
+            not_sr_only.focus,
+            position.absolute.focus,
+            top(4).focus,
+            left(4).focus,
+            bg.white,
+            p(2),
+            rounded.full
         )
     )
     assert "sr-only" in skip_link.attrs['class']
@@ -85,7 +96,7 @@ def test_accessibility_practical_examples(
             type="search",
             id="search",
             placeholder="Search...",
-            cls="w-full px-4 py-2 border rounded"
+            cls=combine_classes(w.full, p.x(4), p.y(2), border._1, rounded.full)
         )
     )
     assert form_field.children[0].attrs['class'] == "sr-only"
@@ -94,33 +105,41 @@ def test_accessibility_practical_examples(
     icon_button = Button(
         # Icon would go here (e.g., SVG)
         Span("Close dialog", cls=str(sr_only)),
-        cls="p-2 rounded hover:bg-gray-100",
+        cls=combine_classes(p(2), rounded.full, bg.gray._100.hover),
         aria_label="Close dialog"
     )
     assert icon_button.children[0].attrs['class'] == "sr-only"
     
     # Navigation with forced color adjustments
     high_contrast_nav = Nav(
-        A("Home", href="/", cls=combine_classes(forced_color_adjust.none, "text-blue-600")),
-        A("About", href="/about", cls=combine_classes(forced_color_adjust.none, "text-blue-600")),
-        A("Contact", href="/contact", cls=combine_classes(forced_color_adjust.none, "text-blue-600")),
-        cls=combine_classes(forced_color_adjust.auto, "flex gap-4")
+        A("Home", href="/", cls=combine_classes(forced_color_adjust.none, text.blue._600)),
+        A("About", href="/about", cls=combine_classes(forced_color_adjust.none, text.blue._600)),
+        A("Contact", href="/contact", cls=combine_classes(forced_color_adjust.none, text.blue._600)),
+        cls=combine_classes(forced_color_adjust.auto, display_tw.flex, gap(4))
     )
     assert high_contrast_nav.attrs['class'] == "forced-color-adjust-auto flex gap-4"
     assert "forced-color-adjust-none" in high_contrast_nav.children[0].attrs['class']
     
     # Loading spinner with screen reader text
     loading_spinner = Div(
-        Div(cls="animate-spin h-5 w-5 border-2 border-gray-900 rounded-full border-t-transparent"),
+        Div(cls=combine_classes(
+            animate.spin,
+            h(5),
+            w(5),
+            border._2,
+            border_color.gray._900,
+            rounded.full,
+            border_color.t.transparent
+        )),
         Span("Loading...", cls=str(sr_only)),
-        cls="inline-flex items-center"
+        cls=combine_classes(display_tw.inline_flex, items.center)
     )
     assert loading_spinner.children[1].attrs['class'] == "sr-only"
 
 # Run the tests
 test_accessibility_practical_examples()
 
-# %% ../../nbs/utilities/accessibility.ipynb 12
+# %% ../../nbs/utilities/accessibility.ipynb 13
 def test_accessibility_factory_documentation(
 ):
     """Test that factories have accessible documentation."""
@@ -141,7 +160,7 @@ def test_accessibility_factory_documentation(
 # Run the tests
 test_accessibility_factory_documentation()
 
-# %% ../../nbs/utilities/accessibility.ipynb 14
+# %% ../../nbs/utilities/accessibility.ipynb 15
 def visually_hidden(
     focusable: bool = False  # Whether the element should be visible when focused
 ) -> str:  # CSS classes for hiding element visually
@@ -158,7 +177,7 @@ def visually_hidden(
         return combine_classes(sr_only, "focus:not-sr-only")
     return str(sr_only)
 
-# %% ../../nbs/utilities/accessibility.ipynb 15
+# %% ../../nbs/utilities/accessibility.ipynb 16
 def high_contrast_safe(
     *classes: str  # Additional CSS classes to combine
 ) -> str:  # CSS classes including forced color adjust
@@ -173,7 +192,7 @@ def high_contrast_safe(
     """
     return combine_classes(forced_color_adjust.auto, *classes)
 
-# %% ../../nbs/utilities/accessibility.ipynb 16
+# %% ../../nbs/utilities/accessibility.ipynb 17
 def test_accessibility_helper_examples(
 ):
     """Test helper functions for common accessibility patterns."""

@@ -961,33 +961,39 @@ def test_flexbox_and_grid_practical_examples(
 ): # TODO: Add type hint
     """Test flexbox and grid utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Header, Nav, Main, Article, Aside, Footer, Img, Button, H1, H2, P
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.typography import font, text, text_align
+    from cjm_fasthtml_tailwind.utilities.sizing import h, min_h
+    from cjm_fasthtml_tailwind.utilities.spacing import p, m
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
     
     # Flexbox centered navigation
     nav = Nav(
-        Div("Logo", cls="font-bold"),
+        Div("Logo", cls=str(font.bold)),
         Div(
             "Home", "About", "Contact",
-            cls=combine_classes("flex", gap(4))
+            cls=combine_classes(display_tw.flex, gap(4))
         ),
         Button("Sign In"),
         cls=combine_classes(
-            "flex", 
+            display_tw.flex, 
             justify.between, 
             items.center, 
-            "px-6", 
-            "py-4"
+            p.x(6), 
+            p.y(4)
         )
     )
     assert nav.attrs['class'] == "flex justify-between items-center px-6 py-4"
     
     # Grid layout for cards
     card_grid = Div(
-        *[Div(f"Card {i}", cls="p-4 bg-gray-100 rounded") for i in range(6)],
+        *[Div(f"Card {i}", cls=combine_classes(p(4), bg.gray._100, rounded.full)) for i in range(6)],
         cls=combine_classes(
-            "grid",
+            display_tw.grid,
             grid_cols(1),     # 1 column on mobile
-            "md:grid-cols-2", # 2 columns on medium screens
-            "lg:grid-cols-3", # 3 columns on large screens
+            grid_cols(2).md, # 2 columns on medium screens
+            grid_cols(3).lg, # 3 columns on large screens
             gap(4)
         )
     )
@@ -995,16 +1001,16 @@ def test_flexbox_and_grid_practical_examples(
     
     # Flexbox vertical centering
     hero = Div(
-        H1("Welcome", cls="text-4xl font-bold"),
+        H1("Welcome", cls=combine_classes(text._4xl, font.bold)),
         P("Build amazing things"),
-        Button("Get Started", cls="mt-4"),
+        Button("Get Started", cls=str(m.t(4))),
         cls=combine_classes(
-            "flex",
+            display_tw.flex,
             flex_direction.col,
             justify.center,
             items.center,
-            "min-h-screen",
-            "text-center"
+            min_h.screen,
+            text_align.center
         )
     )
     assert hero.attrs['class'] == "flex flex-col justify-center items-center min-h-screen text-center"
@@ -1012,37 +1018,37 @@ def test_flexbox_and_grid_practical_examples(
     # Complex grid layout with spanning
     dashboard = Div(
         # Header spans full width
-        Header("Dashboard", cls=combine_classes(col_span.full, "p-4 bg-blue-500 text-white")),
+        Header("Dashboard", cls=combine_classes(col_span.full, p(4), bg.blue._500, text.white)),
         
         # Sidebar
-        Aside("Sidebar", cls=combine_classes(row_span(2), "p-4 bg-gray-200")),
+        Aside("Sidebar", cls=combine_classes(row_span(2), p(4), bg.gray._200)),
         
         # Main content
-        Main("Main Content", cls=combine_classes(col_span(2), "p-4")),
+        Main("Main Content", cls=combine_classes(col_span(2), p(4))),
         
         # Stats cards
-        Div("Stat 1", cls="p-4 bg-green-100"),
-        Div("Stat 2", cls="p-4 bg-yellow-100"),
+        Div("Stat 1", cls=combine_classes(p(4), bg.green._100)),
+        Div("Stat 2", cls=combine_classes(p(4), bg.yellow._100)),
         
         cls=combine_classes(
-            "grid",
+            display_tw.grid,
             grid_cols(3),
             grid_rows(3),
             gap(4),
-            "h-screen"
+            h.screen
         )
     )
     assert dashboard.attrs['class'] == "grid grid-cols-3 grid-rows-3 gap-4 h-screen"
     
     # Flexbox with growing/shrinking items
     toolbar = Div(
-        Button("Back", cls=shrink(0)),  # Don't shrink
-        Div("Search...", cls=combine_classes(grow(), "px-4 bg-gray-100 rounded")),  # Take available space
-        Button("Settings", cls=shrink(0)),  # Don't shrink
-        cls=combine_classes("flex", gap(2), items.center, "p-2")
+        Button("Back", cls=str(shrink(0))),  # Don't shrink
+        Div("Search...", cls=combine_classes(grow(), p.x(4), bg.gray._100, rounded.full)),  # Take available space
+        Button("Settings", cls=str(shrink(0))),  # Don't shrink
+        cls=combine_classes(display_tw.flex, gap(2), items.center, p(2))
     )
     assert toolbar.attrs['class'] == "flex gap-2 items-center p-2"
-    assert toolbar.children[1].attrs['class'] == "grow-1 px-4 bg-gray-100 rounded"
+    assert toolbar.children[1].attrs['class'] == "grow-1 px-4 bg-gray-100 rounded-full"
 
 # Run the tests
 test_flexbox_and_grid_practical_examples()

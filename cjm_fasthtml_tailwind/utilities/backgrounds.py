@@ -486,6 +486,8 @@ test_backgrounds_gradient_stops_examples()
 def test_backgrounds_gradient_composition_examples():
     """Test composing gradient backgrounds with color stops."""
     from fasthtml.common import Div
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.typography import text
     
     # Simple two-color gradient
     gradient1 = Div(
@@ -494,7 +496,8 @@ def test_backgrounds_gradient_composition_examples():
             bg_linear.to_r,
             from_color.blue._500,
             to_color.purple._600,
-            "p-8 text-white"
+            p(8),
+            text.white
         )
     )
     assert "bg-linear-to-r" in gradient1.attrs['class']
@@ -509,7 +512,8 @@ def test_backgrounds_gradient_composition_examples():
             from_color.red._400,
             via_color.yellow._500,
             to_color.green._600,
-            "p-8 text-white"
+            p(8),
+            text.white
         )
     )
     assert "via-yellow-500" in gradient2.attrs['class']
@@ -521,7 +525,7 @@ def test_backgrounds_gradient_composition_examples():
             bg_linear._45,
             from_color.indigo._500,
             to_color.pink._500,
-            "p-8"
+            p(8)
         )
     )
     assert "bg-linear-45" in gradient3.attrs['class']
@@ -533,7 +537,7 @@ def test_backgrounds_gradient_composition_examples():
             bg_radial(),
             from_color.indigo._300,
             to_color.pink._500,
-            "p-16"
+            p(16)
         )
     )
     assert "bg-radial" in radial.attrs['class']
@@ -546,7 +550,7 @@ def test_backgrounds_gradient_composition_examples():
             from_color.red._500,
             via_color.yellow._500,
             to_color.blue._500,
-            "p-16"
+            p(16)
         )
     )
     assert "bg-conic-180" in conic.attrs['class']
@@ -558,7 +562,7 @@ def test_backgrounds_gradient_composition_examples():
             bg_linear.to_t,
             from_color.black.opacity(90),
             to_color.transparent,
-            "p-8"
+            p(8)
         )
     )
     assert "from-black/90" in gradient_opacity.attrs['class']
@@ -575,7 +579,7 @@ def test_backgrounds_gradient_composition_examples():
             via_color._50,   # Middle at 50%
             to_color.red._500,
             to_color._90,    # End at 90%
-            "p-8"
+            p(8)
         )
     )
     assert "from-10%" in gradient_positions.attrs['class']
@@ -696,12 +700,16 @@ test_backgrounds_arbitrary_examples()
 def test_backgrounds_practical_examples():
     """Test background utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, H1, P, Section
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
+    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.layout import position
     
     # Card with colored background
     card = Div(
-        H1("Welcome", cls="text-white"),
+        H1("Welcome", cls=str(text.white)),
         P("This is a card with a blue background"),
-        cls=combine_classes(bg.blue._500, "p-6 rounded-lg")
+        cls=combine_classes(bg.blue._500, p(6), rounded.lg)
     )
     assert "bg-blue-500" in card.attrs['class']
     
@@ -709,13 +717,13 @@ def test_backgrounds_practical_examples():
     hero = Section(
         Div(
             H1("Hero Title"),
-            cls=combine_classes(bg.black.opacity(50), "p-8")
+            cls=combine_classes(bg.black.opacity(50), p(8))
         ),
         cls=combine_classes(
             bg_size.cover,
             bg_position.center,
             bg_repeat.no_repeat,
-            "relative"
+            position.relative
         )
     )
     assert str(bg.black.opacity(50)) == "bg-black/50"
@@ -727,7 +735,7 @@ def test_backgrounds_practical_examples():
         "Gradient Text",
         cls=combine_classes(
             bg_clip.text,
-            "text-transparent",
+            text.transparent,
             bg_linear.to_r,
             from_color.blue._500,
             to_color.purple._600

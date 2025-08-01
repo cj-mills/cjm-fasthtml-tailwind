@@ -12,9 +12,9 @@ __all__ = ['accent', 'appearance', 'caret', 'scheme', 'cursor', 'field_sizing', 
            'test_interactivity_scroll_behavior_examples', 'test_interactivity_scroll_margin_examples',
            'test_interactivity_scroll_padding_examples', 'test_interactivity_scroll_snap_examples',
            'test_interactivity_touch_action_examples', 'test_interactivity_user_select_examples', 'WillChangeFactory',
-           'test_interactivity_will_change_examples', 'test_interactivity_form_examples',
-           'test_interactivity_touch_mobile_examples', 'test_interactivity_factory_documentation',
-           'test_interactivity_advanced_examples']
+           'test_interactivity_will_change_examples', 'test_interactivity_form_practical_examples',
+           'test_interactivity_scroll_snap_practical_examples', 'test_interactivity_touch_mobile_practical_examples',
+           'test_interactivity_factory_documentation', 'test_interactivity_advanced_practical_examples']
 
 # %% ../../nbs/utilities/interactivity.ipynb 3
 from typing import Optional, Union, Dict, Any
@@ -586,9 +586,14 @@ def test_interactivity_will_change_examples():
 test_interactivity_will_change_examples()
 
 # %% ../../nbs/utilities/interactivity.ipynb 58
-def test_interactivity_form_examples():
+def test_interactivity_form_practical_examples():
     """Test interactivity utilities in form components."""
     from fasthtml.common import Input, Textarea, Button, Div, Label
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.borders import border, rounded
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.typography import text
     
     # Custom styled checkbox with accent color
     checkbox = Input(
@@ -596,7 +601,8 @@ def test_interactivity_form_examples():
         cls=combine_classes(
             accent.blue._500,
             cursor.pointer,
-            "w-4 h-4"
+            w(4),
+            h(4)
         )
     )
     assert "accent-blue-500" in checkbox.attrs['class']
@@ -609,7 +615,10 @@ def test_interactivity_form_examples():
         cls=combine_classes(
             caret.red._500,
             appearance.none,
-            "px-4 py-2 border rounded"
+            p.x(4),
+            p.y(2),
+            border(),
+            rounded.full
         )
     )
     assert "caret-red-500" in text_input.attrs['class']
@@ -621,7 +630,9 @@ def test_interactivity_form_examples():
         cls=combine_classes(
             resize.y,
             field_sizing.content,
-            "p-3 border rounded"
+            p(3),
+            border(),
+            rounded.full
         )
     )
     assert "resize-y" in textarea.attrs['class']
@@ -634,19 +645,27 @@ def test_interactivity_form_examples():
             cursor.pointer,
             select.none,
             pointer_events.auto,
-            "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            bg.blue._500,
+            text.white,
+            p.x(4),
+            p.y(2),
+            rounded.full,
+            bg.blue._600.hover
         )
     )
     assert "cursor-pointer" in button.attrs['class']
     assert "select-none" in button.attrs['class']
 
 # Run the tests
-test_interactivity_form_examples()
+test_interactivity_form_practical_examples()
 
 # %% ../../nbs/utilities/interactivity.ipynb 59
-def test_interactivity_scroll_snap_examples():
+def test_interactivity_scroll_snap_practical_examples():
     """Test scroll snap utilities in carousel/gallery components."""
     from fasthtml.common import Div, Img
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw, overflow
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, shrink
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
     
     # Horizontal scroll snap container
     carousel_container = Div(
@@ -655,7 +674,9 @@ def test_interactivity_scroll_snap_examples():
             snap.mandatory,
             scroll.smooth,
             scroll_p.x(4),
-            "flex overflow-x-auto gap-4"
+            display_tw.flex,
+            overflow.x.auto,
+            gap(4)
         )
     )
     assert "snap-x" in carousel_container.attrs['class']
@@ -669,7 +690,8 @@ def test_interactivity_scroll_snap_examples():
         cls=combine_classes(
             snap_align.center,
             snap_stop.always,
-            "flex-shrink-0 w-80"
+            shrink._0,
+            w(80)
         )
     )
     assert "snap-center" in snap_item.attrs['class']
@@ -681,7 +703,8 @@ def test_interactivity_scroll_snap_examples():
             snap.y,
             snap.proximity,
             scroll_m.y(2),
-            "h-screen overflow-y-auto"
+            h.screen,
+            overflow.y.auto
         )
     )
     assert "snap-y" in vertical_snap.attrs['class']
@@ -689,12 +712,18 @@ def test_interactivity_scroll_snap_examples():
     assert "scroll-my-2" in vertical_snap.attrs['class']
 
 # Run the tests
-test_interactivity_scroll_snap_examples()
+test_interactivity_scroll_snap_practical_examples()
 
 # %% ../../nbs/utilities/interactivity.ipynb 60
-def test_interactivity_touch_mobile_examples():
+def test_interactivity_touch_mobile_practical_examples():
     """Test touch and mobile interaction utilities."""
     from fasthtml.common import Div, Img, Code
+    from cjm_fasthtml_tailwind.utilities.layout import position, overflow, display_tw
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
+    from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition
     
     # Touch-enabled image viewer
     image_viewer = Div(
@@ -703,7 +732,8 @@ def test_interactivity_touch_mobile_examples():
             touch.pinch_zoom,
             cursor.zoom_in,
             select.none,
-            "relative overflow-hidden"
+            position.relative,
+            overflow.hidden
         )
     )
     assert "touch-pinch-zoom" in image_viewer.attrs['class']
@@ -714,10 +744,12 @@ def test_interactivity_touch_mobile_examples():
         "Drag me",
         cls=combine_classes(
             cursor.grab,
-            "active:" + str(cursor.grabbing),
+            cursor.grabbing.active,
             touch.none,
             select.none,
-            "p-4 bg-gray-200 rounded"
+            p(4),
+            bg.gray._200,
+            rounded.full
         )
     )
     assert "cursor-grab" in draggable.attrs['class']
@@ -729,7 +761,11 @@ def test_interactivity_touch_mobile_examples():
         cls=combine_classes(
             select.all,
             cursor.text,
-            "block p-3 bg-gray-900 text-gray-100 rounded"
+            display_tw.block,
+            p(3),
+            bg.gray._900,
+            text.gray._100,
+            rounded.full
         )
     )
     assert "select-all" in code_block.attrs['class']
@@ -740,14 +776,14 @@ def test_interactivity_touch_mobile_examples():
         cls=combine_classes(
             touch.pan_x,
             will_change.transform,
-            "transition-transform"
+            transition.transform
         )
     )
     assert "touch-pan-x" in swipe_area.attrs['class']
     assert "will-change-transform" in swipe_area.attrs['class']
 
 # Run the tests
-test_interactivity_touch_mobile_examples()
+test_interactivity_touch_mobile_practical_examples()
 
 # %% ../../nbs/utilities/interactivity.ipynb 62
 def test_interactivity_factory_documentation():
@@ -796,9 +832,16 @@ def test_interactivity_factory_documentation():
 test_interactivity_factory_documentation()
 
 # %% ../../nbs/utilities/interactivity.ipynb 64
-def test_interactivity_advanced_examples():
+def test_interactivity_advanced_practical_examples():
     """Test advanced combinations of interactivity utilities."""
     from fasthtml.common import Div, Input, Form, Pre
+    from cjm_fasthtml_tailwind.utilities.spacing import p, m
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.typography import text, font
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
+    from cjm_fasthtml_tailwind.utilities.layout import position, overflow
+    from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, transform
+    from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration
     
     # Dark mode form with custom styling
     dark_form = Form(
@@ -808,7 +851,7 @@ def test_interactivity_advanced_examples():
                 accent.purple._500,
                 scheme.dark,
                 cursor.pointer,
-                "mr-2"
+                m.r(2)
             )
         ),
         Input(
@@ -817,12 +860,18 @@ def test_interactivity_advanced_examples():
                 caret.purple._400,
                 appearance.none,
                 scheme.dark,
-                "bg-gray-800 text-white px-3 py-2 rounded"
+                bg.gray._800,
+                text.white,
+                p.x(3),
+                p.y(2),
+                rounded.full
             )
         ),
         cls=combine_classes(
             scheme.dark,
-            "p-6 bg-gray-900 rounded-lg"
+            p(6),
+            bg.gray._900,
+            rounded.lg
         )
     )
     assert "scheme-dark" in dark_form.attrs['class']
@@ -840,12 +889,17 @@ def test_interactivity_advanced_examples():
                 resize.both,
                 scroll.auto,
                 scroll_p(4),
-                "font-mono bg-gray-900 text-gray-100 p-4 rounded overflow-auto"
+                font.mono,
+                bg.gray._900,
+                text.gray._100,
+                p(4),
+                rounded.full,
+                overflow.auto
             )
         ),
         cls=combine_classes(
             pointer_events.auto,
-            "relative"
+            position.relative
         )
     )
     assert "select-text" in code_editor.children[0].attrs['class']
@@ -860,7 +914,9 @@ def test_interactivity_advanced_examples():
             will_change("transform, opacity"),
             touch.manipulation,
             select.none,
-            "transform transition-all duration-300 hover:scale-105"
+            transition.all,
+            duration._300,
+            scale_tw(105).hover
         )
     )
     assert "cursor-pointer" in animated_card.attrs['class']
@@ -868,4 +924,4 @@ def test_interactivity_advanced_examples():
     assert "touch-manipulation" in animated_card.attrs['class']
 
 # Run the tests
-test_interactivity_advanced_examples()
+test_interactivity_advanced_practical_examples()

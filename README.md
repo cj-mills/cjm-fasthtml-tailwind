@@ -87,14 +87,14 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_utils
-    cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_test_code
     cli_explorer --> cli_search
-    cli_explorer --> cli_imports
+    cli_explorer --> cli_utils
+    cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_imports
     cli_explorer --> cli_core_utils_discovery
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
@@ -102,11 +102,11 @@ graph LR
     cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_utils
     cli_imports --> cli_factory_extraction
-    cli_imports --> cli_helper_discovery
     cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_helper_discovery
+    cli_search --> cli_factory_extraction
     cli_search --> cli_utils
     cli_search --> cli_example_discovery
-    cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
     cli_test_code --> cli_utils
     cli_test_code --> cli_factory_extraction
@@ -117,44 +117,44 @@ graph LR
     core_testing --> utilities_spacing
     core_testing --> core_base
     core_testing --> core_resources
+    utilities_accessibility --> core_base
     utilities_accessibility --> utilities_layout
     utilities_accessibility --> builders_scales
-    utilities_accessibility --> core_base
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
     utilities_borders --> builders_colors
     utilities_borders --> builders_scales
-    utilities_effects --> builders_colors
     utilities_effects --> core_base
+    utilities_effects --> builders_colors
     utilities_effects --> builders_scales
     utilities_filters --> core_base
-    utilities_filters --> builders_colors
     utilities_filters --> builders_scales
-    utilities_flexbox_and_grid --> builders_scales
+    utilities_filters --> builders_colors
     utilities_flexbox_and_grid --> core_base
-    utilities_interactivity --> builders_scales
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_base
     utilities_interactivity --> builders_colors
-    utilities_layout --> builders_scales
+    utilities_interactivity --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> builders_scales
+    utilities_layout --> builders_scales
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
     utilities_svg --> core_base
     utilities_svg --> builders_colors
     utilities_svg --> builders_scales
-    utilities_tables --> builders_scales
     utilities_tables --> core_base
-    utilities_transforms --> builders_scales
+    utilities_tables --> builders_scales
     utilities_transforms --> core_base
+    utilities_transforms --> builders_scales
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> builders_scales
+    utilities_typography --> builders_colors
     utilities_typography --> builders_scales
     utilities_typography --> core_base
-    utilities_typography --> builders_colors
 ```
 
 *71 cross-module dependencies detected*
@@ -1675,19 +1675,22 @@ class CoreUtilityInfo:
 
 ``` python
 from cjm_fasthtml_tailwind.utilities.effects import (
-    SHADOW_SIZES,
+    SHADOW_SIZE_CONFIG,
     shadow,
     shadow_color,
-    INSET_SHADOW_SIZES,
+    INSET_SHADOW_SIZE_CONFIG,
     inset_shadow,
     inset_shadow_color,
+    RING_WIDTH_CONFIG,
     ring,
     ring_color,
+    INSET_RING_WIDTH_CONFIG,
     inset_ring,
     inset_ring_color,
-    TEXT_SHADOW_SIZES,
+    TEXT_SHADOW_SIZE_CONFIG,
     text_shadow,
     text_shadow_color,
+    OPACITY_CONFIG,
     opacity,
     mix_blend,
     bg_blend,
@@ -1734,32 +1737,20 @@ from cjm_fasthtml_tailwind.utilities.effects import (
     mask_repeat,
     mask_size,
     mask_type,
-    ShadowUtility,
-    ShadowFactory,
     test_effects_shadow_size_examples,
     test_effects_shadow_arbitrary_examples,
     test_effects_shadow_color_examples,
     test_effects_shadow_color_arbitrary_examples,
-    InsetShadowUtility,
-    InsetShadowFactory,
     test_effects_inset_shadow_size_examples,
     test_effects_inset_shadow_arbitrary_examples,
     test_effects_inset_shadow_color_examples,
-    RingUtility,
-    RingFactory,
     test_effects_ring_width_examples,
     test_effects_ring_color_examples,
-    InsetRingUtility,
-    InsetRingFactory,
     test_effects_inset_ring_width_examples,
     test_effects_inset_ring_color_examples,
-    TextShadowUtility,
-    TextShadowFactory,
     test_effects_text_shadow_size_examples,
     test_effects_text_shadow_arbitrary_examples,
     test_effects_text_shadow_color_examples,
-    OpacityUtility,
-    OpacityFactory,
     test_effects_opacity_examples,
     test_effects_mix_blend_examples,
     test_effects_bg_blend_examples,
@@ -1942,216 +1933,6 @@ def test_effects_factory_documentation()
 ```
 
 #### Classes
-
-``` python
-class ShadowUtility:
-    def __init__(
-        self,
-        size: Optional[str] = None,  # Shadow size or custom value
-    )
-    "Utility class for box shadows with size support."
-    
-    def __init__(
-            self,
-            size: Optional[str] = None,  # Shadow size or custom value
-        )
-        "Initialize shadow utility with optional size."
-```
-
-``` python
-class ShadowFactory:
-    def __init__(
-        self,
-        doc: Optional[str] = None  # Documentation
-    )
-    "Factory for shadow utilities with size and color support."
-    
-    def __init__(
-            self,
-            doc: Optional[str] = None  # Documentation
-        )
-        "Initialize shadow factory with size properties."
-    
-    def get_info(
-            self
-        ) -> Dict[str, Any]:  # Factory information
-        "Get information about the shadow factory."
-```
-
-``` python
-class InsetShadowUtility:
-    def __init__(
-        self,
-        size: Optional[str] = None,  # Inset shadow size or custom value
-    )
-    "Utility class for inset box shadows with size support."
-    
-    def __init__(
-            self,
-            size: Optional[str] = None,  # Inset shadow size or custom value
-        )
-        "Initialize inset shadow utility with optional size."
-```
-
-``` python
-class InsetShadowFactory:
-    def __init__(
-        self,
-        doc: Optional[str] = None  # Documentation
-    )
-    "Factory for inset shadow utilities with size support."
-    
-    def __init__(
-            self,
-            doc: Optional[str] = None  # Documentation
-        )
-        "Initialize inset shadow factory with size properties."
-    
-    def get_info(
-            self
-        ) -> Dict[str, Any]:  # Factory information
-        "Get information about the inset shadow factory."
-```
-
-``` python
-class RingUtility:
-    def __init__(
-        self,
-        width: Optional[Union[int, str]] = None,  # Ring width in pixels or custom value
-    )
-    "Utility class for ring (outline) shadows with width support."
-    
-    def __init__(
-            self,
-            width: Optional[Union[int, str]] = None,  # Ring width in pixels or custom value
-        )
-        "Initialize ring utility with optional width."
-```
-
-``` python
-class RingFactory:
-    def __init__(
-        self,
-        doc: Optional[str] = None  # Documentation
-    )
-    "Factory for ring utilities with width support."
-    
-    def __init__(
-            self,
-            doc: Optional[str] = None  # Documentation
-        )
-        "Initialize ring factory."
-    
-    def get_info(
-            self
-        ) -> Dict[str, Any]:  # Factory information
-        "Get information about the ring factory."
-```
-
-``` python
-class InsetRingUtility:
-    def __init__(
-        self,
-        width: Optional[Union[int, str]] = None,  # Inset ring width in pixels or custom value
-    )
-    "Utility class for inset ring (outline) shadows with width support."
-    
-    def __init__(
-            self,
-            width: Optional[Union[int, str]] = None,  # Inset ring width in pixels or custom value
-        )
-        "Initialize inset ring utility with optional width."
-```
-
-``` python
-class InsetRingFactory:
-    def __init__(
-        self,
-        doc: Optional[str] = None  # Documentation
-    )
-    "Factory for inset ring utilities with width support."
-    
-    def __init__(
-            self,
-            doc: Optional[str] = None  # Documentation
-        )
-        "Initialize inset ring factory."
-    
-    def get_info(
-            self
-        ) -> Dict[str, Any]:  # Factory information
-        "Get information about the inset ring factory."
-```
-
-``` python
-class TextShadowUtility:
-    def __init__(
-        self,
-        size: Optional[str] = None,  # Text shadow size or custom value
-    )
-    "Utility class for text shadows with size support."
-    
-    def __init__(
-            self,
-            size: Optional[str] = None,  # Text shadow size or custom value
-        )
-        "Initialize text shadow utility with optional size."
-```
-
-``` python
-class TextShadowFactory:
-    def __init__(
-        self,
-        doc: Optional[str] = None  # Documentation
-    )
-    "Factory for text shadow utilities with size support."
-    
-    def __init__(
-            self,
-            doc: Optional[str] = None  # Documentation
-        )
-        "Initialize text shadow factory with size properties."
-    
-    def get_info(
-            self
-        ) -> Dict[str, Any]:  # Factory information
-        "Get information about the text shadow factory."
-```
-
-``` python
-class OpacityUtility:
-    def __init__(
-        self,
-        value: Optional[Union[int, str]] = None,  # Opacity value (0-100) or custom value
-    )
-    "Utility class for opacity with percentage support."
-    
-    def __init__(
-            self,
-            value: Optional[Union[int, str]] = None,  # Opacity value (0-100) or custom value
-        )
-        "Initialize opacity utility with optional value."
-```
-
-``` python
-class OpacityFactory:
-    def __init__(
-        self,
-        doc: Optional[str] = None  # Documentation
-    )
-    "Factory for opacity utilities."
-    
-    def __init__(
-            self,
-            doc: Optional[str] = None  # Documentation
-        )
-        "Initialize opacity factory with common opacity properties."
-    
-    def get_info(
-            self
-        ) -> Dict[str, Any]:  # Factory information
-        "Get information about the opacity factory."
-```
 
 ``` python
 class MaskImageUtility:
@@ -2343,20 +2124,23 @@ class MaskConicFactory:
 #### Variables
 
 ``` python
-SHADOW_SIZES = {8 items}
-shadow  # Create the shadow factory instance
+SHADOW_SIZE_CONFIG
+shadow  # Box shadow factory
 shadow_color  # Create shadow color factory using the existing ColoredFactory
-INSET_SHADOW_SIZES = {4 items}
-inset_shadow  # Create the inset shadow factory instance
+INSET_SHADOW_SIZE_CONFIG
+inset_shadow  # Inset box shadow factory
 inset_shadow_color  # Create inset shadow color factory using the existing ColoredFactory
-ring  # Create the ring factory instance
+RING_WIDTH_CONFIG
+ring  # Ring width factory
 ring_color  # Create ring color factory using the existing ColoredFactory
-inset_ring  # Create the inset ring factory instance
+INSET_RING_WIDTH_CONFIG
+inset_ring  # Inset ring width factory
 inset_ring_color  # Create inset ring color factory using the existing ColoredFactory
-TEXT_SHADOW_SIZES = {6 items}
-text_shadow  # Create the text shadow factory instance
+TEXT_SHADOW_SIZE_CONFIG
+text_shadow  # Text shadow factory
 text_shadow_color  # Create text shadow color factory using the existing ColoredFactory
-opacity  # Create the opacity factory instance
+OPACITY_CONFIG
+opacity  # Opacity factory
 mask  # Create the basic mask image factory instance
 mask_linear  # Create the linear gradient mask factory instance
 mask_t_from  # Top direction - from
@@ -3645,10 +3429,11 @@ from cjm_fasthtml_tailwind.utilities.interactivity import (
     test_interactivity_user_select_examples,
     WillChangeFactory,
     test_interactivity_will_change_examples,
-    test_interactivity_form_examples,
-    test_interactivity_touch_mobile_examples,
+    test_interactivity_form_practical_examples,
+    test_interactivity_scroll_snap_practical_examples,
+    test_interactivity_touch_mobile_practical_examples,
     test_interactivity_factory_documentation,
-    test_interactivity_advanced_examples
+    test_interactivity_advanced_practical_examples
 )
 ```
 
@@ -3730,17 +3515,17 @@ def test_interactivity_will_change_examples()
 ```
 
 ``` python
-def test_interactivity_form_examples()
+def test_interactivity_form_practical_examples()
     "Test interactivity utilities in form components."
 ```
 
 ``` python
-def test_interactivity_scroll_snap_examples()
+def test_interactivity_scroll_snap_practical_examples()
     "Test scroll snap utilities in carousel/gallery components."
 ```
 
 ``` python
-def test_interactivity_touch_mobile_examples()
+def test_interactivity_touch_mobile_practical_examples()
     "Test touch and mobile interaction utilities."
 ```
 
@@ -3750,7 +3535,7 @@ def test_interactivity_factory_documentation()
 ```
 
 ``` python
-def test_interactivity_advanced_examples()
+def test_interactivity_advanced_practical_examples()
     "Test advanced combinations of interactivity utilities."
 ```
 
@@ -5203,9 +4988,12 @@ def test_svg_icon_examples():
     """Test creating reusable SVG icon components."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Path
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Helper function to create an icon
-    def Icon(path_d: str, size: str = "6", color_cls: str = "")
+    def Icon(path_d: str, size: int = 6, color_cls: str = "")
     "Test creating reusable SVG icon components."
 ```
 
@@ -5214,6 +5002,8 @@ def test_svg_progress_ring_examples():
     """Test creating a progress ring component."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Circle
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw, position
     
     # Progress ring component
     def ProgressRing(percentage: int, size: int = 120)
@@ -5232,10 +5022,10 @@ def test_svg_edge_cases()
 
 ``` python
 def svg_icon_classes(
-    fill_color: Optional[str] = None,  # Fill color class or utility
-    stroke_color: Optional[str] = None,  # Stroke color class or utility
+    fill_color: Optional[Union[str, ColoredUtility]] = None,  # Fill color class or utility
+    stroke_color: Optional[Union[str, ColoredUtility]] = None,  # Stroke color class or utility
     width: Union[int, str] = 2,  # Stroke width value
-    size: str = "6",  # Icon size (for w-{size} h-{size})
+    size: int = 6,  # Icon size (numeric value for w and h)
     extra_classes: str = ""  # Additional classes to include
 ) -> str:  # Combined class string for SVG icon
     "Generate common SVG icon classes."
@@ -5903,6 +5693,7 @@ from cjm_fasthtml_tailwind.utilities.transitions_and_animation import (
     AnimationFactory,
     test_transitions_and_animation_examples,
     test_transitions_and_animation_practical_examples,
+    test_transitions_and_animation_animation_examples,
     test_transitions_and_animation_composition_examples,
     test_transitions_and_animation_factory_documentation,
     smooth_transition,
@@ -5956,7 +5747,7 @@ def test_transitions_and_animation_practical_examples()
 ```
 
 ``` python
-def test_transitions_and_animation_practical_examples()
+def test_transitions_and_animation_animation_examples()
     "Test animation utilities in practical FastHTML component examples."
 ```
 

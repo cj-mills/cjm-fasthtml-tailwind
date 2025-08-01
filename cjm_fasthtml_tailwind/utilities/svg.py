@@ -261,7 +261,7 @@ test_svg_stroke_width_examples()
 def test_svg_stroke_width_arbitrary_examples():
     """Test stroke width utilities with arbitrary and custom values."""
     # Arbitrary numeric values
-    assert str(stroke_width("0.25")) == "stroke-0.25"
+    assert str(stroke_width("0.25")) == "stroke-[0.25]"
     assert str(stroke_width("10px")) == "stroke-[10px]"
     assert str(stroke_width("2rem")) == "stroke-[2rem]"
     
@@ -276,6 +276,7 @@ test_svg_stroke_width_arbitrary_examples()
 def test_svg_practical_examples():
     """Test SVG utilities in practical FastHTML component examples."""
     from fasthtml.svg import Svg, Circle, Rect, G, Path
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
     
     # Icon with fill color
     icon = Svg(
@@ -284,7 +285,7 @@ def test_svg_practical_examples():
             cls=str(fill.current)
         ),
         viewBox="0 0 24 24",
-        cls=combine_classes("w-6 h-6", fill_none)
+        cls=combine_classes(w(6), h(6), fill_none)
     )
     assert "fill-current" in icon.children[0].attrs['class']
     assert "fill-none" in icon.attrs['class']
@@ -300,7 +301,7 @@ def test_svg_practical_examples():
             )
         ),
         viewBox="0 0 100 100",
-        cls="w-24 h-24"
+        cls=combine_classes(w(24), h(24))
     )
     circle_attrs = circle_svg.children[0].attrs['class']
     assert "fill-transparent" in circle_attrs
@@ -328,7 +329,7 @@ def test_svg_practical_examples():
             )
         ),
         viewBox="0 0 100 100",
-        cls="w-32 h-32"
+        cls=combine_classes(w(32), h(32))
     )
     rect_attrs = complex_svg.children[0].children[0].attrs['class']
     circle_attrs = complex_svg.children[0].children[1].attrs['class']
@@ -347,15 +348,18 @@ def test_svg_icon_examples():
     """Test creating reusable SVG icon components."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Path
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Helper function to create an icon
-    def Icon(path_d: str, size: str = "6", color_cls: str = ""):
+    def Icon(path_d: str, size: int = 6, color_cls: str = ""):
         """Create a reusable icon component."""
         return Svg(
             Path(d=path_d, cls=str(fill.current)),
             viewBox="0 0 24 24",
             cls=combine_classes(
-                f"w-{size} h-{size}",
+                w(size), h(size),
                 fill_none,
                 stroke.current,
                 stroke_width(2),
@@ -366,7 +370,7 @@ def test_svg_icon_examples():
     # Home icon
     home_icon = Icon(
         "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
-        size="8",
+        size=8,
         color_cls="text-blue-500"
     )
     assert "w-8 h-8" in home_icon.attrs['class']
@@ -387,9 +391,9 @@ def test_svg_icon_examples():
                 )
             ),
             viewBox="0 0 24 24",
-            cls="w-5 h-5"
+            cls=combine_classes(w(5), h(5))
         ),
-        cls="inline-flex items-center justify-center"
+        cls=combine_classes(display_tw.inline_flex, items.center, justify.center)
     )
     path_attrs = check_icon.children[0].children[0].attrs['class']
     assert "fill-none" in path_attrs
@@ -404,6 +408,8 @@ def test_svg_progress_ring_examples():
     """Test creating a progress ring component."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Circle
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw, position
     
     # Progress ring component
     def ProgressRing(percentage: int, size: int = 120):
@@ -438,9 +444,9 @@ def test_svg_progress_ring_examples():
                     style=f"stroke-dasharray: {circumference}; stroke-dashoffset: {stroke_dashoffset}; transform: rotate(-90deg); transform-origin: center;",
                 ),
                 viewBox=f"0 0 {size} {size}",
-                cls="w-32 h-32"
+                cls=combine_classes(w(32), h(32))
             ),
-            cls="relative inline-flex"
+            cls=combine_classes(position.relative, display_tw.inline_flex)
         )
     
     # Test 75% progress
@@ -529,14 +535,16 @@ test_svg_edge_cases()
 
 # %% ../../nbs/utilities/svg.ipynb 38
 def svg_icon_classes(
-    fill_color: Optional[str] = None,  # Fill color class or utility
-    stroke_color: Optional[str] = None,  # Stroke color class or utility
+    fill_color: Optional[Union[str, ColoredUtility]] = None,  # Fill color class or utility
+    stroke_color: Optional[Union[str, ColoredUtility]] = None,  # Stroke color class or utility
     width: Union[int, str] = 2,  # Stroke width value
-    size: str = "6",  # Icon size (for w-{size} h-{size})
+    size: int = 6,  # Icon size (numeric value for w and h)
     extra_classes: str = ""  # Additional classes to include
 ) -> str:  # Combined class string for SVG icon
     """Generate common SVG icon classes."""
-    classes = [f"w-{size} h-{size}"]
+    from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    
+    classes = [str(w(size)), str(h(size))]
     
     if fill_color:
         classes.append(str(fill_color) if hasattr(fill_color, '__str__') else fill_color)
@@ -569,7 +577,7 @@ def test_svg_helper_functions():
         fill_color=fill_none,
         stroke_color=stroke.green._500,
         width=1,
-        size="8"
+        size=8
     )
     assert result == "w-8 h-8 fill-none stroke-green-500 stroke-1"
     

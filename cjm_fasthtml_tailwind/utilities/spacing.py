@@ -225,6 +225,7 @@ def test_spacing_practical_examples(
 ):
     """Test spacing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, P, Button, H2
+    from cjm_fasthtml_tailwind.utilities.sizing import max_w
     
     # Card component with padding
     card = Div(
@@ -251,7 +252,7 @@ def test_spacing_practical_examples(
     # Centered container with auto margins
     centered_container = Div(
         "Centered content",
-        cls=combine_classes(m.x.auto, p(8), "max-w-4xl")
+        cls=combine_classes(m.x.auto, p(8), max_w._4xl)
     )
     
     assert centered_container.attrs['class'] == "mx-auto p-8 max-w-4xl"

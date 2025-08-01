@@ -990,6 +990,9 @@ test_borders_outline_offset_examples()
 def test_borders_practical_examples():
     """Test border utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Ul, Li, H3, P, Input, Link
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw, overflow
+    from cjm_fasthtml_tailwind.core.base import combine_classes
     
     # Card with rounded corners and colored border
     card = Card(
@@ -999,7 +1002,7 @@ def test_borders_practical_examples():
             rounded.lg,
             border(),
             border_color.gray._300,
-            "p-6"
+            p(6)
         )
     )
     assert "rounded-lg" in card.attrs['class']
@@ -1013,7 +1016,8 @@ def test_borders_practical_examples():
             rounded.full,
             border._2,
             border_color.blue._500,
-            "px-4 py-2"
+            p.x(4),
+            p.y(2)
         )
     )
     assert "rounded-full" in button.attrs['class']
@@ -1030,7 +1034,7 @@ def test_borders_practical_examples():
             border_color.t.red._500,
             border_color.x.gray._300,
             border_color.b.transparent,
-            "p-4"
+            p(4)
         )
     )
     assert "rounded-t-xl" in container.attrs['class']
@@ -1047,7 +1051,7 @@ def test_borders_practical_examples():
         cls=combine_classes(
             divide.y._2,
             divide_color.gray._200,
-            "py-2"
+            p.y(2)
         )
     )
     assert "divide-y-2" in list_with_dividers.attrs['class']
@@ -1059,13 +1063,13 @@ def test_borders_practical_examples():
         Button("Center"),
         Button("Right"),
         cls=combine_classes(
-            "flex",
+            display_tw.flex,
             divide.x(),
             divide_color.gray._400,
             border(),
             border_color.gray._400,
             rounded.lg,
-            "overflow-hidden"
+            overflow.hidden
         )
     )
     assert "divide-x" in button_group.attrs['class']
@@ -1089,7 +1093,7 @@ def test_borders_practical_examples():
             rounded.tr.sm,
             rounded.br.none,
             rounded.bl.md,
-            "p-4"
+            p(4)
         )
     )
     assert "border-t-4" in complex_border.attrs['class']
@@ -1111,7 +1115,7 @@ def test_borders_practical_examples():
             border._2,
             border_color.black.opacity(20),
             rounded.md,
-            "p-4"
+            p(4)
         )
     )
     assert "border-2" in transparent_card.attrs['class']
@@ -1127,7 +1131,8 @@ def test_borders_practical_examples():
             border_color.gray._400,
             border_style.dashed,
             rounded.md,
-            "px-3 py-2"
+            p.x(3),
+            p.y(2)
         )
     )
     assert "border-2" in input_field.attrs['class']
@@ -1143,7 +1148,7 @@ def test_borders_practical_examples():
             divide.y(),
             divide_color.gray._300,
             divide_style.dotted,
-            "py-1"
+            p.y(1)
         )
     )
     assert "divide-y" in dotted_list.attrs['class']
@@ -1154,11 +1159,12 @@ def test_borders_practical_examples():
     focus_button = Button(
         "Focus Me",
         cls=combine_classes(
-            "px-4 py-2",
+            p.x(4),
+            p.y(2),
             outline_style.none,
-            "focus:" + str(outline._2),
-            "focus:" + str(outline_color.blue._500),
-            "focus:" + str(outline_offset._2)
+            outline._2.focus,
+            outline_color.blue._500.focus,
+            outline_offset._2.focus
         )
     )
     assert "outline-none" in focus_button.attrs['class']
@@ -1171,7 +1177,9 @@ def test_borders_practical_examples():
         "Custom Link",
         href="#",
         cls=combine_classes(
-            "inline-block px-3 py-1",
+            display_tw.inline_block,
+            p.x(3),
+            p.y(1),
             outline(),
             outline_color.purple._400,
             outline_style.dashed,
@@ -1192,7 +1200,7 @@ def test_borders_practical_examples():
             border_color.indigo._600,
             border_style.double,
             rounded.lg,
-            "p-6"
+            p(6)
         )
     )
     assert "border-4" in double_border_box.attrs['class']
@@ -1205,9 +1213,9 @@ def test_borders_practical_examples():
         tabindex="0",
         cls=combine_classes(
             outline_hidden,
-            "focus:outline-2",
-            "focus:outline-blue-500",
-            "p-4"
+            outline._2.focus,
+            outline_color.blue._500.focus,
+            p(4)
         )
     )
     assert "outline-hidden" in accessible_container.attrs['class']

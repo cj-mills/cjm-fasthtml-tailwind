@@ -310,6 +310,9 @@ def test_sizing_practical_examples(
 ):
     """Test sizing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Article, Header, Main, Aside
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw, position, object_fit
+    from cjm_fasthtml_tailwind.utilities.spacing import m, p
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
     
     # Card with constrained width
     card = Div(
@@ -327,7 +330,7 @@ def test_sizing_practical_examples(
     
     # Responsive image container
     image_container = Div(
-        Img(src="image.jpg", cls=combine_classes(w.full, h.full, "object-cover")),
+        Img(src="image.jpg", cls=combine_classes(w.full, h.full, object_fit.cover)),
         cls=combine_classes(w("1/2"), h(64), max_h(96))
     )
     assert image_container.attrs['class'] == "w-1/2 h-64 max-h-96"
@@ -337,7 +340,7 @@ def test_sizing_practical_examples(
     layout = Div(
         Aside("Sidebar", cls=combine_classes(w(64), min_w(48), h.full)),
         Main("Main content", cls=combine_classes(w.full, min_h.screen)),
-        cls="flex"
+        cls=str(display_tw.flex)
     )
     assert layout.children[0].attrs['class'] == "w-64 min-w-48 h-full"
     assert layout.children[1].attrs['class'] == "w-full min-h-screen"
@@ -346,21 +349,21 @@ def test_sizing_practical_examples(
     article = Article(
         Header("Article Title"),
         Div("Article content..."),
-        cls=combine_classes(w.full, max_w._4xl, "mx-auto", min_h("50vh"))
+        cls=combine_classes(w.full, max_w._4xl, m.x.auto, min_h("50vh"))
     )
     assert article.attrs['class'] == "w-full max-w-4xl mx-auto min-h-[50vh]"
     
     # Using the size utility for square elements
     avatar = Div(
-        Img(src="avatar.jpg", cls="rounded-full"),
-        cls=combine_classes(size_util(16), "relative")
+        Img(src="avatar.jpg", cls=str(rounded.full)),
+        cls=combine_classes(size_util(16), position.relative)
     )
     assert avatar.attrs['class'] == "size-16 relative"
     
     # Using container utility
     page_container = Div(
         "Page content",
-        cls=combine_classes(container, "mx-auto", "px-4")
+        cls=combine_classes(container, m.x.auto, p.x(4))
     )
     assert page_container.attrs['class'] == "container mx-auto px-4"
 

@@ -497,15 +497,21 @@ test_filters_backdrop_examples()
 def test_filters_practical_examples():
     """Test filter utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, P, H1, Section
+    from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration
+    from cjm_fasthtml_tailwind.utilities.interactivity import cursor, pointer_events
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.borders import rounded
+    from cjm_fasthtml_tailwind.utilities.layout import position, inset
     
     # Image with hover blur effect
     image_hover = Img(
         src="/image.jpg",
         alt="Hoverable image",
         cls=combine_classes(
-            "transition-all",
-            "hover:" + str(blur.sm),
-            "cursor-pointer"
+            transition.all,
+            blur.sm.hover,
+            cursor.pointer
         )
     )
     assert "hover:blur-sm" in image_hover.attrs['class']
@@ -516,8 +522,9 @@ def test_filters_practical_examples():
         alt="Grayscale photo",
         cls=combine_classes(
             grayscale.full,
-            "hover:" + str(grayscale(0)),
-            "transition-all duration-300"
+            grayscale(0).hover,
+            transition.all,
+            duration(300)
         )
     )
     assert "grayscale" in grayscale_img.attrs['class']
@@ -530,7 +537,9 @@ def test_filters_practical_examples():
         cls=combine_classes(
             drop_shadow.lg,
             drop_shadow_color.blue._500,
-            "p-6 bg-white rounded-lg"
+            p(6),
+            bg.white,
+            rounded.lg
         )
     )
     assert "drop-shadow-lg" in card_shadow.attrs['class']
@@ -542,7 +551,9 @@ def test_filters_practical_examples():
         cls=combine_classes(
             backdrop_blur.md,
             backdrop_saturate(150),
-            "bg-white/30 p-8 rounded-xl"
+            bg.white.opacity(30),
+            p(8),
+            rounded.xl
         )
     )
     assert "backdrop-blur-md" in frosted_glass.attrs['class']
@@ -569,7 +580,9 @@ def test_filters_practical_examples():
         cls=combine_classes(
             invert.full,
             hue_rotate(180),
-            "fixed inset-0 pointer-events-none"
+            position.fixed,
+            inset(0),
+            pointer_events.none
         )
     )
     assert "invert" in dark_overlay.attrs['class']

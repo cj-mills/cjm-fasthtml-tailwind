@@ -1062,6 +1062,10 @@ test_typography_content_examples()
 def test_typography_practical_examples():
     """Test typography utilities in practical FastHTML component examples."""
     from fasthtml.common import H1, H2, P, Div, Span, A, Ul, Li, Blockquote
+    from cjm_fasthtml_tailwind.utilities.sizing import max_w
+    from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.spacing import p
+    from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
     
     # Heading with multiple typography utilities
     heading = H1(
@@ -1112,7 +1116,7 @@ def test_typography_practical_examples():
     # Truncated text
     truncated = Div(
         "This is a very long text that should be truncated with an ellipsis when it overflows the container width.",
-        cls=combine_classes(truncate, "max-w-xs")
+        cls=combine_classes(truncate, max_w.xs)
     )
     assert "truncate" in truncated.attrs['class']
     
@@ -1131,7 +1135,9 @@ def test_typography_practical_examples():
             text.sm,
             text.gray._800,
             whitespace.pre,
-            "bg-gray-100 p-4 rounded"
+            bg.gray._100,
+            p(4),
+            rounded()
         )
     )
     assert "font-mono" in code.attrs['class']
@@ -1167,7 +1173,9 @@ def test_typography_practical_examples():
             italic,
             text.gray._600,
             indent(8),
-            "border-l-4 border-gray-300 pl-4"
+            border.l._4,
+            border_color.gray._300,
+            p.l(4)
         )
     )
     assert "text-lg" in quote.attrs['class']
