@@ -780,7 +780,7 @@ JUSTIFY_CONTENT_VALUES = { # Justify content values
 # Create justify content factory
 justify = SimpleFactory(JUSTIFY_CONTENT_VALUES, "Justify content utilities for positioning flex/grid items along container's main axis") # The justify content factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 49
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 50
 JUSTIFY_ITEMS_VALUES = { # Justify items values
     "start": "justify-items-start",
     "end": "justify-items-end",
@@ -794,7 +794,7 @@ JUSTIFY_ITEMS_VALUES = { # Justify items values
 # Create justify items factory
 justify_items = SimpleFactory(JUSTIFY_ITEMS_VALUES, "Justify items utilities for aligning grid items along their inline axis") # The justify items factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 51
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 52
 JUSTIFY_SELF_VALUES = { # Justify self values
     "auto": "justify-self-auto",
     "start": "justify-self-start",
@@ -808,7 +808,7 @@ JUSTIFY_SELF_VALUES = { # Justify self values
 # Create justify self factory
 justify_self = SimpleFactory(JUSTIFY_SELF_VALUES, "Justify self utilities for aligning individual grid items along their inline axis") # The justify self factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 52
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 53
 def test_flexbox_and_grid_justify_examples(
 ): # TODO: Add type hint
     """Test justify utilities for flex and grid containers."""
@@ -827,7 +827,7 @@ def test_flexbox_and_grid_justify_examples(
 # Run the tests
 test_flexbox_and_grid_justify_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 54
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 55
 ALIGN_CONTENT_VALUES = { # Align content values
     "normal": "content-normal",
     "center": "content-center",
@@ -843,7 +843,7 @@ ALIGN_CONTENT_VALUES = { # Align content values
 # Create align content factory
 content = SimpleFactory(ALIGN_CONTENT_VALUES, "Align content utilities for positioning rows in multi-row flex/grid containers") # The align content factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 56
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 57
 ALIGN_ITEMS_VALUES = { # Align items values
     "start": "items-start",
     "end": "items-end",
@@ -858,7 +858,7 @@ ALIGN_ITEMS_VALUES = { # Align items values
 # Create align items factory
 items = SimpleFactory(ALIGN_ITEMS_VALUES, "Align items utilities for positioning flex/grid items along container's cross axis") # The align items factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 58
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 59
 ALIGN_SELF_VALUES = { # Align self values
     "auto": "self-auto",
     "start": "self-start",
@@ -874,7 +874,7 @@ ALIGN_SELF_VALUES = { # Align self values
 # Create align self factory
 self_align = SimpleFactory(ALIGN_SELF_VALUES, "Align self utilities for positioning individual flex/grid items along container's cross axis") # The align self factory (renamed to avoid conflict with Python's self)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 59
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 60
 def test_flexbox_and_grid_align_examples(
 ): # TODO: Add type hint
     """Test align utilities for flex and grid containers."""
@@ -894,7 +894,7 @@ def test_flexbox_and_grid_align_examples(
 # Run the tests
 test_flexbox_and_grid_align_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 61
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 62
 PLACE_CONTENT_VALUES = { # Place content values
     "center": "place-content-center",
     "center-safe": "place-content-center-safe",
@@ -911,7 +911,7 @@ PLACE_CONTENT_VALUES = { # Place content values
 # Create place content factory
 place_content = SimpleFactory(PLACE_CONTENT_VALUES, "Place content utilities for aligning content both horizontally and vertically") # The place content factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 63
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 64
 PLACE_ITEMS_VALUES = { # Place items values
     "start": "place-items-start",
     "end": "place-items-end",
@@ -925,7 +925,7 @@ PLACE_ITEMS_VALUES = { # Place items values
 # Create place items factory
 place_items = SimpleFactory(PLACE_ITEMS_VALUES, "Place items utilities for aligning items both horizontally and vertically") # The place items factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 65
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 66
 PLACE_SELF_VALUES = { # Place self values
     "auto": "place-self-auto",
     "start": "place-self-start",
@@ -939,7 +939,7 @@ PLACE_SELF_VALUES = { # Place self values
 # Create place self factory
 place_self = SimpleFactory(PLACE_SELF_VALUES, "Place self utilities for aligning individual items both horizontally and vertically") # The place self factory
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 66
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 67
 def test_flexbox_and_grid_place_examples(
 ): # TODO: Add type hint
     """Test place utilities for grid containers."""
@@ -956,7 +956,7 @@ def test_flexbox_and_grid_place_examples(
 # Run the tests
 test_flexbox_and_grid_place_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 68
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 69
 def test_flexbox_and_grid_practical_examples(
 ): # TODO: Add type hint
     """Test flexbox and grid utilities in practical FastHTML component examples."""
@@ -1047,31 +1047,31 @@ def test_flexbox_and_grid_practical_examples(
 # Run the tests
 test_flexbox_and_grid_practical_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 70
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 71
 def flex_center(
 ) -> str:  # Combined CSS classes for centered flex container
     """Create classes for a flex container that centers its content."""
     return combine_classes("flex", justify.center, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 71
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 72
 def flex_between(
 ) -> str:  # Combined CSS classes for flex container with space between
     """Create classes for a flex container with space between items."""
     return combine_classes("flex", justify.between, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 72
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 73
 def flex_col_center(
 ) -> str:  # Combined CSS classes for centered vertical flex container
     """Create classes for a vertical flex container that centers its content."""
     return combine_classes("flex", flex_direction.col, justify.center, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 73
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 74
 def grid_center(
 ) -> str:  # Combined CSS classes for centered grid container
     """Create classes for a grid container that centers its content."""
     return combine_classes("grid", place_items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 74
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 75
 def responsive_grid(
     mobile: int = 1,  # Number of columns on mobile devices
     tablet: int = 2,  # Number of columns on tablet devices
@@ -1087,7 +1087,7 @@ def responsive_grid(
         gap(gap_size)
     )
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 75
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 76
 def test_flexbox_and_grid_helper_examples(
 ): # TODO: Add type hint
     """Test helper functions for common flexbox and grid patterns."""
@@ -1102,7 +1102,7 @@ def test_flexbox_and_grid_helper_examples(
 # Run the tests
 test_flexbox_and_grid_helper_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 76
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 77
 def test_flexbox_and_grid_factory_documentation(
 ): # TODO: Add type hint
     """Test that factories have accessible documentation."""

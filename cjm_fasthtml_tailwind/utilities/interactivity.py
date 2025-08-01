@@ -235,26 +235,26 @@ cursor = CursorFactory(
 def test_interactivity_cursor_examples():
     """Test cursor utilities."""
     # Common cursors
-    assert cursor.auto == "cursor-auto"
-    assert cursor.default == "cursor-default"
-    assert cursor.pointer == "cursor-pointer"
-    assert cursor.wait == "cursor-wait"
-    assert cursor.text == "cursor-text"
-    assert cursor.move == "cursor-move"
-    assert cursor.help == "cursor-help"
-    assert cursor.not_allowed == "cursor-not-allowed"
+    assert str(cursor.auto) == "cursor-auto"
+    assert str(cursor.default) == "cursor-default"
+    assert str(cursor.pointer) == "cursor-pointer"
+    assert str(cursor.wait) == "cursor-wait"
+    assert str(cursor.text) == "cursor-text"
+    assert str(cursor.move) == "cursor-move"
+    assert str(cursor.help) == "cursor-help"
+    assert str(cursor.not_allowed) == "cursor-not-allowed"
     
     # Resize cursors
-    assert cursor.n_resize == "cursor-n-resize"
-    assert cursor.ne_resize == "cursor-ne-resize"
-    assert cursor.col_resize == "cursor-col-resize"
-    assert cursor.row_resize == "cursor-row-resize"
+    assert str(cursor.n_resize) == "cursor-n-resize"
+    assert str(cursor.ne_resize) == "cursor-ne-resize"
+    assert str(cursor.col_resize) == "cursor-col-resize"
+    assert str(cursor.row_resize) == "cursor-row-resize"
     
     # Special cursors
-    assert cursor.grab == "cursor-grab"
-    assert cursor.grabbing == "cursor-grabbing"
-    assert cursor.zoom_in == "cursor-zoom-in"
-    assert cursor.zoom_out == "cursor-zoom-out"
+    assert str(cursor.grab) == "cursor-grab"
+    assert str(cursor.grabbing) == "cursor-grabbing"
+    assert str(cursor.zoom_in) == "cursor-zoom-in"
+    assert str(cursor.zoom_out) == "cursor-zoom-out"
     
     # Custom properties and arbitrary values
     assert cursor("--custom-cursor") == "cursor-(--custom-cursor)"
@@ -714,7 +714,7 @@ def test_interactivity_touch_mobile_examples():
         "Drag me",
         cls=combine_classes(
             cursor.grab,
-            "active:" + cursor.grabbing,
+            "active:" + str(cursor.grabbing),
             touch.none,
             select.none,
             "p-4 bg-gray-200 rounded"
