@@ -42,7 +42,7 @@ def test_backgrounds_attachment_examples():
 # Run the tests
 test_backgrounds_attachment_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 8
+# %% ../../nbs/utilities/backgrounds.ipynb 9
 bg_clip = SimpleFactory(
     {
         "border": "bg-clip-border",
@@ -53,7 +53,7 @@ bg_clip = SimpleFactory(
     "Background clip utilities for controlling the bounding box of an element's background"
 ) # Background clip factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 9
+# %% ../../nbs/utilities/backgrounds.ipynb 10
 def test_backgrounds_clip_examples():
     """Test background clip utilities."""
     assert str(bg_clip.border) == "bg-clip-border"
@@ -64,10 +64,10 @@ def test_backgrounds_clip_examples():
 # Run the tests
 test_backgrounds_clip_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 11
+# %% ../../nbs/utilities/backgrounds.ipynb 13
 bg = ColoredFactory("bg", "Background color utilities for controlling an element's background color") # The background color factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 13
+# %% ../../nbs/utilities/backgrounds.ipynb 15
 def test_backgrounds_color_examples():
     """Test background color utilities with various color values."""
     # Test all 22 Tailwind color families
@@ -108,7 +108,7 @@ def test_backgrounds_color_examples():
 # Run the tests
 test_backgrounds_color_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 15
+# %% ../../nbs/utilities/backgrounds.ipynb 17
 def test_backgrounds_opacity_examples():
     """Test background colors with opacity modifiers."""
     # Standard opacity values
@@ -123,10 +123,10 @@ def test_backgrounds_opacity_examples():
 # Run the tests
 test_backgrounds_opacity_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 18
+# %% ../../nbs/utilities/backgrounds.ipynb 20
 bg_none = SingleValueFactory("bg-none", "Remove background image") # Remove background image
 
-# %% ../../nbs/utilities/backgrounds.ipynb 20
+# %% ../../nbs/utilities/backgrounds.ipynb 22
 class GradientUtility(BaseUtility):
     """Utility class for gradient backgrounds with angle support."""
     
@@ -200,7 +200,7 @@ class GradientUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/backgrounds.ipynb 22
+# %% ../../nbs/utilities/backgrounds.ipynb 24
 class GradientFactory(BaseFactory):
     """Factory for gradient utilities with angle and direction support."""
     
@@ -289,7 +289,7 @@ bg_linear = GradientFactory("linear", "Linear gradient utilities for creating gr
 bg_radial = GradientFactory("radial", "Radial gradient utilities for creating circular gradient backgrounds") 
 bg_conic = GradientFactory("conic", "Conic gradient utilities for creating conical gradient backgrounds")
 
-# %% ../../nbs/utilities/backgrounds.ipynb 24
+# %% ../../nbs/utilities/backgrounds.ipynb 26
 class GradientStopUtility(BaseUtility):
     """Utility class for gradient color stops with percentage support."""
     
@@ -348,7 +348,7 @@ class GradientStopUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/backgrounds.ipynb 25
+# %% ../../nbs/utilities/backgrounds.ipynb 27
 class GradientStopFactory(ColoredFactory):
     """Enhanced factory for gradient color stops with percentage support."""
     
@@ -399,7 +399,7 @@ from_color = GradientStopFactory("from", "Gradient from color/position utilities
 via_color = GradientStopFactory("via", "Gradient via color/position utilities for defining the middle color or position of a gradient")
 to_color = GradientStopFactory("to", "Gradient to color/position utilities for defining the ending color or position of a gradient")
 
-# %% ../../nbs/utilities/backgrounds.ipynb 27
+# %% ../../nbs/utilities/backgrounds.ipynb 29
 def test_backgrounds_gradient_examples():
     """Test gradient background utilities."""
     # Test bg-none
@@ -438,7 +438,7 @@ def test_backgrounds_gradient_examples():
 # Run the tests
 test_backgrounds_gradient_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 28
+# %% ../../nbs/utilities/backgrounds.ipynb 30
 def test_backgrounds_gradient_stops_examples():
     """Test gradient color stop utilities."""
     # Test from colors
@@ -482,7 +482,7 @@ def test_backgrounds_gradient_stops_examples():
 # Run the tests
 test_backgrounds_gradient_stops_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 31
+# %% ../../nbs/utilities/backgrounds.ipynb 33
 def test_backgrounds_gradient_composition_examples():
     """Test composing gradient backgrounds with color stops."""
     from fasthtml.common import Div
@@ -585,7 +585,7 @@ def test_backgrounds_gradient_composition_examples():
 # Run the tests
 test_backgrounds_gradient_composition_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 34
+# %% ../../nbs/utilities/backgrounds.ipynb 36
 bg_origin = SimpleFactory(
     {
         "border": "bg-origin-border",
@@ -595,7 +595,7 @@ bg_origin = SimpleFactory(
     "Background origin utilities for controlling how an element's background is positioned relative to borders, padding, and content"
 ) # Background origin factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 35
+# %% ../../nbs/utilities/backgrounds.ipynb 37
 def test_backgrounds_origin_examples():
     """Test background origin utilities."""
     assert str(bg_origin.border) == "bg-origin-border"
@@ -605,7 +605,7 @@ def test_backgrounds_origin_examples():
 # Run the tests
 test_backgrounds_origin_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 37
+# %% ../../nbs/utilities/backgrounds.ipynb 39
 bg_position = SimpleFactory(
     {
         "top_left": "bg-top-left",
@@ -621,7 +621,7 @@ bg_position = SimpleFactory(
     "Background position utilities for controlling the position of an element's background image"
 ) # Background position factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 38
+# %% ../../nbs/utilities/backgrounds.ipynb 40
 def test_backgrounds_position_examples():
     """Test background position utilities."""
     assert str(bg_position.top_left) == "bg-top-left"
@@ -633,7 +633,7 @@ def test_backgrounds_position_examples():
 # Run the tests
 test_backgrounds_position_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 40
+# %% ../../nbs/utilities/backgrounds.ipynb 42
 bg_repeat = SimpleFactory(
     {
         "repeat": "bg-repeat",
@@ -646,7 +646,7 @@ bg_repeat = SimpleFactory(
     "Background repeat utilities for controlling the repetition of an element's background image"
 ) # Background repeat factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 41
+# %% ../../nbs/utilities/backgrounds.ipynb 43
 def test_backgrounds_repeat_examples():
     """Test background repeat utilities."""
     assert str(bg_repeat.repeat) == "bg-repeat"
@@ -657,7 +657,7 @@ def test_backgrounds_repeat_examples():
 # Run the tests
 test_backgrounds_repeat_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 43
+# %% ../../nbs/utilities/backgrounds.ipynb 45
 bg_size = SimpleFactory(
     {
         "auto": "bg-auto",
@@ -667,7 +667,7 @@ bg_size = SimpleFactory(
     "Background size utilities for controlling the background size of an element's background image"
 ) # Background size factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 44
+# %% ../../nbs/utilities/backgrounds.ipynb 46
 def test_backgrounds_size_examples():
     """Test background size utilities."""
     assert str(bg_size.auto) == "bg-auto"
@@ -677,7 +677,7 @@ def test_backgrounds_size_examples():
 # Run the tests
 test_backgrounds_size_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 46
+# %% ../../nbs/utilities/backgrounds.ipynb 48
 def test_backgrounds_arbitrary_examples():
     """Test background utilities with arbitrary values."""
     # Arbitrary color values
@@ -692,7 +692,7 @@ def test_backgrounds_arbitrary_examples():
 # Run the tests
 test_backgrounds_arbitrary_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 48
+# %% ../../nbs/utilities/backgrounds.ipynb 50
 def test_backgrounds_practical_examples():
     """Test background utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, H1, P, Section
@@ -741,7 +741,7 @@ def test_backgrounds_practical_examples():
 # Run the tests
 test_backgrounds_practical_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 50
+# %% ../../nbs/utilities/backgrounds.ipynb 52
 def test_backgrounds_factory_documentation():
     """Test that background factories have accessible documentation."""
     # Test color factory

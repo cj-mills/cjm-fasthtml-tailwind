@@ -11,7 +11,7 @@ __all__ = ['DISPLAY_VALUES', 'display_tw', 'sr_only', 'not_sr_only', 'POSITION_V
            'BREAK_AFTER_VALUES', 'BREAK_INSIDE_VALUES', 'break_util', 'BOX_DECORATION_VALUES', 'box_decoration',
            'OVERSCROLL_VALUES', 'overscroll', 'test_layout_display_examples', 'test_layout_position_examples',
            'InsetDirectionalFactory', 'test_layout_inset_examples', 'OverflowFactory', 'test_layout_overflow_examples',
-           'test_layout_z_index_examples', 'FloatFactory', 'test_layout_float_clear_examples', 'ObjectPositionFactory',
+           'test_layout_z_index_examples', 'test_layout_float_clear_examples', 'ObjectPositionFactory',
            'test_layout_object_examples', 'test_layout_visibility_examples', 'AspectRatioFactory',
            'test_layout_aspect_columns_examples', 'test_layout_columns_examples', 'BreakFactory', 'OverscrollFactory',
            'test_layout_other_utilities_examples', 'test_layout_practical_examples',
@@ -349,17 +349,7 @@ FLOAT_VALUES = {
     "none": "float-none"
 }
 
-# Create float factory with special prefix handling
-class FloatFactory(SimpleFactory):
-    """Special factory for float utilities that prepends 'float-' to values."""
-    def __getattr__(
-        self,
-        name: str  # The attribute name to look up in float values
-    ) -> str:  # The corresponding float CSS class
-        "Get float utility by attribute name."
-        return super().__getattr__(name)
-
-float_tw = FloatFactory(FLOAT_VALUES, "Float utilities for controlling the wrapping of content around an element")  # Renamed to avoid conflict with Python's float
+float_tw = SimpleFactory(FLOAT_VALUES, "Float utilities for controlling the wrapping of content around an element")  # Renamed to avoid conflict with Python's float
 
 # %% ../../nbs/utilities/layout.ipynb 23
 # Clear utilities

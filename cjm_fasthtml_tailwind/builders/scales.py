@@ -445,15 +445,60 @@ def list_scale_values(
 class SimpleFactory(BaseFactory):
     """Factory for utilities that are simple string values with modifier support."""
     
+    def __new__(cls, values_dict: Optional[Dict[str, str]] = None, doc: Optional[str] = None):
+        """Create a new instance with dynamic properties for tab-completion."""
+        # If this is a subclass calling super().__new__, just create the instance normally
+        # Subclasses won't benefit from dynamic properties but that's okay since they
+        # typically override behavior anyway
+        if cls is not SimpleFactory or values_dict is None:
+            return object.__new__(cls)
+            
+        # Create a unique subclass for this instance to avoid conflicts
+        class_name = f"SimpleFactory_{id(values_dict)}"
+        
+        # Create class attributes for each value
+        class_attrs = {}
+        
+        # Add properties for each value
+        for key, css_value in values_dict.items():
+            prop_name = key.replace("-", "_")
+            
+            # Create a property that returns the cached utility
+            def make_property(css_val):
+                def getter(self):
+                    # Access the cache directly from __dict__ to avoid triggering __getattr__
+                    cache = self.__dict__.get('_utility_cache', {})
+                    if css_val not in cache:
+                        from cjm_fasthtml_tailwind.core.base import SingleValueUtility
+                        cache[css_val] = SingleValueUtility(css_val)
+                        if '_utility_cache' not in self.__dict__:
+                            self.__dict__['_utility_cache'] = cache
+                    return cache[css_val]
+                return property(getter)
+            
+            class_attrs[prop_name] = make_property(css_value)
+        
+        # Create the dynamic subclass
+        DynamicFactory = type(class_name, (SimpleFactory,), class_attrs)
+        
+        # Create and return an instance of the dynamic class
+        instance = object.__new__(DynamicFactory)
+        return instance
+    
     def __init__(
         self,
-        values_dict: Dict[str, str],  # Dictionary mapping attribute names to CSS values
+        values_dict: Optional[Dict[str, str]] = None,  # Dictionary mapping attribute names to CSS values
         doc: Optional[str] = None  # Optional documentation string
     ):
         "Initialize with a dictionary of values."
+        # Handle subclasses that don't pass values_dict in __new__
+        if values_dict is None and hasattr(self, '_pending_values'):
+            values_dict = self._pending_values
+            doc = getattr(self, '_pending_doc', doc)
+            
         doc = doc or "Factory for simple utility values"
         super().__init__(doc)
-        self._values = values_dict
+        self._values = values_dict or {}
         # Cache utility instances for each value
         self._utility_cache = {}
     

@@ -87,42 +87,42 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_search
-    cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_utils
-    cli_explorer --> cli_helper_discovery
-    cli_explorer --> cli_test_code
-    cli_explorer --> cli_core_utils_discovery
     cli_explorer --> cli_imports
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_search
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_factory_extraction
+    cli_helper_discovery --> cli_utils
     cli_imports --> cli_helper_discovery
-    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_factory_extraction
     cli_imports --> cli_utils
+    cli_imports --> cli_core_utils_discovery
+    cli_search --> cli_example_discovery
+    cli_search --> cli_helper_discovery
     cli_search --> cli_utils
     cli_search --> cli_factory_extraction
-    cli_search --> cli_helper_discovery
-    cli_search --> cli_example_discovery
+    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_utils
     cli_test_code --> cli_factory_extraction
-    cli_test_code --> cli_helper_discovery
-    core_testing --> utilities_sizing
-    core_testing --> utilities_spacing
     core_testing --> utilities_layout
+    core_testing --> utilities_spacing
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> core_resources
+    core_testing --> utilities_sizing
     core_testing --> core_base
-    utilities_accessibility --> utilities_layout
+    core_testing --> core_resources
     utilities_accessibility --> core_base
+    utilities_accessibility --> utilities_layout
     utilities_accessibility --> builders_scales
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_scales
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
     utilities_borders --> builders_scales
     utilities_borders --> builders_colors
@@ -130,30 +130,30 @@ graph LR
     utilities_effects --> builders_colors
     utilities_effects --> builders_scales
     utilities_filters --> core_base
-    utilities_filters --> builders_scales
     utilities_filters --> builders_colors
-    utilities_flexbox_and_grid --> builders_scales
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_interactivity --> builders_scales
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_base
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> builders_colors
     utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
     utilities_svg --> core_base
-    utilities_svg --> builders_colors
     utilities_svg --> builders_scales
-    utilities_tables --> builders_scales
+    utilities_svg --> builders_colors
     utilities_tables --> core_base
-    utilities_transforms --> builders_scales
+    utilities_tables --> builders_scales
     utilities_transforms --> core_base
+    utilities_transforms --> builders_scales
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> builders_scales
-    utilities_typography --> builders_scales
     utilities_typography --> core_base
+    utilities_typography --> builders_scales
     utilities_typography --> builders_colors
 ```
 
@@ -3840,7 +3840,6 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     OverflowFactory,
     test_layout_overflow_examples,
     test_layout_z_index_examples,
-    FloatFactory,
     test_layout_float_clear_examples,
     ObjectPositionFactory,
     test_layout_object_examples,
@@ -4036,12 +4035,6 @@ class OverflowFactory:
             self
         ) -> Dict[str, Any]:  # Dictionary with factory information
         "Get information about the overflow factory."
-```
-
-``` python
-class FloatFactory(SimpleFactory):
-    "Special factory for float utilities that prepends 'float-' to values."
-    
 ```
 
 ``` python
@@ -4675,14 +4668,14 @@ class DirectionalScaledFactory:
 class SimpleFactory:
     def __init__(
         self,
-        values_dict: Dict[str, str],  # Dictionary mapping attribute names to CSS values
+        values_dict: Optional[Dict[str, str]] = None,  # Dictionary mapping attribute names to CSS values
         doc: Optional[str] = None  # Optional documentation string
     )
     "Factory for utilities that are simple string values with modifier support."
     
     def __init__(
             self,
-            values_dict: Dict[str, str],  # Dictionary mapping attribute names to CSS values
+            values_dict: Optional[Dict[str, str]] = None,  # Dictionary mapping attribute names to CSS values
             doc: Optional[str] = None  # Optional documentation string
         )
         "Initialize with a dictionary of values."
