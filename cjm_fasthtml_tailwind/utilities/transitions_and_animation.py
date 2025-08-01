@@ -259,7 +259,7 @@ class DurationFactory(ScaledFactory):
 # Create duration factory
 duration = DurationFactory("duration", DURATION_CONFIG, "Transition duration utilities for controlling the duration of CSS transitions") # The duration factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 14
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 15
 def test_transitions_and_animation_duration_examples():
     """Test transition duration utilities."""
     # Test standard duration values with attributes
@@ -309,7 +309,7 @@ def test_transitions_and_animation_duration_examples():
 # Run the tests
 test_transitions_and_animation_duration_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 16
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 17
 # Enhanced factory for easing functions with custom value support
 class EaseFactory(SimpleFactory):
     """Factory for easing/timing function utilities with custom value support."""
@@ -354,7 +354,7 @@ ease = EaseFactory(
     "Transition timing function utilities for controlling the easing of CSS transitions"
 ) # The ease factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 17
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 18
 def test_transitions_and_animation_timing_examples():
     """Test transition timing function utilities."""
     # Test predefined easing functions
@@ -378,7 +378,7 @@ def test_transitions_and_animation_timing_examples():
 # Run the tests
 test_transitions_and_animation_timing_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 19
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 20
 # Standard delay values in milliseconds (same as duration scale)
 DELAY_SCALE = [0, 75, 100, 150, 200, 300, 500, 700, 1000] # Standard Tailwind delay scale
 
@@ -430,7 +430,7 @@ class DelayFactory(DurationFactory):
 # Create delay factory
 delay = DelayFactory("delay", DELAY_CONFIG, "Transition delay utilities for controlling the delay of CSS transitions") # The delay factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 20
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 21
 def test_transitions_and_animation_delay_examples():
     """Test transition delay utilities."""
     # Test standard delay values with attributes
@@ -478,7 +478,7 @@ def test_transitions_and_animation_delay_examples():
 # Run the tests
 test_transitions_and_animation_delay_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 22
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 23
 # Enhanced factory for animations with custom value support
 class AnimationFactory(SimpleFactory):
     """Factory for animation utilities with custom value support."""
@@ -523,7 +523,7 @@ animate = AnimationFactory(
     "Animation utilities for animating elements with CSS animations"
 ) # The animation factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 23
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 24
 def test_transitions_and_animation_examples():
     """Test animation utilities."""
     # Test predefined animations
@@ -545,7 +545,7 @@ def test_transitions_and_animation_examples():
 # Run the tests
 test_transitions_and_animation_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 25
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 26
 def test_transitions_and_animation_practical_examples():
     """Test transition and animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Span, A, Img
@@ -616,7 +616,7 @@ def test_transitions_and_animation_practical_examples():
 # Run the tests
 test_transitions_and_animation_practical_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 26
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 27
 def test_transitions_and_animation_practical_examples():
     """Test animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Span, Button
@@ -679,7 +679,7 @@ def test_transitions_and_animation_practical_examples():
 # Run the tests
 test_transitions_and_animation_practical_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 27
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 28
 def test_transitions_and_animation_composition_examples():
     """Test composing multiple transition utilities together."""
     from fasthtml.common import Div, Button
@@ -734,7 +734,7 @@ def test_transitions_and_animation_composition_examples():
 # Run the tests
 test_transitions_and_animation_composition_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 29
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 30
 def test_transitions_and_animation_factory_documentation():
     """Test that transition and animation factories have accessible documentation."""
     # Test transition property factory
@@ -779,7 +779,7 @@ def test_transitions_and_animation_factory_documentation():
 # Run the tests
 test_transitions_and_animation_factory_documentation()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 31
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 32
 def smooth_transition(
     properties: str = "all",  # Which properties to transition (default: all)
     duration_ms: int = 300,  # Duration in milliseconds
@@ -815,7 +815,7 @@ def smooth_transition(
         ease_func
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 32
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 33
 def hover_effect(
     duration_ms: int = 200  # Duration in milliseconds
 ) -> str:  # Combined CSS classes for hover effects
@@ -826,7 +826,7 @@ def hover_effect(
         ease.in_out
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 33
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 34
 def fade_in(
     duration_ms: int = 500,  # Duration in milliseconds
     delay_ms: Optional[int] = None  # Optional delay in milliseconds
@@ -843,7 +843,7 @@ def fade_in(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 34
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 35
 def loading_spinner(
 ) -> str:  # Combined CSS classes for a loading spinner
     """Create a loading spinner animation."""
@@ -852,7 +852,7 @@ def loading_spinner(
         animate.spin
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 35
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
 def skeleton_loader(
 ) -> str:  # Combined CSS classes for a skeleton loader
     """Create a skeleton loader animation for content placeholders."""
@@ -861,7 +861,7 @@ def skeleton_loader(
         animate.pulse
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 37
 def test_transitions_and_animation_helper_examples():
     """Test helper functions for common transition patterns."""
     # Test smooth_transition

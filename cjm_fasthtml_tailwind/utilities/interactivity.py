@@ -161,7 +161,7 @@ def test_interactivity_scheme_examples():
 # Run the tests
 test_interactivity_scheme_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 17
+# %% ../../nbs/utilities/interactivity.ipynb 18
 # Cursor utilities with enhanced arbitrary value support
 class CursorFactory(SimpleFactory):
     """Factory for cursor utilities with arbitrary value support."""
@@ -188,7 +188,7 @@ class CursorFactory(SimpleFactory):
         # For any other attribute, treat as arbitrary value
         return f"cursor-[{name.replace('_', '-')}]"
 
-# %% ../../nbs/utilities/interactivity.ipynb 18
+# %% ../../nbs/utilities/interactivity.ipynb 19
 cursor = CursorFactory(
     {
         "auto": "cursor-auto",
@@ -231,7 +231,7 @@ cursor = CursorFactory(
     "Cursor utilities for controlling the cursor style when hovering over an element"
 ) # Cursor factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 19
+# %% ../../nbs/utilities/interactivity.ipynb 20
 def test_interactivity_cursor_examples():
     """Test cursor utilities."""
     # Common cursors
@@ -263,7 +263,7 @@ def test_interactivity_cursor_examples():
 # Run the tests
 test_interactivity_cursor_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 21
+# %% ../../nbs/utilities/interactivity.ipynb 22
 field_sizing = SimpleFactory(
     {
         "fixed": "field-sizing-fixed",
@@ -272,7 +272,7 @@ field_sizing = SimpleFactory(
     "Field sizing utilities for controlling how form controls are sized"
 ) # Field sizing factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 22
+# %% ../../nbs/utilities/interactivity.ipynb 23
 def test_interactivity_field_sizing_examples():
     """Test field sizing utilities."""
     assert str(field_sizing.fixed) == "field-sizing-fixed"
@@ -281,7 +281,7 @@ def test_interactivity_field_sizing_examples():
 # Run the tests
 test_interactivity_field_sizing_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 24
+# %% ../../nbs/utilities/interactivity.ipynb 25
 pointer_events = SimpleFactory(
     {
         "auto": "pointer-events-auto",
@@ -290,7 +290,7 @@ pointer_events = SimpleFactory(
     "Pointer events utilities for controlling whether an element responds to pointer events"
 ) # Pointer events factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 25
+# %% ../../nbs/utilities/interactivity.ipynb 26
 def test_interactivity_pointer_events_examples():
     """Test pointer events utilities."""
     assert str(pointer_events.auto) == "pointer-events-auto"
@@ -299,7 +299,7 @@ def test_interactivity_pointer_events_examples():
 # Run the tests
 test_interactivity_pointer_events_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 27
+# %% ../../nbs/utilities/interactivity.ipynb 28
 resize = SimpleFactory(
     {
         "none": "resize-none",
@@ -310,7 +310,7 @@ resize = SimpleFactory(
     "Resize utilities for controlling how an element can be resized"
 ) # Resize factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 28
+# %% ../../nbs/utilities/interactivity.ipynb 29
 def test_interactivity_resize_examples():
     """Test resize utilities."""
     assert str(resize.none) == "resize-none"
@@ -321,7 +321,7 @@ def test_interactivity_resize_examples():
 # Run the tests
 test_interactivity_resize_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 30
+# %% ../../nbs/utilities/interactivity.ipynb 31
 scroll = SimpleFactory(
     {
         "auto": "scroll-auto",
@@ -330,7 +330,7 @@ scroll = SimpleFactory(
     "Scroll behavior utilities for controlling smooth scrolling"
 ) # Scroll behavior factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 31
+# %% ../../nbs/utilities/interactivity.ipynb 32
 def test_interactivity_scroll_behavior_examples():
     """Test scroll behavior utilities."""
     assert str(scroll.auto) == "scroll-auto"
@@ -339,14 +339,14 @@ def test_interactivity_scroll_behavior_examples():
 # Run the tests
 test_interactivity_scroll_behavior_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 33
+# %% ../../nbs/utilities/interactivity.ipynb 34
 scroll_m = DirectionalScaledFactory("scroll-m", SPACING_CONFIG, "Scroll margin utilities for controlling scroll offset margins") # The scroll margin factory
 
 # Additional directional scroll margin utilities for logical properties
 scroll_ms = ScaledFactory("scroll-ms", SPACING_CONFIG, "Scroll margin inline-start utilities")  # scroll-margin-inline-start
 scroll_me = ScaledFactory("scroll-me", SPACING_CONFIG, "Scroll margin inline-end utilities")  # scroll-margin-inline-end
 
-# %% ../../nbs/utilities/interactivity.ipynb 34
+# %% ../../nbs/utilities/interactivity.ipynb 35
 def test_interactivity_scroll_margin_examples():
     """Test scroll margin utilities."""
     # All sides
@@ -378,14 +378,14 @@ def test_interactivity_scroll_margin_examples():
 # Run the tests
 test_interactivity_scroll_margin_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 36
+# %% ../../nbs/utilities/interactivity.ipynb 37
 scroll_p = DirectionalScaledFactory("scroll-p", SPACING_CONFIG, "Scroll padding utilities for controlling scroll offset padding") # The scroll padding factory
 
 # Additional directional scroll padding utilities for logical properties
 scroll_ps = ScaledFactory("scroll-ps", SPACING_CONFIG, "Scroll padding inline-start utilities")  # scroll-padding-inline-start
 scroll_pe = ScaledFactory("scroll-pe", SPACING_CONFIG, "Scroll padding inline-end utilities")  # scroll-padding-inline-end
 
-# %% ../../nbs/utilities/interactivity.ipynb 37
+# %% ../../nbs/utilities/interactivity.ipynb 38
 def test_interactivity_scroll_padding_examples():
     """Test scroll padding utilities."""
     # All sides
@@ -417,7 +417,7 @@ def test_interactivity_scroll_padding_examples():
 # Run the tests
 test_interactivity_scroll_padding_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 40
+# %% ../../nbs/utilities/interactivity.ipynb 41
 snap_align = SimpleFactory(
     {
         "start": "snap-start",
@@ -428,7 +428,7 @@ snap_align = SimpleFactory(
     "Scroll snap align utilities for controlling snap position alignment"
 ) # Snap align factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 42
+# %% ../../nbs/utilities/interactivity.ipynb 43
 snap_stop = SimpleFactory(
     {
         "normal": "snap-normal",
@@ -437,7 +437,7 @@ snap_stop = SimpleFactory(
     "Scroll snap stop utilities for controlling snap stop behavior"
 ) # Snap stop factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 44
+# %% ../../nbs/utilities/interactivity.ipynb 45
 snap = SimpleFactory(
     {
         "none": "snap-none",
@@ -450,7 +450,7 @@ snap = SimpleFactory(
     "Scroll snap type utilities for controlling snap container behavior"
 ) # Snap type factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 45
+# %% ../../nbs/utilities/interactivity.ipynb 46
 def test_interactivity_scroll_snap_examples():
     """Test scroll snap utilities."""
     # Snap align
@@ -474,7 +474,7 @@ def test_interactivity_scroll_snap_examples():
 # Run the tests
 test_interactivity_scroll_snap_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 47
+# %% ../../nbs/utilities/interactivity.ipynb 48
 touch = SimpleFactory(
     {
         "auto": "touch-auto",
@@ -491,7 +491,7 @@ touch = SimpleFactory(
     "Touch action utilities for controlling touch gestures on touch devices"
 ) # Touch action factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 48
+# %% ../../nbs/utilities/interactivity.ipynb 49
 def test_interactivity_touch_action_examples():
     """Test touch action utilities."""
     assert str(touch.auto) == "touch-auto"
@@ -508,7 +508,7 @@ def test_interactivity_touch_action_examples():
 # Run the tests
 test_interactivity_touch_action_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 50
+# %% ../../nbs/utilities/interactivity.ipynb 51
 select = SimpleFactory(
     {
         "none": "select-none",
@@ -519,7 +519,7 @@ select = SimpleFactory(
     "User select utilities for controlling text selection behavior"
 ) # User select factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 51
+# %% ../../nbs/utilities/interactivity.ipynb 52
 def test_interactivity_user_select_examples():
     """Test user select utilities."""
     assert str(select.none) == "select-none"
@@ -530,7 +530,7 @@ def test_interactivity_user_select_examples():
 # Run the tests
 test_interactivity_user_select_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 53
+# %% ../../nbs/utilities/interactivity.ipynb 54
 # Will change utilities with enhanced arbitrary value support
 class WillChangeFactory(SimpleFactory):
     """Factory for will-change utilities with arbitrary value support."""
@@ -557,7 +557,7 @@ class WillChangeFactory(SimpleFactory):
         # For any other attribute, treat as arbitrary value
         return f"will-change-[{name.replace('_', '-')}]"
 
-# %% ../../nbs/utilities/interactivity.ipynb 54
+# %% ../../nbs/utilities/interactivity.ipynb 55
 will_change = WillChangeFactory(
     {
         "auto": "will-change-auto",
@@ -568,7 +568,7 @@ will_change = WillChangeFactory(
     "Will-change utilities for optimizing animations by hinting browsers about expected changes"
 ) # Will-change factory
 
-# %% ../../nbs/utilities/interactivity.ipynb 55
+# %% ../../nbs/utilities/interactivity.ipynb 56
 def test_interactivity_will_change_examples():
     """Test will-change utilities."""
     # Standard values
@@ -585,7 +585,7 @@ def test_interactivity_will_change_examples():
 # Run the tests
 test_interactivity_will_change_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 57
+# %% ../../nbs/utilities/interactivity.ipynb 58
 def test_interactivity_form_examples():
     """Test interactivity utilities in form components."""
     from fasthtml.common import Input, Textarea, Button, Div, Label
@@ -643,7 +643,7 @@ def test_interactivity_form_examples():
 # Run the tests
 test_interactivity_form_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 58
+# %% ../../nbs/utilities/interactivity.ipynb 59
 def test_interactivity_scroll_snap_examples():
     """Test scroll snap utilities in carousel/gallery components."""
     from fasthtml.common import Div, Img
@@ -691,7 +691,7 @@ def test_interactivity_scroll_snap_examples():
 # Run the tests
 test_interactivity_scroll_snap_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 59
+# %% ../../nbs/utilities/interactivity.ipynb 60
 def test_interactivity_touch_mobile_examples():
     """Test touch and mobile interaction utilities."""
     from fasthtml.common import Div, Img, Code
@@ -749,7 +749,7 @@ def test_interactivity_touch_mobile_examples():
 # Run the tests
 test_interactivity_touch_mobile_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 61
+# %% ../../nbs/utilities/interactivity.ipynb 62
 def test_interactivity_factory_documentation():
     """Test that interactivity factories have accessible documentation."""
     # Test color factories
@@ -795,7 +795,7 @@ def test_interactivity_factory_documentation():
 # Run the tests
 test_interactivity_factory_documentation()
 
-# %% ../../nbs/utilities/interactivity.ipynb 63
+# %% ../../nbs/utilities/interactivity.ipynb 64
 def test_interactivity_advanced_examples():
     """Test advanced combinations of interactivity utilities."""
     from fasthtml.common import Div, Input, Form, Pre

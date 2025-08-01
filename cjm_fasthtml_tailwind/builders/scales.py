@@ -124,15 +124,138 @@ class ScaledUtility(StandardUtility):
 class ScaledFactory(UtilityFactory[ScaledUtility]):
     """Factory for creating scaled utilities with enhanced attribute access."""
     
+    def __new__(cls, prefix: Optional[str] = None, config: Optional[ScaleConfig] = None, doc: Optional[str] = None):
+        """Create a new instance with dynamic properties for tab-completion."""
+        # If this is a subclass, just create a normal instance
+        # Subclasses will add properties in __init__ if needed
+        if cls is not ScaledFactory:
+            return object.__new__(cls)
+            
+        # For direct ScaledFactory instances, create dynamic properties
+        if prefix is not None and config is not None:
+            # Create a unique subclass for this instance
+            class_name = f"ScaledFactory_{prefix}_{id(config)}"
+            
+            # Create class attributes
+            class_attrs = {}
+            
+            # Add properties for special values
+            if config.special:
+                for key, value in config.special.items():
+                    prop_name = key.replace("-", "_")
+                    # Create a property that returns a ScaledUtility instance
+                    def make_property(val):
+                        def getter(self):
+                            instance = ScaledUtility(self.prefix, self.config)
+                            instance._value = val
+                            return instance
+                        return property(getter)
+                    class_attrs[prop_name] = make_property(value)
+            
+            # Add properties for named scales
+            if config.named:
+                for named_scale in config.named:
+                    prop_name = f"_{named_scale.name}" if named_scale.name[0].isdigit() else named_scale.name
+                    prop_name = prop_name.replace("-", "_")
+                    # Create a property that returns a ScaledUtility instance
+                    def make_property(scale_name):
+                        def getter(self):
+                            instance = ScaledUtility(self.prefix, self.config)
+                            instance._value = scale_name
+                            return instance
+                        return property(getter)
+                    class_attrs[prop_name] = make_property(named_scale.name)
+            
+            # Create the dynamic subclass
+            DynamicFactory = type(class_name, (ScaledFactory,), class_attrs)
+            
+            # Create and return an instance of the dynamic class
+            instance = object.__new__(DynamicFactory)
+            return instance
+        
+        # Default case
+        return object.__new__(cls)
+    
+    def _add_dynamic_properties(self):
+        """Add properties dynamically to the instance for tab-completion."""
+        if not hasattr(self, 'config') or not self.config:
+            return
+            
+        # Create a new class that inherits from the current class
+        current_class = self.__class__
+        class_name = f"{current_class.__name__}_Dynamic_{id(self.config)}"
+        
+        # Create class attributes
+        class_attrs = {}
+        
+        # Copy existing class attributes
+        for attr_name in dir(current_class):
+            if not attr_name.startswith('_'):
+                attr = getattr(current_class, attr_name)
+                if not callable(attr) or isinstance(attr, property):
+                    class_attrs[attr_name] = attr
+        
+        # Add properties for special values
+        if self.config.special:
+            for key, value in self.config.special.items():
+                prop_name = key.replace("-", "_")
+                # Skip if property already exists
+                if hasattr(current_class, prop_name):
+                    continue
+                    
+                # Create a property that returns a ScaledUtility instance
+                def make_property(val):
+                    def getter(self):
+                        instance = ScaledUtility(self.prefix, self.config)
+                        instance._value = val
+                        return instance
+                    return property(getter)
+                class_attrs[prop_name] = make_property(value)
+        
+        # Add properties for named scales
+        if self.config.named:
+            for named_scale in self.config.named:
+                prop_name = f"_{named_scale.name}" if named_scale.name[0].isdigit() else named_scale.name
+                prop_name = prop_name.replace("-", "_")
+                # Skip if property already exists
+                if hasattr(current_class, prop_name):
+                    continue
+                    
+                # Create a property that returns a ScaledUtility instance
+                def make_property(scale_name):
+                    def getter(self):
+                        instance = ScaledUtility(self.prefix, self.config)
+                        instance._value = scale_name
+                        return instance
+                    return property(getter)
+                class_attrs[prop_name] = make_property(named_scale.name)
+        
+        # Create the dynamic subclass
+        DynamicClass = type(class_name, (current_class,), class_attrs)
+        
+        # Change the instance's class to the dynamic one
+        self.__class__ = DynamicClass
+    
     def __init__(
         self, 
-        prefix: str,  # The utility prefix (e.g., 'w', 'h', 'p')
-        config: ScaleConfig,  # Configuration defining valid scales and values
+        prefix: Optional[str] = None,  # The utility prefix (e.g., 'w', 'h', 'p')
+        config: Optional[ScaleConfig] = None,  # Configuration defining valid scales and values
         doc: Optional[str] = None  # Optional documentation string
     ):
         """Initialize with prefix and scale configuration."""
+        # Handle subclasses that might not pass all arguments
+        if prefix is None:
+            # Subclass must set these in its __init__
+            return
+            
         self.config = config
         super().__init__(ScaledUtility, prefix, doc)
+        
+        # Add dynamic properties if this is a subclass or properties weren't added in __new__
+        if (self.__class__.__name__ == 'ScaledFactory' or 
+            not any(isinstance(getattr(self.__class__, attr, None), property) 
+                  for attr in dir(self.__class__) if not attr.startswith('_'))):
+            self._add_dynamic_properties()
     
     def __call__(
         self, 
@@ -153,6 +276,10 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
         Handle attribute access for named values.
         Examples: w.full, h.screen, p.auto, w._2xl
         """
+        # Avoid recursion by checking if essential attributes exist
+        if name in ['prefix', 'config']:
+            raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+            
         # Handle negative prefix
         if name.startswith("neg_"):
             actual_name = name[4:]  # Remove "neg_" prefix
@@ -224,6 +351,37 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
 # %% ../../nbs/builders/scales.ipynb 12
 class NegativeFactory:
     """Factory for creating negative variants."""
+    
+    def __new__(cls, prefix: str, config: ScaleConfig):
+        """Create a new instance with dynamic properties for tab-completion."""
+        # Create a unique subclass for this instance
+        class_name = f"NegativeFactory_{prefix}_{id(config)}"
+        
+        # Create class attributes
+        class_attrs = {}
+        
+        # Add properties for special values
+        if config.special:
+            for key, value in config.special.items():
+                # Skip 'auto' for negative values as it doesn't make sense
+                if key == 'auto':
+                    continue
+                prop_name = key.replace("-", "_")
+                # Create a property that returns a negative ScaledUtility instance
+                def make_property(val):
+                    def getter(self):
+                        instance = ScaledUtility(self.prefix, self.config, negative=True)
+                        instance._value = val
+                        return instance
+                    return property(getter)
+                class_attrs[prop_name] = make_property(value)
+        
+        # Create the dynamic subclass
+        DynamicFactory = type(class_name, (NegativeFactory,), class_attrs)
+        
+        # Create and return an instance of the dynamic class
+        instance = object.__new__(DynamicFactory)
+        return instance
     
     def __init__(
         self,
@@ -411,7 +569,7 @@ INSET_CONFIG = ScaleConfig( # Inset configuration (top, right, bottom, left)
     negative=True
 )
 
-# %% ../../nbs/builders/scales.ipynb 39
+# %% ../../nbs/builders/scales.ipynb 40
 def list_scale_values(
     config: ScaleConfig  # The scale configuration to extract values from
 ) -> Dict[str, List[Union[str, int, float]]]:  # Dictionary mapping scale types to their values
@@ -441,7 +599,7 @@ def list_scale_values(
     
     return values
 
-# %% ../../nbs/builders/scales.ipynb 42
+# %% ../../nbs/builders/scales.ipynb 43
 class SimpleFactory(BaseFactory):
     """Factory for utilities that are simple string values with modifier support."""
     
