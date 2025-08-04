@@ -234,11 +234,21 @@ class ModifierMixin:
     def sm(self) -> 'BaseUtility':
         """Apply small breakpoint modifier."""
         return self.with_modifiers("sm")
+
+    @property
+    def max_sm(self) -> 'BaseUtility':
+        """Apply max small breakpoint modifier variant."""
+        return self.with_modifiers("max-sm")
     
     @property
     def md(self) -> 'BaseUtility':
         """Apply medium breakpoint modifier."""
         return self.with_modifiers("md")
+
+    @property
+    def max_md(self) -> 'BaseUtility':
+        """Apply max medium breakpoint modifier variant."""
+        return self.with_modifiers("max-md")
     
     @property
     def lg(self) -> 'BaseUtility':

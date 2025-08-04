@@ -88,54 +88,54 @@ graph LR
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_utils
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_imports
-    cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_search
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_core_utils_discovery
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_search
+    cli_explorer --> cli_imports
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_helper_discovery
-    cli_imports --> cli_utils
     cli_imports --> cli_factory_extraction
     cli_imports --> cli_core_utils_discovery
-    cli_search --> cli_factory_extraction
-    cli_search --> cli_helper_discovery
+    cli_imports --> cli_helper_discovery
+    cli_imports --> cli_utils
     cli_search --> cli_utils
     cli_search --> cli_example_discovery
-    cli_test_code --> cli_helper_discovery
-    cli_test_code --> cli_utils
+    cli_search --> cli_factory_extraction
+    cli_search --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_utils
+    cli_test_code --> cli_helper_discovery
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_borders
+    core_testing --> utilities_transitions_and_animation
     core_testing --> utilities_sizing
+    core_testing --> utilities_backgrounds
     core_testing --> utilities_layout
     core_testing --> utilities_effects
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_typography
-    core_testing --> utilities_borders
-    core_testing --> utilities_spacing
-    core_testing --> utilities_backgrounds
-    core_testing --> core_base
     core_testing --> core_resources
-    core_testing --> utilities_transitions_and_animation
-    utilities_accessibility --> core_base
+    core_testing --> core_base
+    core_testing --> utilities_spacing
+    core_testing --> utilities_typography
     utilities_accessibility --> builders_scales
     utilities_accessibility --> utilities_layout
+    utilities_accessibility --> core_base
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
-    utilities_borders --> builders_scales
     utilities_borders --> builders_colors
+    utilities_borders --> builders_scales
     utilities_effects --> core_base
-    utilities_effects --> builders_scales
     utilities_effects --> builders_colors
-    utilities_filters --> core_base
+    utilities_effects --> builders_scales
     utilities_filters --> builders_colors
+    utilities_filters --> core_base
     utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
@@ -144,13 +144,13 @@ graph LR
     utilities_interactivity --> builders_colors
     utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> core_base
     utilities_sizing --> builders_scales
-    utilities_spacing --> core_base
+    utilities_sizing --> core_base
     utilities_spacing --> builders_scales
+    utilities_spacing --> core_base
+    utilities_svg --> builders_colors
     utilities_svg --> core_base
     utilities_svg --> builders_scales
-    utilities_svg --> builders_colors
     utilities_tables --> core_base
     utilities_tables --> builders_scales
     utilities_transforms --> core_base
@@ -793,18 +793,34 @@ class ModifierMixin:
     def sm(self) -> 'BaseUtility':
             """Apply small breakpoint modifier."""
             return self.with_modifiers("sm")
+    
+        @property
+        def max_sm(self) -> 'BaseUtility'
+        "Apply small breakpoint modifier."
+    
+    def max_sm(self) -> 'BaseUtility':
+            """Apply max small breakpoint modifier variant."""
+            return self.with_modifiers("max-sm")
         
         @property
         def md(self) -> 'BaseUtility'
-        "Apply small breakpoint modifier."
+        "Apply max small breakpoint modifier variant."
     
     def md(self) -> 'BaseUtility':
             """Apply medium breakpoint modifier."""
             return self.with_modifiers("md")
+    
+        @property
+        def max_md(self) -> 'BaseUtility'
+        "Apply medium breakpoint modifier."
+    
+    def max_md(self) -> 'BaseUtility':
+            """Apply max medium breakpoint modifier variant."""
+            return self.with_modifiers("max-md")
         
         @property
         def lg(self) -> 'BaseUtility'
-        "Apply medium breakpoint modifier."
+        "Apply max medium breakpoint modifier variant."
     
     def lg(self) -> 'BaseUtility':
             """Apply large breakpoint modifier."""

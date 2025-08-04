@@ -355,7 +355,9 @@ def test_spacing_modifier_examples(
     
     # Test responsive modifiers
     assert str(p(4).sm) == "sm:p-4"
+    assert str(p(4).max_sm) == "max-sm:p-4"
     assert str(m.x(8).md) == "md:mx-8"
+    assert str(m.x(8).max_md) == "max-md:mx-8"
     assert str(p.y(0).lg) == "lg:py-0"
     assert str(m.negative(4).xl) == "xl:-m-4"
     
