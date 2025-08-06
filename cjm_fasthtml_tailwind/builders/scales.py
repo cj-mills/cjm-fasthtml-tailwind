@@ -767,7 +767,8 @@ class SimpleFactory(BaseFactory):
 
 # %% ../../nbs/builders/scales.ipynb 47
 def enums_to_simple_factory(prefix:str, # The factory prefix
-                            src_enums:List[Enum] # The source enums
+                            src_enums:List[Enum], # The source enums
+                            doc:Optional[str]=None # The factory docstring.
                            ) -> SimpleFactory: # The resulting simple factory
     """Create a SimpleFactory using a string prefix and the values from a list of enums"""
     values_dict = {
@@ -775,4 +776,4 @@ def enums_to_simple_factory(prefix:str, # The factory prefix
         for src_enum in src_enums 
         for member in src_enum 
     }
-    return SimpleFactory(values_dict)
+    return SimpleFactory(values_dict, doc)
