@@ -88,77 +88,77 @@ graph LR
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_utils
-    cli_explorer --> cli_test_code
     cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_test_code
     cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_search
     cli_explorer --> cli_imports
-    cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
+    cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_factory_extraction
     cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_helper_discovery
+    cli_imports --> cli_factory_extraction
     cli_imports --> cli_utils
+    cli_imports --> cli_helper_discovery
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_factory_extraction
+    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
     cli_test_code --> cli_helper_discovery
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_borders
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_sizing
-    core_testing --> utilities_backgrounds
     core_testing --> utilities_layout
+    core_testing --> utilities_sizing
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_spacing
+    core_testing --> core_base
+    core_testing --> utilities_typography
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_backgrounds
+    core_testing --> utilities_borders
     core_testing --> utilities_effects
     core_testing --> core_resources
-    core_testing --> core_base
-    core_testing --> utilities_spacing
-    core_testing --> utilities_typography
     utilities_accessibility --> builders_scales
     utilities_accessibility --> utilities_layout
     utilities_accessibility --> core_base
+    utilities_backgrounds --> builders_scales
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
-    utilities_backgrounds --> builders_scales
+    utilities_borders --> builders_scales
     utilities_borders --> core_base
     utilities_borders --> builders_colors
-    utilities_borders --> builders_scales
+    utilities_effects --> builders_scales
     utilities_effects --> core_base
     utilities_effects --> builders_colors
-    utilities_effects --> builders_scales
+    utilities_filters --> builders_scales
     utilities_filters --> builders_colors
     utilities_filters --> core_base
-    utilities_filters --> builders_scales
-    utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_interactivity --> core_base
+    utilities_flexbox_and_grid --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> core_base
     utilities_interactivity --> builders_colors
-    utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
+    utilities_layout --> core_base
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_base
+    utilities_spacing --> builders_scales
     utilities_svg --> builders_colors
     utilities_svg --> core_base
     utilities_svg --> builders_scales
     utilities_tables --> core_base
     utilities_tables --> builders_scales
-    utilities_transforms --> core_base
     utilities_transforms --> builders_scales
-    utilities_transitions_and_animation --> core_base
+    utilities_transforms --> core_base
     utilities_transitions_and_animation --> builders_scales
-    utilities_typography --> core_base
+    utilities_transitions_and_animation --> core_base
     utilities_typography --> builders_scales
+    utilities_typography --> core_base
     utilities_typography --> builders_colors
 ```
 
@@ -4316,7 +4316,8 @@ from cjm_fasthtml_tailwind.builders.scales import (
     DirectionalScaledUtility,
     DirectionalScaledFactory,
     list_scale_values,
-    SimpleFactory
+    SimpleFactory,
+    enums_to_simple_factory
 )
 ```
 
@@ -4333,6 +4334,13 @@ def list_scale_values(
     config: ScaleConfig  # The scale configuration to extract values from
 ) -> Dict[str, List[Union[str, int, float]]]:  # Dictionary mapping scale types to their values
     "List all possible values for a scale configuration."
+```
+
+``` python
+def enums_to_simple_factory(prefix:str, # The factory prefix
+                            src_enums:List[Enum] # The source enums
+                           ) -> SimpleFactory: # The resulting simple factory
+    "Create a SimpleFactory using a string prefix and the values from a list of enums"
 ```
 
 #### Classes

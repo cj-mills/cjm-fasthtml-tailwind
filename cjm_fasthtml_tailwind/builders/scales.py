@@ -6,9 +6,10 @@
 __all__ = ['NUMERIC_SCALE', 'DECIMAL_SCALE', 'SPACING_SCALE', 'FRACTION_DENOMINATORS', 'FRACTIONS', 'SPACING_CONFIG',
            'SIZE_CONFIG', 'INSET_CONFIG', 'generate_fractions', 'ScaleConfig', 'ScaledUtility', 'ScaledFactory',
            'NegativeFactory', 'DirectionalScaledUtility', 'DirectionalScaledFactory', 'list_scale_values',
-           'SimpleFactory']
+           'SimpleFactory', 'enums_to_simple_factory']
 
 # %% ../../nbs/builders/scales.ipynb 3
+from enum import Enum
 from typing import Dict, List, Union, Optional, Tuple, Callable, Any
 from dataclasses import dataclass
 from cjm_fasthtml_tailwind.core.base import (
@@ -763,3 +764,15 @@ class SimpleFactory(BaseFactory):
                 'supports_modifiers': True
             }
         }
+
+# %% ../../nbs/builders/scales.ipynb 47
+def enums_to_simple_factory(prefix:str, # The factory prefix
+                            src_enums:List[Enum] # The source enums
+                           ) -> SimpleFactory: # The resulting simple factory
+    """Create a SimpleFactory using a string prefix and the values from a list of enums"""
+    values_dict = {
+        member.value: f"{prefix}-{member.value}" 
+        for src_enum in src_enums 
+        for member in src_enum 
+    }
+    return SimpleFactory(values_dict)
