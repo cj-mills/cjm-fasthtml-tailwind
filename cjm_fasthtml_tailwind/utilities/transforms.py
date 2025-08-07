@@ -190,7 +190,7 @@ test_transforms_perspective_origin_examples()
 
 # %% ../../nbs/utilities/transforms.ipynb 14
 # Rotate angle values
-ROTATE_ANGLES = [0, 1, 2, 3, 6, 12, 45, 90, 180] # Common rotation angles in degrees
+ROTATE_ANGLES = list(range(360)) # Common rotation angles in degrees
 
 # Configuration for rotate utilities
 ROTATE_CONFIG = ScaleConfig(
