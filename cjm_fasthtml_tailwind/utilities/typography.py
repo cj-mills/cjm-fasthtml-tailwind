@@ -602,9 +602,6 @@ class TextFactory(ColoredFactory):
         name: str  # Attribute name (color or size)
     ) -> Any:  # Utility instance or color proxy
         """Handle attribute access for both sizes and colors."""
-        # First check if it's a size attribute we've defined
-        if hasattr(self, f"_{name}"):
-            return getattr(self, f"_{name}")
         
         # Otherwise, use parent's color handling
         return super().__getattr__(name)
