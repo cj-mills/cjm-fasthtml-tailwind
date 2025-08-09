@@ -600,7 +600,7 @@ def test_interactivity_form_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Custom styled checkbox with accent color
     checkbox = Input(
@@ -669,7 +669,7 @@ def test_interactivity_form_fasthtml_examples():
         text_input,
         textarea,
         button,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -680,7 +680,7 @@ def test_interactivity_scroll_snap_fasthtml_examples():
     """Test scroll snap utilities in carousel/gallery components."""
     from fasthtml.common import Div, Img
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, overflow
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, shrink
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, shrink, grid_display, flex_display
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     
     # Horizontal scroll snap container
@@ -690,7 +690,7 @@ def test_interactivity_scroll_snap_fasthtml_examples():
             snap.mandatory,
             scroll.smooth,
             scroll_p.x(4),
-            display_tw.flex,
+            flex_display,
             overflow.x.auto,
             gap(4)
         )
@@ -732,7 +732,7 @@ def test_interactivity_scroll_snap_fasthtml_examples():
         carousel_container,
         snap_item,
         vertical_snap,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -748,7 +748,7 @@ def test_interactivity_touch_mobile_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Touch-enabled image viewer
     image_viewer = Div(
@@ -813,7 +813,7 @@ def test_interactivity_touch_mobile_fasthtml_examples():
         draggable,
         code_block,
         swipe_area,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

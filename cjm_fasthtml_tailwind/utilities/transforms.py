@@ -945,7 +945,7 @@ def test_transforms_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.layout import position, top, left, display_tw
     from cjm_fasthtml_tailwind.utilities.sizing import h, w
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Hover effect with scale and rotate
     hover_button = Button(
@@ -1034,7 +1034,7 @@ def test_transforms_fasthtml_examples():
         skewed_divider,
         parallax_element,
         cube,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the test

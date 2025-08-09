@@ -708,8 +708,8 @@ def test_backgrounds_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
-    from cjm_fasthtml_tailwind.utilities.layout import position, display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.layout import position
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Card with colored background
     card = Div(
@@ -758,7 +758,7 @@ def test_backgrounds_fasthtml_examples():
         card,
         hero,
         gradient_text,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

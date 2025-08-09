@@ -1670,7 +1670,7 @@ def test_effects_shadow_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Card with basic shadow
@@ -1782,7 +1782,7 @@ def test_effects_shadow_fasthtml_examples():
         input_field,
         focus_button,
         ring_card,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -1793,7 +1793,7 @@ def test_effects_shadow_composition_fasthtml_examples():
     """Test composing shadow size and color utilities."""
     from fasthtml.common import Div
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Small shadow with custom color
     example1 = Div(
@@ -1848,7 +1848,7 @@ def test_effects_shadow_composition_fasthtml_examples():
         example2,
         example3,
         example4,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -1863,7 +1863,7 @@ def test_effects_comprehensive_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Form input with inset shadow
     form_input = Input(
@@ -1941,7 +1941,7 @@ def test_effects_comprehensive_fasthtml_examples():
         inset_ring_card,
         layered_card,
         no_effects,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -1957,7 +1957,7 @@ def test_effects_mask_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.layout import position, overflow, display_tw
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.borders import rounded
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Fade out effect with linear gradient mask
     fade_out_div = Div(
@@ -2075,7 +2075,7 @@ def test_effects_mask_fasthtml_examples():
         svg_masked,
         pie_mask,
         complex_mask,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

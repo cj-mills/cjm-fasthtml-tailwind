@@ -232,7 +232,7 @@ def test_spacing_fasthtml_examples(
     from fasthtml.common import Div, P, Button, H2
     from cjm_fasthtml_tailwind.utilities.sizing import max_w
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Card component with padding
     card = Div(
@@ -269,7 +269,7 @@ def test_spacing_fasthtml_examples(
         card,
         overlap_layout,
         centered_container,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

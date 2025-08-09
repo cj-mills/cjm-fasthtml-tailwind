@@ -564,7 +564,7 @@ def test_transitions_and_animation_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.effects import opacity
     from cjm_fasthtml_tailwind.utilities.transforms import transform
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Button with hover transition
     button = Button(
@@ -636,7 +636,7 @@ def test_transitions_and_animation_fasthtml_examples():
         scale_div,
         delayed_link,
         multi_transition,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -651,8 +651,8 @@ def test_transitions_and_animation_animation_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.layout import position, top, right, display_tw
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
-    
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
+    grid_display
     # Loading spinner
     spinner = Div(
         cls=combine_classes(
@@ -716,7 +716,7 @@ def test_transitions_and_animation_animation_fasthtml_examples():
         arrow,
         custom_animated,
         var_animated,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -730,7 +730,7 @@ def test_transitions_and_animation_composition_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, translate, transform
     from cjm_fasthtml_tailwind.utilities.effects import shadow, opacity
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Complete transition setup
     interactive_element = Button(
@@ -784,7 +784,7 @@ def test_transitions_and_animation_composition_fasthtml_examples():
         interactive_element,
         multi_property,
         animated_transitional,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -835,7 +835,7 @@ def test_transitions_and_animation_factory_documentation():
 # Run the tests
 test_transitions_and_animation_factory_documentation()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 35
 def smooth_transition(
     properties: str = "all",  # Which properties to transition (default: all)
     duration_ms: int = 300,  # Duration in milliseconds
@@ -871,7 +871,7 @@ def smooth_transition(
         ease_func
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 37
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
 def hover_effect(
     duration_ms: int = 200  # Duration in milliseconds
 ) -> str:  # Combined CSS classes for hover effects
@@ -882,7 +882,7 @@ def hover_effect(
         ease.in_out
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 38
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 37
 def fade_in(
     duration_ms: int = 500,  # Duration in milliseconds
     delay_ms: Optional[int] = None  # Optional delay in milliseconds
@@ -899,7 +899,7 @@ def fade_in(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 39
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 38
 def loading_spinner(
 ) -> str:  # Combined CSS classes for a loading spinner
     """Create a loading spinner animation."""
@@ -909,7 +909,7 @@ def loading_spinner(
         animate.spin
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 40
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 39
 def skeleton_loader(
 ) -> str:  # Combined CSS classes for a skeleton loader
     """Create a skeleton loader animation for content placeholders."""
@@ -919,7 +919,7 @@ def skeleton_loader(
         animate.pulse
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 41
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 40
 def test_transitions_and_animation_helper_examples():
     """Test helper functions for common transition patterns."""
     # Test smooth_transition

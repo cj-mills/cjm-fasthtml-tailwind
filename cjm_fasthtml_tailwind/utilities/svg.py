@@ -284,7 +284,7 @@ def test_svg_fasthtml_examples():
     from fasthtml.svg import Svg, Circle, Rect, G, Path
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Icon with fill color
     icon = Svg(
@@ -353,7 +353,7 @@ def test_svg_fasthtml_examples():
         icon,
         circle_svg,
         complex_svg,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -365,7 +365,7 @@ def test_svg_icon_fasthtml_examples():
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Path
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify, gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify, gap, grid_display, flex_display
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Helper function to create an icon
@@ -409,7 +409,7 @@ def test_svg_icon_fasthtml_examples():
             viewBox="0 0 24 24",
             cls=combine_classes(w(5), h(5))
         ),
-        cls=combine_classes(display_tw.inline_flex, items.center, justify.center)
+        cls=combine_classes(flex_display.inline, items.center, justify.center)
     )
     path_attrs = check_icon.children[0].children[0].attrs['class']
     assert "fill-none" in path_attrs
@@ -420,7 +420,7 @@ def test_svg_icon_fasthtml_examples():
     return Div(
         home_icon,
         check_icon,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
@@ -433,7 +433,7 @@ def test_svg_progress_ring_fasthtml_examples():
     from fasthtml.svg import Svg, Circle
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, position
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display, flex_display
     
     # Progress ring component
     def ProgressRing(percentage: int, size: int = 120):
@@ -470,7 +470,7 @@ def test_svg_progress_ring_fasthtml_examples():
                 viewBox=f"0 0 {size} {size}",
                 cls=combine_classes(w(32), h(32))
             ),
-            cls=combine_classes(position.relative, display_tw.inline_flex)
+            cls=combine_classes(position.relative, flex_display.inline)
         )
     
     # Test 75% progress
@@ -499,7 +499,7 @@ def test_svg_progress_ring_fasthtml_examples():
         progress_50,
         progress_75,
         progress_100,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

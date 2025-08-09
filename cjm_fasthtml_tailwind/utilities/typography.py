@@ -897,7 +897,7 @@ def test_typography_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Heading with multiple typography utilities
     heading = H1(
@@ -1024,7 +1024,7 @@ def test_typography_fasthtml_examples():
         custom_list,
         transformed,
         quote,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

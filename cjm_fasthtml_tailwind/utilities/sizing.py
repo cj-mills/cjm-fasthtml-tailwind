@@ -318,7 +318,7 @@ def test_sizing_fasthtml_examples(
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, position, object_fit
     from cjm_fasthtml_tailwind.utilities.spacing import m, p
     from cjm_fasthtml_tailwind.utilities.borders import rounded
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, flex_display, grid_display
     
     # Card with constrained width
     card = Div(
@@ -346,7 +346,7 @@ def test_sizing_fasthtml_examples(
     layout = Div(
         Aside("Sidebar", cls=combine_classes(w(64), min_w(48), h.full)),
         Main("Main content", cls=combine_classes(w.full, min_h.screen)),
-        cls=str(display_tw.flex)
+        cls=str(flex_display)
     )
     assert layout.children[0].attrs['class'] == "w-64 min-w-48 h-full"
     assert layout.children[1].attrs['class'] == "w-full min-h-screen"
@@ -382,7 +382,7 @@ def test_sizing_fasthtml_examples(
         article,
         avatar,
         page_container,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

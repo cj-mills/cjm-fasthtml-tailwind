@@ -508,7 +508,7 @@ def test_filters_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.layout import position, inset, display_tw
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Image with hover blur effect
     image_hover = Img(
@@ -602,7 +602,7 @@ def test_filters_fasthtml_examples():
         frosted_glass,
         artistic_img,
         dark_overlay,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests

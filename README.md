@@ -89,92 +89,92 @@ graph LR
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_utils
-    cli_explorer --> cli_helper_discovery
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_test_code
     cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_search
+    cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_search
     cli_explorer --> cli_imports
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_helper_discovery
     cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_utils
     cli_imports --> cli_factory_extraction
+    cli_imports --> cli_utils
+    cli_imports --> cli_helper_discovery
     cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
+    cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
-    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_utils
+    cli_test_code --> cli_helper_discovery
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_effects
-    core_testing --> utilities_layout
-    core_testing --> core_base
     core_testing --> utilities_sizing
-    core_testing --> utilities_spacing
-    core_testing --> utilities_borders
-    core_testing --> core_resources
-    core_testing --> utilities_typography
     core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_typography
+    core_testing --> utilities_spacing
+    core_testing --> utilities_layout
+    core_testing --> utilities_accessibility
+    core_testing --> utilities_effects
+    core_testing --> core_resources
     core_testing --> utilities_backgrounds
-    utilities_accessibility --> utilities_layout
+    core_testing --> utilities_borders
+    core_testing --> core_base
     utilities_accessibility --> core_testing
     utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
-    utilities_backgrounds --> core_base
-    utilities_backgrounds --> core_testing
-    utilities_backgrounds --> builders_scales
     utilities_backgrounds --> builders_colors
-    utilities_borders --> core_base
-    utilities_borders --> core_testing
+    utilities_backgrounds --> core_base
+    utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> core_testing
     utilities_borders --> builders_scales
     utilities_borders --> builders_colors
-    utilities_effects --> core_base
-    utilities_effects --> core_testing
+    utilities_borders --> core_base
+    utilities_borders --> core_testing
     utilities_effects --> builders_scales
     utilities_effects --> builders_colors
+    utilities_effects --> core_base
+    utilities_effects --> core_testing
+    utilities_filters --> builders_scales
     utilities_filters --> builders_colors
     utilities_filters --> core_base
     utilities_filters --> core_testing
-    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_testing
-    utilities_interactivity --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> core_base
     utilities_interactivity --> core_testing
     utilities_interactivity --> builders_colors
     utilities_layout --> core_base
-    utilities_layout --> core_testing
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
+    utilities_layout --> core_testing
     utilities_sizing --> core_testing
+    utilities_sizing --> builders_scales
     utilities_sizing --> core_base
     utilities_spacing --> builders_scales
-    utilities_spacing --> core_testing
     utilities_spacing --> core_base
+    utilities_spacing --> core_testing
+    utilities_svg --> builders_scales
+    utilities_svg --> builders_colors
     utilities_svg --> core_base
     utilities_svg --> core_testing
-    utilities_svg --> builders_colors
-    utilities_svg --> builders_scales
     utilities_tables --> builders_scales
-    utilities_tables --> core_testing
     utilities_tables --> core_base
+    utilities_tables --> core_testing
     utilities_transforms --> core_base
     utilities_transforms --> builders_scales
     utilities_transforms --> core_testing
+    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> core_testing
-    utilities_transitions_and_animation --> builders_scales
     utilities_typography --> builders_scales
-    utilities_typography --> core_testing
-    utilities_typography --> core_base
     utilities_typography --> builders_colors
+    utilities_typography --> core_base
+    utilities_typography --> core_testing
 ```
 
 *91 cross-module dependencies detected*
@@ -285,6 +285,8 @@ Detailed documentation for each module in the project:
 from cjm_fasthtml_tailwind.utilities.accessibility import (
     FORCED_COLOR_ADJUST_VALUES,
     forced_color_adjust,
+    sr_only,
+    not_sr_only,
     test_accessibility_forced_color_adjust_examples,
     test_accessibility_screen_reader_examples,
     test_accessibility_fasthtml_examples,
@@ -2829,6 +2831,8 @@ backdrop_filter_none  # Remove backdrop filters
 
 ``` python
 from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
+    flex_display,
+    grid_display,
     FLEX_BASIS_CONFIG,
     basis,
     FLEX_DIRECTION_VALUES,
@@ -2884,6 +2888,9 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
     place_items,
     PLACE_SELF_VALUES,
     place_self,
+    FlexDisplayFactory,
+    GridDisplayFactory,
+    test_flexbox_and_grid_display_examples,
     test_flexbox_and_grid_basis_examples,
     test_flexbox_and_grid_direction_examples,
     test_flexbox_and_grid_wrap_examples,
@@ -2920,6 +2927,12 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
 ```
 
 #### Functions
+
+``` python
+def test_flexbox_and_grid_display_examples(
+): # TODO: Add type hint
+    "Test flex and grid display utilities."
+```
 
 ``` python
 def test_flexbox_and_grid_basis_examples(
@@ -3076,6 +3089,72 @@ def test_flexbox_and_grid_factory_documentation(
 ```
 
 #### Classes
+
+``` python
+class FlexDisplayFactory:
+    def __init__(self):
+        "Initialize with flex display value."
+        super().__init__("flex", "Display utility for creating a flex container")
+    
+    @property
+    def inline(
+        self
+    ) -> str:  # The 'inline-flex' CSS class
+    "Factory for flex display utilities."
+    
+    def __init__(self):
+            "Initialize with flex display value."
+            super().__init__("flex", "Display utility for creating a flex container")
+        
+        @property
+        def inline(
+            self
+        ) -> str:  # The 'inline-flex' CSS class
+        "Initialize with flex display value."
+    
+    def inline(
+            self
+        ) -> str:  # The 'inline-flex' CSS class
+        "Return the inline-flex utility class."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this flex display factory."
+```
+
+``` python
+class GridDisplayFactory:
+    def __init__(self):
+        "Initialize with grid display value."
+        super().__init__("grid", "Display utility for creating a grid container")
+    
+    @property
+    def inline(
+        self
+    ) -> str:  # The 'inline-grid' CSS class
+    "Factory for grid display utilities."
+    
+    def __init__(self):
+            "Initialize with grid display value."
+            super().__init__("grid", "Display utility for creating a grid container")
+        
+        @property
+        def inline(
+            self
+        ) -> str:  # The 'inline-grid' CSS class
+        "Initialize with grid display value."
+    
+    def inline(
+            self
+        ) -> str:  # The 'inline-grid' CSS class
+        "Return the inline-grid utility class."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this grid display factory."
+```
 
 ``` python
 class GrowFactory:
@@ -3296,6 +3375,8 @@ class GapFactory:
 #### Variables
 
 ``` python
+flex_display  # The flex display factory
+grid_display  # The grid display factory
 FLEX_BASIS_CONFIG  # Create configuration for flex basis - similar to width/height but with container scales
 basis  # The flex basis factory
 FLEX_DIRECTION_VALUES = {4 items}  # Flex direction utilities
@@ -3613,8 +3694,6 @@ scroll_pe  # scroll-padding-inline-end
 from cjm_fasthtml_tailwind.utilities.layout import (
     DISPLAY_VALUES,
     display_tw,
-    sr_only,
-    not_sr_only,
     POSITION_VALUES,
     position,
     inset,
@@ -3935,8 +4014,8 @@ class OverscrollFactory:
 #### Variables
 
 ``` python
-DISPLAY_VALUES = {22 items}  # Display utilities
-display_tw  # The display factory
+DISPLAY_VALUES = {8 items}  # Display utilities for general display types (not flex/grid/table)
+display_tw  # The display factory for general display types
 POSITION_VALUES = {5 items}  # Position utilities
 position  # The position factory
 inset  # The inset factory for positioning
@@ -5034,7 +5113,7 @@ def test_svg_icon_fasthtml_examples():
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Path
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify, gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify, gap, grid_display, flex_display
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Helper function to create an icon
@@ -5049,7 +5128,7 @@ def test_svg_progress_ring_fasthtml_examples():
     from fasthtml.svg import Svg, Circle
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, position
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display, flex_display
     
     # Progress ring component
     def ProgressRing(percentage: int, size: int = 120)
@@ -5137,10 +5216,13 @@ stroke_width  # The stroke width factory
 
 ``` python
 from cjm_fasthtml_tailwind.utilities.tables import (
+    table_display,
     border_collapse,
     border_spacing,
     table_layout,
     caption_side,
+    TableDisplayFactory,
+    test_tables_display_examples,
     test_tables_border_collapse_examples,
     BorderSpacingFactory,
     test_tables_border_spacing_basic_examples,
@@ -5156,6 +5238,11 @@ from cjm_fasthtml_tailwind.utilities.tables import (
 ```
 
 #### Functions
+
+``` python
+def test_tables_display_examples()
+    "Test table display utilities."
+```
 
 ``` python
 def test_tables_border_collapse_examples()
@@ -5210,6 +5297,79 @@ def test_tables_factory_documentation()
 #### Classes
 
 ``` python
+class TableDisplayFactory:
+    def __init__(self):
+        "Initialize with table display value."
+        super().__init__("table", "Display utility for creating a table element")
+    
+    @property
+    def inline(
+        self
+    ) -> str:  # The 'inline-table' CSS class
+    "Factory for table display utilities."
+    
+    def __init__(self):
+            "Initialize with table display value."
+            super().__init__("table", "Display utility for creating a table element")
+        
+        @property
+        def inline(
+            self
+        ) -> str:  # The 'inline-table' CSS class
+        "Initialize with table display value."
+    
+    def inline(
+            self
+        ) -> str:  # The 'inline-table' CSS class
+        "Return the inline-table utility class."
+    
+    def caption(
+            self
+        ) -> str:  # The 'table-caption' CSS class
+        "Return the table-caption utility class."
+    
+    def cell(
+            self
+        ) -> str:  # The 'table-cell' CSS class
+        "Return the table-cell utility class."
+    
+    def column(
+            self
+        ) -> str:  # The 'table-column' CSS class
+        "Return the table-column utility class."
+    
+    def column_group(
+            self
+        ) -> str:  # The 'table-column-group' CSS class
+        "Return the table-column-group utility class."
+    
+    def footer_group(
+            self
+        ) -> str:  # The 'table-footer-group' CSS class
+        "Return the table-footer-group utility class."
+    
+    def header_group(
+            self
+        ) -> str:  # The 'table-header-group' CSS class
+        "Return the table-header-group utility class."
+    
+    def row_group(
+            self
+        ) -> str:  # The 'table-row-group' CSS class
+        "Return the table-row-group utility class."
+    
+    def row(
+            self
+        ) -> str:  # The 'table-row' CSS class
+        "Return the table-row utility class."
+    
+    def get_info(
+            self
+        ) -> Dict[str, Any]:  # Dictionary with factory information
+        "Get information about this table display factory."
+```
+
+``` python
 class BorderSpacingFactory:
     def __init__(self):
         """Initialize with scaled factories for directional variants."""
@@ -5248,6 +5408,7 @@ class BorderSpacingFactory:
 #### Variables
 
 ``` python
+table_display  # The table display factory
 border_spacing  # The border spacing factory
 ```
 

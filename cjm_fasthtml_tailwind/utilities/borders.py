@@ -997,7 +997,7 @@ def test_borders_fasthtml_examples():
     from fasthtml.common import Div, Button, Card, Ul, Li, H3, P, Input, Link
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, overflow
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, flex_display, grid_display
     from cjm_fasthtml_tailwind.core.base import combine_classes
     
     # Card with rounded corners and colored border
@@ -1069,7 +1069,7 @@ def test_borders_fasthtml_examples():
         Button("Center"),
         Button("Right"),
         cls=combine_classes(
-            display_tw.flex,
+            flex_display,
             divide.x(),
             divide_color.gray._400,
             border(),
@@ -1241,7 +1241,7 @@ def test_borders_fasthtml_examples():
         custom_link,
         double_border_box,
         accessible_container,
-        cls=combine_classes(display_tw.grid, gap(5))
+        cls=combine_classes(grid_display, gap(5))
     )
 
 # Run the tests
