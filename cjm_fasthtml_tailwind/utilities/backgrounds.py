@@ -10,7 +10,7 @@ __all__ = ['bg_attachment', 'bg_clip', 'bg', 'bg_none', 'bg_linear', 'bg_radial'
            'test_backgrounds_gradient_examples', 'test_backgrounds_gradient_stops_examples',
            'test_backgrounds_gradient_composition_examples', 'test_backgrounds_origin_examples',
            'test_backgrounds_position_examples', 'test_backgrounds_repeat_examples', 'test_backgrounds_size_examples',
-           'test_backgrounds_arbitrary_examples', 'test_backgrounds_practical_examples',
+           'test_backgrounds_arbitrary_examples', 'test_backgrounds_fasthtml_examples',
            'test_backgrounds_factory_documentation']
 
 # %% ../../nbs/utilities/backgrounds.ipynb 3
@@ -21,6 +21,11 @@ from cjm_fasthtml_tailwind.core.base import (
 )
 from ..builders.colors import ColoredFactory, ColorValue, ColoredUtility
 from ..builders.scales import SimpleFactory, NUMERIC_SCALE
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/backgrounds.ipynb 5
 bg_attachment = SimpleFactory(
@@ -697,13 +702,14 @@ def test_backgrounds_arbitrary_examples():
 test_backgrounds_arbitrary_examples()
 
 # %% ../../nbs/utilities/backgrounds.ipynb 50
-def test_backgrounds_practical_examples():
+def test_backgrounds_fasthtml_examples():
     """Test background utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, H1, P, Section
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.typography import text
-    from cjm_fasthtml_tailwind.utilities.layout import position
+    from cjm_fasthtml_tailwind.utilities.layout import position, display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Card with colored background
     card = Div(
@@ -738,18 +744,27 @@ def test_backgrounds_practical_examples():
             text.transparent,
             bg_linear.to_r,
             from_color.blue._500,
-            to_color.purple._600
+            to_color.purple._600,
+            text._7xl
         )
     )
     assert "bg-clip-text" in gradient_text.attrs['class']
     assert "bg-linear-to-r" in gradient_text.attrs['class']
     assert "from-blue-500" in gradient_text.attrs['class']
     assert "to-purple-600" in gradient_text.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        card,
+        hero,
+        gradient_text,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_backgrounds_practical_examples()
+test_backgrounds_fasthtml_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 52
+# %% ../../nbs/utilities/backgrounds.ipynb 53
 def test_backgrounds_factory_documentation():
     """Test that background factories have accessible documentation."""
     # Test color factory

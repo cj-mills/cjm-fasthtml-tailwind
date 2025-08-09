@@ -12,9 +12,9 @@ __all__ = ['accent', 'appearance', 'caret', 'scheme', 'cursor', 'field_sizing', 
            'test_interactivity_scroll_behavior_examples', 'test_interactivity_scroll_margin_examples',
            'test_interactivity_scroll_padding_examples', 'test_interactivity_scroll_snap_examples',
            'test_interactivity_touch_action_examples', 'test_interactivity_user_select_examples', 'WillChangeFactory',
-           'test_interactivity_will_change_examples', 'test_interactivity_form_practical_examples',
-           'test_interactivity_scroll_snap_practical_examples', 'test_interactivity_touch_mobile_practical_examples',
-           'test_interactivity_factory_documentation', 'test_interactivity_advanced_practical_examples']
+           'test_interactivity_will_change_examples', 'test_interactivity_form_fasthtml_examples',
+           'test_interactivity_scroll_snap_fasthtml_examples', 'test_interactivity_touch_mobile_fasthtml_examples',
+           'test_interactivity_factory_documentation', 'test_interactivity_advanced_fasthtml_examples']
 
 # %% ../../nbs/utilities/interactivity.ipynb 3
 from typing import Optional, Union, Dict, Any
@@ -26,6 +26,11 @@ from ..builders.colors import ColoredFactory
 from cjm_fasthtml_tailwind.builders.scales import (
     SimpleFactory, DirectionalScaledFactory, ScaledFactory, SPACING_CONFIG
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/interactivity.ipynb 5
 accent = ColoredFactory("accent", "Accent color utilities for form controls like checkboxes, radio buttons, and range sliders") # The accent color factory
@@ -586,7 +591,7 @@ def test_interactivity_will_change_examples():
 test_interactivity_will_change_examples()
 
 # %% ../../nbs/utilities/interactivity.ipynb 58
-def test_interactivity_form_practical_examples():
+def test_interactivity_form_fasthtml_examples():
     """Test interactivity utilities in form components."""
     from fasthtml.common import Input, Textarea, Button, Div, Label
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
@@ -594,6 +599,8 @@ def test_interactivity_form_practical_examples():
     from cjm_fasthtml_tailwind.utilities.borders import border, rounded
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Custom styled checkbox with accent color
     checkbox = Input(
@@ -655,12 +662,21 @@ def test_interactivity_form_practical_examples():
     )
     assert "cursor-pointer" in button.attrs['class']
     assert "select-none" in button.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        checkbox,
+        text_input,
+        textarea,
+        button,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_interactivity_form_practical_examples()
+test_interactivity_form_fasthtml_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 59
-def test_interactivity_scroll_snap_practical_examples():
+# %% ../../nbs/utilities/interactivity.ipynb 60
+def test_interactivity_scroll_snap_fasthtml_examples():
     """Test scroll snap utilities in carousel/gallery components."""
     from fasthtml.common import Div, Img
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, overflow
@@ -686,7 +702,7 @@ def test_interactivity_scroll_snap_practical_examples():
     
     # Snap items within the container
     snap_item = Div(
-        Img(src="image.jpg", alt="Gallery image"),
+        Img(src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp", alt="Gallery image"),
         cls=combine_classes(
             snap_align.center,
             snap_stop.always,
@@ -710,12 +726,20 @@ def test_interactivity_scroll_snap_practical_examples():
     assert "snap-y" in vertical_snap.attrs['class']
     assert "snap-proximity" in vertical_snap.attrs['class']
     assert "scroll-my-2" in vertical_snap.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        carousel_container,
+        snap_item,
+        vertical_snap,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_interactivity_scroll_snap_practical_examples()
+test_interactivity_scroll_snap_fasthtml_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 60
-def test_interactivity_touch_mobile_practical_examples():
+# %% ../../nbs/utilities/interactivity.ipynb 62
+def test_interactivity_touch_mobile_fasthtml_examples():
     """Test touch and mobile interaction utilities."""
     from fasthtml.common import Div, Img, Code
     from cjm_fasthtml_tailwind.utilities.layout import position, overflow, display_tw
@@ -724,10 +748,11 @@ def test_interactivity_touch_mobile_practical_examples():
     from cjm_fasthtml_tailwind.utilities.typography import text
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Touch-enabled image viewer
     image_viewer = Div(
-        Img(src="photo.jpg", alt="Photo"),
+        Img(src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp", alt="Photo"),
         cls=combine_classes(
             touch.pinch_zoom,
             cursor.zoom_in,
@@ -781,11 +806,20 @@ def test_interactivity_touch_mobile_practical_examples():
     )
     assert "touch-pan-x" in swipe_area.attrs['class']
     assert "will-change-transform" in swipe_area.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        image_viewer,
+        draggable,
+        code_block,
+        swipe_area,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_interactivity_touch_mobile_practical_examples()
+test_interactivity_touch_mobile_fasthtml_examples()
 
-# %% ../../nbs/utilities/interactivity.ipynb 62
+# %% ../../nbs/utilities/interactivity.ipynb 65
 def test_interactivity_factory_documentation():
     """Test that interactivity factories have accessible documentation."""
     # Test color factories
@@ -831,8 +865,8 @@ def test_interactivity_factory_documentation():
 # Run the tests
 test_interactivity_factory_documentation()
 
-# %% ../../nbs/utilities/interactivity.ipynb 64
-def test_interactivity_advanced_practical_examples():
+# %% ../../nbs/utilities/interactivity.ipynb 67
+def test_interactivity_advanced_fasthtml_examples():
     """Test advanced combinations of interactivity utilities."""
     from fasthtml.common import Div, Input, Form, Pre
     from cjm_fasthtml_tailwind.utilities.spacing import p, m
@@ -924,4 +958,4 @@ def test_interactivity_advanced_practical_examples():
     assert "touch-manipulation" in animated_card.attrs['class']
 
 # Run the tests
-test_interactivity_advanced_practical_examples()
+test_interactivity_advanced_fasthtml_examples()

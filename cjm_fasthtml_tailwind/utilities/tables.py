@@ -7,7 +7,8 @@ __all__ = ['border_collapse', 'border_spacing', 'table_layout', 'caption_side', 
            'BorderSpacingFactory', 'test_tables_border_spacing_basic_examples',
            'test_tables_border_spacing_directional_examples', 'test_tables_border_spacing_arbitrary_examples',
            'test_tables_layout_examples', 'test_tables_caption_side_examples', 'test_tables_all_utilities',
-           'test_tables_practical_examples', 'test_tables_complex_example', 'test_tables_factory_documentation']
+           'test_tables_fasthtml_examples', 'test_tables_complex_fasthtml_examples',
+           'test_tables_factory_documentation']
 
 # %% ../../nbs/utilities/tables.ipynb 3
 from typing import Optional, Dict, Any, Union
@@ -18,6 +19,11 @@ from cjm_fasthtml_tailwind.core.base import (
 from cjm_fasthtml_tailwind.builders.scales import (
     SimpleFactory, DirectionalScaledFactory, ScaledFactory, SPACING_CONFIG
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/tables.ipynb 5
 border_collapse = SimpleFactory(
@@ -201,10 +207,12 @@ def test_tables_all_utilities():
 test_tables_all_utilities()
 
 # %% ../../nbs/utilities/tables.ipynb 24
-def test_tables_practical_examples():
+def test_tables_fasthtml_examples():
     """Test table utilities in practical FastHTML component examples."""
-    from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption
+    from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption, Div
     from cjm_fasthtml_tailwind.utilities.sizing import w, min_w
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Basic table with collapsed borders
     basic_table = Table(
@@ -311,12 +319,22 @@ def test_tables_practical_examples():
     assert "table-auto" in auto_table.attrs['class']
     assert "caption-bottom" in auto_table.children[0].attrs['class']
     assert "border-spacing-px" in auto_table.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        basic_table,
+        spaced_table,
+        custom_spaced_table,
+        fixed_table,
+        auto_table,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_tables_practical_examples()
+test_tables_fasthtml_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 27
-def test_tables_complex_example():
+# %% ../../nbs/utilities/tables.ipynb 28
+def test_tables_complex_fasthtml_examples():
     """Test a complex table example with various styling."""
     from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption, Div
     from cjm_fasthtml_tailwind.utilities.sizing import w
@@ -324,8 +342,9 @@ def test_tables_complex_example():
     from cjm_fasthtml_tailwind.utilities.borders import border, border_color, rounded
     from cjm_fasthtml_tailwind.utilities.typography import text, text_align, font
     from cjm_fasthtml_tailwind.utilities.spacing import p, m
-    from cjm_fasthtml_tailwind.utilities.layout import overflow
+    from cjm_fasthtml_tailwind.utilities.layout import overflow, display_tw
     from cjm_fasthtml_tailwind.utilities.effects import shadow
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Create a styled data table
     data_table = Div(
@@ -420,11 +439,18 @@ def test_tables_complex_example():
     assert "border-spacing-x-1" in compact_table.attrs['class']
     assert "border-spacing-y-0.5" in compact_table.attrs['class']
     assert "table-auto" in compact_table.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        data_table,
+        compact_table,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the test
-test_tables_complex_example()
+test_tables_complex_fasthtml_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 29
+# %% ../../nbs/utilities/tables.ipynb 31
 def test_tables_factory_documentation():
     """Test that table factories have accessible documentation."""
     # Test border collapse factory

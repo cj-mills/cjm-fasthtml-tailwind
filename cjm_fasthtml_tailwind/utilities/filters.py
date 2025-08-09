@@ -11,7 +11,7 @@ __all__ = ['filter_none', 'BLUR_SCALES', 'blur', 'BRIGHTNESS_VALUES', 'brightnes
            'test_filters_blur_examples', 'test_filters_brightness_examples', 'test_filters_contrast_examples',
            'DropShadowScale', 'test_filters_drop_shadow_examples', 'test_filters_grayscale_examples',
            'test_filters_hue_rotate_examples', 'test_filters_invert_examples', 'test_filters_saturate_examples',
-           'test_filters_sepia_examples', 'test_filters_backdrop_examples', 'test_filters_practical_examples',
+           'test_filters_sepia_examples', 'test_filters_backdrop_examples', 'test_filters_fasthtml_examples',
            'test_filters_factory_documentation']
 
 # %% ../../nbs/utilities/filters.ipynb 3
@@ -28,6 +28,11 @@ from cjm_fasthtml_tailwind.builders.colors import (
     ColoredFactory, ColorValue, ColoredUtility, get_all_color_families,
     get_all_shades, ColorFamily, ColorShade, SPECIAL_COLORS
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/filters.ipynb 5
 filter_none = SingleValueFactory("filter-none", "Remove all filters from an element") # Remove filters
@@ -494,7 +499,7 @@ def test_filters_backdrop_examples():
 test_filters_backdrop_examples()
 
 # %% ../../nbs/utilities/filters.ipynb 45
-def test_filters_practical_examples():
+def test_filters_fasthtml_examples():
     """Test filter utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, P, H1, Section
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration
@@ -502,11 +507,12 @@ def test_filters_practical_examples():
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.borders import rounded
-    from cjm_fasthtml_tailwind.utilities.layout import position, inset
+    from cjm_fasthtml_tailwind.utilities.layout import position, inset, display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Image with hover blur effect
     image_hover = Img(
-        src="/image.jpg",
+        src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp",
         alt="Hoverable image",
         cls=combine_classes(
             transition.all,
@@ -518,7 +524,7 @@ def test_filters_practical_examples():
     
     # Grayscale image that becomes colored on hover
     grayscale_img = Img(
-        src="/photo.jpg",
+        src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp",
         alt="Grayscale photo",
         cls=combine_classes(
             grayscale.full,
@@ -561,7 +567,7 @@ def test_filters_practical_examples():
     
     # Image with multiple filters
     artistic_img = Img(
-        src="/art.jpg",
+        src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp",
         alt="Artistic image",
         cls=combine_classes(
             brightness(110),
@@ -587,11 +593,22 @@ def test_filters_practical_examples():
     )
     assert "invert" in dark_overlay.attrs['class']
     assert "hue-rotate-180" in dark_overlay.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        image_hover,
+        grayscale_img,
+        card_shadow,
+        frosted_glass,
+        artistic_img,
+        dark_overlay,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_filters_practical_examples()
+test_filters_fasthtml_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 47
+# %% ../../nbs/utilities/filters.ipynb 48
 def test_filters_factory_documentation():
     """Test that filter factories have accessible documentation."""
     # Test filter control

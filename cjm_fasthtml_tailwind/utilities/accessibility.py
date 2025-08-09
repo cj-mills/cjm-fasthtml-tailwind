@@ -4,7 +4,7 @@
 
 # %% auto 0
 __all__ = ['FORCED_COLOR_ADJUST_VALUES', 'forced_color_adjust', 'test_accessibility_forced_color_adjust_examples',
-           'test_accessibility_screen_reader_examples', 'test_accessibility_practical_examples',
+           'test_accessibility_screen_reader_examples', 'test_accessibility_fasthtml_examples',
            'test_accessibility_factory_documentation', 'visually_hidden', 'high_contrast_safe',
            'test_accessibility_helper_examples']
 
@@ -14,6 +14,11 @@ from cjm_fasthtml_tailwind.core.base import (
     SingleValueFactory, combine_classes
 )
 from ..builders.scales import SimpleFactory
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/accessibility.ipynb 5
 # Forced color adjust utilities
@@ -55,7 +60,7 @@ def test_accessibility_screen_reader_examples(
 test_accessibility_screen_reader_examples()
 
 # %% ../../nbs/utilities/accessibility.ipynb 11
-def test_accessibility_practical_examples(
+def test_accessibility_fasthtml_examples(
 ):
     """Test accessibility utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Span, Input, Label, Nav, A
@@ -135,9 +140,19 @@ def test_accessibility_practical_examples(
         cls=combine_classes(display_tw.inline_flex, items.center)
     )
     assert loading_spinner.children[1].attrs['class'] == "sr-only"
+    
+    # Return all examples in a grid layout
+    return Div(
+        skip_link,
+        form_field,
+        icon_button,
+        high_contrast_nav,
+        loading_spinner,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_accessibility_practical_examples()
+test_accessibility_fasthtml_examples()
 
 # %% ../../nbs/utilities/accessibility.ipynb 13
 def test_accessibility_factory_documentation(

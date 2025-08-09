@@ -13,7 +13,7 @@ __all__ = ['BACKFACE_VALUES', 'backface', 'PERSPECTIVE_VALUES', 'perspective', '
            'test_transforms_scale_examples', 'SkewUtility', 'SkewFactory', 'NegativeSkewFactory',
            'test_transforms_skew_examples', 'TransformFactory', 'test_transforms_transform_examples',
            'TransformOriginFactory', 'test_transforms_origin_examples', 'test_transforms_style_examples',
-           'TranslateFactory', 'test_transforms_translate_examples', 'test_transforms_practical_examples',
+           'TranslateFactory', 'test_transforms_translate_examples', 'test_transforms_fasthtml_examples',
            'center_transform', 'hover_scale', 'flip_card_3d', 'parallax_transform', 'test_transforms_helper_examples',
            'test_transforms_factory_documentation']
 
@@ -30,6 +30,11 @@ from cjm_fasthtml_tailwind.builders.scales import (
     ScaledFactory, DirectionalScaledFactory, ScaleConfig, INSET_CONFIG, SimpleFactory,
     ScaledUtility, NegativeFactory, SPACING_CONFIG, FRACTIONS
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/transforms.ipynb 5
 # Backface visibility utilities
@@ -933,13 +938,14 @@ def test_transforms_translate_examples():
 test_transforms_translate_examples()
 
 # %% ../../nbs/utilities/transforms.ipynb 35
-def test_transforms_practical_examples():
+def test_transforms_fasthtml_examples():
     """Test transform utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Img, A
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration, animate
-    from cjm_fasthtml_tailwind.utilities.layout import position, top, left
+    from cjm_fasthtml_tailwind.utilities.layout import position, top, left, display_tw
     from cjm_fasthtml_tailwind.utilities.sizing import h, w
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Hover effect with scale and rotate
     hover_button = Button(
@@ -1019,11 +1025,22 @@ def test_transforms_practical_examples():
             animate("spin-3d")
         )
     )
+    
+    # Return all examples in a grid layout
+    return Div(
+        hover_button,
+        flip_card,
+        modal,
+        skewed_divider,
+        parallax_element,
+        cube,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the test
-test_transforms_practical_examples()
+test_transforms_fasthtml_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 37
+# %% ../../nbs/utilities/transforms.ipynb 38
 def center_transform() -> str:
     """Center an element using transform translate."""
     return combine_classes(
@@ -1031,12 +1048,12 @@ def center_transform() -> str:
         str(translate.y.negative("1/2"))
     )
 
-# %% ../../nbs/utilities/transforms.ipynb 38
+# %% ../../nbs/utilities/transforms.ipynb 39
 def hover_scale(scale: int = 110) -> str:
     """Create a hover scale effect."""
     return f"hover:scale-{scale} transition-transform"
 
-# %% ../../nbs/utilities/transforms.ipynb 39
+# %% ../../nbs/utilities/transforms.ipynb 40
 def flip_card_3d(perspective_value: str = "normal") -> Dict[str, str]:
     """Get classes for a 3D flip card effect."""
     return {
@@ -1050,7 +1067,7 @@ def flip_card_3d(perspective_value: str = "normal") -> Dict[str, str]:
         "back": combine_classes(backface.hidden, str(rotate.y(180)))
     }
 
-# %% ../../nbs/utilities/transforms.ipynb 40
+# %% ../../nbs/utilities/transforms.ipynb 41
 def parallax_transform(speed: float = 0.5) -> str:
     """Create a parallax transform effect."""
     return combine_classes(
@@ -1058,7 +1075,7 @@ def parallax_transform(speed: float = 0.5) -> str:
         transform.gpu
     )
 
-# %% ../../nbs/utilities/transforms.ipynb 41
+# %% ../../nbs/utilities/transforms.ipynb 42
 def test_transforms_helper_examples():
     """Test helper functions for common transform patterns."""
     # Test center transform
@@ -1083,7 +1100,7 @@ def test_transforms_helper_examples():
 # Run the test
 test_transforms_helper_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 42
+# %% ../../nbs/utilities/transforms.ipynb 43
 def test_transforms_factory_documentation():
     """Test that transform factories have accessible documentation."""
     # Test main factory documentation

@@ -14,8 +14,8 @@ __all__ = ['DISPLAY_VALUES', 'display_tw', 'sr_only', 'not_sr_only', 'POSITION_V
            'test_layout_z_index_examples', 'test_layout_float_clear_examples', 'ObjectPositionFactory',
            'test_layout_object_examples', 'test_layout_visibility_examples', 'AspectRatioFactory',
            'test_layout_aspect_columns_examples', 'test_layout_columns_examples', 'BreakFactory', 'OverscrollFactory',
-           'test_layout_other_utilities_examples', 'test_layout_practical_examples',
-           'test_layout_enhanced_factories_examples', 'test_layout_modifier_examples',
+           'test_layout_other_utilities_examples', 'test_layout_fasthtml_examples',
+           'test_layout_enhanced_factories_fasthtml_examples', 'test_layout_modifier_examples',
            'test_layout_factory_documentation', 'center_absolute', 'stack_context', 'sticky_top', 'full_bleed',
            'test_layout_helper_examples']
 
@@ -31,6 +31,11 @@ from cjm_fasthtml_tailwind.builders.scales import (
     ScaledFactory, DirectionalScaledFactory, ScaleConfig, INSET_CONFIG,
     ScaledUtility, NegativeFactory, SimpleFactory
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/layout.ipynb 5
 DISPLAY_VALUES = { # Display utilities
@@ -776,7 +781,7 @@ def test_layout_other_utilities_examples(
 test_layout_other_utilities_examples()
 
 # %% ../../nbs/utilities/layout.ipynb 51
-def test_layout_practical_examples(
+def test_layout_fasthtml_examples(
 ):
     """Test layout utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Header, Nav, Main, Section, Article, Aside
@@ -809,7 +814,7 @@ def test_layout_practical_examples(
     
     # Image with aspect ratio and object fit
     image_container = Div(
-        Img(src="image.jpg", cls=combine_classes(object_fit.cover, object_position.center, w.full, h.full)),
+        Img(src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp", cls=combine_classes(object_fit.cover, object_position.center, w.full, h.full)),
         cls=combine_classes(aspect.video, overflow.hidden, rounded.lg)
     )
     assert image_container.attrs['class'] == "aspect-video overflow-hidden rounded-lg"
@@ -822,15 +827,27 @@ def test_layout_practical_examples(
         cls=combine_classes(columns(2), gap(8), "prose")
     )
     assert article.attrs['class'] == "columns-2 gap-8 prose"
+    
+    # Return all examples in a grid layout
+    return Div(
+        header,
+        sidebar,
+        modal_overlay,
+        image_container,
+        article,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_layout_practical_examples()
+test_layout_fasthtml_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 52
-def test_layout_enhanced_factories_examples(
+# %% ../../nbs/utilities/layout.ipynb 53
+def test_layout_enhanced_factories_fasthtml_examples(
 ):
     """Test enhanced factories with modifier support in practical examples."""
     from fasthtml.common import Div, Nav, Button, Span
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Mobile navigation with responsive display
     mobile_nav = Nav(
@@ -886,10 +903,18 @@ def test_layout_enhanced_factories_examples(
     assert "overflow-x-auto" in table_container.attrs['class']
     assert "md:overflow-y-hidden" in table_container.attrs['class']
 
-# Run the tests
-test_layout_enhanced_factories_examples()
+    return Div(
+        mobile_nav,
+        dropdown,
+        skip_link,
+        table_container,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
-# %% ../../nbs/utilities/layout.ipynb 53
+# Run the tests
+test_layout_enhanced_factories_fasthtml_examples()
+
+# %% ../../nbs/utilities/layout.ipynb 55
 def test_layout_modifier_examples(
 ):
     """Test layout utilities with modifiers for conditional styling."""
@@ -955,7 +980,7 @@ def test_layout_modifier_examples(
 # Run the tests
 test_layout_modifier_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 54
+# %% ../../nbs/utilities/layout.ipynb 56
 def test_layout_factory_documentation(
 ):
     """Test that factories have accessible documentation."""
@@ -985,7 +1010,7 @@ def test_layout_factory_documentation(
 # Run the tests
 test_layout_factory_documentation()
 
-# %% ../../nbs/utilities/layout.ipynb 56
+# %% ../../nbs/utilities/layout.ipynb 58
 def center_absolute(
 ) -> str:  # Combined CSS classes for centering an element
     """Center an absolutely positioned element."""
@@ -997,27 +1022,27 @@ def center_absolute(
         "-translate-y-1/2"
     )
 
-# %% ../../nbs/utilities/layout.ipynb 57
+# %% ../../nbs/utilities/layout.ipynb 59
 def stack_context(
     z_value: int = 10  # The z-index value for the stacking context
 ) -> str:  # Combined CSS classes for creating a stacking context
     """Create a stacking context with z-index."""
     return combine_classes(position.relative, z(z_value))
 
-# %% ../../nbs/utilities/layout.ipynb 58
+# %% ../../nbs/utilities/layout.ipynb 60
 def sticky_top(
     offset: TailwindScale = 0  # Top offset value (e.g., 0, 4, '1rem')
 ) -> str:  # Combined CSS classes for sticky positioning
     """Make element sticky at top with optional offset."""
     return combine_classes(position.sticky, top(offset))
 
-# %% ../../nbs/utilities/layout.ipynb 59
+# %% ../../nbs/utilities/layout.ipynb 61
 def full_bleed(
 ) -> str:  # Combined CSS classes for full-bleed layout
     """Make element break out of container constraints."""
     return combine_classes(position.relative, left("1/2"), right("1/2"), "-mx-[50vw]", "w-screen")
 
-# %% ../../nbs/utilities/layout.ipynb 60
+# %% ../../nbs/utilities/layout.ipynb 62
 def test_layout_helper_examples(
 ):
     """Test helper functions for common layout patterns."""

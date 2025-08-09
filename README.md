@@ -87,82 +87,97 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_utils
-    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_imports
     cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_helper_discovery
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_search
-    cli_factory_extraction --> cli_utils
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_imports
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_example_discovery
+    cli_factory_extraction --> cli_utils
     cli_helper_discovery --> cli_utils
-    cli_imports --> cli_factory_extraction
+    cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_helper_discovery
     cli_imports --> cli_utils
+    cli_imports --> cli_factory_extraction
     cli_imports --> cli_core_utils_discovery
-    cli_search --> cli_utils
     cli_search --> cli_helper_discovery
-    cli_search --> cli_example_discovery
+    cli_search --> cli_utils
     cli_search --> cli_factory_extraction
-    cli_test_code --> cli_factory_extraction
+    cli_search --> cli_example_discovery
     cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_utils
-    core_testing --> utilities_layout
+    cli_test_code --> cli_factory_extraction
     core_testing --> utilities_sizing
-    core_testing --> utilities_borders
+    core_testing --> utilities_layout
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_effects
-    core_testing --> utilities_spacing
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_backgrounds
-    core_testing --> core_resources
     core_testing --> utilities_typography
+    core_testing --> utilities_effects
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_borders
+    core_testing --> utilities_spacing
+    core_testing --> utilities_backgrounds
     core_testing --> core_base
+    core_testing --> core_resources
+    utilities_accessibility --> core_testing
+    utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
     utilities_accessibility --> utilities_layout
-    utilities_accessibility --> builders_scales
-    utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> core_testing
     utilities_borders --> core_base
-    utilities_borders --> builders_colors
     utilities_borders --> builders_scales
-    utilities_effects --> core_base
+    utilities_borders --> core_testing
+    utilities_borders --> builders_colors
     utilities_effects --> builders_colors
+    utilities_effects --> core_base
     utilities_effects --> builders_scales
+    utilities_effects --> core_testing
     utilities_filters --> builders_colors
-    utilities_filters --> core_base
     utilities_filters --> builders_scales
+    utilities_filters --> core_base
+    utilities_filters --> core_testing
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
+    utilities_flexbox_and_grid --> core_testing
     utilities_interactivity --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> core_testing
     utilities_interactivity --> builders_colors
     utilities_layout --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> core_base
+    utilities_layout --> core_testing
+    utilities_sizing --> core_testing
     utilities_sizing --> builders_scales
+    utilities_sizing --> core_base
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
+    utilities_spacing --> core_testing
     utilities_svg --> builders_colors
     utilities_svg --> core_base
     utilities_svg --> builders_scales
-    utilities_tables --> core_base
+    utilities_svg --> core_testing
     utilities_tables --> builders_scales
-    utilities_transforms --> core_base
+    utilities_tables --> core_base
+    utilities_tables --> core_testing
     utilities_transforms --> builders_scales
-    utilities_transitions_and_animation --> core_base
+    utilities_transforms --> core_base
+    utilities_transforms --> core_testing
     utilities_transitions_and_animation --> builders_scales
+    utilities_transitions_and_animation --> core_base
+    utilities_transitions_and_animation --> core_testing
     utilities_typography --> core_base
     utilities_typography --> builders_scales
+    utilities_typography --> core_testing
     utilities_typography --> builders_colors
 ```
 
-*76 cross-module dependencies detected*
+*91 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -249,7 +264,7 @@ graph LR
       cjm-tailwind-explore modules                    # See what's available
       cjm-tailwind-explore factories -m accessibility       # Explore accessibility utilities
       cjm-tailwind-explore factory accessibility forced_color_adjust          # Learn about forced_color_adjust factory
-      cjm-tailwind-explore example accessibility forced_color_adjust      # See usage examples
+      cjm-tailwind-explore example accessibility fasthtml      # See usage examples
       cjm-tailwind-explore test-code 'print(str(forced_color_adjust.auto))'   # Test your understanding
       cjm-tailwind-explore scan app.py                # Analyze existing code
 
@@ -272,7 +287,7 @@ from cjm_fasthtml_tailwind.utilities.accessibility import (
     forced_color_adjust,
     test_accessibility_forced_color_adjust_examples,
     test_accessibility_screen_reader_examples,
-    test_accessibility_practical_examples,
+    test_accessibility_fasthtml_examples,
     test_accessibility_factory_documentation,
     visually_hidden,
     high_contrast_safe,
@@ -295,7 +310,7 @@ def test_accessibility_screen_reader_examples(
 ```
 
 ``` python
-def test_accessibility_practical_examples(
+def test_accessibility_fasthtml_examples(
 )
     "Test accessibility utilities in practical FastHTML component examples."
 ```
@@ -386,7 +401,7 @@ from cjm_fasthtml_tailwind.utilities.backgrounds import (
     test_backgrounds_repeat_examples,
     test_backgrounds_size_examples,
     test_backgrounds_arbitrary_examples,
-    test_backgrounds_practical_examples,
+    test_backgrounds_fasthtml_examples,
     test_backgrounds_factory_documentation
 )
 ```
@@ -454,7 +469,7 @@ def test_backgrounds_arbitrary_examples()
 ```
 
 ``` python
-def test_backgrounds_practical_examples()
+def test_backgrounds_fasthtml_examples()
     "Test background utilities in practical FastHTML component examples."
 ```
 
@@ -1190,7 +1205,7 @@ from cjm_fasthtml_tailwind.utilities.borders import (
     test_borders_outline_color_examples,
     test_borders_outline_style_examples,
     test_borders_outline_offset_examples,
-    test_borders_practical_examples,
+    test_borders_fasthtml_examples,
     test_borders_factory_documentation
 )
 ```
@@ -1253,7 +1268,7 @@ def test_borders_outline_offset_examples()
 ```
 
 ``` python
-def test_borders_practical_examples()
+def test_borders_fasthtml_examples()
     "Test border utilities in practical FastHTML component examples."
 ```
 
@@ -1793,10 +1808,10 @@ from cjm_fasthtml_tailwind.utilities.effects import (
     test_effects_mask_radial_examples,
     test_effects_mask_conic_examples,
     test_effects_mask_properties_examples,
-    test_effects_shadow_practical_examples,
-    test_effects_shadow_composition_examples,
-    test_effects_comprehensive_examples,
-    test_effects_mask_practical_examples,
+    test_effects_shadow_fasthtml_examples,
+    test_effects_shadow_composition_fasthtml_examples,
+    test_effects_comprehensive_fasthtml_examples,
+    test_effects_mask_fasthtml_examples,
     test_effects_factory_documentation
 )
 ```
@@ -1929,22 +1944,22 @@ def test_effects_mask_properties_examples()
 ```
 
 ``` python
-def test_effects_shadow_practical_examples()
+def test_effects_shadow_fasthtml_examples()
     "Test shadow utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_effects_shadow_composition_examples()
+def test_effects_shadow_composition_fasthtml_examples()
     "Test composing shadow size and color utilities."
 ```
 
 ``` python
-def test_effects_comprehensive_examples()
+def test_effects_comprehensive_fasthtml_examples()
     "Test comprehensive usage of all effect utilities."
 ```
 
 ``` python
-def test_effects_mask_practical_examples()
+def test_effects_mask_fasthtml_examples()
     "Test mask utilities in practical FastHTML component examples."
 ```
 
@@ -2693,7 +2708,7 @@ from cjm_fasthtml_tailwind.utilities.filters import (
     test_filters_saturate_examples,
     test_filters_sepia_examples,
     test_filters_backdrop_examples,
-    test_filters_practical_examples,
+    test_filters_fasthtml_examples,
     test_filters_factory_documentation
 )
 ```
@@ -2756,7 +2771,7 @@ def test_filters_backdrop_examples()
 ```
 
 ``` python
-def test_filters_practical_examples()
+def test_filters_fasthtml_examples()
     "Test filter utilities in practical FastHTML component examples."
 ```
 
@@ -2893,7 +2908,7 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
     test_flexbox_and_grid_justify_examples,
     test_flexbox_and_grid_align_examples,
     test_flexbox_and_grid_place_examples,
-    test_flexbox_and_grid_practical_examples,
+    test_flexbox_and_grid_fasthtml_examples,
     flex_center,
     flex_between,
     flex_col_center,
@@ -3009,7 +3024,7 @@ def test_flexbox_and_grid_place_examples(
 ```
 
 ``` python
-def test_flexbox_and_grid_practical_examples(
+def test_flexbox_and_grid_fasthtml_examples(
 ): # TODO: Add type hint
     "Test flexbox and grid utilities in practical FastHTML component examples."
 ```
@@ -3450,11 +3465,11 @@ from cjm_fasthtml_tailwind.utilities.interactivity import (
     test_interactivity_user_select_examples,
     WillChangeFactory,
     test_interactivity_will_change_examples,
-    test_interactivity_form_practical_examples,
-    test_interactivity_scroll_snap_practical_examples,
-    test_interactivity_touch_mobile_practical_examples,
+    test_interactivity_form_fasthtml_examples,
+    test_interactivity_scroll_snap_fasthtml_examples,
+    test_interactivity_touch_mobile_fasthtml_examples,
     test_interactivity_factory_documentation,
-    test_interactivity_advanced_practical_examples
+    test_interactivity_advanced_fasthtml_examples
 )
 ```
 
@@ -3536,17 +3551,17 @@ def test_interactivity_will_change_examples()
 ```
 
 ``` python
-def test_interactivity_form_practical_examples()
+def test_interactivity_form_fasthtml_examples()
     "Test interactivity utilities in form components."
 ```
 
 ``` python
-def test_interactivity_scroll_snap_practical_examples()
+def test_interactivity_scroll_snap_fasthtml_examples()
     "Test scroll snap utilities in carousel/gallery components."
 ```
 
 ``` python
-def test_interactivity_touch_mobile_practical_examples()
+def test_interactivity_touch_mobile_fasthtml_examples()
     "Test touch and mobile interaction utilities."
 ```
 
@@ -3556,7 +3571,7 @@ def test_interactivity_factory_documentation()
 ```
 
 ``` python
-def test_interactivity_advanced_practical_examples()
+def test_interactivity_advanced_fasthtml_examples()
     "Test advanced combinations of interactivity utilities."
 ```
 
@@ -3656,8 +3671,8 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     BreakFactory,
     OverscrollFactory,
     test_layout_other_utilities_examples,
-    test_layout_practical_examples,
-    test_layout_enhanced_factories_examples,
+    test_layout_fasthtml_examples,
+    test_layout_enhanced_factories_fasthtml_examples,
     test_layout_modifier_examples,
     test_layout_factory_documentation,
     center_absolute,
@@ -3737,13 +3752,13 @@ def test_layout_other_utilities_examples(
 ```
 
 ``` python
-def test_layout_practical_examples(
+def test_layout_fasthtml_examples(
 )
     "Test layout utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_layout_enhanced_factories_examples(
+def test_layout_enhanced_factories_fasthtml_examples(
 )
     "Test enhanced factories with modifier support in practical examples."
 ```
@@ -4605,7 +4620,7 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
     test_sizing_min_height_examples,
     test_sizing_size_util_examples,
     test_sizing_max_height_examples,
-    test_sizing_practical_examples,
+    test_sizing_fasthtml_examples,
     test_sizing_factory_documentation,
     size,
     square,
@@ -4690,7 +4705,7 @@ def test_sizing_max_height_examples(
 ```
 
 ``` python
-def test_sizing_practical_examples(
+def test_sizing_fasthtml_examples(
 )
     "Test sizing utilities in practical FastHTML component examples."
 ```
@@ -4774,7 +4789,7 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
     test_spacing_logical_examples,
     SpaceFactory,
     test_spacing_space_between_examples,
-    test_spacing_practical_examples,
+    test_spacing_fasthtml_examples,
     pad,
     margin,
     test_spacing_helper_examples,
@@ -4835,7 +4850,7 @@ def test_spacing_space_between_examples(
 ```
 
 ``` python
-def test_spacing_practical_examples(
+def test_spacing_fasthtml_examples(
 )
     "Test spacing utilities in practical FastHTML component examples."
 ```
@@ -4961,9 +4976,9 @@ from cjm_fasthtml_tailwind.utilities.svg import (
     StrokeWidthFactory,
     test_svg_stroke_width_examples,
     test_svg_stroke_width_arbitrary_examples,
-    test_svg_practical_examples,
-    test_svg_icon_examples,
-    test_svg_progress_ring_examples,
+    test_svg_fasthtml_examples,
+    test_svg_icon_fasthtml_examples,
+    test_svg_progress_ring_fasthtml_examples,
     test_svg_factory_documentation,
     test_svg_edge_cases,
     svg_icon_classes,
@@ -5009,17 +5024,17 @@ def test_svg_stroke_width_arbitrary_examples()
 ```
 
 ``` python
-def test_svg_practical_examples()
+def test_svg_fasthtml_examples()
     "Test SVG utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_svg_icon_examples():
+def test_svg_icon_fasthtml_examples():
     """Test creating reusable SVG icon components."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Path
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify, gap
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Helper function to create an icon
@@ -5028,12 +5043,13 @@ def test_svg_icon_examples():
 ```
 
 ``` python
-def test_svg_progress_ring_examples():
+def test_svg_progress_ring_fasthtml_examples():
     """Test creating a progress ring component."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Circle
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, position
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Progress ring component
     def ProgressRing(percentage: int, size: int = 120)
@@ -5133,8 +5149,8 @@ from cjm_fasthtml_tailwind.utilities.tables import (
     test_tables_layout_examples,
     test_tables_caption_side_examples,
     test_tables_all_utilities,
-    test_tables_practical_examples,
-    test_tables_complex_example,
+    test_tables_fasthtml_examples,
+    test_tables_complex_fasthtml_examples,
     test_tables_factory_documentation
 )
 ```
@@ -5177,12 +5193,12 @@ def test_tables_all_utilities()
 ```
 
 ``` python
-def test_tables_practical_examples()
+def test_tables_fasthtml_examples()
     "Test table utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_tables_complex_example()
+def test_tables_complex_fasthtml_examples()
     "Test a complex table example with various styling."
 ```
 
@@ -5371,7 +5387,7 @@ from cjm_fasthtml_tailwind.utilities.transforms import (
     test_transforms_style_examples,
     TranslateFactory,
     test_transforms_translate_examples,
-    test_transforms_practical_examples,
+    test_transforms_fasthtml_examples,
     center_transform,
     hover_scale,
     flip_card_3d,
@@ -5434,7 +5450,7 @@ def test_transforms_translate_examples()
 ```
 
 ``` python
-def test_transforms_practical_examples()
+def test_transforms_fasthtml_examples()
     "Test transform utilities in practical FastHTML component examples."
 ```
 
@@ -5676,7 +5692,7 @@ backface  # The backface visibility factory
 PERSPECTIVE_VALUES = {6 items}
 perspective  # The perspective factory
 PERSPECTIVE_ORIGIN_VALUES = {9 items}
-ROTATE_ANGLES = [9 items]  # Common rotation angles in degrees
+ROTATE_ANGLES  # Common rotation angles in degrees
 ROTATE_CONFIG
 rotate  # The rotate factory
 SCALE_VALUES = [10 items]  # Common scale percentages
@@ -5722,9 +5738,9 @@ from cjm_fasthtml_tailwind.utilities.transitions_and_animation import (
     test_transitions_and_animation_delay_examples,
     AnimationFactory,
     test_transitions_and_animation_examples,
-    test_transitions_and_animation_practical_examples,
-    test_transitions_and_animation_animation_examples,
-    test_transitions_and_animation_composition_examples,
+    test_transitions_and_animation_fasthtml_examples,
+    test_transitions_and_animation_animation_fasthtml_examples,
+    test_transitions_and_animation_composition_fasthtml_examples,
     test_transitions_and_animation_factory_documentation,
     smooth_transition,
     hover_effect,
@@ -5772,17 +5788,17 @@ def test_transitions_and_animation_examples()
 ```
 
 ``` python
-def test_transitions_and_animation_practical_examples()
+def test_transitions_and_animation_fasthtml_examples()
     "Test transition and animation utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_transitions_and_animation_animation_examples()
+def test_transitions_and_animation_animation_fasthtml_examples()
     "Test animation utilities in practical FastHTML component examples."
 ```
 
 ``` python
-def test_transitions_and_animation_composition_examples()
+def test_transitions_and_animation_composition_fasthtml_examples()
     "Test composing multiple transition utilities together."
 ```
 
@@ -5936,13 +5952,12 @@ delay  # The delay factory
 
 ``` python
 from cjm_fasthtml_tailwind.utilities.typography import (
-    font,
-    TEXT_SIZE_CONFIG,
-    text,
+    font_family,
     antialiased,
     subpixel_antialiased,
     italic,
     not_italic,
+    font,
     font_stretch,
     normal_nums,
     ordinal,
@@ -5963,6 +5978,7 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     list_position,
     list_style,
     text_align,
+    text,
     underline,
     overline,
     line_through,
@@ -5996,7 +6012,6 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     hyphens,
     content,
     test_typography_font_family_examples,
-    test_typography_font_size_examples,
     test_typography_font_smoothing_examples,
     test_typography_font_style_examples,
     FontFactory,
@@ -6014,6 +6029,7 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     test_typography_list_styles_examples,
     test_typography_text_alignment_examples,
     TextFactory,
+    test_typography_font_size_examples,
     test_typography_text_color_examples,
     test_typography_text_decoration_examples,
     test_typography_underline_offset_examples,
@@ -6029,7 +6045,7 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     ContentUtility,
     ContentFactory,
     test_typography_content_examples,
-    test_typography_practical_examples,
+    test_typography_fasthtml_examples,
     test_typography_factory_documentation
 )
 ```
@@ -6039,11 +6055,6 @@ from cjm_fasthtml_tailwind.utilities.typography import (
 ``` python
 def test_typography_font_family_examples()
     "Test font family utilities."
-```
-
-``` python
-def test_typography_font_size_examples()
-    "Test font size utilities."
 ```
 
 ``` python
@@ -6099,6 +6110,11 @@ def test_typography_list_styles_examples()
 ``` python
 def test_typography_text_alignment_examples()
     "Test text alignment utilities."
+```
+
+``` python
+def test_typography_font_size_examples()
+    "Test font size utilities."
 ```
 
 ``` python
@@ -6167,7 +6183,7 @@ def test_typography_content_examples()
 ```
 
 ``` python
-def test_typography_practical_examples()
+def test_typography_fasthtml_examples()
     "Test typography utilities in practical FastHTML component examples."
 ```
 
@@ -6292,8 +6308,6 @@ class ContentFactory:
 #### Variables
 
 ``` python
-TEXT_SIZE_CONFIG
-text  # Font size factory
 antialiased  # Antialiased font smoothing
 subpixel_antialiased  # Subpixel antialiased font smoothing
 italic  # Italic font style

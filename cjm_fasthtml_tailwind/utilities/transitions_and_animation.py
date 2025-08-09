@@ -9,8 +9,9 @@ __all__ = ['transition', 'transition_behavior', 'DURATION_SCALE', 'DURATION_CONF
            'DurationFactory', 'test_transitions_and_animation_duration_examples', 'EaseFactory',
            'test_transitions_and_animation_timing_examples', 'DelayFactory',
            'test_transitions_and_animation_delay_examples', 'AnimationFactory',
-           'test_transitions_and_animation_examples', 'test_transitions_and_animation_practical_examples',
-           'test_transitions_and_animation_animation_examples', 'test_transitions_and_animation_composition_examples',
+           'test_transitions_and_animation_examples', 'test_transitions_and_animation_fasthtml_examples',
+           'test_transitions_and_animation_animation_fasthtml_examples',
+           'test_transitions_and_animation_composition_fasthtml_examples',
            'test_transitions_and_animation_factory_documentation', 'smooth_transition', 'hover_effect', 'fade_in',
            'loading_spinner', 'skeleton_loader', 'test_transitions_and_animation_helper_examples']
 
@@ -23,6 +24,11 @@ from cjm_fasthtml_tailwind.core.base import (
 from cjm_fasthtml_tailwind.builders.scales import (
     SimpleFactory, ScaledFactory, ScaleConfig, ScaledUtility
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/transitions_and_animation.ipynb 5
 # Enhanced factory that supports both fixed values and custom properties
@@ -546,7 +552,7 @@ def test_transitions_and_animation_examples():
 test_transitions_and_animation_examples()
 
 # %% ../../nbs/utilities/transitions_and_animation.ipynb 26
-def test_transitions_and_animation_practical_examples():
+def test_transitions_and_animation_fasthtml_examples():
     """Test transition and animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Span, A, Img
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
@@ -557,6 +563,8 @@ def test_transitions_and_animation_practical_examples():
     from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, translate
     from cjm_fasthtml_tailwind.utilities.effects import opacity
     from cjm_fasthtml_tailwind.utilities.transforms import transform
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Button with hover transition
     button = Button(
@@ -620,19 +628,30 @@ def test_transitions_and_animation_practical_examples():
         )
     )
     assert "transition-[opacity, transform]" in multi_transition.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        button,
+        card,
+        scale_div,
+        delayed_link,
+        multi_transition,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_transitions_and_animation_practical_examples()
+test_transitions_and_animation_fasthtml_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 27
-def test_transitions_and_animation_animation_examples():
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 28
+def test_transitions_and_animation_animation_fasthtml_examples():
     """Test animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Span, Button
     from cjm_fasthtml_tailwind.utilities.borders import border, border_color, rounded
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
-    from cjm_fasthtml_tailwind.utilities.layout import position, top, right
+    from cjm_fasthtml_tailwind.utilities.layout import position, top, right, display_tw
     from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Loading spinner
     spinner = Div(
@@ -688,17 +707,30 @@ def test_transitions_and_animation_animation_examples():
         )
     )
     assert "animate-(--custom-fade-in)" in var_animated.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        spinner,
+        notification_dot,
+        skeleton,
+        arrow,
+        custom_animated,
+        var_animated,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_transitions_and_animation_animation_examples()
+test_transitions_and_animation_animation_fasthtml_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 28
-def test_transitions_and_animation_composition_examples():
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 30
+def test_transitions_and_animation_composition_fasthtml_examples():
     """Test composing multiple transition utilities together."""
     from fasthtml.common import Div, Button
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg_linear, from_color, to_color
     from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, translate, transform
     from cjm_fasthtml_tailwind.utilities.effects import shadow, opacity
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Complete transition setup
     interactive_element = Button(
@@ -746,11 +778,19 @@ def test_transitions_and_animation_composition_examples():
     )
     assert "animate-pulse" in animated_transitional.attrs['class']
     assert "transition-opacity" in animated_transitional.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        interactive_element,
+        multi_property,
+        animated_transitional,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_transitions_and_animation_composition_examples()
+test_transitions_and_animation_composition_fasthtml_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 30
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 33
 def test_transitions_and_animation_factory_documentation():
     """Test that transition and animation factories have accessible documentation."""
     # Test transition property factory
@@ -795,7 +835,7 @@ def test_transitions_and_animation_factory_documentation():
 # Run the tests
 test_transitions_and_animation_factory_documentation()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 32
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
 def smooth_transition(
     properties: str = "all",  # Which properties to transition (default: all)
     duration_ms: int = 300,  # Duration in milliseconds
@@ -831,7 +871,7 @@ def smooth_transition(
         ease_func
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 33
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 37
 def hover_effect(
     duration_ms: int = 200  # Duration in milliseconds
 ) -> str:  # Combined CSS classes for hover effects
@@ -842,7 +882,7 @@ def hover_effect(
         ease.in_out
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 34
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 38
 def fade_in(
     duration_ms: int = 500,  # Duration in milliseconds
     delay_ms: Optional[int] = None  # Optional delay in milliseconds
@@ -859,7 +899,7 @@ def fade_in(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 35
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 39
 def loading_spinner(
 ) -> str:  # Combined CSS classes for a loading spinner
     """Create a loading spinner animation."""
@@ -869,7 +909,7 @@ def loading_spinner(
         animate.spin
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 40
 def skeleton_loader(
 ) -> str:  # Combined CSS classes for a skeleton loader
     """Create a skeleton loader animation for content placeholders."""
@@ -879,7 +919,7 @@ def skeleton_loader(
         animate.pulse
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 37
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 41
 def test_transitions_and_animation_helper_examples():
     """Test helper functions for common transition patterns."""
     # Test smooth_transition

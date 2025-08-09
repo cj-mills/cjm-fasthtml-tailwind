@@ -28,8 +28,8 @@ __all__ = ['SHADOW_SIZE_CONFIG', 'shadow', 'shadow_color', 'INSET_SHADOW_SIZE_CO
            'test_effects_mask_basic_examples', 'test_effects_mask_linear_examples',
            'test_effects_mask_directional_examples', 'test_effects_mask_radial_examples',
            'test_effects_mask_conic_examples', 'test_effects_mask_properties_examples',
-           'test_effects_shadow_practical_examples', 'test_effects_shadow_composition_examples',
-           'test_effects_comprehensive_examples', 'test_effects_mask_practical_examples',
+           'test_effects_shadow_fasthtml_examples', 'test_effects_shadow_composition_fasthtml_examples',
+           'test_effects_comprehensive_fasthtml_examples', 'test_effects_mask_fasthtml_examples',
            'test_effects_factory_documentation']
 
 # %% ../../nbs/utilities/effects.ipynb 3
@@ -40,6 +40,11 @@ from cjm_fasthtml_tailwind.core.base import (
 )
 from ..builders.colors import ColoredFactory, ColorValue, ColoredUtility
 from ..builders.scales import SimpleFactory, ScaleConfig, ScaledFactory
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/effects.ipynb 6
 # Shadow size
@@ -1656,7 +1661,7 @@ def test_effects_mask_properties_examples():
 test_effects_mask_properties_examples()
 
 # %% ../../nbs/utilities/effects.ipynb 115
-def test_effects_shadow_practical_examples():
+def test_effects_shadow_fasthtml_examples():
     """Test shadow utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, H2, P, Button, Card
     from cjm_fasthtml_tailwind.utilities.spacing import p
@@ -1665,6 +1670,8 @@ def test_effects_shadow_practical_examples():
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition
     from cjm_fasthtml_tailwind.utilities.typography import text
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Card with basic shadow
     card = Div(
@@ -1763,14 +1770,30 @@ def test_effects_shadow_practical_examples():
     )
     assert "ring-2" in ring_card.attrs['class']
     assert "ring-purple-500" in ring_card.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        card,
+        button,
+        colored_card,
+        fab,
+        flat_card,
+        custom_shadow_card,
+        input_field,
+        focus_button,
+        ring_card,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_effects_shadow_practical_examples()
+test_effects_shadow_fasthtml_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 116
-def test_effects_shadow_composition_examples():
+# %% ../../nbs/utilities/effects.ipynb 117
+def test_effects_shadow_composition_fasthtml_examples():
     """Test composing shadow size and color utilities."""
     from fasthtml.common import Div
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Small shadow with custom color
     example1 = Div(
@@ -1820,17 +1843,27 @@ def test_effects_shadow_composition_examples():
     assert "shadow-md" in example4.attrs['class']
     assert "shadow-[#6B46C1]" in example4.attrs['class']
 
-# Run the tests
-test_effects_shadow_composition_examples()
+    return Div(
+        example1,
+        example2,
+        example3,
+        example4,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
-# %% ../../nbs/utilities/effects.ipynb 117
-def test_effects_comprehensive_examples():
+# Run the tests
+test_effects_shadow_composition_fasthtml_examples()
+
+# %% ../../nbs/utilities/effects.ipynb 119
+def test_effects_comprehensive_fasthtml_examples():
     """Test comprehensive usage of all effect utilities."""
     from fasthtml.common import Div, Input, Button
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg, bg_linear, from_color, to_color
     from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
     from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Form input with inset shadow
     form_input = Input(
@@ -1902,19 +1935,29 @@ def test_effects_comprehensive_examples():
     assert "ring-0" in no_effects.attrs['class']
     assert "inset-ring-0" in no_effects.attrs['class']
 
-# Run the tests
-test_effects_comprehensive_examples()
+    return Div(
+        form_input,
+        ring_button,
+        inset_ring_card,
+        layered_card,
+        no_effects,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
-# %% ../../nbs/utilities/effects.ipynb 120
-def test_effects_mask_practical_examples():
+# Run the tests
+test_effects_comprehensive_fasthtml_examples()
+
+# %% ../../nbs/utilities/effects.ipynb 122
+def test_effects_mask_fasthtml_examples():
     """Test mask utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Section, H1, P
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg, bg_linear, from_color, to_color, via_color
     from cjm_fasthtml_tailwind.utilities.typography import text
-    from cjm_fasthtml_tailwind.utilities.layout import position, overflow
+    from cjm_fasthtml_tailwind.utilities.layout import position, overflow, display_tw
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.borders import rounded
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Fade out effect with linear gradient mask
     fade_out_div = Div(
@@ -1932,7 +1975,7 @@ def test_effects_mask_practical_examples():
     
     # Circular reveal with radial gradient mask
     circular_reveal = Div(
-        Img(src="/image.jpg", alt="Masked image"),
+        Img(src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"),
         cls=combine_classes(
             mask_radial(),
             mask_circle,
@@ -2022,11 +2065,23 @@ def test_effects_mask_practical_examples():
     assert "mask-t-from-20" in complex_mask.attrs['class']
     assert "mask-alpha" in complex_mask.attrs['class']
     assert "mask-origin-content" in complex_mask.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        fade_out_div,
+        circular_reveal,
+        fade_edges,
+        corner_spotlight,
+        svg_masked,
+        pie_mask,
+        complex_mask,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_effects_mask_practical_examples()
+test_effects_mask_fasthtml_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 121
+# %% ../../nbs/utilities/effects.ipynb 125
 def test_effects_factory_documentation():
     """Test that effect factories have accessible documentation."""
     # Test shadow factories

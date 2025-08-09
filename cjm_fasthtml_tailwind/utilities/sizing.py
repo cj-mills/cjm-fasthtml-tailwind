@@ -7,7 +7,7 @@ __all__ = ['w', 'h', 'min_w', 'max_w', 'container', 'min_h', 'max_h', 'size_util
            'test_sizing_width_named_examples', 'test_sizing_width_viewport_examples', 'test_sizing_arbitrary_examples',
            'test_sizing_height_examples', 'test_sizing_height_viewport_examples', 'test_sizing_min_width_examples',
            'test_sizing_max_width_examples', 'test_sizing_container_examples', 'test_sizing_min_height_examples',
-           'test_sizing_size_util_examples', 'test_sizing_max_height_examples', 'test_sizing_practical_examples',
+           'test_sizing_size_util_examples', 'test_sizing_max_height_examples', 'test_sizing_fasthtml_examples',
            'test_sizing_factory_documentation', 'size', 'square', 'full_size', 'full_screen',
            'test_sizing_helper_examples']
 
@@ -17,6 +17,11 @@ from ..core.base import TailwindScale, combine_classes, SingleValueFactory
 from cjm_fasthtml_tailwind.builders.scales import (
     ScaledFactory, SIZE_CONFIG, ScaleConfig
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/sizing.ipynb 5
 w = ScaledFactory("w", SIZE_CONFIG, "Width utilities for setting element width") # The width factory
@@ -306,13 +311,14 @@ def test_sizing_max_height_examples(
 test_sizing_max_height_examples()
 
 # %% ../../nbs/utilities/sizing.ipynb 38
-def test_sizing_practical_examples(
+def test_sizing_fasthtml_examples(
 ):
     """Test sizing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Article, Header, Main, Aside
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, position, object_fit
     from cjm_fasthtml_tailwind.utilities.spacing import m, p
     from cjm_fasthtml_tailwind.utilities.borders import rounded
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Card with constrained width
     card = Div(
@@ -330,7 +336,7 @@ def test_sizing_practical_examples(
     
     # Responsive image container
     image_container = Div(
-        Img(src="image.jpg", cls=combine_classes(w.full, h.full, object_fit.cover)),
+        Img(src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp", cls=combine_classes(w.full, h.full, object_fit.cover)),
         cls=combine_classes(w("1/2"), h(64), max_h(96))
     )
     assert image_container.attrs['class'] == "w-1/2 h-64 max-h-96"
@@ -355,7 +361,7 @@ def test_sizing_practical_examples(
     
     # Using the size utility for square elements
     avatar = Div(
-        Img(src="avatar.jpg", cls=str(rounded.full)),
+        Img(src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp", cls=str(rounded.full)),
         cls=combine_classes(size_util(16), position.relative)
     )
     assert avatar.attrs['class'] == "size-16 relative"
@@ -366,11 +372,23 @@ def test_sizing_practical_examples(
         cls=combine_classes(container, m.x.auto, p.x(4))
     )
     assert page_container.attrs['class'] == "container mx-auto px-4"
+    
+    # Return all examples in a grid layout
+    return Div(
+        card,
+        hero,
+        image_container,
+        layout,
+        article,
+        avatar,
+        page_container,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_sizing_practical_examples()
+test_sizing_fasthtml_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 39
+# %% ../../nbs/utilities/sizing.ipynb 40
 def test_sizing_factory_documentation(
 ):
     """Test that factories have accessible documentation."""
@@ -387,7 +405,7 @@ def test_sizing_factory_documentation(
 # Run the tests
 test_sizing_factory_documentation()
 
-# %% ../../nbs/utilities/sizing.ipynb 41
+# %% ../../nbs/utilities/sizing.ipynb 42
 def size(
     w: Optional[TailwindScale] = None,        # Width value
     h: Optional[TailwindScale] = None,        # Height value
@@ -414,26 +432,26 @@ def size(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/sizing.ipynb 42
+# %% ../../nbs/utilities/sizing.ipynb 43
 def square(
     size: TailwindScale  # Size value for both width and height
 ) -> str:  # Space-separated width and height classes
     """Create a square element with equal width and height."""
     return combine_classes(w(size), h(size))
 
-# %% ../../nbs/utilities/sizing.ipynb 43
+# %% ../../nbs/utilities/sizing.ipynb 44
 def full_size(
 ) -> str:  # "w-full h-full"
     """Make element take full width and height of parent."""
     return combine_classes(w.full, h.full)
 
-# %% ../../nbs/utilities/sizing.ipynb 44
+# %% ../../nbs/utilities/sizing.ipynb 45
 def full_screen(
 ) -> str:  # "w-screen h-screen"
     """Make element take full viewport width and height."""
     return combine_classes(w.screen, h.screen)
 
-# %% ../../nbs/utilities/sizing.ipynb 45
+# %% ../../nbs/utilities/sizing.ipynb 46
 def test_sizing_helper_examples(
 ):
     """Test helper functions for common sizing patterns."""

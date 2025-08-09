@@ -6,8 +6,8 @@
 __all__ = ['fill_none', 'fill', 'stroke_none', 'stroke', 'STROKE_WIDTH_CONFIG', 'stroke_width', 'test_svg_fill_examples',
            'test_svg_fill_opacity_examples', 'test_svg_fill_arbitrary_examples', 'test_svg_stroke_examples',
            'test_svg_stroke_opacity_examples', 'StrokeWidthFactory', 'test_svg_stroke_width_examples',
-           'test_svg_stroke_width_arbitrary_examples', 'test_svg_practical_examples', 'test_svg_icon_examples',
-           'test_svg_progress_ring_examples', 'test_svg_factory_documentation', 'test_svg_edge_cases',
+           'test_svg_stroke_width_arbitrary_examples', 'test_svg_fasthtml_examples', 'test_svg_icon_fasthtml_examples',
+           'test_svg_progress_ring_fasthtml_examples', 'test_svg_factory_documentation', 'test_svg_edge_cases',
            'svg_icon_classes', 'test_svg_helper_functions']
 
 # %% ../../nbs/utilities/svg.ipynb 3
@@ -18,6 +18,11 @@ from cjm_fasthtml_tailwind.core.base import (
 )
 from ..builders.colors import ColoredFactory, ColoredUtility, ColorValue, SPECIAL_COLORS
 from ..builders.scales import ScaledFactory, ScaleConfig, NUMERIC_SCALE
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/svg.ipynb 5
 fill_none = SingleValueFactory("fill-none", "Remove fill from an element") # Remove fill
@@ -273,10 +278,13 @@ def test_svg_stroke_width_arbitrary_examples():
 test_svg_stroke_width_arbitrary_examples()
 
 # %% ../../nbs/utilities/svg.ipynb 27
-def test_svg_practical_examples():
+def test_svg_fasthtml_examples():
     """Test SVG utilities in practical FastHTML component examples."""
+    from fasthtml.common import Div
     from fasthtml.svg import Svg, Circle, Rect, G, Path
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Icon with fill color
     icon = Svg(
@@ -339,17 +347,25 @@ def test_svg_practical_examples():
     assert "fill-blue-400/75" in circle_attrs
     assert "stroke-blue-700" in circle_attrs
     assert "stroke-2" in circle_attrs
+    
+    # Return all examples in a grid layout
+    return Div(
+        icon,
+        circle_svg,
+        complex_svg,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_svg_practical_examples()
+test_svg_fasthtml_examples()
 
-# %% ../../nbs/utilities/svg.ipynb 29
-def test_svg_icon_examples():
+# %% ../../nbs/utilities/svg.ipynb 30
+def test_svg_icon_fasthtml_examples():
     """Test creating reusable SVG icon components."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Path
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
-    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import items, justify, gap
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     
     # Helper function to create an icon
@@ -399,17 +415,25 @@ def test_svg_icon_examples():
     assert "fill-none" in path_attrs
     assert "stroke-green-500" in path_attrs
     assert "stroke-2" in path_attrs
+    
+    # Return all examples in a grid layout
+    return Div(
+        home_icon,
+        check_icon,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_svg_icon_examples()
+test_svg_icon_fasthtml_examples()
 
-# %% ../../nbs/utilities/svg.ipynb 31
-def test_svg_progress_ring_examples():
+# %% ../../nbs/utilities/svg.ipynb 33
+def test_svg_progress_ring_fasthtml_examples():
     """Test creating a progress ring component."""
     from fasthtml.common import Div
     from fasthtml.svg import Svg, Circle
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, position
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Progress ring component
     def ProgressRing(percentage: int, size: int = 120):
@@ -450,8 +474,8 @@ def test_svg_progress_ring_examples():
         )
     
     # Test 75% progress
-    progress = ProgressRing(75)
-    svg = progress.children[0]
+    progress_75 = ProgressRing(75)
+    svg = progress_75.children[0]
     bg_circle = svg.children[0]
     progress_circle = svg.children[1]
     
@@ -463,11 +487,25 @@ def test_svg_progress_ring_examples():
     assert "stroke-blue-500" in progress_circle.attrs['class']
     assert "stroke-[8]" in progress_circle.attrs['class']
     assert "stroke-dasharray" in progress_circle.attrs['style']
+    
+    # Create different progress examples
+    progress_25 = ProgressRing(25)
+    progress_50 = ProgressRing(50)
+    progress_100 = ProgressRing(100)
+    
+    # Return all examples in a grid layout
+    return Div(
+        progress_25,
+        progress_50,
+        progress_75,
+        progress_100,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_svg_progress_ring_examples()
+test_svg_progress_ring_fasthtml_examples()
 
-# %% ../../nbs/utilities/svg.ipynb 33
+# %% ../../nbs/utilities/svg.ipynb 36
 def test_svg_factory_documentation():
     """Test that SVG factories have accessible documentation."""
     # Test fill factory
@@ -497,7 +535,7 @@ def test_svg_factory_documentation():
 # Run the tests
 test_svg_factory_documentation()
 
-# %% ../../nbs/utilities/svg.ipynb 35
+# %% ../../nbs/utilities/svg.ipynb 38
 def test_svg_edge_cases():
     """Test edge cases and special values for SVG utilities."""
     # Test fill-none and stroke-none
@@ -533,7 +571,7 @@ def test_svg_edge_cases():
 # Run the tests
 test_svg_edge_cases()
 
-# %% ../../nbs/utilities/svg.ipynb 38
+# %% ../../nbs/utilities/svg.ipynb 41
 def svg_icon_classes(
     fill_color: Optional[Union[str, ColoredUtility]] = None,  # Fill color class or utility
     stroke_color: Optional[Union[str, ColoredUtility]] = None,  # Stroke color class or utility
@@ -560,7 +598,7 @@ def svg_icon_classes(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/svg.ipynb 39
+# %% ../../nbs/utilities/svg.ipynb 42
 def test_svg_helper_functions():
     """Test SVG helper functions."""
     # Basic icon classes

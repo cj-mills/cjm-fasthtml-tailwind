@@ -7,7 +7,7 @@ __all__ = ['p', 'ps', 'pe', 'm', 'ms', 'me', 'space', 'test_spacing_basic_exampl
            'test_spacing_arbitrary_examples', 'test_spacing_margin_examples',
            'test_spacing_margin_directional_examples', 'test_spacing_negative_examples',
            'test_spacing_logical_examples', 'SpaceFactory', 'test_spacing_space_between_examples',
-           'test_spacing_practical_examples', 'pad', 'margin', 'test_spacing_helper_examples',
+           'test_spacing_fasthtml_examples', 'pad', 'margin', 'test_spacing_helper_examples',
            'test_spacing_modifier_examples', 'test_spacing_enhanced_factory_examples',
            'test_spacing_factory_documentation']
 
@@ -17,6 +17,11 @@ from ..core.base import TailwindScale, combine_classes
 from cjm_fasthtml_tailwind.builders.scales import (
     DirectionalScaledFactory, ScaledFactory, SPACING_CONFIG
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/spacing.ipynb 5
 p = DirectionalScaledFactory("p", SPACING_CONFIG, "Padding utilities for controlling element padding") # The padding factory
@@ -221,11 +226,13 @@ def test_spacing_space_between_examples(
 test_spacing_space_between_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 25
-def test_spacing_practical_examples(
+def test_spacing_fasthtml_examples(
 ):
     """Test spacing utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, P, Button, H2
     from cjm_fasthtml_tailwind.utilities.sizing import max_w
+    from cjm_fasthtml_tailwind.utilities.layout import display_tw
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Card component with padding
     card = Div(
@@ -256,11 +263,19 @@ def test_spacing_practical_examples(
     )
     
     assert centered_container.attrs['class'] == "mx-auto p-8 max-w-4xl"
+    
+    # Return all examples in a grid layout
+    return Div(
+        card,
+        overlap_layout,
+        centered_container,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_spacing_practical_examples()
+test_spacing_fasthtml_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 27
+# %% ../../nbs/utilities/spacing.ipynb 28
 def pad(
     all: Optional[TailwindScale] = None,  # Padding for all sides
     x: Optional[TailwindScale] = None,    # Horizontal padding
@@ -290,7 +305,7 @@ def pad(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/spacing.ipynb 28
+# %% ../../nbs/utilities/spacing.ipynb 29
 def margin(
     all: Optional[TailwindScale] = None,  # Margin for all sides
     x: Optional[TailwindScale] = None,    # Horizontal margin
@@ -327,7 +342,7 @@ def margin(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/spacing.ipynb 29
+# %% ../../nbs/utilities/spacing.ipynb 30
 def test_spacing_helper_examples(
 ):
     """Test helper functions for common spacing patterns."""
@@ -344,7 +359,7 @@ def test_spacing_helper_examples(
 # Run the tests
 test_spacing_helper_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 31
+# %% ../../nbs/utilities/spacing.ipynb 32
 def test_spacing_modifier_examples(
 ):
     """Test spacing utilities with modifiers for conditional styling."""
@@ -376,7 +391,7 @@ def test_spacing_modifier_examples(
 # Run the tests
 test_spacing_modifier_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 32
+# %% ../../nbs/utilities/spacing.ipynb 33
 def test_spacing_enhanced_factory_examples(
 ):
     """Test enhanced SingleValueFactory support in spacing utilities."""
@@ -409,7 +424,7 @@ def test_spacing_enhanced_factory_examples(
 # Run the tests
 test_spacing_enhanced_factory_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 33
+# %% ../../nbs/utilities/spacing.ipynb 34
 def test_spacing_factory_documentation(
 ):
     """Test that factories have accessible documentation."""

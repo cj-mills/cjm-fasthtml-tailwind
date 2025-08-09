@@ -21,7 +21,7 @@ __all__ = ['FLEX_BASIS_CONFIG', 'basis', 'FLEX_DIRECTION_VALUES', 'flex_directio
            'AutoRowsFactory', 'test_flexbox_and_grid_auto_cols_rows_examples', 'GapFactory',
            'test_flexbox_and_grid_gap_examples', 'test_flexbox_and_grid_justify_examples',
            'test_flexbox_and_grid_align_examples', 'test_flexbox_and_grid_place_examples',
-           'test_flexbox_and_grid_practical_examples', 'flex_center', 'flex_between', 'flex_col_center', 'grid_center',
+           'test_flexbox_and_grid_fasthtml_examples', 'flex_center', 'flex_between', 'flex_col_center', 'grid_center',
            'responsive_grid', 'test_flexbox_and_grid_helper_examples', 'test_flexbox_and_grid_factory_documentation']
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 3
@@ -36,6 +36,11 @@ from cjm_fasthtml_tailwind.builders.scales import (
     ScaledFactory, DirectionalScaledFactory, ScaleConfig, 
     ScaledUtility, SimpleFactory, SPACING_CONFIG, NUMERIC_SCALE
 )
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 5
 FLEX_BASIS_CONFIG = ScaleConfig( # Create configuration for flex basis - similar to width/height but with container scales
@@ -957,7 +962,7 @@ def test_flexbox_and_grid_place_examples(
 test_flexbox_and_grid_place_examples()
 
 # %% ../../nbs/utilities/flexbox_and_grid.ipynb 69
-def test_flexbox_and_grid_practical_examples(
+def test_flexbox_and_grid_fasthtml_examples(
 ): # TODO: Add type hint
     """Test flexbox and grid utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Header, Nav, Main, Article, Aside, Footer, Img, Button, H1, H2, P
@@ -1049,35 +1054,45 @@ def test_flexbox_and_grid_practical_examples(
     )
     assert toolbar.attrs['class'] == "flex gap-2 items-center p-2"
     assert toolbar.children[1].attrs['class'] == "grow-1 px-4 bg-gray-100 rounded-full"
+    
+    # Return all examples in a grid layout
+    return Div(
+        nav,
+        card_grid,
+        hero,
+        dashboard,
+        toolbar,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_flexbox_and_grid_practical_examples()
+test_flexbox_and_grid_fasthtml_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 71
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 72
 def flex_center(
 ) -> str:  # Combined CSS classes for centered flex container
     """Create classes for a flex container that centers its content."""
     return combine_classes("flex", justify.center, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 72
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 73
 def flex_between(
 ) -> str:  # Combined CSS classes for flex container with space between
     """Create classes for a flex container with space between items."""
     return combine_classes("flex", justify.between, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 73
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 74
 def flex_col_center(
 ) -> str:  # Combined CSS classes for centered vertical flex container
     """Create classes for a vertical flex container that centers its content."""
     return combine_classes("flex", flex_direction.col, justify.center, items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 74
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 75
 def grid_center(
 ) -> str:  # Combined CSS classes for centered grid container
     """Create classes for a grid container that centers its content."""
     return combine_classes("grid", place_items.center)
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 75
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 76
 def responsive_grid(
     mobile: int = 1,  # Number of columns on mobile devices
     tablet: int = 2,  # Number of columns on tablet devices
@@ -1093,7 +1108,7 @@ def responsive_grid(
         gap(gap_size)
     )
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 76
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 77
 def test_flexbox_and_grid_helper_examples(
 ): # TODO: Add type hint
     """Test helper functions for common flexbox and grid patterns."""
@@ -1108,7 +1123,7 @@ def test_flexbox_and_grid_helper_examples(
 # Run the tests
 test_flexbox_and_grid_helper_examples()
 
-# %% ../../nbs/utilities/flexbox_and_grid.ipynb 77
+# %% ../../nbs/utilities/flexbox_and_grid.ipynb 78
 def test_flexbox_and_grid_factory_documentation(
 ): # TODO: Add type hint
     """Test that factories have accessible documentation."""

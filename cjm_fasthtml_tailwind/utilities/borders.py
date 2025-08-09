@@ -11,7 +11,7 @@ __all__ = ['RADIUS_SCALES', 'RADIUS_CONFIG', 'rounded', 'BORDER_WIDTH_CONFIG', '
            'test_borders_color_examples', 'test_borders_divide_color_examples', 'test_borders_style_examples',
            'test_borders_divide_style_examples', 'OutlineWidthFactory', 'test_borders_outline_width_examples',
            'test_borders_outline_color_examples', 'test_borders_outline_style_examples',
-           'test_borders_outline_offset_examples', 'test_borders_practical_examples',
+           'test_borders_outline_offset_examples', 'test_borders_fasthtml_examples',
            'test_borders_factory_documentation']
 
 # %% ../../nbs/utilities/borders.ipynb 3
@@ -24,6 +24,11 @@ from cjm_fasthtml_tailwind.core.base import (
 )
 from ..builders.scales import ScaledFactory, ScaleConfig
 from ..builders.colors import ColoredFactory, ColorValue
+
+from fasthtml.common import Div
+from fasthtml.jupyter import JupyUvi, HTMX
+from ..core.testing import create_test_app, create_test_page, start_test_server
+from IPython.display import display
 
 # %% ../../nbs/utilities/borders.ipynb 6
 RADIUS_SCALES = [ # Border radius named scales
@@ -987,11 +992,12 @@ def test_borders_outline_offset_examples():
 test_borders_outline_offset_examples()
 
 # %% ../../nbs/utilities/borders.ipynb 73
-def test_borders_practical_examples():
+def test_borders_fasthtml_examples():
     """Test border utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Ul, Li, H3, P, Input, Link
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, overflow
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     from cjm_fasthtml_tailwind.core.base import combine_classes
     
     # Card with rounded corners and colored border
@@ -1219,9 +1225,27 @@ def test_borders_practical_examples():
         )
     )
     assert "outline-hidden" in accessible_container.attrs['class']
+    
+    # Return all examples in a grid layout
+    return Div(
+        card,
+        button,
+        container,
+        list_with_dividers,
+        button_group,
+        complex_border,
+        transparent_card,
+        input_field,
+        dotted_list,
+        focus_button,
+        custom_link,
+        double_border_box,
+        accessible_container,
+        cls=combine_classes(display_tw.grid, gap(5))
+    )
 
 # Run the tests
-test_borders_practical_examples()
+test_borders_fasthtml_examples()
 
 # %% ../../nbs/utilities/borders.ipynb 80
 def test_borders_factory_documentation():
