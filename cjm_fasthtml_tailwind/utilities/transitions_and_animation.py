@@ -556,7 +556,7 @@ def test_transitions_and_animation_fasthtml_examples():
     """Test transition and animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Span, A, Img
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.effects import shadow
@@ -570,7 +570,7 @@ def test_transitions_and_animation_fasthtml_examples():
     button = Button(
         "Hover me",
         cls=combine_classes(
-            bg.blue._500, bg.blue._700.hover, text.white, p.x(4), p.y(2), rounded.full,
+            bg.blue._500, bg.blue._700.hover, text_color.white, p.x(4), p.y(2), rounded.full,
             transition.colors,
             duration._300,
             ease.in_out
@@ -610,7 +610,7 @@ def test_transitions_and_animation_fasthtml_examples():
     delayed_link = A(
         "Delayed hover",
         cls=combine_classes(
-            text.gray._600, text.blue._500.hover,
+            text_color.gray._600, text_color.blue._500.hover,
             transition.colors,
             duration._500,
             delay._200
@@ -650,7 +650,7 @@ def test_transitions_and_animation_animation_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.layout import position, top, right, display_tw
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Loading spinner
@@ -684,7 +684,7 @@ def test_transitions_and_animation_animation_fasthtml_examples():
     arrow = Div(
         "↓",
         cls=combine_classes(
-            text._2xl,
+            font_size._2xl,
             animate.bounce
         )
     )

@@ -1668,7 +1668,7 @@ def test_effects_shadow_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
@@ -1688,7 +1688,7 @@ def test_effects_shadow_fasthtml_examples():
             shadow.sm,
             shadow.lg.hover,
             transition.shadow,
-            p.x(4), p.y(2), bg.blue._500, text.white, rounded.full
+            p.x(4), p.y(2), bg.blue._500, text_color.white, rounded.full
         )
     )
     assert "shadow-sm" in button.attrs['class']
@@ -1711,7 +1711,7 @@ def test_effects_shadow_fasthtml_examples():
         cls=combine_classes(
             shadow._2xl,
             shadow_color.black,
-            w(14), h(14), rounded.full, bg.purple._600, text.white
+            w(14), h(14), rounded.full, bg.purple._600, text_color.white
         )
     )
     assert "shadow-2xl" in fab.attrs['class']
@@ -1861,7 +1861,7 @@ def test_effects_comprehensive_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg, bg_linear, from_color, to_color
     from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
@@ -1884,7 +1884,7 @@ def test_effects_comprehensive_fasthtml_examples():
     ring_button = Button(
         "Click for Ring",
         cls=combine_classes(
-            p.x(6), p.y(3), bg.blue._500, text.white, rounded.lg,
+            p.x(6), p.y(3), bg.blue._500, text_color.white, rounded.lg,
             ring(4).focus,
             ring_color.blue._300.focus
         )
@@ -1953,7 +1953,7 @@ def test_effects_mask_fasthtml_examples():
     from fasthtml.common import Div, Img, Section, H1, P
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg, bg_linear, from_color, to_color, via_color
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.layout import position, overflow, display_tw
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
     from cjm_fasthtml_tailwind.utilities.borders import rounded
@@ -1966,7 +1966,7 @@ def test_effects_mask_fasthtml_examples():
             mask_linear._180,
             mask_t_from.black,
             mask_t_to.transparent,
-            p(8), bg.blue._500, text.white
+            p(8), bg.blue._500, text_color.white
         )
     )
     assert "mask-linear-180" in fade_out_div.attrs['class']
@@ -1995,7 +1995,7 @@ def test_effects_mask_fasthtml_examples():
         cls=combine_classes(
             mask_x_from._10,
             mask_x_to._90,
-            p.x(8), p.y(4), bg_linear.to_r, from_color.purple._500, to_color.pink._500, text.white
+            p.x(8), p.y(4), bg_linear.to_r, from_color.purple._500, to_color.pink._500, text_color.white
         )
     )
     assert "mask-x-from-10" in fade_edges.attrs['class']
@@ -2011,7 +2011,7 @@ def test_effects_mask_fasthtml_examples():
             mask_radial_farthest_corner,
             mask_radial_from.black,
             mask_radial_to.transparent,
-            p(16), bg.gray._900, text.white
+            p(16), bg.gray._900, text_color.white
         )
     )
     assert "mask-ellipse" in corner_spotlight.attrs['class']
@@ -2058,7 +2058,7 @@ def test_effects_mask_fasthtml_examples():
             mask_r_to("90%"),
             mask_mode.alpha,
             mask_origin.content,
-            p(12), bg_linear.to_r, from_color.indigo._500, via_color.purple._500, to_color.pink._500, text.white
+            p(12), bg_linear.to_r, from_color.indigo._500, via_color.purple._500, to_color.pink._500, text_color.white
         )
     )
     assert "mask-linear-45" in complex_mask.attrs['class']

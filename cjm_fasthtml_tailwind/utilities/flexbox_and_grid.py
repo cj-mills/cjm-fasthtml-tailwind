@@ -968,14 +968,14 @@ def test_flexbox_and_grid_fasthtml_examples(
     from fasthtml.common import Div, Header, Nav, Main, Article, Aside, Footer, Img, Button, H1, H2, P
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
-    from cjm_fasthtml_tailwind.utilities.typography import font, text, text_align
+    from cjm_fasthtml_tailwind.utilities.typography import font_weight, font_size, text_color, text_align
     from cjm_fasthtml_tailwind.utilities.sizing import h, min_h
     from cjm_fasthtml_tailwind.utilities.spacing import p, m
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     
     # Flexbox centered navigation
     nav = Nav(
-        Div("Logo", cls=str(font.bold)),
+        Div("Logo", cls=str(font_weight.bold)),
         Div(
             "Home", "About", "Contact",
             cls=combine_classes(display_tw.flex, gap(4))
@@ -1006,7 +1006,7 @@ def test_flexbox_and_grid_fasthtml_examples(
     
     # Flexbox vertical centering
     hero = Div(
-        H1("Welcome", cls=combine_classes(text._4xl, font.bold)),
+        H1("Welcome", cls=combine_classes(font_size._4xl, font_weight.bold)),
         P("Build amazing things"),
         Button("Get Started", cls=str(m.t(4))),
         cls=combine_classes(
@@ -1023,7 +1023,7 @@ def test_flexbox_and_grid_fasthtml_examples(
     # Complex grid layout with spanning
     dashboard = Div(
         # Header spans full width
-        Header("Dashboard", cls=combine_classes(col_span.full, p(4), bg.blue._500, text.white)),
+        Header("Dashboard", cls=combine_classes(col_span.full, p(4), bg.blue._500, text_color.white)),
         
         # Sidebar
         Aside("Sidebar", cls=combine_classes(row_span(2), p(4), bg.gray._200)),

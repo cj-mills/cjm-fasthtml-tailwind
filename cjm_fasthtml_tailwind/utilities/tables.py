@@ -340,7 +340,7 @@ def test_tables_complex_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.sizing import w
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.borders import border, border_color, rounded
-    from cjm_fasthtml_tailwind.utilities.typography import text, text_align, font
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, font_family, font_weight, text_color, text_align
     from cjm_fasthtml_tailwind.utilities.spacing import p, m
     from cjm_fasthtml_tailwind.utilities.layout import overflow, display_tw
     from cjm_fasthtml_tailwind.utilities.effects import shadow
@@ -353,9 +353,9 @@ def test_tables_complex_fasthtml_examples():
                 "Quarterly Sales Report",
                 cls=combine_classes(
                     caption_side.top,
-                    text.lg,
-                    font.semibold,
-                    text.gray._700,
+                    font_size.lg,
+                    font_weight.semibold,
+                    text_color.gray._700,
                     m.b(2)
                 )
             ),
@@ -431,7 +431,7 @@ def test_tables_complex_fasthtml_examples():
             border_spacing.x(1),
             border_spacing.y(0.5),
             table_layout.auto,
-            text.sm
+            font_size.sm
         )
     )
     

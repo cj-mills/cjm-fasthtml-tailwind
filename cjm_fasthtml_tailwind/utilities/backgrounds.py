@@ -492,7 +492,7 @@ def test_backgrounds_gradient_composition_examples():
     """Test composing gradient backgrounds with color stops."""
     from fasthtml.common import Div
     from cjm_fasthtml_tailwind.utilities.spacing import p
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     
     # Simple two-color gradient
     gradient1 = Div(
@@ -502,7 +502,7 @@ def test_backgrounds_gradient_composition_examples():
             from_color.blue._500,
             to_color.purple._600,
             p(8),
-            text.white
+            text_color.white
         )
     )
     assert "bg-linear-to-r" in gradient1.attrs['class']
@@ -518,7 +518,7 @@ def test_backgrounds_gradient_composition_examples():
             via_color.yellow._500,
             to_color.green._600,
             p(8),
-            text.white
+            text_color.white
         )
     )
     assert "via-yellow-500" in gradient2.attrs['class']
@@ -707,13 +707,13 @@ def test_backgrounds_fasthtml_examples():
     from fasthtml.common import Div, H1, P, Section
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.borders import rounded
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.layout import position, display_tw
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
     # Card with colored background
     card = Div(
-        H1("Welcome", cls=str(text.white)),
+        H1("Welcome", cls=str(text_color.white)),
         P("This is a card with a blue background"),
         cls=combine_classes(bg.blue._500, p(6), rounded.lg)
     )
@@ -741,17 +741,17 @@ def test_backgrounds_fasthtml_examples():
         "Gradient Text",
         cls=combine_classes(
             bg_clip.text,
-            text.transparent,
+            text_color.transparent,
             bg_linear.to_r,
             from_color.blue._500,
-            to_color.purple._600,
-            text._7xl
+            to_color.red._600,
+            font_size._7xl
         )
     )
     assert "bg-clip-text" in gradient_text.attrs['class']
     assert "bg-linear-to-r" in gradient_text.attrs['class']
     assert "from-blue-500" in gradient_text.attrs['class']
-    assert "to-purple-600" in gradient_text.attrs['class']
+    assert "to-red-600" in gradient_text.attrs['class']
     
     # Return all examples in a grid layout
     return Div(

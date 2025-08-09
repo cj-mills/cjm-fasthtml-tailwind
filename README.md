@@ -87,93 +87,93 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_utils
-    cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_core_utils_discovery
     cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_utils
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_test_code
     cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_search
-    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_core_utils_discovery
     cli_explorer --> cli_imports
-    cli_factory_extraction --> core_base
     cli_factory_extraction --> cli_utils
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_helper_discovery
+    cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_utils
     cli_imports --> cli_factory_extraction
-    cli_imports --> cli_core_utils_discovery
-    cli_search --> cli_helper_discovery
     cli_search --> cli_utils
     cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
+    cli_search --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_utils
-    cli_test_code --> cli_factory_extraction
-    core_testing --> utilities_sizing
-    core_testing --> utilities_layout
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_typography
     core_testing --> utilities_effects
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_borders
-    core_testing --> utilities_spacing
-    core_testing --> utilities_backgrounds
+    core_testing --> utilities_layout
     core_testing --> core_base
+    core_testing --> utilities_sizing
+    core_testing --> utilities_spacing
+    core_testing --> utilities_borders
     core_testing --> core_resources
+    core_testing --> utilities_typography
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_backgrounds
+    utilities_accessibility --> utilities_layout
     utilities_accessibility --> core_testing
     utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
-    utilities_accessibility --> utilities_layout
-    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_scales
     utilities_backgrounds --> core_testing
+    utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> builders_colors
     utilities_borders --> core_base
-    utilities_borders --> builders_scales
     utilities_borders --> core_testing
+    utilities_borders --> builders_scales
     utilities_borders --> builders_colors
-    utilities_effects --> builders_colors
     utilities_effects --> core_base
-    utilities_effects --> builders_scales
     utilities_effects --> core_testing
+    utilities_effects --> builders_scales
+    utilities_effects --> builders_colors
     utilities_filters --> builders_colors
-    utilities_filters --> builders_scales
     utilities_filters --> core_base
     utilities_filters --> core_testing
-    utilities_flexbox_and_grid --> builders_scales
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
+    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_testing
     utilities_interactivity --> core_base
     utilities_interactivity --> builders_scales
     utilities_interactivity --> core_testing
     utilities_interactivity --> builders_colors
-    utilities_layout --> builders_scales
     utilities_layout --> core_base
     utilities_layout --> core_testing
-    utilities_sizing --> core_testing
+    utilities_layout --> builders_scales
     utilities_sizing --> builders_scales
+    utilities_sizing --> core_testing
     utilities_sizing --> core_base
-    utilities_spacing --> core_base
     utilities_spacing --> builders_scales
     utilities_spacing --> core_testing
-    utilities_svg --> builders_colors
+    utilities_spacing --> core_base
     utilities_svg --> core_base
-    utilities_svg --> builders_scales
     utilities_svg --> core_testing
+    utilities_svg --> builders_colors
+    utilities_svg --> builders_scales
     utilities_tables --> builders_scales
-    utilities_tables --> core_base
     utilities_tables --> core_testing
-    utilities_transforms --> builders_scales
+    utilities_tables --> core_base
     utilities_transforms --> core_base
+    utilities_transforms --> builders_scales
     utilities_transforms --> core_testing
-    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> core_testing
-    utilities_typography --> core_base
+    utilities_transitions_and_animation --> builders_scales
     utilities_typography --> builders_scales
     utilities_typography --> core_testing
+    utilities_typography --> core_base
     utilities_typography --> builders_colors
 ```
 
@@ -5953,11 +5953,14 @@ delay  # The delay factory
 ``` python
 from cjm_fasthtml_tailwind.utilities.typography import (
     font_family,
+    FONT_SCALES,
+    FONT_SIZE_CONFIG,
+    font_size,
     antialiased,
     subpixel_antialiased,
     italic,
     not_italic,
-    font,
+    font_weight,
     font_stretch,
     normal_nums,
     ordinal,
@@ -5978,12 +5981,12 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     list_position,
     list_style,
     text_align,
-    text,
+    text_color,
     underline,
     overline,
     line_through,
     no_underline,
-    decoration,
+    decoration_color,
     decoration_style,
     DECORATION_THICKNESS_CONFIG,
     decoration_thickness,
@@ -6011,26 +6014,29 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     wrap_normal,
     hyphens,
     content,
+    FontFamily,
     test_typography_font_family_examples,
+    test_typography_font_size_examples,
     test_typography_font_smoothing_examples,
     test_typography_font_style_examples,
-    FontFactory,
+    FontWeight,
     test_typography_font_weight_examples,
+    FontStretch,
     test_typography_font_stretch_examples,
     test_typography_font_variant_numeric_examples,
     test_typography_spacing_examples,
-    LineClampFactory,
     test_typography_line_clamp_examples,
-    LeadingFactory,
     test_typography_line_height_examples,
     ListImageUtility,
     ListImageFactory,
     test_typography_list_image_examples,
+    ListStylePosition,
+    ListStyleType,
     test_typography_list_styles_examples,
+    TextAlign,
     test_typography_text_alignment_examples,
-    TextFactory,
-    test_typography_font_size_examples,
     test_typography_text_color_examples,
+    DecorationStyle,
     test_typography_text_decoration_examples,
     test_typography_underline_offset_examples,
     test_typography_text_transform_examples,
@@ -6045,8 +6051,7 @@ from cjm_fasthtml_tailwind.utilities.typography import (
     ContentUtility,
     ContentFactory,
     test_typography_content_examples,
-    test_typography_fasthtml_examples,
-    test_typography_factory_documentation
+    test_typography_fasthtml_examples
 )
 ```
 
@@ -6055,6 +6060,11 @@ from cjm_fasthtml_tailwind.utilities.typography import (
 ``` python
 def test_typography_font_family_examples()
     "Test font family utilities."
+```
+
+``` python
+def test_typography_font_size_examples()
+    "Test font size utilities."
 ```
 
 ``` python
@@ -6110,11 +6120,6 @@ def test_typography_list_styles_examples()
 ``` python
 def test_typography_text_alignment_examples()
     "Test text alignment utilities."
-```
-
-``` python
-def test_typography_font_size_examples()
-    "Test font size utilities."
 ```
 
 ``` python
@@ -6187,37 +6192,18 @@ def test_typography_fasthtml_examples()
     "Test typography utilities in practical FastHTML component examples."
 ```
 
-``` python
-def test_typography_factory_documentation()
-    "Test that typography factories have accessible documentation."
-```
-
 #### Classes
 
 ``` python
-class FontFactory:
-    def __init__(self)
-    "Factory for font utilities including family and weight."
-    
-    def __init__(self)
-        "Initialize font factory with families and weights."
-    
-    def get_info(
-            self
-        ) -> Dict[str, Any]:  # Factory information
-        "Get information about the font factory."
+class FontFamily(str, Enum):
 ```
 
 ``` python
-class LineClampFactory(ScaledFactory):
-    "Factory for line clamp utilities."
-    
+class FontWeight(str, Enum):
 ```
 
 ``` python
-class LeadingFactory(ScaledFactory):
-    "Factory for line height utilities with restricted numeric range."
-    
+class FontStretch(str, Enum):
 ```
 
 ``` python
@@ -6259,12 +6245,19 @@ class ListImageFactory:
 ```
 
 ``` python
-class TextFactory:
-    def __init__(self)
-    "Enhanced text factory that supports both font sizes and text colors."
-    
-    def __init__(self)
-        "Initialize text factory with size support."
+class ListStylePosition(str, Enum):
+```
+
+``` python
+class ListStyleType(str, Enum):
+```
+
+``` python
+class TextAlign(str, Enum):
+```
+
+``` python
+class DecorationStyle(str, Enum):
 ```
 
 ``` python
@@ -6308,11 +6301,16 @@ class ContentFactory:
 #### Variables
 
 ``` python
+font_family  # Font family utilities
+FONT_SCALES = [13 items]  # Font size named scales
+FONT_SIZE_CONFIG  # Font size configuration
+font_size  # Font size factory
 antialiased  # Antialiased font smoothing
 subpixel_antialiased  # Subpixel antialiased font smoothing
 italic  # Italic font style
 not_italic  # Normal font style
-font  # Enhanced font factory for family and weight
+font_weight  # Font weight utilities
+font_stretch  # Font stretch utilities
 normal_nums  # Normal numbers
 ordinal  # Ordinal numbers
 slashed_zero  # Slashed zero
@@ -6329,12 +6327,16 @@ line_clamp  # Line clamp factory
 LEADING_CONFIG
 leading  # Line height factory
 list_image  # List image factory
-text  # Enhanced text factory for size and color
+list_position  # List position factory
+list_style  # List type factory
+text_align  # Text alignment factory
+text_color  # Text color factory
 underline  # Underline text
 overline  # Overline text
 line_through  # Line through text
 no_underline  # No text decoration
-decoration  # Text decoration color factory
+decoration_color  # Text decoration color factory
+decoration_style  # Text decoration style factory
 DECORATION_THICKNESS_CONFIG
 decoration_thickness  # Text decoration thickness factory
 UNDERLINE_OFFSET_CONFIG

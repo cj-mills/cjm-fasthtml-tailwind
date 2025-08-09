@@ -598,7 +598,7 @@ def test_interactivity_form_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.borders import border, rounded
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.layout import display_tw
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
     
@@ -653,7 +653,7 @@ def test_interactivity_form_fasthtml_examples():
             select.none,
             pointer_events.auto,
             bg.blue._500,
-            text.white,
+            text_color.white,
             p.x(4),
             p.y(2),
             rounded.full,
@@ -745,7 +745,7 @@ def test_interactivity_touch_mobile_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.layout import position, overflow, display_tw
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap
@@ -789,7 +789,7 @@ def test_interactivity_touch_mobile_fasthtml_examples():
             display_tw.block,
             p(3),
             bg.gray._900,
-            text.gray._100,
+            text_color.gray._100,
             rounded.full
         )
     )
@@ -871,7 +871,7 @@ def test_interactivity_advanced_fasthtml_examples():
     from fasthtml.common import Div, Input, Form, Pre
     from cjm_fasthtml_tailwind.utilities.spacing import p, m
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
-    from cjm_fasthtml_tailwind.utilities.typography import text, font
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, font_weight, font_family, text_color
     from cjm_fasthtml_tailwind.utilities.borders import rounded
     from cjm_fasthtml_tailwind.utilities.layout import position, overflow
     from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, transform
@@ -895,7 +895,7 @@ def test_interactivity_advanced_fasthtml_examples():
                 appearance.none,
                 scheme.dark,
                 bg.gray._800,
-                text.white,
+                text_color.white,
                 p.x(3),
                 p.y(2),
                 rounded.full
@@ -923,9 +923,9 @@ def test_interactivity_advanced_fasthtml_examples():
                 resize.both,
                 scroll.auto,
                 scroll_p(4),
-                font.mono,
+                font_family.mono,
                 bg.gray._900,
-                text.gray._100,
+                text_color.gray._100,
                 p(4),
                 rounded.full,
                 overflow.auto

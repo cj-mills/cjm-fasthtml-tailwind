@@ -69,7 +69,7 @@ def test_accessibility_fasthtml_examples(
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
     from cjm_fasthtml_tailwind.utilities.sizing import w, h
-    from cjm_fasthtml_tailwind.utilities.typography import text
+    from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import animate
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, items
     from cjm_fasthtml_tailwind.core.base import combine_classes
@@ -117,9 +117,9 @@ def test_accessibility_fasthtml_examples(
     
     # Navigation with forced color adjustments
     high_contrast_nav = Nav(
-        A("Home", href="/", cls=combine_classes(forced_color_adjust.none, text.blue._600)),
-        A("About", href="/about", cls=combine_classes(forced_color_adjust.none, text.blue._600)),
-        A("Contact", href="/contact", cls=combine_classes(forced_color_adjust.none, text.blue._600)),
+        A("Home", href="/", cls=combine_classes(forced_color_adjust.none, text_color.blue._600)),
+        A("About", href="/about", cls=combine_classes(forced_color_adjust.none, text_color.blue._600)),
+        A("Contact", href="/contact", cls=combine_classes(forced_color_adjust.none, text_color.blue._600)),
         cls=combine_classes(forced_color_adjust.auto, display_tw.flex, gap(4))
     )
     assert high_contrast_nav.attrs['class'] == "forced-color-adjust-auto flex gap-4"
