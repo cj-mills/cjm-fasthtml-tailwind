@@ -16,9 +16,9 @@ import os
 class LibraryConfig:
     """Configuration for a specific library's CLI tool."""
     # Package names
-    package_name: str  # e.g., 'cjm_fasthtml_tailwind' or 'cjm_fasthtml_daisyui'
-    cli_command: str  # e.g., 'cjm-tailwind-explore' or 'cjm-daisyui-explore'
-    display_name: str  # e.g., 'Tailwind' or 'DaisyUI'
+    package_name: str  # e.g., 'cjm_fasthtml_tailwind'
+    cli_command: str  # e.g., 'cjm-tailwind-explore'
+    display_name: str  # e.g., 'Tailwind'
     
     # Module discovery configuration
     module_discovery_paths: List[str]  # e.g., ['utilities'] or ['components', 'builders']
@@ -33,7 +33,7 @@ class LibraryConfig:
     base_imports: List[str] = field(default_factory=list)  # Additional base imports
     
     # Pattern matching specifics (optional)
-    css_class_prefix: Optional[str] = None  # e.g., 'daisy-' for DaisyUI classes
+    css_class_prefix: Optional[str] = None
     
     # Test patterns (for finding test examples)
     test_pattern_prefix: str = 'test_'  # Prefix for test functions
@@ -74,7 +74,7 @@ def get_tailwind_config() -> LibraryConfig:
         base_imports=['from fasthtml.common import *']
     )
 
-# %% ../../nbs/cli/cli_config.ipynb 10
+# %% ../../nbs/cli/cli_config.ipynb 9
 # Global variable to store the active configuration
 _active_config: Optional[LibraryConfig] = None
 
@@ -104,13 +104,13 @@ def get_active_config() -> LibraryConfig:
     
     return _active_config
 
-# %% ../../nbs/cli/cli_config.ipynb 11
+# %% ../../nbs/cli/cli_config.ipynb 10
 def reset_config() -> None:
     """Reset the active configuration to force re-detection."""
     global _active_config
     _active_config = None
 
-# %% ../../nbs/cli/cli_config.ipynb 13
+# %% ../../nbs/cli/cli_config.ipynb 12
 def get_config_by_name(name: str) -> Optional[LibraryConfig]:
     """Get a library configuration by name.
     
@@ -127,12 +127,12 @@ def get_config_by_name(name: str) -> Optional[LibraryConfig]:
     factory = configs.get(name.lower())
     return factory() if factory else None
 
-# %% ../../nbs/cli/cli_config.ipynb 15
+# %% ../../nbs/cli/cli_config.ipynb 14
 def list_available_configs() -> List[str]:
     """List all available library configurations."""
     return ['tailwind']
 
-# %% ../../nbs/cli/cli_config.ipynb 16
+# %% ../../nbs/cli/cli_config.ipynb 15
 def get_config_info(config: LibraryConfig) -> Dict[str, Any]:
     """Get information about a configuration.
     
