@@ -32,8 +32,15 @@ def extract_test_examples_from_module(
     """Extract all test example functions from a module."""
     examples = []
     
-    # Pattern to match test functions: test_<module>_<feature>_examples
-    pattern = re.compile(rf'^test_{module_name}_(\w+)_examples$')
+    if "." in module_name:
+        # print("Submodule detected.")
+        submodule_name = module_name.split(".")[-1]
+        # print(f"Submodule: {submodule_name}")
+        # Pattern to match test functions: test_<submodule>_<feature>_examples
+        pattern = re.compile(rf'^test_{submodule_name}_(\w+)_examples$')
+    else:    
+        # Pattern to match test functions: test_<module>_<feature>_examples
+        pattern = re.compile(rf'^test_{module_name}_(\w+)_examples$')
     
     for name in dir(module):
         match = pattern.match(name)
