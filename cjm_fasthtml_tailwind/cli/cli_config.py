@@ -64,7 +64,7 @@ def get_tailwind_config() -> LibraryConfig:
     return LibraryConfig(
         package_name='cjm_fasthtml_tailwind',
         cli_command='cjm-tailwind-explore',
-        display_name='Tailwind CSS 44',
+        display_name='Tailwind CSS v4',
         module_discovery_paths=['utilities'],
         core_package='cjm_fasthtml_tailwind.core',
         core_utilities=[
