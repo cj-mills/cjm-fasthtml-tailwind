@@ -15,9 +15,10 @@ pip install cjm-fasthtml-tailwind
     ├── builders/ (2)
     │   ├── colors.ipynb  # Color system builders for Tailwind CSS utilities
     │   └── scales.ipynb  # Numeric and named scale builders for Tailwind CSS utilities
-    ├── cli/ (11)
+    ├── cli/ (12)
     │   ├── cli_config.ipynb            # Configuration system for multi-library CLI support
     │   ├── core_utils_discovery.ipynb  # Functions to discover and display core utility functions like combine_classes:
+    │   ├── display.ipynb               # Functions to format and display the discovered information:
     │   ├── example_discovery.ipynb     # Functions to discover and extract test example functions:
     │   ├── explorer.ipynb              # CLI tool for API exploration of cjm-fasthtml-tailwind utilities
     │   ├── factory_extraction.ipynb    # Functions to extract BaseFactory instances from modules:
@@ -48,7 +49,7 @@ pip install cjm-fasthtml-tailwind
         ├── transitions_and_animation.ipynb  # Transition and animation utilities for Tailwind CSS
         └── typography.ipynb                 # Typography utilities for Tailwind CSS
 
-Total: 31 notebooks across 4 directories
+Total: 32 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -58,6 +59,7 @@ graph LR
     builders_scales[builders.scales<br/>scales]
     cli_cli_config[cli.cli_config<br/>CLI Configuration]
     cli_core_utils_discovery[cli.core_utils_discovery<br/>Core Utilities Discovery]
+    cli_display[cli.display<br/>Display Functions]
     cli_example_discovery[cli.example_discovery<br/>Example Discovery]
     cli_explorer[cli.explorer<br/>explorer]
     cli_factory_extraction[cli.factory_extraction<br/>Factory Extraction]
@@ -89,101 +91,113 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
+    cli_display --> cli_utils
+    cli_display --> cli_pattern_scanner
+    cli_display --> cli_helper_discovery
+    cli_display --> cli_imports
+    cli_display --> cli_core_utils_discovery
+    cli_display --> cli_search
+    cli_display --> cli_example_discovery
+    cli_display --> cli_test_code
+    cli_display --> cli_cli_config
+    cli_display --> cli_factory_extraction
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_utils
-    cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_example_discovery
     cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_search
-    cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_test_code
-    cli_explorer --> cli_imports
     cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_imports
+    cli_explorer --> cli_display
+    cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_search
+    cli_explorer --> cli_example_discovery
+    cli_explorer --> cli_test_code
+    cli_explorer --> cli_cli_config
+    cli_explorer --> cli_factory_extraction
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_utils
-    cli_imports --> cli_factory_extraction
-    cli_imports --> cli_helper_discovery
-    cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_cli_config
-    cli_search --> cli_factory_extraction
+    cli_imports --> cli_utils
+    cli_imports --> cli_helper_discovery
+    cli_imports --> cli_factory_extraction
+    cli_imports --> cli_core_utils_discovery
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
-    cli_test_code --> cli_utils
+    cli_search --> cli_example_discovery
+    cli_search --> cli_factory_extraction
     cli_test_code --> cli_cli_config
-    cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_utils
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
     cli_utils --> cli_cli_config
     core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_layout
     core_testing --> utilities_typography
-    core_testing --> utilities_sizing
     core_testing --> utilities_effects
     core_testing --> utilities_spacing
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_borders
-    core_testing --> utilities_backgrounds
-    core_testing --> utilities_accessibility
     core_testing --> core_base
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_sizing
+    core_testing --> utilities_backgrounds
+    core_testing --> utilities_borders
     core_testing --> core_resources
+    core_testing --> utilities_accessibility
     utilities_accessibility --> builders_scales
     utilities_accessibility --> core_testing
     utilities_accessibility --> core_base
-    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_testing
     utilities_backgrounds --> core_base
+    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> builders_scales
-    utilities_borders --> builders_scales
-    utilities_borders --> builders_colors
     utilities_borders --> core_testing
+    utilities_borders --> builders_scales
     utilities_borders --> core_base
-    utilities_effects --> builders_colors
-    utilities_effects --> builders_scales
+    utilities_borders --> builders_colors
     utilities_effects --> core_testing
+    utilities_effects --> builders_scales
     utilities_effects --> core_base
-    utilities_filters --> builders_scales
-    utilities_filters --> builders_colors
+    utilities_effects --> builders_colors
     utilities_filters --> core_testing
+    utilities_filters --> builders_colors
+    utilities_filters --> builders_scales
     utilities_filters --> core_base
-    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_testing
+    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_interactivity --> builders_colors
-    utilities_interactivity --> builders_scales
     utilities_interactivity --> core_testing
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> core_base
-    utilities_layout --> builders_scales
+    utilities_interactivity --> builders_colors
     utilities_layout --> core_testing
+    utilities_layout --> builders_scales
     utilities_layout --> core_base
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
     utilities_sizing --> core_base
-    utilities_spacing --> builders_scales
+    utilities_sizing --> builders_scales
     utilities_spacing --> core_testing
+    utilities_spacing --> builders_scales
     utilities_spacing --> core_base
-    utilities_svg --> builders_colors
-    utilities_svg --> builders_scales
     utilities_svg --> core_testing
+    utilities_svg --> builders_scales
     utilities_svg --> core_base
-    utilities_tables --> builders_scales
+    utilities_svg --> builders_colors
     utilities_tables --> core_testing
+    utilities_tables --> builders_scales
     utilities_tables --> core_base
-    utilities_transforms --> builders_scales
     utilities_transforms --> core_testing
+    utilities_transforms --> builders_scales
     utilities_transforms --> core_base
-    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_testing
+    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_base
-    utilities_typography --> builders_colors
-    utilities_typography --> builders_scales
     utilities_typography --> core_testing
+    utilities_typography --> builders_scales
     utilities_typography --> core_base
+    utilities_typography --> builders_colors
 ```
 
-*95 cross-module dependencies detected*
+*107 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -193,10 +207,10 @@ graph LR
                                 {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
                                 ...
 
-    cjm-fasthtml-tailwind CLI Explorer
+    cjm_fasthtml_tailwind CLI Explorer
 
-    This tool helps you explore the cjm-fasthtml-tailwind library, which provides:
-    - Python-native Tailwind CSS v4 utility class builders for FastHTML projects
+    This tool helps you explore the cjm_fasthtml_tailwind library, which provides:
+    - Python-native Tailwind CSS 44 utility class builders for FastHTML projects
     - Type-safe, dynamic CSS class generation without hardcoded strings
     - Comprehensive utility factories (forced_color_adjust, not_sr_only, sr_only, etc.)
     - Helper functions for common patterns
@@ -1864,6 +1878,154 @@ class CoreUtilityInfo:
     import_statement: str  # How to import this utility
 ```
 
+### Display Functions (`display.ipynb`)
+
+> Functions to format and display the discovered information:
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.display import (
+    display_modules,
+    display_module_factories,
+    display_all_factories,
+    display_module_examples,
+    display_all_examples,
+    display_example_source,
+    display_module_helpers,
+    display_helper_source,
+    display_all_helpers,
+    display_factory_info,
+    display_search_results,
+    display_core_utility_source,
+    display_core_utilities,
+    display_imports,
+    display_test_code_result
+)
+```
+
+#### Functions
+
+``` python
+def display_modules(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display all available utility modules with their documentation."
+```
+
+``` python
+def display_module_factories(
+    module_name: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display all factories in a specific module."
+```
+
+``` python
+def display_all_factories(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display all factories across all modules."
+```
+
+``` python
+def display_module_examples(
+    module_name: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display all usage examples in a specific module."
+```
+
+``` python
+def display_all_examples(
+): # TODO: Add type hint
+    "Display all usage examples across all modules."
+```
+
+``` python
+def display_example_source(
+    module_name: str,  # TODO: Add description
+    feature: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display the source code of a specific example function."
+```
+
+``` python
+def display_module_helpers(
+    module_name: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display helper functions available in a specific module."
+```
+
+``` python
+def display_helper_source(
+    module_name: str,  # TODO: Add description
+    helper_name: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display the source code of a specific helper function."
+```
+
+``` python
+def display_all_helpers(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display all helper functions across all modules."
+```
+
+``` python
+def display_factory_info(
+    module_name: str,  # TODO: Add description
+    factory_name: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display detailed information about a specific factory."
+```
+
+``` python
+def display_search_results(
+    results: List[SearchResult],  # TODO: Add description
+    query: str  # TODO: Add description
+): # TODO: Add type hint
+    "Display search results in a formatted way."
+```
+
+``` python
+def display_core_utility_source(
+    util_name: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display the source code of a specific core utility function."
+```
+
+``` python
+def display_core_utilities(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display all core utility functions."
+```
+
+``` python
+def display_imports(
+    modules: Optional[List[str]] = None,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display recommended import statements."
+```
+
+``` python
+def display_test_code_result(
+    success: bool,  # TODO: Add description
+    stdout: str,  # TODO: Add description
+    stderr: str,  # TODO: Add description
+    code: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    "Display the results of test code execution."
+```
+
 ### effects (`effects.ipynb`)
 
 > Shadow, opacity and other visual effect utilities for Tailwind CSS
@@ -2431,21 +2593,6 @@ class ExampleInfo:
 
 ``` python
 from cjm_fasthtml_tailwind.cli.explorer import (
-    display_modules,
-    display_module_factories,
-    display_all_factories,
-    display_module_examples,
-    display_all_examples,
-    display_example_source,
-    display_module_helpers,
-    display_helper_source,
-    display_all_helpers,
-    display_factory_info,
-    display_search_results,
-    display_core_utility_source,
-    display_core_utilities,
-    display_imports,
-    display_test_code_result,
     get_example_modules,
     get_example_factories,
     get_example_features,
@@ -2478,115 +2625,9 @@ from cjm_fasthtml_tailwind.cli.explorer import (
 #### Functions
 
 ``` python
-def display_modules(
-): # TODO: Add type hint
-    "Display all available utility modules with their documentation."
-```
-
-``` python
-def display_module_factories(
-    module_name: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display all factories in a specific module."
-```
-
-``` python
-def display_all_factories(
-): # TODO: Add type hint
-    "Display all factories across all modules."
-```
-
-``` python
-def display_module_examples(
-    module_name: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display all usage examples in a specific module."
-```
-
-``` python
-def display_all_examples(
-): # TODO: Add type hint
-    "Display all usage examples across all modules."
-```
-
-``` python
-def display_example_source(
-    module_name: str,  # TODO: Add description
-    feature: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display the source code of a specific example function."
-```
-
-``` python
-def display_module_helpers(
-    module_name: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display helper functions available in a specific module."
-```
-
-``` python
-def display_helper_source(
-    module_name: str,  # TODO: Add description
-    helper_name: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display the source code of a specific helper function."
-```
-
-``` python
-def display_all_helpers(
-): # TODO: Add type hint
-    "Display all helper functions across all modules."
-```
-
-``` python
-def display_factory_info(
-    module_name: str,  # TODO: Add description
-    factory_name: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display detailed information about a specific factory."
-```
-
-``` python
-def display_search_results(
-    results: List[SearchResult],  # TODO: Add description
-    query: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display search results in a formatted way."
-```
-
-``` python
-def display_core_utility_source(
-    util_name: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display the source code of a specific core utility function."
-```
-
-``` python
-def display_core_utilities(
-): # TODO: Add type hint
-    "Display all core utility functions."
-```
-
-``` python
-def display_imports(
-    modules: Optional[List[str]] = None  # TODO: Add description
-): # TODO: Add type hint
-    "Display recommended import statements."
-```
-
-``` python
-def display_test_code_result(
-    success: bool,  # TODO: Add description
-    stdout: str,  # TODO: Add description
-    stderr: str,  # TODO: Add description
-    code: str  # TODO: Add description
-): # TODO: Add type hint
-    "Display the results of test code execution."
-```
-
-``` python
 def get_example_modules(
-    limit: int = 2  # TODO: Add description
+    limit: int = 2,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ) -> str:  # TODO: Add return description
     "Get example module names dynamically."
 ```
@@ -2594,7 +2635,8 @@ def get_example_modules(
 ``` python
 def get_example_factories(
     module_name: str = None,  # TODO: Add description
-    limit: int = 4  # TODO: Add description
+    limit: int = 4,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ) -> str:  # TODO: Add return description
     "Get example factory names dynamically."
 ```
@@ -2602,7 +2644,8 @@ def get_example_factories(
 ``` python
 def get_example_features(
     module_name: str = None,  # TODO: Add description
-    limit: int = 3  # TODO: Add description
+    limit: int = 3,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ) -> str:  # TODO: Add return description
     "Get example feature names dynamically."
 ```
@@ -2610,14 +2653,16 @@ def get_example_features(
 ``` python
 def get_example_helpers(
     module_name: str = None,  # TODO: Add description
-    limit: int = 2  # TODO: Add description
+    limit: int = 2,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ) -> str:  # TODO: Add return description
     "Get example helper function names dynamically."
 ```
 
 ``` python
 def get_example_core_utils(
-    limit: int = 2  # TODO: Add description
+    limit: int = 2,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ) -> str:  # TODO: Add return description
     "Get example core utility names dynamically."
 ```
@@ -2644,7 +2689,8 @@ def add_modules_parser(
 
 ``` python
 def add_factories_parser(
-    subparsers  # TODO: Add type hint and description
+    subparsers,  # TODO: Add type hint and description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Add the 'factories' command parser."
 ```
@@ -2693,7 +2739,8 @@ def add_search_parser(
 
 ``` python
 def add_test_code_parser(
-    subparsers  # TODO: Add type hint and description
+    subparsers,  # TODO: Add type hint and description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Add the 'test-code' command parser."
 ```
@@ -2714,14 +2761,16 @@ def add_core_util_parser(
 
 ``` python
 def add_imports_parser(
-    subparsers  # TODO: Add type hint and description
+    subparsers,  # TODO: Add type hint and description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Add the 'imports' command parser."
 ```
 
 ``` python
 def add_scan_parser(
-    subparsers  # TODO: Add type hint and description
+    subparsers,  # TODO: Add type hint and description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Add the 'scan' command parser."
 ```
@@ -2742,7 +2791,8 @@ def handle_search_command(
 
 ``` python
 def handle_test_code_command(
-    args  # TODO: Add type hint and description
+    args,  # TODO: Add type hint and description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Handle the test-code command."
 ```
@@ -2756,6 +2806,7 @@ def handle_scan_command(
 
 ``` python
 def setup_argument_parser(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Set up the main argument parser with all subcommands."
 ```
@@ -6909,9 +6960,10 @@ def format_usage_examples(
 
 ``` python
 def discover_utility_modules(
-    config: Optional[LibraryConfig] = None  # Optional configuration, uses active if not provided
+    config: Optional[LibraryConfig] = None,  # Optional configuration, uses active if not provided
+    include_submodules: bool = True  # Whether to include submodules
 ) -> List[Tuple[str, Any]]:  # List of (module_name, module) tuples
-    "Discover all utility modules based on configuration."
+    "Discover all utility modules based on configuration, including submodules."
 ```
 
 ``` python

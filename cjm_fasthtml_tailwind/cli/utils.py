@@ -410,18 +410,17 @@ import importlib
 import pkgutil
 
 def discover_utility_modules(
-    config: Optional[LibraryConfig] = None  # Optional configuration, uses active if not provided
+    config: Optional[LibraryConfig] = None,  # Optional configuration, uses active if not provided
+    include_submodules: bool = True  # Whether to include submodules
 ) -> List[Tuple[str, Any]]:  # List of (module_name, module) tuples
-    """Discover all utility modules based on configuration."""
+    """Discover all utility modules based on configuration, including submodules."""
     if config is None:
         config = get_active_config()
     
     modules = []
     
-    # Iterate through all configured discovery paths
-    for discovery_path in config.module_discovery_paths:
-        package_path = f"{config.package_name}.{discovery_path}"
-        
+    def discover_modules_recursive(package_path: str, base_name: str = ""):
+        """Recursively discover modules and submodules."""
         try:
             # Import the package
             package = importlib.import_module(package_path)
@@ -431,18 +430,43 @@ def discover_utility_modules(
                 # Iterate through all modules in the package
                 for importer, modname, ispkg in pkgutil.iter_modules(package.__path__, 
                                                                      prefix=f'{package_path}.'):
-                    if not ispkg:  # We only want modules, not sub-packages
-                        try:
-                            module = importlib.import_module(modname)
-                            # Extract just the module name without the full path
+                    try:
+                        module = importlib.import_module(modname)
+                        # Extract the relative name from the base discovery path
+                        if base_name:
+                            short_name = modname.replace(f"{config.package_name}.{base_name}.", "")
+                        else:
                             short_name = modname.split('.')[-1]
+                        
+                        if ispkg and include_submodules:
+                            # If it's a package, recursively discover its modules
+                            submodules = discover_modules_recursive(modname, base_name or discovery_path)
+                            modules.extend(submodules)
+                        else:
+                            # Add the module itself
                             modules.append((short_name, module))
-                        except ImportError:
-                            pass  # Skip modules that can't be imported
+                    except ImportError:
+                        pass  # Skip modules that can't be imported
         except ImportError:
             pass  # Package not found
+        
+        return modules
     
-    return sorted(modules, key=lambda x: x[0])  # Sort by module name
+    # Iterate through all configured discovery paths
+    for discovery_path in config.module_discovery_paths:
+        package_path = f"{config.package_name}.{discovery_path}"
+        discovered = discover_modules_recursive(package_path, discovery_path)
+        modules.extend(discovered)
+    
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_modules = []
+    for name, module in modules:
+        if name not in seen:
+            seen.add(name)
+            unique_modules.append((name, module))
+    
+    return sorted(unique_modules, key=lambda x: x[0])  # Sort by module name
 
 # %% ../../nbs/cli/utils.ipynb 31
 def iterate_all_modules_with_items(
