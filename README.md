@@ -15,7 +15,8 @@ pip install cjm-fasthtml-tailwind
     ├── builders/ (2)
     │   ├── colors.ipynb  # Color system builders for Tailwind CSS utilities
     │   └── scales.ipynb  # Numeric and named scale builders for Tailwind CSS utilities
-    ├── cli/ (10)
+    ├── cli/ (11)
+    │   ├── cli_config.ipynb            # Configuration system for multi-library CLI support
     │   ├── core_utils_discovery.ipynb  # Functions to discover and display core utility functions like combine_classes:
     │   ├── example_discovery.ipynb     # Functions to discover and extract test example functions:
     │   ├── explorer.ipynb              # CLI tool for API exploration of cjm-fasthtml-tailwind utilities
@@ -47,7 +48,7 @@ pip install cjm-fasthtml-tailwind
         ├── transitions_and_animation.ipynb  # Transition and animation utilities for Tailwind CSS
         └── typography.ipynb                 # Typography utilities for Tailwind CSS
 
-Total: 30 notebooks across 4 directories
+Total: 31 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -55,6 +56,7 @@ Total: 30 notebooks across 4 directories
 graph LR
     builders_colors[builders.colors<br/>colors]
     builders_scales[builders.scales<br/>scales]
+    cli_cli_config[cli.cli_config<br/>CLI Configuration]
     cli_core_utils_discovery[cli.core_utils_discovery<br/>Core Utilities Discovery]
     cli_example_discovery[cli.example_discovery<br/>Example Discovery]
     cli_explorer[cli.explorer<br/>explorer]
@@ -86,98 +88,102 @@ graph LR
 
     builders_colors --> core_base
     builders_scales --> core_base
+    cli_core_utils_discovery --> cli_cli_config
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_test_code
+    cli_explorer --> cli_imports
     cli_explorer --> cli_utils
     cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_factory_extraction
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_test_code
     cli_explorer --> cli_search
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_imports
-    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_factory_extraction
     cli_explorer --> cli_core_utils_discovery
     cli_factory_extraction --> core_base
     cli_factory_extraction --> cli_utils
-    cli_helper_discovery --> cli_example_discovery
     cli_helper_discovery --> cli_utils
-    cli_imports --> cli_helper_discovery
-    cli_imports --> cli_factory_extraction
+    cli_helper_discovery --> cli_example_discovery
+    cli_imports --> cli_cli_config
     cli_imports --> cli_utils
+    cli_imports --> cli_helper_discovery
     cli_imports --> cli_core_utils_discovery
-    cli_search --> cli_helper_discovery
+    cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
-    cli_test_code --> cli_helper_discovery
+    cli_search --> cli_factory_extraction
+    cli_search --> cli_helper_discovery
+    cli_test_code --> cli_cli_config
     cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
-    core_testing --> utilities_layout
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_typography
-    core_testing --> utilities_sizing
-    core_testing --> utilities_spacing
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_backgrounds
-    core_testing --> utilities_effects
-    core_testing --> core_base
-    core_testing --> utilities_borders
-    core_testing --> core_resources
+    cli_test_code --> cli_helper_discovery
+    cli_utils --> cli_cli_config
     core_testing --> utilities_accessibility
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_backgrounds
+    core_testing --> utilities_layout
+    core_testing --> utilities_sizing
+    core_testing --> core_resources
+    core_testing --> utilities_typography
+    core_testing --> core_base
+    core_testing --> utilities_spacing
+    core_testing --> utilities_borders
+    core_testing --> utilities_effects
     utilities_accessibility --> core_base
-    utilities_accessibility --> builders_scales
     utilities_accessibility --> core_testing
-    utilities_backgrounds --> builders_scales
+    utilities_accessibility --> builders_scales
+    utilities_backgrounds --> core_testing
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
-    utilities_backgrounds --> core_testing
+    utilities_backgrounds --> builders_scales
+    utilities_borders --> core_testing
     utilities_borders --> core_base
     utilities_borders --> builders_scales
     utilities_borders --> builders_colors
-    utilities_borders --> core_testing
-    utilities_effects --> core_base
-    utilities_effects --> builders_scales
-    utilities_effects --> builders_colors
     utilities_effects --> core_testing
-    utilities_filters --> builders_scales
+    utilities_effects --> core_base
+    utilities_effects --> builders_colors
+    utilities_effects --> builders_scales
+    utilities_filters --> core_testing
     utilities_filters --> core_base
     utilities_filters --> builders_colors
-    utilities_filters --> core_testing
-    utilities_flexbox_and_grid --> builders_scales
-    utilities_flexbox_and_grid --> core_base
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_testing
-    utilities_interactivity --> builders_scales
-    utilities_interactivity --> core_base
-    utilities_interactivity --> builders_colors
+    utilities_flexbox_and_grid --> core_base
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_testing
-    utilities_layout --> builders_scales
-    utilities_layout --> core_base
+    utilities_interactivity --> core_base
+    utilities_interactivity --> builders_scales
+    utilities_interactivity --> builders_colors
     utilities_layout --> core_testing
+    utilities_layout --> core_base
+    utilities_layout --> builders_scales
     utilities_sizing --> core_base
     utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
+    utilities_spacing --> core_testing
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
-    utilities_spacing --> core_testing
+    utilities_svg --> core_testing
     utilities_svg --> core_base
     utilities_svg --> builders_colors
     utilities_svg --> builders_scales
-    utilities_svg --> core_testing
-    utilities_tables --> builders_scales
-    utilities_tables --> core_base
     utilities_tables --> core_testing
-    utilities_transforms --> builders_scales
-    utilities_transforms --> core_base
+    utilities_tables --> core_base
+    utilities_tables --> builders_scales
     utilities_transforms --> core_testing
-    utilities_transitions_and_animation --> builders_scales
-    utilities_transitions_and_animation --> core_base
+    utilities_transforms --> core_base
+    utilities_transforms --> builders_scales
     utilities_transitions_and_animation --> core_testing
+    utilities_transitions_and_animation --> core_base
+    utilities_transitions_and_animation --> builders_scales
+    utilities_typography --> core_testing
     utilities_typography --> core_base
     utilities_typography --> builders_scales
     utilities_typography --> builders_colors
-    utilities_typography --> core_testing
 ```
 
-*91 cross-module dependencies detected*
+*95 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -1458,6 +1464,162 @@ OUTLINE_WIDTH_CONFIG  # Outline width configuration
 OUTLINE_OFFSET_CONFIG  # Outline offset configuration
 ```
 
+### CLI Configuration (`cli_config.ipynb`)
+
+> Configuration system for multi-library CLI support
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.cli_config import (
+    LibraryConfig,
+    get_tailwind_config,
+    get_daisyui_config,
+    set_active_config,
+    get_active_config,
+    reset_config,
+    get_config_by_name,
+    list_available_configs,
+    get_config_info
+)
+```
+
+#### Functions
+
+``` python
+def get_tailwind_config() -> LibraryConfig
+    "Get configuration for cjm-fasthtml-tailwind library."
+```
+
+``` python
+def get_daisyui_config() -> LibraryConfig
+    "Get configuration for cjm-fasthtml-daisyui library."
+```
+
+``` python
+def set_active_config(config: LibraryConfig) -> None:
+    """Set the active library configuration."""
+    global _active_config
+    _active_config = config
+
+def get_active_config() -> LibraryConfig
+    "Set the active library configuration."
+```
+
+``` python
+def get_active_config() -> LibraryConfig:
+    """Get the active library configuration.
+    
+    If no configuration is set, attempts to auto-detect based on:
+    1. Environment variable FASTHTML_LIB_CONFIG
+    2. Package availability
+    3. Defaults to Tailwind config
+    """
+    global _active_config
+    
+    if _active_config is not None
+    """
+    Get the active library configuration.
+    
+    If no configuration is set, attempts to auto-detect based on:
+    1. Environment variable FASTHTML_LIB_CONFIG
+    2. Package availability
+    3. Defaults to Tailwind config
+    """
+```
+
+``` python
+def reset_config() -> None
+    "Reset the active configuration to force re-detection."
+```
+
+``` python
+def get_config_by_name(name: str) -> Optional[LibraryConfig]:
+    """Get a library configuration by name.
+    
+    Args:
+        name: Library name ('tailwind', 'daisyui')
+    
+    Returns:
+        LibraryConfig or None if not found
+    """
+    configs = {
+        'tailwind': get_tailwind_config,
+    """
+    Get a library configuration by name.
+    
+    Args:
+        name: Library name ('tailwind', 'daisyui')
+    
+    Returns:
+        LibraryConfig or None if not found
+    """
+```
+
+``` python
+def list_available_configs() -> List[str]
+    "List all available library configurations."
+```
+
+``` python
+def get_config_info(config: LibraryConfig) -> Dict[str, Any]:
+    """Get information about a configuration.
+    
+    Returns:
+        Dictionary with configuration details
+    """
+    return {
+        'library': config.display_name,
+    """
+    Get information about a configuration.
+    
+    Returns:
+        Dictionary with configuration details
+    """
+```
+
+#### Classes
+
+``` python
+@dataclass
+class LibraryConfig:
+    "Configuration for a specific library's CLI tool."
+    
+    package_name: str  # e.g., 'cjm_fasthtml_tailwind' or 'cjm_fasthtml_daisyui'
+    cli_command: str  # e.g., 'cjm-tailwind-explore' or 'cjm-daisyui-explore'
+    display_name: str  # e.g., 'Tailwind' or 'DaisyUI'
+    module_discovery_paths: List[str]  # e.g., ['utilities'] or ['components', 'builders']
+    core_package: str  # e.g., 'cjm_fasthtml_tailwind.core'
+    core_utilities: List[Tuple[str, str]]  # [(name, module_path), ...]
+    base_imports: List[str] = field(...)  # Additional base imports
+    css_class_prefix: Optional[str]  # e.g., 'daisy-' for DaisyUI classes
+    test_pattern_prefix: str = 'test_'  # Prefix for test functions
+    test_pattern_suffix: str = '_examples'  # Suffix for test functions
+    helper_test_suffix: str = 'helper_examples'  # Suffix for helper test functions
+    
+    def get_utilities_package(self, module_name: str) -> str:
+            """Get the full package path for a utility module."""
+            # Find which discovery path contains this module
+            for path in self.module_discovery_paths
+        "Get the full package path for a utility module."
+    
+    def get_test_function_pattern(self, module_name: str, feature: str) -> str:
+            """Get the expected test function name for a module and feature."""
+            return f"{self.test_pattern_prefix}{module_name}_{feature}_{self.test_pattern_suffix}"
+        
+        def get_helper_test_function(self, module_name: str) -> str
+        "Get the expected test function name for a module and feature."
+    
+    def get_helper_test_function(self, module_name: str) -> str
+        "Get the expected helper test function name for a module."
+```
+
+#### Variables
+
+``` python
+_active_config: Optional[LibraryConfig] = None
+```
+
 ### colors (`colors.ipynb`)
 
 > Color system builders for Tailwind CSS utilities
@@ -1691,6 +1853,7 @@ from cjm_fasthtml_tailwind.cli.core_utils_discovery import (
 
 ``` python
 def get_core_utilities(
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> List[CoreUtilityInfo]:  # TODO: Add return description
     "Get information about core utility functions."
 ```
@@ -3507,7 +3670,8 @@ from cjm_fasthtml_tailwind.cli.imports import (
 
 ``` python
 def get_recommended_imports(
-    modules: Optional[List[str]] = None  # Specific modules to include, or None for all
+    modules: Optional[List[str]] = None,  # Specific modules to include, or None for all
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> List[str]:  # List of import statements
     "Get recommended import statements for using the library."
 ```
@@ -5441,7 +5605,8 @@ from cjm_fasthtml_tailwind.cli.test_code import (
 
 ``` python
 def create_test_script(
-    code: str  # TODO: Add description
+    code: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> str:  # TODO: Add return description
     "Create a test script with necessary imports and the provided code."
 ```
@@ -6736,7 +6901,8 @@ def find_usage_in_items(
 def get_view_command(
     content_type: str,  # Type of content ('factory', 'example', 'helper', 'module')
     module_name: str,  # Module name
-    item_name: str  # Item name (or feature name for examples)
+    item_name: str,  # Item name (or feature name for examples)
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> str:  # CLI command to view the item
     "Get the CLI command to view a specific item."
 ```
@@ -6753,14 +6919,16 @@ def format_usage_examples(
 
 ``` python
 def discover_utility_modules(
+    config: Optional[LibraryConfig] = None  # Optional configuration, uses active if not provided
 ) -> List[Tuple[str, Any]]:  # List of (module_name, module) tuples
-    "Discover all utility modules in the cjm_fasthtml_tailwind.utilities package."
+    "Discover all utility modules based on configuration."
 ```
 
 ``` python
 def iterate_all_modules_with_items(
     extractor_func,    # Function to extract items from a module - TODO: Add type hint
-    module_filter: Optional[str] = None  # Optional specific module to filter for
+    module_filter: Optional[str] = None,  # Optional specific module to filter for
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, List[Any]]:  # Dictionary mapping module names to their items
     "Generic iterator for extracting items from all modules."
 ```
@@ -6781,6 +6949,7 @@ def load_code_from_file(
 
 ``` python
 def list_utility_modules(
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, str]:  # Dictionary mapping module names to their docstrings
     "List all available utility modules with their docstrings."
 ```

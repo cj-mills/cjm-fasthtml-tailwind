@@ -11,19 +11,24 @@ from .utils import discover_utility_modules
 from .factory_extraction import extract_factories_from_module
 from .helper_discovery import get_module_helpers
 from .core_utils_discovery import get_core_utilities
+from .cli_config import LibraryConfig, get_active_config
 
 # %% ../../nbs/cli/imports.ipynb 4
 def get_recommended_imports(
-    modules: Optional[List[str]] = None  # Specific modules to include, or None for all
+    modules: Optional[List[str]] = None,  # Specific modules to include, or None for all
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> List[str]:  # List of import statements
     """Get recommended import statements for using the library."""
+    if config is None:
+        config = get_active_config()
+        
     imports = []
     
-    # Always include FastHTML
-    imports.append("from fasthtml.common import *")
+    # Add base imports from configuration
+    imports.extend(config.base_imports)
     
     # Get imports for utility modules
-    for module_name, module in discover_utility_modules():
+    for module_name, module in discover_utility_modules(config):
         if modules and module_name not in modules:
             continue
             
@@ -40,10 +45,12 @@ def get_recommended_imports(
         
         if all_names:
             import_list = ", ".join(sorted(all_names))
-            imports.append(f"from cjm_fasthtml_tailwind.utilities.{module_name} import {import_list}")
+            # Use the configuration to get the correct package path
+            module_package = config.get_utilities_package(module_name)
+            imports.append(f"from {module_package} import {import_list}")
     
     # Add core utilities
-    core_utils = get_core_utilities()
+    core_utils = get_core_utilities(config)
     for util in core_utils:
         imports.append(util.import_statement)
     

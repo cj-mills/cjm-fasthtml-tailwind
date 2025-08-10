@@ -16,24 +16,33 @@ from typing import Dict, List, Tuple, Any, Optional
 from .utils import discover_utility_modules
 from .factory_extraction import extract_factories_from_module
 from .helper_discovery import get_module_helpers
+from .cli_config import LibraryConfig, get_active_config
 
 # %% ../../nbs/cli/test_code.ipynb 4
 def create_test_script(
-    code: str  # TODO: Add description
+    code: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> str:  # TODO: Add return description
     """Create a test script with necessary imports and the provided code."""
+    if config is None:
+        config = get_active_config()
+        
     # Build the import statements dynamically based on discovered modules
-    imports = ["from fasthtml.common import *"]
+    imports = []
+    
+    # Add base imports from configuration
+    imports.extend(config.base_imports)
     
     # Add imports for factories from each utility module
-    for module_name, module in discover_utility_modules():
+    for module_name, module in discover_utility_modules(config):
         # Get the factory names from this module
         factories = extract_factories_from_module(module, module_name)
         if factories:
             # Import only the actual factory names
             factory_names = [f.name for f in factories]
             import_list = ", ".join(factory_names)
-            imports.append(f"from cjm_fasthtml_tailwind.utilities.{module_name} import {import_list}")
+            module_package = config.get_utilities_package(module_name)
+            imports.append(f"from {module_package} import {import_list}")
         
         # Also check for helper functions and import them
         helpers = get_module_helpers(module_name)
@@ -45,17 +54,16 @@ def create_test_script(
                 all_names = factory_names + helper_names
                 import_list = ", ".join(all_names)
                 # Replace the last import for this module
-                imports[-1] = f"from cjm_fasthtml_tailwind.utilities.{module_name} import {import_list}"
+                imports[-1] = f"from {module_package} import {import_list}"
             else:
                 # Just import helpers
                 import_list = ", ".join(helper_names)
-                imports.append(f"from cjm_fasthtml_tailwind.utilities.{module_name} import {import_list}")
+                module_package = config.get_utilities_package(module_name)
+                imports.append(f"from {module_package} import {import_list}")
     
-    # Add any other common imports
-    imports.extend([
-        "from cjm_fasthtml_tailwind.core.base import combine_classes",
-        "from cjm_fasthtml_tailwind.core.resources import get_tailwind_headers",
-    ])
+    # Add core utilities from configuration
+    for util_name, module_path in config.core_utilities:
+        imports.append(f"from {module_path} import {util_name}")
     
     # Create the full script
     script = "\n".join(imports) + "\n\n"

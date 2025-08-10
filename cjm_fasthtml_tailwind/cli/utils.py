@@ -17,6 +17,7 @@ from typing import List, Tuple, Optional, Dict, Any, Callable, Union
 from dataclasses import dataclass
 import re
 from pathlib import Path
+from .cli_config import LibraryConfig, get_active_config
 
 # %% ../../nbs/cli/utils.ipynb 5
 @dataclass
@@ -364,14 +365,20 @@ def find_usage_in_items(
 def get_view_command(
     content_type: str,  # Type of content ('factory', 'example', 'helper', 'module')
     module_name: str,  # Module name
-    item_name: str  # Item name (or feature name for examples)
+    item_name: str,  # Item name (or feature name for examples)
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> str:  # CLI command to view the item
     """Get the CLI command to view a specific item."""
+    if config is None:
+        config = get_active_config()
+        
+    cli_cmd = config.cli_command
+    
     commands = {
-        'factory': f"cjm-tailwind-explore factory {module_name} {item_name}",
-        'example': f"cjm-tailwind-explore example {module_name} {item_name}",
-        'helper': f"cjm-tailwind-explore helper {module_name} {item_name}",
-        'module': f"cjm-tailwind-explore factories --module {module_name}"
+        'factory': f"{cli_cmd} factory {module_name} {item_name}",
+        'example': f"{cli_cmd} example {module_name} {item_name}",
+        'helper': f"{cli_cmd} helper {module_name} {item_name}",
+        'module': f"{cli_cmd} factories --module {module_name}"
     }
     return commands.get(content_type, "")
 
@@ -403,41 +410,53 @@ import importlib
 import pkgutil
 
 def discover_utility_modules(
+    config: Optional[LibraryConfig] = None  # Optional configuration, uses active if not provided
 ) -> List[Tuple[str, Any]]:  # List of (module_name, module) tuples
-    """Discover all utility modules in the cjm_fasthtml_tailwind.utilities package."""
+    """Discover all utility modules based on configuration."""
+    if config is None:
+        config = get_active_config()
+    
     modules = []
     
-    try:
-        # Import the utilities package
-        utilities_package = importlib.import_module('cjm_fasthtml_tailwind.utilities')
+    # Iterate through all configured discovery paths
+    for discovery_path in config.module_discovery_paths:
+        package_path = f"{config.package_name}.{discovery_path}"
         
-        # Get the package path
-        if hasattr(utilities_package, '__path__'):
-            # Iterate through all modules in the utilities package
-            for importer, modname, ispkg in pkgutil.iter_modules(utilities_package.__path__, 
-                                                                 prefix='cjm_fasthtml_tailwind.utilities.'):
-                if not ispkg:  # We only want modules, not sub-packages
-                    try:
-                        module = importlib.import_module(modname)
-                        # Extract just the module name without the full path
-                        short_name = modname.split('.')[-1]
-                        modules.append((short_name, module))
-                    except ImportError:
-                        pass  # Skip modules that can't be imported
-    except ImportError:
-        pass  # Package not found
+        try:
+            # Import the package
+            package = importlib.import_module(package_path)
+            
+            # Get the package path
+            if hasattr(package, '__path__'):
+                # Iterate through all modules in the package
+                for importer, modname, ispkg in pkgutil.iter_modules(package.__path__, 
+                                                                     prefix=f'{package_path}.'):
+                    if not ispkg:  # We only want modules, not sub-packages
+                        try:
+                            module = importlib.import_module(modname)
+                            # Extract just the module name without the full path
+                            short_name = modname.split('.')[-1]
+                            modules.append((short_name, module))
+                        except ImportError:
+                            pass  # Skip modules that can't be imported
+        except ImportError:
+            pass  # Package not found
     
     return sorted(modules, key=lambda x: x[0])  # Sort by module name
 
 # %% ../../nbs/cli/utils.ipynb 31
 def iterate_all_modules_with_items(
     extractor_func,    # Function to extract items from a module - TODO: Add type hint
-    module_filter: Optional[str] = None  # Optional specific module to filter for
+    module_filter: Optional[str] = None,  # Optional specific module to filter for
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, List[Any]]:  # Dictionary mapping module names to their items
     """Generic iterator for extracting items from all modules."""
+    if config is None:
+        config = get_active_config()
+        
     all_items = {}
     
-    for module_name, module in discover_utility_modules():
+    for module_name, module in discover_utility_modules(config):
         if module_filter and module_name != module_filter:
             continue
             
@@ -511,11 +530,15 @@ def load_code_from_file(
 
 # %% ../../nbs/cli/utils.ipynb 39
 def list_utility_modules(
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, str]:  # Dictionary mapping module names to their docstrings
     """List all available utility modules with their docstrings."""
+    if config is None:
+        config = get_active_config()
+        
     modules_info = {}
     
-    for module_name, module in discover_utility_modules():
+    for module_name, module in discover_utility_modules(config):
         # Get module docstring
         doc = inspect.getdoc(module) or "No documentation available"
         modules_info[module_name] = doc

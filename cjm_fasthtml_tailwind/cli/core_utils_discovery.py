@@ -10,6 +10,7 @@ from dataclasses import dataclass
 import importlib
 import inspect
 from typing import Dict, List, Tuple, Any, Optional
+from .cli_config import LibraryConfig, get_active_config
 
 # %% ../../nbs/cli/core_utils_discovery.ipynb 4
 @dataclass
@@ -25,17 +26,16 @@ class CoreUtilityInfo:
 
 # %% ../../nbs/cli/core_utils_discovery.ipynb 5
 def get_core_utilities(
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> List[CoreUtilityInfo]:  # TODO: Add return description
     """Get information about core utility functions."""
+    if config is None:
+        config = get_active_config()
+        
     utilities = []
     
-    # Define core utilities to expose
-    core_utils = [
-        ('combine_classes', 'cjm_fasthtml_tailwind.core.base'),
-        ('get_tailwind_headers', 'cjm_fasthtml_tailwind.core.resources'),
-    ]
-    
-    for util_name, module_path in core_utils:
+    # Use core utilities from configuration
+    for util_name, module_path in config.core_utilities:
         try:
             module = importlib.import_module(module_path)
             if hasattr(module, util_name):
