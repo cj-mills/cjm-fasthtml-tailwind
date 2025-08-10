@@ -959,27 +959,44 @@ def add_search_parser(
     
     description = (
         'Search across all library components to find specific functionality.\n\n'
-        'This command searches through:\n'
-        '- Factory names and documentation\n'
-        '- Example function names and docstrings\n'
+        'SEARCH CAPABILITIES:\n'
+        '- Simple text search with partial word matching (case-insensitive by default)\n'
+        '- Searches factory names, documentation, examples, helpers, and modules\n'
+        '- Use --include-source to also search within code implementations\n\n'
+        'WHAT IT SEARCHES:\n'
+        '- Factory names and documentation (e.g., "padding" finds p, ps, pe factories)\n'
+        '- Example function names, features, and docstrings\n'
         '- Helper function names and docstrings\n'
         '- Module names and documentation\n'
-        '- Optionally: source code of examples and helpers\n\n'
-        'Use --include-source to search within the actual code implementations.'
+        '- Source code of examples/helpers (with --include-source flag)\n\n'
+        'SEARCH BEHAVIOR:\n'
+        '- Partial matching: "color" finds border_color, text_color, shadow_color, etc.\n'
+        '- No regex/wildcards: Patterns like ".*color.*" or "col*" won\'t work\n'
+        '- No CSS class values: Can\'t search for "bg-blue-500" (values are dynamic)\n\n'
+        'BEST FOR:\n'
+        '- Finding utility categories (padding, margin, flex, grid, shadow)\n'
+        '- Locating factory names (sr_only, combine_classes, p, m, bg)\n'
+        '- Discovering programming patterns (hover, transition, center)\n\n'
+        'TIPS FOR CODING ASSISTANTS:\n'
+        '- Use partial words to find related utilities\n'
+        '- Add --include-source to find usage patterns in code\n'
+        '- Use --in to narrow search scope (factories, examples, helpers, modules)\n'
+        '- Results show context and direct commands to view details'
     )
     
     if example_factories:
-        description += f'\n\nExample searches: {example_factories}, padding, negative, helper'
+        description += f'\n\nExample searches: {example_factories}, padding, hover, transition, center'
     
     parser = subparsers.add_parser(
         'search', 
         help='Search across all library components',
-        description=description
+        description=description,
+        formatter_class=argparse.RawDescriptionHelpFormatter  # Add this to preserve formatting
     )
     parser.add_argument(
         'query',
         type=str,
-        help='Search query'
+        help='Search query (supports partial word matching, case-insensitive by default)'
     )
     parser.add_argument(
         '--in',
@@ -1011,23 +1028,34 @@ def add_test_code_parser(
     combine_example = get_combine_classes_example()
     
     description = (
-        'Test code snippets using the library with automatic imports.\n\n'
+        '⚠️  CRITICAL: Test code snippets using the library with automatic imports.\n\n'
+        'THIS COMMAND IS MANDATORY BEFORE IMPLEMENTATION:\n'
+        '- ALWAYS validate generated code with this command first\n'
+        '- NEVER skip this step - it prevents errors and saves debugging time\n'
+        '- This ensures correct syntax, proper imports, and expected output\n\n'
         'This command:\n'
         '- Automatically generates all necessary import statements\n'
         '- Executes your code in a safe environment\n'
         '- Shows output or error messages\n'
-        '- Helps validate your understanding before implementation\n\n'
-        'Code can be provided directly or loaded from a file.'
+        '- Validates your understanding before implementation\n\n'
+        'Code can be provided directly or loaded from a file.\n\n'
+        'Code format notes:\n'
+        '- Single-line statements work: "print(p(4)); print(m(2))"\n'
+        '- Control flow requires multiline format (no semicolons):\n'
+        '  Use: $\'for i in [1,2]:\\n    print(p(i))\'\n'
+        '  NOT: "for i in [1,2]: print(p(i))"\n'
+        '- F-strings are fully supported'
     )
     
-    epilog = 'Examples:\n'
+    epilog = '⚠️  REMEMBER: Always test code before using it in production!\n\n'
+    epilog += 'Examples:\n'
     epilog += f'  cjm-tailwind-explore test-code "{example_code}"\n'
     epilog += '  cjm-tailwind-explore test-code --file snippet.py\n'
     epilog += f'  cjm-tailwind-explore test-code "{combine_example}" --show-imports'
     
     parser = subparsers.add_parser(
         'test-code', 
-        help='Test code snippets using the library',
+        help='⚠️  CRITICAL: Test code snippets using the library (ALWAYS use before implementation)',
         description=description,
         epilog=epilog,
         formatter_class=argparse.RawDescriptionHelpFormatter
@@ -1349,7 +1377,7 @@ Purpose: This CLI tool enables autonomous exploration of the library's API by:
 - Showing usage examples from test functions
 - Providing source code for helper functions
 - Searching across all library components
-- Testing code snippets with automatic imports
+- CRITICALLY: Testing code snippets with automatic imports BEFORE implementation
 - Generating recommended import statements
 - Scanning existing code for replaceable CSS patterns
 
@@ -1362,7 +1390,7 @@ Getting Started:
   1. List all modules:     cjm-tailwind-explore modules
   2. View factories:       cjm-tailwind-explore factories
   3. Search for patterns:  cjm-tailwind-explore search <query>
-  4. Test code:           cjm-tailwind-explore test-code "<code>"
+  4. CRITICAL: Test code:  cjm-tailwind-explore test-code "<code>"
   5. Get imports:         cjm-tailwind-explore imports
   6. Scan existing code:  cjm-tailwind-explore scan <file>
 
@@ -1372,8 +1400,13 @@ Exploration Workflow:
   - Use 'factory <module> <name>' for detailed factory information
   - Use 'examples' to see test-based usage patterns
   - Use 'search' to find specific functionality
-  - Use 'test-code' to verify your understanding
+  - CRITICAL: ALWAYS use 'test-code' to validate code BEFORE implementation
   - Use 'scan' to analyze existing code for migration opportunities
+
+IMPORTANT: Code Validation
+  ⚠️  ALWAYS use 'test-code' to verify generated code before using it
+  ⚠️  This ensures correct syntax, proper imports, and expected output
+  ⚠️  Never skip this step - it prevents errors and saves debugging time
 
 Key Concepts:
   - Factories: Objects that generate CSS classes (e.g., {example_factories})
@@ -1382,8 +1415,8 @@ Key Concepts:
   - Helpers: Convenience functions for common patterns
 
 Tips for Coding Assistants:
+  - MANDATORY: Use 'test-code' to validate ALL generated code before implementation
   - Use 'search --include-source' to find usage patterns in code
-  - Use 'test-code' to validate generated code before using it
   - Use 'imports' to get all necessary import statements
   - Use 'scan' to identify replaceable hardcoded CSS classes
   - Factory names are intuitive: {example_factories}
@@ -1395,7 +1428,7 @@ Example Usage Flow:
   cjm-tailwind-explore factories -m {first_module}       # Explore {first_module} utilities
   cjm-tailwind-explore factory {first_module} {first_factory}          # Learn about {first_factory} factory
   cjm-tailwind-explore example {first_module} {example_feature}      # See usage examples
-  cjm-tailwind-explore test-code '{example_test_code}'   # Test your understanding
+  cjm-tailwind-explore test-code '{example_test_code}'   # CRITICAL: Test your understanding
   cjm-tailwind-explore scan app.py                # Analyze existing code
 """.strip()
     

@@ -147,6 +147,7 @@ rounded = RoundedFactory("Border radius utilities for controlling the roundness 
 def test_borders_radius_examples():
     """Test border radius utilities with all variants."""
     # Test all corners
+    assert str(rounded()) == "rounded"
     assert str(rounded.xs) == "rounded-xs"
     assert str(rounded.sm) == "rounded-sm"
     assert str(rounded.md) == "rounded-md"
