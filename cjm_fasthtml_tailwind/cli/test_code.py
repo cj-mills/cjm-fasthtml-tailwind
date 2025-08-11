@@ -53,7 +53,7 @@ def create_test_script(
                 all_names = factory_names + helper_names
                 import_list = ", ".join(all_names)
                 # Replace the last import for this module
-                imports[-1] = f"from {module_package} import {import_list}"
+                imports[-1] = f"from {module.__name__} import {import_list}"
             else:
                 # Just import helpers
                 import_list = ", ".join(helper_names)
