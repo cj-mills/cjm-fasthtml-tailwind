@@ -408,7 +408,7 @@ def format_usage_examples(
             view_name = item_name
             
         formatted.append(f"  - {item_name} ({module_name} module)")
-        formatted.append(f"    View with: {get_view_command(view_command_type, module_name, view_name)}")
+        formatted.append(f"    View with: {get_view_command(view_command_type, module_name, view_name)}\n")
     
     return formatted
 
