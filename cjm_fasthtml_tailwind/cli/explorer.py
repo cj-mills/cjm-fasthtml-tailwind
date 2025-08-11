@@ -7,7 +7,7 @@ __all__ = ['add_modules_parser', 'add_factories_parser', 'add_factory_parser', '
            'add_helpers_parser', 'add_helper_parser', 'add_search_parser', 'add_test_code_parser',
            'add_core_utils_parser', 'add_core_util_parser', 'add_imports_parser', 'add_scan_parser', 'dispatch_command',
            'handle_search_command', 'handle_test_code_command', 'handle_scan_command', 'create_help_description',
-           'create_help_epilogue', 'setup_argument_parser', 'main']
+           'create_example_usage_flow', 'create_help_epilogue', 'setup_argument_parser', 'main']
 
 # %% ../../nbs/cli/explorer.ipynb 3
 from typing import Dict, List, Tuple, Any, Optional
@@ -630,10 +630,10 @@ All information is dynamically extracted from the library itself - nothing is ha
 """.strip()
 
 # %% ../../nbs/cli/explorer.ipynb 27
-def create_help_epilogue(
+def create_example_usage_flow(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
 ):
-    """Create a comprehensive epilogue for the CLI tool's help message"""
+    """Create an example usage flow"""
     if config is None:
         config = get_active_config()
 
@@ -659,10 +659,22 @@ def create_help_epilogue(
     max_cmd_width = max(len(cmd) for cmd, _ in usage_flow_lines)
     
     # Format lines with aligned comments
-    formatted_usage_flow = "\n".join(
+    return "\n".join(
         f"  {cmd:<{max_cmd_width}}  # {comment}"
         for cmd, comment in usage_flow_lines
     )
+
+# %% ../../nbs/cli/explorer.ipynb 28
+def create_help_epilogue(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+):
+    """Create a comprehensive epilogue for the CLI tool's help message"""
+    if config is None:
+        config = get_active_config()
+
+    # Get dynamic examples
+    example_factories = get_example_factories(limit=4, config=config)
+    example_modules = get_example_modules(limit=3, config=config)
     
     # Create epilog with guidance
     return f"""
@@ -704,10 +716,10 @@ Tips for Coding Assistants:
   - All factories support method chaining and attribute access
 
 Example Usage Flow:
-{formatted_usage_flow}
+{create_example_usage_flow()}
 """.strip()
 
-# %% ../../nbs/cli/explorer.ipynb 29
+# %% ../../nbs/cli/explorer.ipynb 30
 def setup_argument_parser(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
@@ -745,7 +757,7 @@ def setup_argument_parser(
     
     return parser
 
-# %% ../../nbs/cli/explorer.ipynb 31
+# %% ../../nbs/cli/explorer.ipynb 32
 import argparse
 
 def main(
