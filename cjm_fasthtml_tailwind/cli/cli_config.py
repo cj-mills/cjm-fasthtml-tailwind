@@ -79,20 +79,14 @@ def get_active_config() -> LibraryConfig:
     """Get the active library configuration.
     
     If no configuration is set, returns the Tailwind config.
-    Can be overridden by setting FASTHTML_LIB_CONFIG environment variable.
     """
     global _active_config
     
     if _active_config is not None:
         return _active_config
     
-    # Try environment variable
-    env_config = os.environ.get('FASTHTML_LIB_CONFIG', '').lower()
-    if env_config == 'tailwind':
-        _active_config = get_tailwind_config()
-    else:
-        # Default to tailwind config for this library
-        _active_config = get_tailwind_config()
+    # Default to tailwind config for this library
+    _active_config = get_tailwind_config()
     
     return _active_config
 
