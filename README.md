@@ -93,87 +93,87 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
-    cli_display --> cli_pattern_scanner
     cli_display --> cli_utils
+    cli_display --> cli_cli_config
     cli_display --> cli_factory_extraction
     cli_display --> cli_helper_discovery
     cli_display --> cli_imports
     cli_display --> cli_example_discovery
-    cli_display --> cli_core_utils_discovery
-    cli_display --> cli_search
-    cli_display --> cli_cli_config
+    cli_display --> cli_pattern_scanner
     cli_display --> cli_test_code
-    cli_dynamic_examples --> cli_pattern_scanner
+    cli_display --> cli_search
+    cli_display --> cli_core_utils_discovery
     cli_dynamic_examples --> cli_display
     cli_dynamic_examples --> cli_utils
+    cli_dynamic_examples --> cli_cli_config
     cli_dynamic_examples --> cli_factory_extraction
     cli_dynamic_examples --> cli_helper_discovery
     cli_dynamic_examples --> cli_imports
     cli_dynamic_examples --> cli_example_discovery
-    cli_dynamic_examples --> cli_core_utils_discovery
-    cli_dynamic_examples --> cli_search
-    cli_dynamic_examples --> cli_cli_config
+    cli_dynamic_examples --> cli_pattern_scanner
     cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_core_utils_discovery
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_display
     cli_explorer --> cli_utils
-    cli_explorer --> cli_dynamic_examples
-    cli_explorer --> cli_search
     cli_explorer --> cli_cli_config
+    cli_explorer --> cli_dynamic_examples
+    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_search
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_factory_extraction
-    cli_imports --> cli_utils
     cli_imports --> cli_cli_config
-    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_utils
     cli_imports --> cli_helper_discovery
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
+    cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
-    cli_test_code --> cli_factory_extraction
-    cli_test_code --> cli_utils
     cli_test_code --> cli_cli_config
+    cli_test_code --> cli_utils
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
     cli_utils --> cli_cli_config
-    core_testing --> core_resources
-    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_sizing
-    core_testing --> utilities_backgrounds
-    core_testing --> utilities_spacing
-    core_testing --> utilities_typography
-    core_testing --> utilities_borders
-    core_testing --> utilities_layout
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> core_base
+    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_effects
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_layout
+    core_testing --> utilities_spacing
+    core_testing --> utilities_borders
     core_testing --> utilities_accessibility
+    core_testing --> utilities_typography
+    core_testing --> core_base
+    core_testing --> utilities_backgrounds
+    core_testing --> core_resources
+    utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
     utilities_accessibility --> core_testing
-    utilities_accessibility --> builders_scales
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_scales
-    utilities_backgrounds --> core_testing
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> core_testing
+    utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
     utilities_borders --> core_testing
     utilities_borders --> builders_colors
     utilities_borders --> builders_scales
     utilities_effects --> core_base
-    utilities_effects --> core_testing
     utilities_effects --> builders_colors
+    utilities_effects --> core_testing
     utilities_effects --> builders_scales
     utilities_filters --> core_base
-    utilities_filters --> builders_scales
-    utilities_filters --> core_testing
     utilities_filters --> builders_colors
+    utilities_filters --> core_testing
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_testing
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_base
     utilities_interactivity --> core_testing
     utilities_interactivity --> builders_colors
@@ -188,21 +188,21 @@ graph LR
     utilities_spacing --> core_testing
     utilities_spacing --> builders_scales
     utilities_svg --> core_base
-    utilities_svg --> builders_scales
-    utilities_svg --> core_testing
     utilities_svg --> builders_colors
+    utilities_svg --> core_testing
+    utilities_svg --> builders_scales
     utilities_tables --> core_base
     utilities_tables --> core_testing
     utilities_tables --> builders_scales
     utilities_transforms --> core_base
-    utilities_transforms --> core_testing
     utilities_transforms --> builders_scales
+    utilities_transforms --> core_testing
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> core_testing
     utilities_transitions_and_animation --> builders_scales
     utilities_typography --> core_base
-    utilities_typography --> builders_scales
     utilities_typography --> core_testing
+    utilities_typography --> builders_scales
     utilities_typography --> builders_colors
 ```
 

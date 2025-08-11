@@ -740,11 +740,32 @@ def display_test_code_result(
         if stderr:
             print("\nError:")
             print(stderr)
+            
+            # Check for common f-string issues and provide specific help
+            if "f-string: invalid syntax" in stderr or "f-string expression part cannot include a backslash" in stderr:
+                print("\n💡 F-string Tip:")
+                print("When using f-strings with dictionary access in the CLI, avoid quotes in brackets.")
+                print("Instead of: f\"{obj.attrs[\"key\"]}\"")
+                print("Try one of these approaches:")
+                print("  1. Use a variable: key = \"key\"; f\"{obj.attrs[key]}\"")
+                print("  2. Use .get(): f\"{obj.attrs.get('key')}\"")
+                print("  3. Save to variable first: val = obj.attrs[\"key\"]; f\"{val}\"")
+                print("\nFor multi-line code with proper quotes, save to a file and use:")
+                print(f"  {config.cli_command} test-code --file yourcode.py")
+            elif "NameError" in stderr and "[class]" in stderr:
+                print("\n💡 Dictionary Access Tip:")
+                print("It looks like quotes were stripped from your dictionary key.")
+                print("This often happens when passing code through the shell.")
+                print("\nFor complex code with quotes, save to a file and use:")
+                print(f"  {config.cli_command} test-code --file yourcode.py")
+                print("\nOr use single quotes for the entire code and escape internal quotes:")
+                print(f"  {config.cli_command} test-code 'print(obj.attrs[\"class\"])'")
     
-    # Show helpful tips
-    if not success:
+    # Show helpful tips for general failures
+    if not success and "f-string" not in stderr and "NameError" not in stderr:
         print("\nTips:")
         print(f"- Check that all factory names are correct (use '{config.cli_command} factories')")
         print(f"- Verify function signatures (use '{config.cli_command} helper <module> <name>')")
         print(f"- Look at examples for usage patterns (use '{config.cli_command} examples')")
         print(f"- Search for specific patterns (use '{config.cli_command} search <query>')")
+        print(f"- For complex code, save to a file: '{config.cli_command} test-code --file code.py'")

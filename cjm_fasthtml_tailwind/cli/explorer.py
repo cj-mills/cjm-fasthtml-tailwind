@@ -261,19 +261,29 @@ def add_test_code_parser(
         '- Shows output or error messages\n'
         '- Validates your understanding before implementation\n\n'
         'Code can be provided directly or loaded from a file.\n\n'
+        'QUOTE HANDLING TIPS:\n'
+        '- For simple code, use single quotes: \'print("hello")\'\n'
+        '- For code with single quotes, use double quotes: "print(\'hello\')"\n'
+        '- For complex code with mixed quotes, save to a file: --file code.py\n'
+        '- F-strings with dictionary access: use variables or .get() method\n'
+        '  Instead of: f"{obj.attrs[\\"key\\"]}"\n'
+        '  Use: key="key"; f"{obj.attrs[key]}" or f"{obj.attrs.get(\'key\')}"\n\n'
         'Code format notes:\n'
         f'- Single-line statements work: "{example_code}; {example_code}"\n'
         '- Control flow requires multiline format (no semicolons):\n'
         '  Use: $\'for i in [1,2]:\\n    print(p(i))\'\n'
         '  NOT: "for i in [1,2]: print(p(i))"\n'
-        '- F-strings are fully supported'
     )
     
     epilog = '⚠️  REMEMBER: Always test code before using it in production!\n\n'
     epilog += 'Examples:\n'
-    epilog += f'  {config.cli_command} test-code "{example_code}"\n'
+    epilog += f'  {config.cli_command} test-code \'{example_code}\'\n'
     epilog += f'  {config.cli_command} test-code --file snippet.py\n'
-    epilog += f'  {config.cli_command} test-code "{combine_example}" --show-imports'
+    epilog += f'  {config.cli_command} test-code \'{combine_example}\' --show-imports\n\n'
+    epilog += 'For complex code with quotes:\n'
+    epilog += '  # Save to file first\n'
+    epilog += '  echo \'<your-code-here>\' > test.py\n'
+    epilog += f'  {config.cli_command} test-code --file test.py'
     
     parser = subparsers.add_parser(
         'test-code', 
@@ -291,7 +301,7 @@ def add_test_code_parser(
     parser.add_argument(
         '--file', '-f',
         type=str,
-        help='Load code from a file'
+        help='Load code from a file (recommended for complex code with quotes)'
     )
     parser.add_argument(
         '--show-imports',
