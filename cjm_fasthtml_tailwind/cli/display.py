@@ -158,21 +158,24 @@ def display_module_examples(
     if not examples:
         handle_module_not_found("examples", module_name)
         return
+
+    # Create formatter
+    def example_formatter(
+        item  # TODO: Add type hint and description
+    ): # TODO: Add type hint
+        "TODO: Add function description"
+        return f"  - {item.feature}: {item.docstring}\n    View with: {get_view_command('example', item.module_name, item.feature)}\n"
     
-    print(f"Usage Examples in '{module_name}' module:")
-    print("=" * 60)
-    
-    for example_info in examples:
-        print(f"\n{example_info.feature.replace('_', ' ').title()} Examples:")
-        print(f"Function: {example_info.name}")
-        print("-" * 60)
-        print(example_info.source)
-    
-    print(f"\nTotal example functions: {len(examples)}")
+    display_items_generic(
+        items=examples,
+        title=f"Usage Examples in '{module_name}' module:",
+        item_formatter=example_formatter,
+        item_type="example functions"
+    )
     
     # Add helpful instructions
     print("\nTo explore further:")
-    print(f"  View a specific example:")
+    print(f"  View the source code for a specific example:")
     if examples:
         first_example = examples[0]
         print(f"    {config.cli_command} example {module_name} {first_example.feature}")
@@ -185,8 +188,12 @@ def display_module_examples(
 
 # %% ../../nbs/cli/display.ipynb 9
 def display_all_examples(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     """Display all usage examples across all modules."""
+    if config is None:
+        config = get_active_config()
+    
     all_examples = list_all_examples()
     
     # Create formatter
@@ -194,8 +201,7 @@ def display_all_examples(
         item  # TODO: Add type hint and description
     ): # TODO: Add type hint
         "TODO: Add function description"
-        feature_name = item.feature.replace('_', ' ')
-        return f"  - {feature_name}: {item.docstring}"
+        return f"  - {item.feature}: {item.docstring}"
     
     display_items_generic(
         items=all_examples,
@@ -203,6 +209,19 @@ def display_all_examples(
         item_formatter=example_formatter,
         item_type="example functions"
     )
+
+    # Add helpful instructions
+    print("\nTo explore further:")
+    print(f"  View examples for a specific module:")
+    if all_examples:
+        first_key = list(all_examples.keys())[0]
+        first_example = all_examples[first_key][0]
+        print(f"    {config.cli_command} examples -m {first_example.module_name}")
+    print(f"  View the source code for a specific example:")
+    if all_examples:
+        first_key = list(all_examples.keys())[0]
+        first_example = all_examples[first_key][0]
+        print(f"    {config.cli_command} example {first_example.module_name} {first_example.feature}")
 
 # %% ../../nbs/cli/display.ipynb 10
 def display_example_source(

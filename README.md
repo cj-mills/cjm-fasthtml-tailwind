@@ -15,10 +15,11 @@ pip install cjm-fasthtml-tailwind
     ├── builders/ (2)
     │   ├── colors.ipynb  # Color system builders for Tailwind CSS utilities
     │   └── scales.ipynb  # Numeric and named scale builders for Tailwind CSS utilities
-    ├── cli/ (12)
+    ├── cli/ (13)
     │   ├── cli_config.ipynb            # Configuration system for multi-library CLI support
     │   ├── core_utils_discovery.ipynb  # Functions to discover and display core utility functions like combine_classes:
     │   ├── display.ipynb               # Functions to format and display the discovered information:
+    │   ├── dynamic_examples.ipynb      # Functions to generate dynamic examples for help text:
     │   ├── example_discovery.ipynb     # Functions to discover and extract test example functions:
     │   ├── explorer.ipynb              # CLI tool for API exploration of cjm-fasthtml-tailwind utilities
     │   ├── factory_extraction.ipynb    # Functions to extract BaseFactory instances from modules:
@@ -49,7 +50,7 @@ pip install cjm-fasthtml-tailwind
         ├── transitions_and_animation.ipynb  # Transition and animation utilities for Tailwind CSS
         └── typography.ipynb                 # Typography utilities for Tailwind CSS
 
-Total: 32 notebooks across 4 directories
+Total: 33 notebooks across 4 directories
 
 ## Module Dependencies
 
@@ -60,6 +61,7 @@ graph LR
     cli_cli_config[cli.cli_config<br/>CLI Configuration]
     cli_core_utils_discovery[cli.core_utils_discovery<br/>Core Utilities Discovery]
     cli_display[cli.display<br/>Display Functions]
+    cli_dynamic_examples[cli.dynamic_examples<br/>Dynamic Example Helpers]
     cli_example_discovery[cli.example_discovery<br/>Example Discovery]
     cli_explorer[cli.explorer<br/>explorer]
     cli_factory_extraction[cli.factory_extraction<br/>Factory Extraction]
@@ -91,113 +93,125 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
-    cli_display --> cli_helper_discovery
-    cli_display --> cli_search
+    cli_display --> cli_pattern_scanner
     cli_display --> cli_utils
     cli_display --> cli_factory_extraction
-    cli_display --> cli_cli_config
-    cli_display --> cli_core_utils_discovery
-    cli_display --> cli_pattern_scanner
     cli_display --> cli_example_discovery
-    cli_display --> cli_imports
     cli_display --> cli_test_code
+    cli_display --> cli_core_utils_discovery
+    cli_display --> cli_cli_config
+    cli_display --> cli_helper_discovery
+    cli_display --> cli_search
+    cli_display --> cli_imports
+    cli_dynamic_examples --> cli_display
+    cli_dynamic_examples --> cli_pattern_scanner
+    cli_dynamic_examples --> cli_utils
+    cli_dynamic_examples --> cli_factory_extraction
+    cli_dynamic_examples --> cli_example_discovery
+    cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_core_utils_discovery
+    cli_dynamic_examples --> cli_cli_config
+    cli_dynamic_examples --> cli_helper_discovery
+    cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_imports
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_helper_discovery
-    cli_explorer --> cli_search
     cli_explorer --> cli_display
+    cli_explorer --> cli_dynamic_examples
+    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_utils
     cli_explorer --> cli_factory_extraction
-    cli_explorer --> cli_cli_config
-    cli_explorer --> cli_core_utils_discovery
-    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_example_discovery
-    cli_explorer --> cli_imports
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_core_utils_discovery
+    cli_explorer --> cli_cli_config
+    cli_explorer --> cli_helper_discovery
+    cli_explorer --> cli_search
+    cli_explorer --> cli_imports
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
+    cli_helper_discovery --> cli_utils
     cli_imports --> cli_helper_discovery
-    cli_imports --> cli_cli_config
     cli_imports --> cli_factory_extraction
-    cli_imports --> cli_utils
     cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_cli_config
+    cli_imports --> cli_utils
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
     cli_search --> cli_factory_extraction
-    cli_test_code --> cli_helper_discovery
+    cli_search --> cli_example_discovery
     cli_test_code --> cli_cli_config
+    cli_test_code --> cli_helper_discovery
     cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_utils
     cli_utils --> cli_cli_config
-    core_testing --> utilities_layout
-    core_testing --> utilities_sizing
-    core_testing --> utilities_spacing
-    core_testing --> utilities_effects
     core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_accessibility
+    core_testing --> utilities_effects
+    core_testing --> utilities_layout
+    core_testing --> utilities_spacing
+    core_testing --> utilities_sizing
     core_testing --> utilities_borders
     core_testing --> utilities_typography
+    core_testing --> core_base
     core_testing --> utilities_backgrounds
     core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_accessibility
     core_testing --> core_resources
-    core_testing --> core_base
     utilities_accessibility --> core_testing
-    utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
-    utilities_backgrounds --> core_testing
-    utilities_backgrounds --> builders_scales
+    utilities_accessibility --> builders_scales
     utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> core_testing
+    utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
-    utilities_borders --> core_testing
     utilities_borders --> builders_scales
     utilities_borders --> builders_colors
+    utilities_borders --> core_testing
     utilities_effects --> core_base
-    utilities_effects --> core_testing
-    utilities_effects --> builders_scales
     utilities_effects --> builders_colors
-    utilities_filters --> builders_colors
-    utilities_filters --> core_testing
-    utilities_filters --> builders_scales
+    utilities_effects --> builders_scales
+    utilities_effects --> core_testing
     utilities_filters --> core_base
+    utilities_filters --> builders_colors
+    utilities_filters --> builders_scales
+    utilities_filters --> core_testing
     utilities_flexbox_and_grid --> core_base
-    utilities_flexbox_and_grid --> core_testing
     utilities_flexbox_and_grid --> builders_scales
-    utilities_interactivity --> core_testing
-    utilities_interactivity --> builders_scales
+    utilities_flexbox_and_grid --> core_testing
     utilities_interactivity --> core_base
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> builders_colors
+    utilities_interactivity --> core_testing
     utilities_layout --> core_base
-    utilities_layout --> core_testing
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
+    utilities_layout --> core_testing
     utilities_sizing --> core_testing
     utilities_sizing --> core_base
-    utilities_spacing --> core_testing
+    utilities_sizing --> builders_scales
     utilities_spacing --> builders_scales
+    utilities_spacing --> core_testing
     utilities_spacing --> core_base
-    utilities_svg --> core_testing
     utilities_svg --> core_base
     utilities_svg --> builders_colors
     utilities_svg --> builders_scales
-    utilities_tables --> core_testing
+    utilities_svg --> core_testing
     utilities_tables --> builders_scales
+    utilities_tables --> core_testing
     utilities_tables --> core_base
     utilities_transforms --> core_base
-    utilities_transforms --> core_testing
     utilities_transforms --> builders_scales
-    utilities_transitions_and_animation --> core_testing
-    utilities_transitions_and_animation --> builders_scales
+    utilities_transforms --> core_testing
     utilities_transitions_and_animation --> core_base
+    utilities_transitions_and_animation --> builders_scales
+    utilities_transitions_and_animation --> core_testing
     utilities_typography --> builders_scales
-    utilities_typography --> core_base
-    utilities_typography --> core_testing
     utilities_typography --> builders_colors
+    utilities_typography --> core_testing
+    utilities_typography --> core_base
 ```
 
-*107 cross-module dependencies detected*
+*119 cross-module dependencies detected*
 
 ## CLI Reference
 
@@ -1519,7 +1533,6 @@ def get_active_config() -> LibraryConfig:
     """Get the active library configuration.
     
     If no configuration is set, returns the Tailwind config.
-    Can be overridden by setting FASTHTML_LIB_CONFIG environment variable.
     """
     global _active_config
     
@@ -1528,7 +1541,6 @@ def get_active_config() -> LibraryConfig:
     Get the active library configuration.
     
     If no configuration is set, returns the Tailwind config.
-    Can be overridden by setting FASTHTML_LIB_CONFIG environment variable.
     """
 ```
 
@@ -1932,6 +1944,7 @@ def display_module_examples(
 
 ``` python
 def display_all_examples(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Display all usage examples across all modules."
 ```
@@ -2018,6 +2031,82 @@ def display_test_code_result(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     "Display the results of test code execution."
+```
+
+### Dynamic Example Helpers (`dynamic_examples.ipynb`)
+
+> Functions to generate dynamic examples for help text:
+
+#### Import
+
+``` python
+from cjm_fasthtml_tailwind.cli.dynamic_examples import (
+    get_example_modules,
+    get_example_factories,
+    get_example_features,
+    get_example_helpers,
+    get_example_core_utils,
+    get_combine_classes_example,
+    get_example_test_code
+)
+```
+
+#### Functions
+
+``` python
+def get_example_modules(
+    limit: int = 2,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+) -> str:  # TODO: Add return description
+    "Get example module names dynamically."
+```
+
+``` python
+def get_example_factories(
+    module_name: str = None,  # TODO: Add description
+    limit: int = 4,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+) -> str:  # TODO: Add return description
+    "Get example factory names dynamically."
+```
+
+``` python
+def get_example_features(
+    module_name: str = None,  # TODO: Add description
+    limit: int = 3,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+) -> str:  # TODO: Add return description
+    "Get example feature names dynamically."
+```
+
+``` python
+def get_example_helpers(
+    module_name: str = None,  # TODO: Add description
+    limit: int = 2,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+) -> str:  # TODO: Add return description
+    "Get example helper function names dynamically."
+```
+
+``` python
+def get_example_core_utils(
+    limit: int = 2,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+) -> str:  # TODO: Add return description
+    "Get example core utility names dynamically."
+```
+
+``` python
+def get_combine_classes_example(
+) -> str:  # TODO: Add return description
+    "Get a dynamic example of combine_classes usage."
+```
+
+``` python
+def get_example_test_code(
+    limit_chars: int = 50  # TODO: Add description
+) -> str:  # TODO: Add return description
+    "Get an actual code example from test functions."
 ```
 
 ### effects (`effects.ipynb`)
@@ -2587,13 +2676,6 @@ class ExampleInfo:
 
 ``` python
 from cjm_fasthtml_tailwind.cli.explorer import (
-    get_example_modules,
-    get_example_factories,
-    get_example_features,
-    get_example_helpers,
-    get_example_core_utils,
-    get_combine_classes_example,
-    get_example_test_code,
     add_modules_parser,
     add_factories_parser,
     add_factory_parser,
@@ -2617,62 +2699,6 @@ from cjm_fasthtml_tailwind.cli.explorer import (
 ```
 
 #### Functions
-
-``` python
-def get_example_modules(
-    limit: int = 2,  # TODO: Add description
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
-    "Get example module names dynamically."
-```
-
-``` python
-def get_example_factories(
-    module_name: str = None,  # TODO: Add description
-    limit: int = 4,  # TODO: Add description
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
-    "Get example factory names dynamically."
-```
-
-``` python
-def get_example_features(
-    module_name: str = None,  # TODO: Add description
-    limit: int = 3,  # TODO: Add description
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
-    "Get example feature names dynamically."
-```
-
-``` python
-def get_example_helpers(
-    module_name: str = None,  # TODO: Add description
-    limit: int = 2,  # TODO: Add description
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
-    "Get example helper function names dynamically."
-```
-
-``` python
-def get_example_core_utils(
-    limit: int = 2,  # TODO: Add description
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
-    "Get example core utility names dynamically."
-```
-
-``` python
-def get_combine_classes_example(
-) -> str:  # TODO: Add return description
-    "Get a dynamic example of combine_classes usage."
-```
-
-``` python
-def get_example_test_code(
-    limit_chars: int = 50  # TODO: Add description
-) -> str:  # TODO: Add return description
-    "Get an actual code example from test functions."
-```
 
 ``` python
 def add_modules_parser(
