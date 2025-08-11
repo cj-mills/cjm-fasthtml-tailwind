@@ -45,12 +45,16 @@ def print_header(
 def print_not_found(
     item_type: str,  # TODO: Add description
     item_name: str,  # TODO: Add description
-    module_name: Optional[str] = None  # TODO: Add description
+    module_name: Optional[str] = None,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ): # TODO: Add type hint
     """Print a standardized not found message."""
+    if config is None:
+        config = get_active_config()
+    
     if module_name:
         print(f"No {item_type} '{item_name}' found in module '{module_name}' or module doesn't exist.")
-        print(f"\nTry running 'cjm-tailwind-explore modules' to see available modules.")
+        print(f"\nTry running '{config.cli_command} modules' to see available modules.")
     else:
         print(f"No {item_type} found in any utility modules.")
 
@@ -115,11 +119,14 @@ def display_items_generic(
 # %% ../../nbs/cli/utils.ipynb 13
 def handle_module_not_found(
     item_type: str,  # Type of items not found (e.g., 'factories', 'examples')
-    module_name: str  # Name of the module that wasn't found
+    module_name: str,  # Name of the module that wasn't found
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ):
     """Print standardized error message for module not found."""
+    if config is None:
+        config = get_active_config()
     print(f"No {item_type} found in module '{module_name}' or module doesn't exist.")
-    print("\nTry running 'cjm-tailwind-explore modules' to see available modules.")
+    print(f"\nTry running '{config.cli_command} modules' to see available modules.")
 
 # %% ../../nbs/cli/utils.ipynb 14
 def simple_item_formatter(
