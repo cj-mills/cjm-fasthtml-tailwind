@@ -269,7 +269,7 @@ def add_test_code_parser(
         '- NEVER skip this step - it prevents errors and saves debugging time\n'
         '- This ensures correct syntax, proper imports, and expected output\n\n'
         'This command:\n'
-        '- Automatically generates all necessary import statements\n'
+        f'- Automatically generates all necessary {config.package_name} import statements\n'
         '- Executes your code in a safe environment\n'
         '- Shows output or error messages\n'
         '- Validates your understanding before implementation\n\n'
@@ -553,9 +553,10 @@ def handle_test_code_command(
     elif args.code:
         code = args.code
     else:
+        example_test_code = get_example_test_code()
         print("Error: You must provide code to test either as an argument or via --file")
         print("\nExamples:")
-        print(f'  {config.cli_command} test-code "print(str(p(4)))"')
+        print(f'  {config.cli_command} test-code "{example_test_code}"')
         print(f'  {config.cli_command} test-code --file test_snippet.py')
         return
     
@@ -634,6 +635,25 @@ Purpose: This CLI tool enables autonomous exploration of the library's API by:
 All information is dynamically extracted from the library itself - nothing is hardcoded.
 """.strip()
     
+    # Build example usage flow with aligned comments
+    usage_flow_lines = [
+        (f"{config.cli_command} modules", "See what's available"),
+        (f"{config.cli_command} factories -m {first_module}", f"Explore {first_module} utilities"),
+        (f"{config.cli_command} factory {first_module} {first_factory}", f"Learn about {first_factory} factory"),
+        (f"{config.cli_command} example {first_module} {example_feature}", "See usage examples"),
+        (f"{config.cli_command} test-code '{example_test_code}'", "CRITICAL: Test your understanding"),
+        (f"{config.cli_command} scan app.py", "Analyze existing code"),
+    ]
+    
+    # Calculate max width for alignment
+    max_cmd_width = max(len(cmd) for cmd, _ in usage_flow_lines)
+    
+    # Format lines with aligned comments
+    formatted_usage_flow = "\n".join(
+        f"  {cmd:<{max_cmd_width}}  # {comment}"
+        for cmd, comment in usage_flow_lines
+    )
+    
     # Create epilog with guidance
     epilog = f"""
 Getting Started:
@@ -641,8 +661,8 @@ Getting Started:
   2. View factories:       {config.cli_command} factories
   3. Search for patterns:  {config.cli_command} search <query>
   4. CRITICAL: Test code:  {config.cli_command} test-code "<code>"
-  5. Get imports:         {config.cli_command} imports
-  6. Scan existing code:  {config.cli_command} scan <file>
+  5. Get imports:          {config.cli_command} imports
+  6. Scan existing code:   {config.cli_command} scan <file>
 
 Exploration Workflow:
   - Start with 'modules' to see available utility categories
@@ -674,12 +694,7 @@ Tips for Coding Assistants:
   - All factories support method chaining and attribute access
 
 Example Usage Flow:
-  {config.cli_command} modules                    # See what's available
-  {config.cli_command} factories -m {first_module}       # Explore {first_module} utilities
-  {config.cli_command} factory {first_module} {first_factory}          # Learn about {first_factory} factory
-  {config.cli_command} example {first_module} {example_feature}      # See usage examples
-  {config.cli_command} test-code '{example_test_code}'   # CRITICAL: Test your understanding
-  {config.cli_command} scan app.py                # Analyze existing code
+{formatted_usage_flow}
 """.strip()
     
     parser = argparse.ArgumentParser(
