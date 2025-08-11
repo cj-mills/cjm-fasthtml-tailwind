@@ -356,7 +356,7 @@ def add_imports_parser(
     example_modules = get_example_modules(limit=2)
     
     description = (
-        'Generate recommended import statements for using the library.\n\n'
+        f'Generate recommended {config.package_name} import statements for using the library.\n\n'
         'This command generates:\n'
         '- FastHTML common imports (Div, P, Button, etc.)\n'
         f'- Core utility imports ({[util[0] for util in config.core_utilities]})\n'
