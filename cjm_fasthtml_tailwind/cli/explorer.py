@@ -6,7 +6,8 @@
 __all__ = ['add_modules_parser', 'add_factories_parser', 'add_factory_parser', 'add_examples_parser', 'add_example_parser',
            'add_helpers_parser', 'add_helper_parser', 'add_search_parser', 'add_test_code_parser',
            'add_core_utils_parser', 'add_core_util_parser', 'add_imports_parser', 'add_scan_parser', 'dispatch_command',
-           'handle_search_command', 'handle_test_code_command', 'handle_scan_command', 'setup_argument_parser', 'main']
+           'handle_search_command', 'handle_test_code_command', 'handle_scan_command', 'create_help_description',
+           'create_help_epilogue', 'setup_argument_parser', 'main']
 
 # %% ../../nbs/cli/explorer.ipynb 3
 from typing import Dict, List, Tuple, Any, Optional
@@ -596,23 +597,16 @@ def handle_scan_command(
         analyze_and_suggest_input(args.input, input_type)
 
 # %% ../../nbs/cli/explorer.ipynb 26
-def setup_argument_parser(
+def create_help_description(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
-    """Set up the main argument parser with all subcommands."""
+):
+    """Create a comprehensive description for the CLI tool's help message"""
     if config is None:
         config = get_active_config()
     
-    # Get dynamic examples
-    example_modules = get_example_modules(limit=3, config=config)
     example_factories = get_example_factories(limit=4, config=config)
-    first_module = get_example_modules(limit=1, config=config)
-    first_factory = get_example_factories(limit=1, config=config)
-    example_feature = get_example_features(limit=1, config=config)
-    example_test_code = get_example_test_code()
     
-    # Create comprehensive description
-    description = f"""
+    return f"""
 {config.package_name} CLI Explorer
 
 This tool helps you explore the {config.package_name} library, which provides:
@@ -634,6 +628,22 @@ Purpose: This CLI tool enables autonomous exploration of the library's API by:
 
 All information is dynamically extracted from the library itself - nothing is hardcoded.
 """.strip()
+
+# %% ../../nbs/cli/explorer.ipynb 27
+def create_help_epilogue(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+):
+    """Create a comprehensive epilogue for the CLI tool's help message"""
+    if config is None:
+        config = get_active_config()
+
+    # Get dynamic examples
+    example_modules = get_example_modules(limit=3, config=config)
+    example_factories = get_example_factories(limit=4, config=config)
+    first_module = get_example_modules(limit=1, config=config)
+    first_factory = get_example_factories(limit=1, config=config)
+    example_feature = get_example_features(limit=1, config=config)
+    example_test_code = get_example_test_code()
     
     # Build example usage flow with aligned comments
     usage_flow_lines = [
@@ -655,7 +665,7 @@ All information is dynamically extracted from the library itself - nothing is ha
     )
     
     # Create epilog with guidance
-    epilog = f"""
+    return f"""
 Getting Started:
   1. List all modules:     {config.cli_command} modules
   2. View factories:       {config.cli_command} factories
@@ -696,6 +706,17 @@ Tips for Coding Assistants:
 Example Usage Flow:
 {formatted_usage_flow}
 """.strip()
+
+# %% ../../nbs/cli/explorer.ipynb 29
+def setup_argument_parser(
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
+): # TODO: Add type hint
+    """Set up the main argument parser with all subcommands."""
+    if config is None:
+        config = get_active_config()
+
+    description = create_help_description()
+    epilog = create_help_epilogue()
     
     parser = argparse.ArgumentParser(
         description=description,
@@ -724,7 +745,7 @@ Example Usage Flow:
     
     return parser
 
-# %% ../../nbs/cli/explorer.ipynb 28
+# %% ../../nbs/cli/explorer.ipynb 31
 import argparse
 
 def main(
