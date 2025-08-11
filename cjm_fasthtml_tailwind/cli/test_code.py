@@ -41,8 +41,7 @@ def create_test_script(
             # Import only the actual factory names
             factory_names = [f.name for f in factories]
             import_list = ", ".join(factory_names)
-            module_package = config.get_utilities_package(module_name)
-            imports.append(f"from {module_package} import {import_list}")
+            imports.append(f"from {module.__name__} import {import_list}")
         
         # Also check for helper functions and import them
         helpers = get_module_helpers(module_name)
@@ -58,8 +57,7 @@ def create_test_script(
             else:
                 # Just import helpers
                 import_list = ", ".join(helper_names)
-                module_package = config.get_utilities_package(module_name)
-                imports.append(f"from {module_package} import {import_list}")
+                imports.append(f"from {module.__name__} import {import_list}")
     
     # Add core utilities from configuration
     for util_name, module_path in config.core_utilities:

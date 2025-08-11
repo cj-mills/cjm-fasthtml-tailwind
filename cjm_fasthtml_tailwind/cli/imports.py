@@ -31,7 +31,7 @@ def get_recommended_imports(
     for module_name, module in discover_utility_modules(config):
         if modules and module_name not in modules:
             continue
-            
+
         # Get factories and helpers from this module
         factories = extract_factories_from_module(module, module_name)
         helpers = get_module_helpers(module_name)
@@ -46,8 +46,7 @@ def get_recommended_imports(
         if all_names:
             import_list = ", ".join(sorted(all_names))
             # Use the configuration to get the correct package path
-            module_package = config.get_utilities_package(module_name)
-            imports.append(f"from {module_package} import {import_list}")
+            imports.append(f"from {module.__name__} import {import_list}")
     
     # Add core utilities
     core_utils = get_core_utilities(config)

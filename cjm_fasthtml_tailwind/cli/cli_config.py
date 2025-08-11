@@ -42,14 +42,6 @@ class LibraryConfig:
     # Helper patterns
     helper_test_suffix: str = 'helper_examples'  # Suffix for helper test functions
     
-    def get_utilities_package(self, module_name: str) -> str:
-        """Get the full package path for a utility module."""
-        # Find which discovery path contains this module
-        for path in self.module_discovery_paths:
-            return f"{self.package_name}.{path}.{module_name}"
-        # Default to first path
-        return f"{self.package_name}.{self.module_discovery_paths[0]}.{module_name}"
-    
     def get_test_function_pattern(self, module_name: str, feature: str) -> str:
         """Get the expected test function name for a module and feature."""
         return f"{self.test_pattern_prefix}{module_name}_{feature}_{self.test_pattern_suffix}"
