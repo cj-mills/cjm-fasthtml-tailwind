@@ -10,27 +10,13 @@ __all__ = ['add_modules_parser', 'add_factories_parser', 'add_factory_parser', '
            'create_example_usage_flow', 'create_help_epilogue', 'setup_argument_parser', 'main']
 
 # %% ../../nbs/cli/explorer.ipynb 3
-from typing import Dict, List, Tuple, Any, Optional
-from cjm_fasthtml_tailwind.cli.utils import (
-    SearchResult, discover_utility_modules,
-    load_code_from_file, display_items_generic, handle_module_not_found,
-    find_usage_in_items, get_view_command, format_usage_examples, simple_item_formatter,
-    indented_item_formatter, list_utility_modules
-)
-from cjm_fasthtml_tailwind.cli.factory_extraction import (
-    list_all_factories, list_module_factories, get_factory_by_name
-)
-from cjm_fasthtml_tailwind.cli.example_discovery import (
-    list_all_examples, get_example_by_name, list_module_examples
-)
-from .helper_discovery import get_module_helpers
+from typing import Optional
+from .utils import load_code_from_file
 from .search import search_all
-from .core_utils_discovery import get_core_utilities
 from .test_code import execute_test_code
-from .imports import get_recommended_imports
 from cjm_fasthtml_tailwind.cli.pattern_scanner import (
     analyze_and_suggest_input, display_input_analysis, 
-    InputType, detect_input_type
+    InputType
 )
 from .cli_config import LibraryConfig, get_active_config
 
