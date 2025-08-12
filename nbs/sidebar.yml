@@ -8,7 +8,10 @@ website:
           - builders/scales.ipynb
       - section: cli
         contents:
+          - cli/cli_config.ipynb
           - cli/core_utils_discovery.ipynb
+          - cli/display.ipynb
+          - cli/dynamic_examples.ipynb
           - cli/example_discovery.ipynb
           - cli/explorer.ipynb
           - cli/factory_extraction.ipynb

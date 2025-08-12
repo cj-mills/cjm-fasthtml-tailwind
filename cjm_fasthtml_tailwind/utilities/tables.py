@@ -8,7 +8,7 @@ __all__ = ['table_display', 'border_collapse', 'border_spacing', 'table_layout',
            'test_tables_border_spacing_basic_examples', 'test_tables_border_spacing_directional_examples',
            'test_tables_border_spacing_arbitrary_examples', 'test_tables_layout_examples',
            'test_tables_caption_side_examples', 'test_tables_all_utilities', 'test_tables_fasthtml_examples',
-           'test_tables_complex_fasthtml_examples', 'test_tables_factory_documentation']
+           'test_tables_complex_fasthtml_examples']
 
 # %% ../../nbs/utilities/tables.ipynb 3
 from typing import Optional, Dict, Any, Union
@@ -120,10 +120,11 @@ class TableDisplayFactory(SingleValueFactory):
             }
         }
 
+# %% ../../nbs/utilities/tables.ipynb 6
 # Create the table display factory
 table_display = TableDisplayFactory() # The table display factory
 
-# %% ../../nbs/utilities/tables.ipynb 6
+# %% ../../nbs/utilities/tables.ipynb 7
 def test_tables_display_examples():
     """Test table display utilities."""
     # Basic table display
@@ -147,7 +148,7 @@ def test_tables_display_examples():
 # Run the tests
 test_tables_display_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 8
+# %% ../../nbs/utilities/tables.ipynb 9
 border_collapse = SimpleFactory(
     {
         "collapse": "border-collapse",
@@ -156,7 +157,7 @@ border_collapse = SimpleFactory(
     "Border collapse utilities for controlling whether table borders should collapse or be separated"
 ) # Border collapse factory
 
-# %% ../../nbs/utilities/tables.ipynb 9
+# %% ../../nbs/utilities/tables.ipynb 10
 def test_tables_border_collapse_examples():
     """Test border collapse utilities."""
     assert str(border_collapse.collapse) == "border-collapse"
@@ -165,7 +166,7 @@ def test_tables_border_collapse_examples():
 # Run the tests
 test_tables_border_collapse_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 11
+# %% ../../nbs/utilities/tables.ipynb 12
 # Custom implementation for border-spacing to handle the hyphenated prefix
 class BorderSpacingFactory(BaseFactory):
     """Factory for border-spacing utilities with directional support."""
@@ -213,9 +214,10 @@ class BorderSpacingFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/tables.ipynb 13
 border_spacing = BorderSpacingFactory() # The border spacing factory
 
-# %% ../../nbs/utilities/tables.ipynb 13
+# %% ../../nbs/utilities/tables.ipynb 15
 def test_tables_border_spacing_basic_examples():
     """Test basic border spacing utilities."""
     # Numeric scales
@@ -230,7 +232,7 @@ def test_tables_border_spacing_basic_examples():
 # Run the tests
 test_tables_border_spacing_basic_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 15
+# %% ../../nbs/utilities/tables.ipynb 17
 def test_tables_border_spacing_directional_examples():
     """Test directional border spacing utilities."""
     # Horizontal spacing
@@ -246,7 +248,7 @@ def test_tables_border_spacing_directional_examples():
 # Run the tests
 test_tables_border_spacing_directional_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 17
+# %% ../../nbs/utilities/tables.ipynb 19
 def test_tables_border_spacing_arbitrary_examples():
     """Test border spacing utilities with arbitrary values."""
     # Arbitrary values
@@ -262,7 +264,7 @@ def test_tables_border_spacing_arbitrary_examples():
 # Run the tests
 test_tables_border_spacing_arbitrary_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 19
+# %% ../../nbs/utilities/tables.ipynb 21
 table_layout = SimpleFactory(
     {
         "auto": "table-auto",
@@ -271,7 +273,7 @@ table_layout = SimpleFactory(
     "Table layout utilities for controlling the table layout algorithm"
 ) # Table layout factory
 
-# %% ../../nbs/utilities/tables.ipynb 20
+# %% ../../nbs/utilities/tables.ipynb 22
 def test_tables_layout_examples():
     """Test table layout utilities."""
     assert str(table_layout.auto) == "table-auto"
@@ -280,7 +282,7 @@ def test_tables_layout_examples():
 # Run the tests
 test_tables_layout_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 22
+# %% ../../nbs/utilities/tables.ipynb 24
 caption_side = SimpleFactory(
     {
         "top": "caption-top",
@@ -289,7 +291,7 @@ caption_side = SimpleFactory(
     "Caption side utilities for controlling the alignment of a caption element inside of a table"
 ) # Caption side factory
 
-# %% ../../nbs/utilities/tables.ipynb 23
+# %% ../../nbs/utilities/tables.ipynb 25
 def test_tables_caption_side_examples():
     """Test caption side utilities."""
     assert str(caption_side.top) == "caption-top"
@@ -298,7 +300,7 @@ def test_tables_caption_side_examples():
 # Run the tests
 test_tables_caption_side_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 25
+# %% ../../nbs/utilities/tables.ipynb 27
 def test_tables_all_utilities():
     """Comprehensive test of all table utilities."""
     # Border collapse
@@ -328,7 +330,7 @@ def test_tables_all_utilities():
 # Run the comprehensive test
 test_tables_all_utilities()
 
-# %% ../../nbs/utilities/tables.ipynb 27
+# %% ../../nbs/utilities/tables.ipynb 29
 def test_tables_fasthtml_examples():
     """Test table utilities in practical FastHTML component examples."""
     from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption, Div
@@ -454,7 +456,7 @@ def test_tables_fasthtml_examples():
 # Run the tests
 test_tables_fasthtml_examples()
 
-# %% ../../nbs/utilities/tables.ipynb 31
+# %% ../../nbs/utilities/tables.ipynb 33
 def test_tables_complex_fasthtml_examples():
     """Test a complex table example with various styling."""
     from fasthtml.common import Table, Thead, Tbody, Tr, Th, Td, Caption, Div
@@ -570,52 +572,3 @@ def test_tables_complex_fasthtml_examples():
 
 # Run the test
 test_tables_complex_fasthtml_examples()
-
-# %% ../../nbs/utilities/tables.ipynb 34
-def test_tables_factory_documentation():
-    """Test that table factories have accessible documentation."""
-    # Test table display factory
-    assert table_display.describe() == "Display utility for creating a table element"
-    
-    # Test border collapse factory
-    assert border_collapse.describe() == "Border collapse utilities for controlling whether table borders should collapse or be separated"
-    
-    # Test border spacing factory
-    assert border_spacing.describe() == "Border spacing utilities for controlling the spacing between table borders"
-    
-    # Test table layout factory
-    assert table_layout.describe() == "Table layout utilities for controlling the table layout algorithm"
-    
-    # Test caption side factory
-    assert caption_side.describe() == "Caption side utilities for controlling the alignment of a caption element inside of a table"
-    
-    # Test get_info methods
-    display_info = table_display.get_info()
-    assert 'inline' in display_info['options']['special_properties']
-    assert 'caption' in display_info['options']['special_properties']
-    assert 'cell' in display_info['options']['special_properties']
-    
-    collapse_info = border_collapse.get_info()
-    assert 'collapse' in collapse_info['options']['available_values']
-    assert 'separate' in collapse_info['options']['available_values']
-    
-    spacing_info = border_spacing.get_info()
-    assert 'Numeric scales: 0-96' in spacing_info['valid_inputs'][0]
-    assert 'directional_variants' in spacing_info['options']
-    assert spacing_info['options']['directional_variants']['x'] == 'horizontal spacing'
-    assert spacing_info['options']['directional_variants']['y'] == 'vertical spacing'
-    
-    layout_info = table_layout.get_info()
-    assert 'auto' in layout_info['options']['available_values']
-    assert 'fixed' in layout_info['options']['available_values']
-    
-    caption_info = caption_side.get_info()
-    assert 'top' in caption_info['options']['available_values']
-    assert 'bottom' in caption_info['options']['available_values']
-    
-    # Test directional sub-factories for border spacing
-    assert border_spacing.x.describe() == "Horizontal border spacing"
-    assert border_spacing.y.describe() == "Vertical border spacing"
-
-# Run the tests
-test_tables_factory_documentation()

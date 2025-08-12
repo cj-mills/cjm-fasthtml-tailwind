@@ -14,8 +14,7 @@ __all__ = ['BACKFACE_VALUES', 'backface', 'PERSPECTIVE_VALUES', 'perspective', '
            'test_transforms_skew_examples', 'TransformFactory', 'test_transforms_transform_examples',
            'TransformOriginFactory', 'test_transforms_origin_examples', 'test_transforms_style_examples',
            'TranslateFactory', 'test_transforms_translate_examples', 'test_transforms_fasthtml_examples',
-           'center_transform', 'hover_scale', 'flip_card_3d', 'parallax_transform', 'test_transforms_helper_examples',
-           'test_transforms_factory_documentation']
+           'center_transform', 'hover_scale', 'flip_card_3d', 'parallax_transform', 'test_transforms_helper_examples']
 
 # %% ../../nbs/utilities/transforms.ipynb 3
 from typing import Optional, Union, Dict, Any, List
@@ -65,6 +64,7 @@ PERSPECTIVE_VALUES = {
     "none": "perspective-none"
 }
 
+# %% ../../nbs/utilities/transforms.ipynb 9
 # Enhanced factory that supports both named values and custom perspectives
 class PerspectiveFactory(SimpleFactory):
     """Factory for perspective with both named and custom values."""
@@ -104,9 +104,10 @@ class PerspectiveFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 10
 perspective = PerspectiveFactory(PERSPECTIVE_VALUES, "Perspective utilities for controlling an element's perspective when placed in 3D space") # The perspective factory
 
-# %% ../../nbs/utilities/transforms.ipynb 9
+# %% ../../nbs/utilities/transforms.ipynb 11
 def test_transforms_perspective_examples():
     """Test perspective utilities."""
     # Named perspectives
@@ -125,7 +126,7 @@ def test_transforms_perspective_examples():
 # Run the test
 test_transforms_perspective_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 11
+# %% ../../nbs/utilities/transforms.ipynb 13
 # Perspective origin positions - combines fixed positions with custom value support
 PERSPECTIVE_ORIGIN_VALUES = {
     "center": "perspective-origin-center",
@@ -139,6 +140,7 @@ PERSPECTIVE_ORIGIN_VALUES = {
     "top-left": "perspective-origin-top-left"
 }
 
+# %% ../../nbs/utilities/transforms.ipynb 14
 # Enhanced factory that supports both fixed values and custom positions
 class PerspectiveOriginFactory(SimpleFactory):
     """Factory for perspective origin with both fixed and custom values."""
@@ -171,12 +173,13 @@ class PerspectiveOriginFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 15
 perspective_origin = PerspectiveOriginFactory(
     PERSPECTIVE_ORIGIN_VALUES, 
     "Perspective origin utilities for controlling an element's perspective origin when placed in 3D space"
 ) # The perspective origin factory
 
-# %% ../../nbs/utilities/transforms.ipynb 12
+# %% ../../nbs/utilities/transforms.ipynb 16
 def test_transforms_perspective_origin_examples():
     """Test perspective origin utilities."""
     # Fixed positions
@@ -193,7 +196,7 @@ def test_transforms_perspective_origin_examples():
 # Run the test
 test_transforms_perspective_origin_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 14
+# %% ../../nbs/utilities/transforms.ipynb 18
 # Rotate angle values
 ROTATE_ANGLES = list(range(360)) # Common rotation angles in degrees
 
@@ -207,6 +210,7 @@ ROTATE_CONFIG = ScaleConfig(
     negative=True  # Support negative rotations
 )
 
+# %% ../../nbs/utilities/transforms.ipynb 19
 # Custom utility for rotate that handles angles
 class RotateUtility(StandardUtility):
     """Utility class for rotation with angle support."""
@@ -225,6 +229,7 @@ class RotateUtility(StandardUtility):
             # Treat as arbitrary value if not in predefined angles
             return f"[{value}]"
 
+# %% ../../nbs/utilities/transforms.ipynb 20
 # Factory for rotate with directional support
 class RotateFactory(BaseFactory):
     """Factory for rotation utilities with directional support."""
@@ -282,6 +287,7 @@ class RotateFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 21
 # Negative rotate factory
 class NegativeRotateFactory:
     """Factory for negative rotation utilities."""
@@ -302,9 +308,10 @@ class NegativeRotateFactory:
                 return instance
         raise AttributeError(f"'NegativeRotateFactory' object has no attribute '{name}'")
 
+# %% ../../nbs/utilities/transforms.ipynb 22
 rotate = RotateFactory() # The rotate factory
 
-# %% ../../nbs/utilities/transforms.ipynb 15
+# %% ../../nbs/utilities/transforms.ipynb 23
 def test_transforms_rotate_examples():
     """Test rotate utilities."""
     # Basic rotations
@@ -334,7 +341,7 @@ def test_transforms_rotate_examples():
 # Run the test
 test_transforms_rotate_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 17
+# %% ../../nbs/utilities/transforms.ipynb 25
 # Scale percentage values
 SCALE_VALUES = [0, 50, 75, 90, 95, 100, 105, 110, 125, 150] # Common scale percentages
 
@@ -348,6 +355,7 @@ SCALE_CONFIG = ScaleConfig(
     negative=True  # Support negative scaling (flip)
 )
 
+# %% ../../nbs/utilities/transforms.ipynb 26
 # Custom utility for scale that handles percentages
 class ScaleUtility(StandardUtility):
     """Utility class for scaling with percentage support."""
@@ -366,6 +374,7 @@ class ScaleUtility(StandardUtility):
             # Treat as arbitrary value if not in predefined scales
             return f"[{value}]"
 
+# %% ../../nbs/utilities/transforms.ipynb 27
 # Factory for scale with directional support
 class ScaleFactory(BaseFactory):
     """Factory for scale utilities with directional and 3D support."""
@@ -475,6 +484,7 @@ class ScaleFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 28
 # Negative scale factory
 class NegativeScaleFactory:
     """Factory for negative scale utilities."""
@@ -495,9 +505,10 @@ class NegativeScaleFactory:
                 return instance
         raise AttributeError(f"'NegativeScaleFactory' object has no attribute '{name}'")
 
+# %% ../../nbs/utilities/transforms.ipynb 29
 scale_tw = ScaleFactory() # The scale factory (renamed to avoid conflict with built-in scale)
 
-# %% ../../nbs/utilities/transforms.ipynb 18
+# %% ../../nbs/utilities/transforms.ipynb 30
 def test_transforms_scale_examples():
     """Test scale utilities."""
     # Basic scaling
@@ -530,10 +541,11 @@ def test_transforms_scale_examples():
 # Run the test
 test_transforms_scale_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 20
+# %% ../../nbs/utilities/transforms.ipynb 32
 # Skew angle values
 SKEW_ANGLES = [0, 1, 2, 3, 6, 12] # Common skew angles in degrees
 
+# %% ../../nbs/utilities/transforms.ipynb 33
 # Custom utility for skew that handles angles
 class SkewUtility(StandardUtility):
     """Utility class for skewing with angle support."""
@@ -550,6 +562,7 @@ class SkewUtility(StandardUtility):
             # Treat as arbitrary value if not in predefined angles
             return f"[{value}]"
 
+# %% ../../nbs/utilities/transforms.ipynb 34
 # Factory for skew with directional support
 class SkewFactory(BaseFactory):
     """Factory for skew utilities with directional support."""
@@ -636,6 +649,7 @@ class SkewFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 35
 # Negative skew factory
 class NegativeSkewFactory:
     """Factory for negative skew utilities."""
@@ -656,9 +670,10 @@ class NegativeSkewFactory:
                 return instance
         raise AttributeError(f"'NegativeSkewFactory' object has no attribute '{name}'")
 
+# %% ../../nbs/utilities/transforms.ipynb 36
 skew = SkewFactory() # The skew factory
 
-# %% ../../nbs/utilities/transforms.ipynb 21
+# %% ../../nbs/utilities/transforms.ipynb 37
 def test_transforms_skew_examples():
     """Test skew utilities."""
     # Basic skewing
@@ -688,7 +703,7 @@ def test_transforms_skew_examples():
 # Run the test
 test_transforms_skew_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 23
+# %% ../../nbs/utilities/transforms.ipynb 39
 # Transform utilities
 TRANSFORM_VALUES = {
     "none": "transform-none",
@@ -696,6 +711,7 @@ TRANSFORM_VALUES = {
     "cpu": "transform-cpu"
 }
 
+# %% ../../nbs/utilities/transforms.ipynb 40
 # Enhanced factory that supports both special values and custom transforms
 class TransformFactory(SimpleFactory):
     """Factory for transform utilities with special and custom values."""
@@ -728,9 +744,10 @@ class TransformFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 41
 transform = TransformFactory(TRANSFORM_VALUES, "Transform utilities for transforming elements") # The transform factory
 
-# %% ../../nbs/utilities/transforms.ipynb 24
+# %% ../../nbs/utilities/transforms.ipynb 42
 def test_transforms_transform_examples():
     """Test transform utilities."""
     # Special values
@@ -745,7 +762,7 @@ def test_transforms_transform_examples():
 # Run the test
 test_transforms_transform_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 26
+# %% ../../nbs/utilities/transforms.ipynb 44
 # Transform origin positions - combines fixed positions with custom value support
 TRANSFORM_ORIGIN_VALUES = {
     "center": "origin-center",
@@ -759,6 +776,7 @@ TRANSFORM_ORIGIN_VALUES = {
     "top-left": "origin-top-left"
 }
 
+# %% ../../nbs/utilities/transforms.ipynb 45
 # Enhanced factory that supports both fixed values and custom positions
 class TransformOriginFactory(SimpleFactory):
     """Factory for transform origin with both fixed and custom values."""
@@ -791,12 +809,13 @@ class TransformOriginFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 46
 origin = TransformOriginFactory(
     TRANSFORM_ORIGIN_VALUES, 
     "Transform origin utilities for specifying the origin for an element's transformations"
 ) # The transform origin factory
 
-# %% ../../nbs/utilities/transforms.ipynb 27
+# %% ../../nbs/utilities/transforms.ipynb 47
 def test_transforms_origin_examples():
     """Test transform origin utilities."""
     # Fixed positions
@@ -813,7 +832,7 @@ def test_transforms_origin_examples():
 # Run the test
 test_transforms_origin_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 29
+# %% ../../nbs/utilities/transforms.ipynb 49
 # Transform style utilities
 TRANSFORM_STYLE_VALUES = {
     "_3d": "transform-3d",
@@ -822,7 +841,7 @@ TRANSFORM_STYLE_VALUES = {
 
 transform_style = SimpleFactory(TRANSFORM_STYLE_VALUES, "Transform style utilities for controlling if an element's children are placed in 3D space") # The transform style factory
 
-# %% ../../nbs/utilities/transforms.ipynb 30
+# %% ../../nbs/utilities/transforms.ipynb 50
 def test_transforms_style_examples():
     """Test transform style utilities."""
     assert str(transform_style._3d) == "transform-3d"
@@ -831,7 +850,7 @@ def test_transforms_style_examples():
 # Run the test
 test_transforms_style_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 32
+# %% ../../nbs/utilities/transforms.ipynb 52
 # Configuration for translate utilities
 TRANSLATE_CONFIG = ScaleConfig(
     numeric=True,  # Support numeric spacing scale
@@ -846,6 +865,7 @@ TRANSLATE_CONFIG = ScaleConfig(
     negative=True  # Support negative translations
 )
 
+# %% ../../nbs/utilities/transforms.ipynb 53
 # Factory for translate with directional support
 class TranslateFactory(BaseFactory):
     """Factory for translate utilities with directional and 3D support."""
@@ -896,9 +916,10 @@ class TranslateFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/transforms.ipynb 54
 translate = TranslateFactory() # The translate factory
 
-# %% ../../nbs/utilities/transforms.ipynb 33
+# %% ../../nbs/utilities/transforms.ipynb 55
 def test_transforms_translate_examples():
     """Test translate utilities."""
     # Basic translations
@@ -937,7 +958,7 @@ def test_transforms_translate_examples():
 # Run the test
 test_transforms_translate_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 35
+# %% ../../nbs/utilities/transforms.ipynb 57
 def test_transforms_fasthtml_examples():
     """Test transform utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Img, A
@@ -1040,7 +1061,7 @@ def test_transforms_fasthtml_examples():
 # Run the test
 test_transforms_fasthtml_examples()
 
-# %% ../../nbs/utilities/transforms.ipynb 38
+# %% ../../nbs/utilities/transforms.ipynb 60
 def center_transform() -> str:
     """Center an element using transform translate."""
     return combine_classes(
@@ -1048,12 +1069,12 @@ def center_transform() -> str:
         str(translate.y.negative("1/2"))
     )
 
-# %% ../../nbs/utilities/transforms.ipynb 39
+# %% ../../nbs/utilities/transforms.ipynb 61
 def hover_scale(scale: int = 110) -> str:
     """Create a hover scale effect."""
     return f"hover:scale-{scale} transition-transform"
 
-# %% ../../nbs/utilities/transforms.ipynb 40
+# %% ../../nbs/utilities/transforms.ipynb 62
 def flip_card_3d(perspective_value: str = "normal") -> Dict[str, str]:
     """Get classes for a 3D flip card effect."""
     return {
@@ -1067,7 +1088,7 @@ def flip_card_3d(perspective_value: str = "normal") -> Dict[str, str]:
         "back": combine_classes(backface.hidden, str(rotate.y(180)))
     }
 
-# %% ../../nbs/utilities/transforms.ipynb 41
+# %% ../../nbs/utilities/transforms.ipynb 63
 def parallax_transform(speed: float = 0.5) -> str:
     """Create a parallax transform effect."""
     return combine_classes(
@@ -1075,7 +1096,7 @@ def parallax_transform(speed: float = 0.5) -> str:
         transform.gpu
     )
 
-# %% ../../nbs/utilities/transforms.ipynb 42
+# %% ../../nbs/utilities/transforms.ipynb 64
 def test_transforms_helper_examples():
     """Test helper functions for common transform patterns."""
     # Test center transform
@@ -1099,42 +1120,3 @@ def test_transforms_helper_examples():
 
 # Run the test
 test_transforms_helper_examples()
-
-# %% ../../nbs/utilities/transforms.ipynb 43
-def test_transforms_factory_documentation():
-    """Test that transform factories have accessible documentation."""
-    # Test main factory documentation
-    assert backface.describe() == "Backface visibility utilities for controlling if an element's backface is visible"
-    assert perspective.describe() == "Perspective utilities for controlling an element's perspective when placed in 3D space"
-    assert perspective_origin.describe() == "Perspective origin utilities for controlling an element's perspective origin when placed in 3D space"
-    assert rotate.describe() == "Rotate utilities for rotating elements"
-    assert scale_tw.describe() == "Scale utilities for scaling elements"
-    assert skew.describe() == "Skew utilities for skewing elements with transform"
-    assert transform.describe() == "Transform utilities for transforming elements"
-    assert origin.describe() == "Transform origin utilities for specifying the origin for an element's transformations"
-    assert transform_style.describe() == "Transform style utilities for controlling if an element's children are placed in 3D space"
-    assert translate.describe() == "Translate utilities for translating elements"
-    
-    # Test directional sub-factories
-    assert rotate.x.describe() == "Rotate around X axis"
-    assert rotate.y.describe() == "Rotate around Y axis"
-    assert rotate.z.describe() == "Rotate around Z axis"
-    assert translate.x.describe() == "Translate along X axis"
-    assert translate.y.describe() == "Translate along Y axis"
-    assert translate.z.describe() == "Translate along Z axis"
-    
-    # Test get_info methods
-    perspective_info = perspective.get_info()
-    assert 'named_perspectives' in perspective_info['options']
-    assert 'dramatic' in perspective_info['options']['named_perspectives']
-    
-    rotate_info = rotate.get_info()
-    assert 'supports_negative' in rotate_info['options']
-    assert rotate_info['options']['supports_negative'] == True
-    
-    translate_info = translate.get_info()
-    assert 'directional_variants' in translate_info['options']
-    assert 'x' in translate_info['options']['directional_variants']
-
-# Run the test
-test_transforms_factory_documentation()

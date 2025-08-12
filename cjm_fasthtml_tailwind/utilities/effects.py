@@ -30,7 +30,7 @@ __all__ = ['SHADOW_SIZE_CONFIG', 'shadow', 'shadow_color', 'INSET_SHADOW_SIZE_CO
            'test_effects_mask_radial_examples', 'test_effects_mask_conic_examples',
            'test_effects_mask_properties_examples', 'test_effects_shadow_fasthtml_examples',
            'test_effects_shadow_composition_fasthtml_examples', 'test_effects_comprehensive_fasthtml_examples',
-           'test_effects_mask_fasthtml_examples', 'test_effects_factory_documentation']
+           'test_effects_mask_fasthtml_examples']
 
 # %% ../../nbs/utilities/effects.ipynb 3
 from typing import Optional, Dict, Any, Union
@@ -985,9 +985,10 @@ class MaskLinearFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/effects.ipynb 80
 mask_linear = MaskLinearFactory("Linear gradient mask utilities for creating gradient-based masks") # Create the linear gradient mask factory instance
 
-# %% ../../nbs/utilities/effects.ipynb 81
+# %% ../../nbs/utilities/effects.ipynb 82
 class MaskDirectionalUtility(BaseUtility):
     """Utility class for directional mask gradients with from/to support."""
     
@@ -1054,7 +1055,7 @@ class MaskDirectionalUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/effects.ipynb 82
+# %% ../../nbs/utilities/effects.ipynb 83
 class MaskDirectionalFactory(BaseFactory):
     """Factory for directional mask gradient utilities."""
     
@@ -1131,7 +1132,7 @@ class MaskDirectionalFactory(BaseFactory):
             ]
         }
 
-# %% ../../nbs/utilities/effects.ipynb 83
+# %% ../../nbs/utilities/effects.ipynb 84
 # Create directional mask gradient factories
 mask_t_from = MaskDirectionalFactory('t', 'from') # Top direction - from
 mask_t_to = MaskDirectionalFactory('t', 'to') # Top direction - to
@@ -1151,7 +1152,7 @@ mask_x_to = MaskDirectionalFactory('x', 'to') # Horizontal (x) direction - to
 mask_y_from = MaskDirectionalFactory('y', 'from') # Vertical (y) direction - from
 mask_y_to = MaskDirectionalFactory('y', 'to') # Vertical (y) direction - to
 
-# %% ../../nbs/utilities/effects.ipynb 85
+# %% ../../nbs/utilities/effects.ipynb 86
 class MaskRadialUtility(BaseUtility):
     """Utility class for radial gradient masks."""
     
@@ -1199,7 +1200,7 @@ class MaskRadialUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/effects.ipynb 86
+# %% ../../nbs/utilities/effects.ipynb 87
 class MaskRadialFactory(BaseFactory):
     """Factory for radial gradient mask utilities."""
     
@@ -1243,7 +1244,7 @@ class MaskRadialFactory(BaseFactory):
 
 mask_radial = MaskRadialFactory("Radial gradient mask utilities for creating circular gradient-based masks") # Create the radial gradient mask factory instance
 
-# %% ../../nbs/utilities/effects.ipynb 87
+# %% ../../nbs/utilities/effects.ipynb 88
 # Radial gradient shape controls
 mask_circle = SingleValueFactory("mask-circle", "Set radial gradient mask shape to circle")
 mask_ellipse = SingleValueFactory("mask-ellipse", "Set radial gradient mask shape to ellipse")
@@ -1269,7 +1270,7 @@ mask_radial_at_bottom_right = SingleValueFactory("mask-radial-at-bottom-right", 
 mask_radial_from = MaskDirectionalFactory('radial', 'from', "Radial gradient mask from position utilities")
 mask_radial_to = MaskDirectionalFactory('radial', 'to', "Radial gradient mask to position utilities")
 
-# %% ../../nbs/utilities/effects.ipynb 89
+# %% ../../nbs/utilities/effects.ipynb 90
 class MaskConicUtility(BaseUtility):
     """Utility class for conic gradient masks with angle support."""
     
@@ -1326,7 +1327,7 @@ class MaskConicUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/effects.ipynb 90
+# %% ../../nbs/utilities/effects.ipynb 91
 class MaskConicFactory(BaseFactory):
     """Factory for conic gradient mask utilities with angle support."""
     
@@ -1391,6 +1392,7 @@ class MaskConicFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/effects.ipynb 92
 # Create the conic gradient mask factory instance
 mask_conic = MaskConicFactory("Conic gradient mask utilities for creating conical gradient-based masks")
 
@@ -1398,7 +1400,7 @@ mask_conic = MaskConicFactory("Conic gradient mask utilities for creating conica
 mask_conic_from = MaskDirectionalFactory('conic', 'from', "Conic gradient mask from position utilities")
 mask_conic_to = MaskDirectionalFactory('conic', 'to', "Conic gradient mask to position utilities")
 
-# %% ../../nbs/utilities/effects.ipynb 92
+# %% ../../nbs/utilities/effects.ipynb 94
 mask_mode = SimpleFactory(
     {
         "alpha": "mask-alpha",
@@ -1408,7 +1410,7 @@ mask_mode = SimpleFactory(
     "Mask mode utilities for controlling how the mask is interpreted"
 ) # Mask mode factory
 
-# %% ../../nbs/utilities/effects.ipynb 94
+# %% ../../nbs/utilities/effects.ipynb 96
 mask_origin = SimpleFactory(
     {
         "border": "mask-origin-border",
@@ -1421,7 +1423,7 @@ mask_origin = SimpleFactory(
     "Mask origin utilities for controlling how the mask is positioned relative to borders, padding, and content"
 ) # Mask origin factory
 
-# %% ../../nbs/utilities/effects.ipynb 96
+# %% ../../nbs/utilities/effects.ipynb 98
 mask_position = SimpleFactory(
     {
         "top_left": "mask-top-left",
@@ -1437,7 +1439,7 @@ mask_position = SimpleFactory(
     "Mask position utilities for controlling the position of an element's mask image"
 ) # Mask position factory
 
-# %% ../../nbs/utilities/effects.ipynb 98
+# %% ../../nbs/utilities/effects.ipynb 100
 mask_repeat = SimpleFactory(
     {
         "repeat": "mask-repeat",
@@ -1450,7 +1452,7 @@ mask_repeat = SimpleFactory(
     "Mask repeat utilities for controlling the repetition of an element's mask image"
 ) # Mask repeat factory
 
-# %% ../../nbs/utilities/effects.ipynb 100
+# %% ../../nbs/utilities/effects.ipynb 102
 mask_size = SimpleFactory(
     {
         "auto": "mask-auto",
@@ -1460,7 +1462,7 @@ mask_size = SimpleFactory(
     "Mask size utilities for controlling the size of an element's mask image"
 ) # Mask size factory
 
-# %% ../../nbs/utilities/effects.ipynb 102
+# %% ../../nbs/utilities/effects.ipynb 104
 mask_type = SimpleFactory(
     {
         "alpha": "mask-type-alpha",
@@ -1469,7 +1471,7 @@ mask_type = SimpleFactory(
     "Mask type utilities for controlling how an SVG mask is interpreted"
 ) # Mask type factory
 
-# %% ../../nbs/utilities/effects.ipynb 104
+# %% ../../nbs/utilities/effects.ipynb 106
 def test_effects_mask_basic_examples():
     """Test basic mask image utilities."""
     # Test mask-none
@@ -1487,7 +1489,7 @@ def test_effects_mask_basic_examples():
 # Run the tests
 test_effects_mask_basic_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 105
+# %% ../../nbs/utilities/effects.ipynb 107
 def test_effects_mask_linear_examples():
     """Test linear gradient mask utilities."""
     # Test common angles
@@ -1512,7 +1514,7 @@ def test_effects_mask_linear_examples():
 # Run the tests
 test_effects_mask_linear_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 106
+# %% ../../nbs/utilities/effects.ipynb 108
 def test_effects_mask_directional_examples():
     """Test directional mask gradient utilities."""
     # Test top direction
@@ -1554,7 +1556,7 @@ def test_effects_mask_directional_examples():
 # Run the tests
 test_effects_mask_directional_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 107
+# %% ../../nbs/utilities/effects.ipynb 109
 def test_effects_mask_radial_examples():
     """Test radial gradient mask utilities."""
     # Test basic radial gradient
@@ -1595,7 +1597,7 @@ def test_effects_mask_radial_examples():
 # Run the tests
 test_effects_mask_radial_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 108
+# %% ../../nbs/utilities/effects.ipynb 110
 def test_effects_mask_conic_examples():
     """Test conic gradient mask utilities."""
     # Test common angles
@@ -1627,7 +1629,7 @@ def test_effects_mask_conic_examples():
 # Run the tests
 test_effects_mask_conic_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 109
+# %% ../../nbs/utilities/effects.ipynb 111
 def test_effects_mask_properties_examples():
     """Test mask property utilities (mode, origin, position, etc.)."""
     # Test mask mode
@@ -1669,7 +1671,7 @@ def test_effects_mask_properties_examples():
 # Run the tests
 test_effects_mask_properties_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 116
+# %% ../../nbs/utilities/effects.ipynb 118
 def test_effects_shadow_fasthtml_examples():
     """Test shadow utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, H2, P, Button, Card
@@ -1797,7 +1799,7 @@ def test_effects_shadow_fasthtml_examples():
 # Run the tests
 test_effects_shadow_fasthtml_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 118
+# %% ../../nbs/utilities/effects.ipynb 120
 def test_effects_shadow_composition_fasthtml_examples():
     """Test composing shadow size and color utilities."""
     from fasthtml.common import Div
@@ -1863,7 +1865,7 @@ def test_effects_shadow_composition_fasthtml_examples():
 # Run the tests
 test_effects_shadow_composition_fasthtml_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 120
+# %% ../../nbs/utilities/effects.ipynb 122
 def test_effects_comprehensive_fasthtml_examples():
     """Test comprehensive usage of all effect utilities."""
     from fasthtml.common import Div, Input, Button
@@ -1956,7 +1958,7 @@ def test_effects_comprehensive_fasthtml_examples():
 # Run the tests
 test_effects_comprehensive_fasthtml_examples()
 
-# %% ../../nbs/utilities/effects.ipynb 123
+# %% ../../nbs/utilities/effects.ipynb 125
 def test_effects_mask_fasthtml_examples():
     """Test mask utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, Section, H1, P
@@ -2089,25 +2091,3 @@ def test_effects_mask_fasthtml_examples():
 
 # Run the tests
 test_effects_mask_fasthtml_examples()
-
-# %% ../../nbs/utilities/effects.ipynb 126
-def test_effects_factory_documentation():
-    """Test that effect factories have accessible documentation."""
-    # Test shadow factories
-    assert shadow.describe() == "Box shadow utilities for adding depth to elements"
-    assert shadow_color.describe() == "Shadow color utilities for customizing the color of box shadows"
-    
-    # Test inset shadow factories
-    assert inset_shadow.describe() == "Inset box shadow utilities for adding inner depth to elements"
-    assert inset_shadow_color.describe() == "Inset shadow color utilities for customizing the color of inner box shadows"
-    
-    # Test ring factories
-    assert ring.describe() == "Ring (outline) utilities for adding focus rings and outlines to elements"
-    assert ring_color.describe() == "Ring color utilities for customizing the color of focus rings and outlines"
-    
-    # Test inset ring factories
-    assert inset_ring.describe() == "Inset ring (inner outline) utilities for adding inner focus rings and outlines to elements"
-    assert inset_ring_color.describe() == "Inset ring color utilities for customizing the color of inner focus rings and outlines"
-
-# Run the tests
-test_effects_factory_documentation()

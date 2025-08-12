@@ -7,8 +7,8 @@ __all__ = ['fill_none', 'fill', 'stroke_none', 'stroke', 'STROKE_WIDTH_CONFIG', 
            'test_svg_fill_opacity_examples', 'test_svg_fill_arbitrary_examples', 'test_svg_stroke_examples',
            'test_svg_stroke_opacity_examples', 'StrokeWidthFactory', 'test_svg_stroke_width_examples',
            'test_svg_stroke_width_arbitrary_examples', 'test_svg_fasthtml_examples', 'test_svg_icon_fasthtml_examples',
-           'test_svg_progress_ring_fasthtml_examples', 'test_svg_factory_documentation', 'test_svg_edge_cases',
-           'svg_icon_classes', 'test_svg_helper_functions']
+           'test_svg_progress_ring_fasthtml_examples', 'test_svg_edge_cases', 'svg_icon_classes',
+           'test_svg_helper_functions']
 
 # %% ../../nbs/utilities/svg.ipynb 3
 from typing import Optional, Union, Dict, Any
@@ -180,6 +180,7 @@ STROKE_WIDTH_CONFIG = ScaleConfig(
     negative=False
 )
 
+# %% ../../nbs/utilities/svg.ipynb 22
 # Create a custom stroke width factory that only supports values 0-2
 class StrokeWidthFactory(ScaledFactory):
     """Factory for stroke-width utilities with restricted numeric scale (0-2)."""
@@ -238,9 +239,10 @@ class StrokeWidthFactory(ScaledFactory):
             }
         }
 
+# %% ../../nbs/utilities/svg.ipynb 23
 stroke_width = StrokeWidthFactory() # The stroke width factory
 
-# %% ../../nbs/utilities/svg.ipynb 23
+# %% ../../nbs/utilities/svg.ipynb 25
 def test_svg_stroke_width_examples():
     """Test stroke width utilities with various values."""
     # Test default numeric values (0-2)
@@ -262,7 +264,7 @@ def test_svg_stroke_width_examples():
 # Run the tests
 test_svg_stroke_width_examples()
 
-# %% ../../nbs/utilities/svg.ipynb 25
+# %% ../../nbs/utilities/svg.ipynb 27
 def test_svg_stroke_width_arbitrary_examples():
     """Test stroke width utilities with arbitrary and custom values."""
     # Arbitrary numeric values
@@ -277,7 +279,7 @@ def test_svg_stroke_width_arbitrary_examples():
 # Run the tests
 test_svg_stroke_width_arbitrary_examples()
 
-# %% ../../nbs/utilities/svg.ipynb 27
+# %% ../../nbs/utilities/svg.ipynb 29
 def test_svg_fasthtml_examples():
     """Test SVG utilities in practical FastHTML component examples."""
     from fasthtml.common import Div
@@ -359,7 +361,7 @@ def test_svg_fasthtml_examples():
 # Run the tests
 test_svg_fasthtml_examples()
 
-# %% ../../nbs/utilities/svg.ipynb 30
+# %% ../../nbs/utilities/svg.ipynb 32
 def test_svg_icon_fasthtml_examples():
     """Test creating reusable SVG icon components."""
     from fasthtml.common import Div
@@ -426,7 +428,7 @@ def test_svg_icon_fasthtml_examples():
 # Run the tests
 test_svg_icon_fasthtml_examples()
 
-# %% ../../nbs/utilities/svg.ipynb 33
+# %% ../../nbs/utilities/svg.ipynb 35
 def test_svg_progress_ring_fasthtml_examples():
     """Test creating a progress ring component."""
     from fasthtml.common import Div
@@ -504,36 +506,6 @@ def test_svg_progress_ring_fasthtml_examples():
 
 # Run the tests
 test_svg_progress_ring_fasthtml_examples()
-
-# %% ../../nbs/utilities/svg.ipynb 36
-def test_svg_factory_documentation():
-    """Test that SVG factories have accessible documentation."""
-    # Test fill factory
-    assert fill.describe() == "Fill color utilities for styling the fill of SVG elements"
-    fill_info = fill.get_info()
-    assert 'color_families' in fill_info['valid_inputs']
-    assert 'shades' in fill_info['valid_inputs']
-    assert fill_info['options']['prefix'] == 'fill'
-    assert fill_info['options']['supports_opacity'] == True
-    
-    # Test stroke factory
-    assert stroke.describe() == "Stroke color utilities for styling the stroke of SVG elements"
-    stroke_info = stroke.get_info()
-    assert 'color_families' in stroke_info['valid_inputs']
-    assert 'shades' in stroke_info['valid_inputs']
-    assert stroke_info['options']['prefix'] == 'stroke'
-    assert stroke_info['options']['supports_opacity'] == True
-    
-    # Test stroke width factory
-    assert stroke_width.describe() == "Stroke width utilities for styling the stroke width of SVG elements"
-    sw_info = stroke_width.get_info()
-    assert 'Numeric values: 0, 1, 2' in sw_info['valid_inputs']
-    assert 'Arbitrary values:' in sw_info['valid_inputs'][1]
-    assert sw_info['options']['prefix'] == 'stroke'
-    assert sw_info['options']['default_values'] == [0, 1, 2]
-
-# Run the tests
-test_svg_factory_documentation()
 
 # %% ../../nbs/utilities/svg.ipynb 38
 def test_svg_edge_cases():

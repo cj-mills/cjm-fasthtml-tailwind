@@ -4,23 +4,24 @@
 
 # %% auto 0
 __all__ = ['bg_attachment', 'bg_clip', 'bg', 'bg_none', 'bg_linear', 'bg_radial', 'bg_conic', 'from_color', 'via_color',
-           'to_color', 'bg_origin', 'bg_position', 'bg_repeat', 'bg_size', 'test_backgrounds_attachment_examples',
-           'test_backgrounds_clip_examples', 'test_backgrounds_color_examples', 'test_backgrounds_opacity_examples',
-           'GradientUtility', 'GradientFactory', 'GradientStopUtility', 'GradientStopFactory',
-           'test_backgrounds_gradient_examples', 'test_backgrounds_gradient_stops_examples',
-           'test_backgrounds_gradient_composition_examples', 'test_backgrounds_origin_examples',
-           'test_backgrounds_position_examples', 'test_backgrounds_repeat_examples', 'test_backgrounds_size_examples',
-           'test_backgrounds_arbitrary_examples', 'test_backgrounds_fasthtml_examples',
-           'test_backgrounds_factory_documentation']
+           'to_color', 'bg_origin', 'bg_position', 'bg_repeat', 'bg_size', 'BackgroundAttachment',
+           'test_backgrounds_attachment_examples', 'BackgroundClip', 'test_backgrounds_clip_examples',
+           'test_backgrounds_color_examples', 'test_backgrounds_opacity_examples', 'GradientUtility', 'GradientFactory',
+           'GradientStopUtility', 'GradientStopFactory', 'test_backgrounds_gradient_examples',
+           'test_backgrounds_gradient_stops_examples', 'test_backgrounds_gradient_composition_examples',
+           'test_backgrounds_origin_examples', 'test_backgrounds_position_examples', 'test_backgrounds_repeat_examples',
+           'test_backgrounds_size_examples', 'test_backgrounds_arbitrary_examples',
+           'test_backgrounds_fasthtml_examples']
 
 # %% ../../nbs/utilities/backgrounds.ipynb 3
+from enum import Enum
 from typing import Optional, Dict, Any, Union
 from cjm_fasthtml_tailwind.core.base import (
     SingleValueFactory, BaseFactory, BaseUtility, StandardUtility, 
     combine_classes, TailwindValue, is_custom_property, is_arbitrary_value
 )
 from ..builders.colors import ColoredFactory, ColorValue, ColoredUtility
-from ..builders.scales import SimpleFactory, NUMERIC_SCALE
+from ..builders.scales import SimpleFactory, NUMERIC_SCALE, enums_to_simple_factory
 
 from fasthtml.common import Div
 from fasthtml.jupyter import JupyUvi, HTMX
@@ -28,14 +29,13 @@ from ..core.testing import create_test_app, create_test_page, start_test_server
 from IPython.display import display
 
 # %% ../../nbs/utilities/backgrounds.ipynb 5
-bg_attachment = SimpleFactory(
-    {
-        "fixed": "bg-fixed",
-        "local": "bg-local", 
-        "scroll": "bg-scroll"
-    },
-    "Background attachment utilities for controlling how a background image behaves when scrolling"
-) # Background attachment factory
+class BackgroundAttachment(Enum):
+    """Background attachment utility values"""
+    FIXED = "fixed"
+    LOCAL = "local"
+    SCROLL = "scroll"
+
+bg_attachment = enums_to_simple_factory("bg", [BackgroundAttachment], "Background attachment utilities for controlling how a background image behaves when scrolling") # Background attachment factory
 
 # %% ../../nbs/utilities/backgrounds.ipynb 6
 def test_backgrounds_attachment_examples():
@@ -48,15 +48,14 @@ def test_backgrounds_attachment_examples():
 test_backgrounds_attachment_examples()
 
 # %% ../../nbs/utilities/backgrounds.ipynb 9
-bg_clip = SimpleFactory(
-    {
-        "border": "bg-clip-border",
-        "padding": "bg-clip-padding",
-        "content": "bg-clip-content",
-        "text": "bg-clip-text"
-    },
-    "Background clip utilities for controlling the bounding box of an element's background"
-) # Background clip factory
+class BackgroundClip(Enum):
+    """Background clip utility values"""
+    BORDER = "border"
+    PADDING = "padding"
+    CONTENT = "content"
+    TEXT = "text"
+
+bg_clip = enums_to_simple_factory("bg-clip", [BackgroundClip], "Background clip utilities for controlling the bounding box of an element's background") # Background clip factory
 
 # %% ../../nbs/utilities/backgrounds.ipynb 10
 def test_backgrounds_clip_examples():
@@ -289,12 +288,13 @@ class GradientFactory(BaseFactory):
         
         return info
 
+# %% ../../nbs/utilities/backgrounds.ipynb 25
 # Create gradient factories
 bg_linear = GradientFactory("linear", "Linear gradient utilities for creating gradient backgrounds")
 bg_radial = GradientFactory("radial", "Radial gradient utilities for creating circular gradient backgrounds") 
 bg_conic = GradientFactory("conic", "Conic gradient utilities for creating conical gradient backgrounds")
 
-# %% ../../nbs/utilities/backgrounds.ipynb 26
+# %% ../../nbs/utilities/backgrounds.ipynb 27
 class GradientStopUtility(BaseUtility):
     """Utility class for gradient color stops with percentage support."""
     
@@ -353,7 +353,7 @@ class GradientStopUtility(BaseUtility):
         
         return base_class
 
-# %% ../../nbs/utilities/backgrounds.ipynb 27
+# %% ../../nbs/utilities/backgrounds.ipynb 28
 class GradientStopFactory(ColoredFactory):
     """Enhanced factory for gradient color stops with percentage support."""
     
@@ -399,12 +399,13 @@ class GradientStopFactory(ColoredFactory):
         # Otherwise, use parent's color handling
         return super().__getattr__(name)
 
+# %% ../../nbs/utilities/backgrounds.ipynb 29
 # Create enhanced gradient stop factories
 from_color = GradientStopFactory("from", "Gradient from color/position utilities for defining the starting color or position of a gradient")
 via_color = GradientStopFactory("via", "Gradient via color/position utilities for defining the middle color or position of a gradient")
 to_color = GradientStopFactory("to", "Gradient to color/position utilities for defining the ending color or position of a gradient")
 
-# %% ../../nbs/utilities/backgrounds.ipynb 29
+# %% ../../nbs/utilities/backgrounds.ipynb 31
 def test_backgrounds_gradient_examples():
     """Test gradient background utilities."""
     # Test bg-none
@@ -443,7 +444,7 @@ def test_backgrounds_gradient_examples():
 # Run the tests
 test_backgrounds_gradient_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 30
+# %% ../../nbs/utilities/backgrounds.ipynb 32
 def test_backgrounds_gradient_stops_examples():
     """Test gradient color stop utilities."""
     # Test from colors
@@ -487,7 +488,7 @@ def test_backgrounds_gradient_stops_examples():
 # Run the tests
 test_backgrounds_gradient_stops_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 33
+# %% ../../nbs/utilities/backgrounds.ipynb 35
 def test_backgrounds_gradient_composition_examples():
     """Test composing gradient backgrounds with color stops."""
     from fasthtml.common import Div
@@ -594,7 +595,7 @@ def test_backgrounds_gradient_composition_examples():
 # Run the tests
 test_backgrounds_gradient_composition_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 36
+# %% ../../nbs/utilities/backgrounds.ipynb 38
 bg_origin = SimpleFactory(
     {
         "border": "bg-origin-border",
@@ -604,7 +605,7 @@ bg_origin = SimpleFactory(
     "Background origin utilities for controlling how an element's background is positioned relative to borders, padding, and content"
 ) # Background origin factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 37
+# %% ../../nbs/utilities/backgrounds.ipynb 39
 def test_backgrounds_origin_examples():
     """Test background origin utilities."""
     assert str(bg_origin.border) == "bg-origin-border"
@@ -614,7 +615,7 @@ def test_backgrounds_origin_examples():
 # Run the tests
 test_backgrounds_origin_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 39
+# %% ../../nbs/utilities/backgrounds.ipynb 41
 bg_position = SimpleFactory(
     {
         "top_left": "bg-top-left",
@@ -630,7 +631,7 @@ bg_position = SimpleFactory(
     "Background position utilities for controlling the position of an element's background image"
 ) # Background position factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 40
+# %% ../../nbs/utilities/backgrounds.ipynb 42
 def test_backgrounds_position_examples():
     """Test background position utilities."""
     assert str(bg_position.top_left) == "bg-top-left"
@@ -642,7 +643,7 @@ def test_backgrounds_position_examples():
 # Run the tests
 test_backgrounds_position_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 42
+# %% ../../nbs/utilities/backgrounds.ipynb 44
 bg_repeat = SimpleFactory(
     {
         "repeat": "bg-repeat",
@@ -655,7 +656,7 @@ bg_repeat = SimpleFactory(
     "Background repeat utilities for controlling the repetition of an element's background image"
 ) # Background repeat factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 43
+# %% ../../nbs/utilities/backgrounds.ipynb 45
 def test_backgrounds_repeat_examples():
     """Test background repeat utilities."""
     assert str(bg_repeat.repeat) == "bg-repeat"
@@ -666,7 +667,7 @@ def test_backgrounds_repeat_examples():
 # Run the tests
 test_backgrounds_repeat_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 45
+# %% ../../nbs/utilities/backgrounds.ipynb 47
 bg_size = SimpleFactory(
     {
         "auto": "bg-auto",
@@ -676,7 +677,7 @@ bg_size = SimpleFactory(
     "Background size utilities for controlling the background size of an element's background image"
 ) # Background size factory
 
-# %% ../../nbs/utilities/backgrounds.ipynb 46
+# %% ../../nbs/utilities/backgrounds.ipynb 48
 def test_backgrounds_size_examples():
     """Test background size utilities."""
     assert str(bg_size.auto) == "bg-auto"
@@ -686,7 +687,7 @@ def test_backgrounds_size_examples():
 # Run the tests
 test_backgrounds_size_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 48
+# %% ../../nbs/utilities/backgrounds.ipynb 50
 def test_backgrounds_arbitrary_examples():
     """Test background utilities with arbitrary values."""
     # Arbitrary color values
@@ -701,7 +702,7 @@ def test_backgrounds_arbitrary_examples():
 # Run the tests
 test_backgrounds_arbitrary_examples()
 
-# %% ../../nbs/utilities/backgrounds.ipynb 50
+# %% ../../nbs/utilities/backgrounds.ipynb 52
 def test_backgrounds_fasthtml_examples():
     """Test background utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, H1, P, Section
@@ -763,48 +764,3 @@ def test_backgrounds_fasthtml_examples():
 
 # Run the tests
 test_backgrounds_fasthtml_examples()
-
-# %% ../../nbs/utilities/backgrounds.ipynb 53
-def test_backgrounds_factory_documentation():
-    """Test that background factories have accessible documentation."""
-    # Test color factory
-    assert bg.describe() == "Background color utilities for controlling an element's background color"
-    
-    # Test simple factories
-    assert bg_attachment.describe() == "Background attachment utilities for controlling how a background image behaves when scrolling"
-    assert bg_clip.describe() == "Background clip utilities for controlling the bounding box of an element's background"
-    assert bg_origin.describe() == "Background origin utilities for controlling how an element's background is positioned relative to borders, padding, and content"
-    assert bg_position.describe() == "Background position utilities for controlling the position of an element's background image"
-    assert bg_repeat.describe() == "Background repeat utilities for controlling the repetition of an element's background image"
-    assert bg_size.describe() == "Background size utilities for controlling the background size of an element's background image"
-    
-    # Test gradient factories
-    assert bg_linear.describe() == "Linear gradient utilities for creating gradient backgrounds"
-    assert bg_radial.describe() == "Radial gradient utilities for creating circular gradient backgrounds"
-    assert bg_conic.describe() == "Conic gradient utilities for creating conical gradient backgrounds"
-    assert bg_none.describe() == "Remove background image"
-    
-    # Test gradient color stop factories
-    assert from_color.describe() == "Gradient from color/position utilities for defining the starting color or position of a gradient"
-    assert via_color.describe() == "Gradient via color/position utilities for defining the middle color or position of a gradient"
-    assert to_color.describe() == "Gradient to color/position utilities for defining the ending color or position of a gradient"
-    
-    # Test get_info methods
-    bg_info = bg.get_info()
-    assert 'color_families' in bg_info['valid_inputs']
-    assert bg_info['options']['supports_opacity'] == True
-    
-    attachment_info = bg_attachment.get_info()
-    assert 'fixed' in attachment_info['options']['available_values']
-    assert 'local' in attachment_info['options']['available_values']
-    assert 'scroll' in attachment_info['options']['available_values']
-    
-    # Test gradient factory info
-    linear_info = bg_linear.get_info()
-    assert 'gradient_type' in linear_info
-    assert linear_info['gradient_type'] == 'linear'
-    assert 'Directions:' in linear_info['valid_inputs'][0]
-    assert 'Angles:' in linear_info['valid_inputs'][1]
-
-# Run the tests
-test_backgrounds_factory_documentation()

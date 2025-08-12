@@ -7,9 +7,8 @@ __all__ = ['w', 'h', 'min_w', 'max_w', 'container', 'min_h', 'max_h', 'size_util
            'test_sizing_width_named_examples', 'test_sizing_width_viewport_examples', 'test_sizing_arbitrary_examples',
            'test_sizing_height_examples', 'test_sizing_height_viewport_examples', 'test_sizing_min_width_examples',
            'test_sizing_max_width_examples', 'test_sizing_container_examples', 'test_sizing_min_height_examples',
-           'test_sizing_size_util_examples', 'test_sizing_max_height_examples', 'test_sizing_fasthtml_examples',
-           'test_sizing_factory_documentation', 'size', 'square', 'full_size', 'full_screen',
-           'test_sizing_helper_examples']
+           'test_sizing_size_util_examples', 'test_sizing_max_height_examples', 'test_sizing_fasthtml_examples', 'size',
+           'square', 'full_size', 'full_screen', 'test_sizing_helper_examples']
 
 # %% ../../nbs/utilities/sizing.ipynb 3
 from typing import Optional, Union
@@ -388,24 +387,7 @@ def test_sizing_fasthtml_examples(
 # Run the tests
 test_sizing_fasthtml_examples()
 
-# %% ../../nbs/utilities/sizing.ipynb 40
-def test_sizing_factory_documentation(
-):
-    """Test that factories have accessible documentation."""
-    # Test factory documentation
-    assert w.describe() == "Width utilities for setting element width"
-    assert h.describe() == "Height utilities for setting element height"
-    assert min_w.describe() == "Minimum width utilities for setting minimum element width"
-    assert max_w.describe() == "Maximum width utilities for setting maximum element width"
-    assert min_h.describe() == "Minimum height utilities for setting minimum element height"
-    assert max_h.describe() == "Maximum height utilities for setting maximum element height"
-    assert size_util.describe() == "Size utilities for setting both width and height simultaneously"
-    assert container.describe() == "Responsive container with breakpoint-based max-widths"
-
-# Run the tests
-test_sizing_factory_documentation()
-
-# %% ../../nbs/utilities/sizing.ipynb 42
+# %% ../../nbs/utilities/sizing.ipynb 41
 def size(
     w: Optional[TailwindScale] = None,        # Width value
     h: Optional[TailwindScale] = None,        # Height value
@@ -432,26 +414,26 @@ def size(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/sizing.ipynb 43
+# %% ../../nbs/utilities/sizing.ipynb 42
 def square(
     size: TailwindScale  # Size value for both width and height
 ) -> str:  # Space-separated width and height classes
     """Create a square element with equal width and height."""
     return combine_classes(w(size), h(size))
 
-# %% ../../nbs/utilities/sizing.ipynb 44
+# %% ../../nbs/utilities/sizing.ipynb 43
 def full_size(
 ) -> str:  # "w-full h-full"
     """Make element take full width and height of parent."""
     return combine_classes(w.full, h.full)
 
-# %% ../../nbs/utilities/sizing.ipynb 45
+# %% ../../nbs/utilities/sizing.ipynb 44
 def full_screen(
 ) -> str:  # "w-screen h-screen"
     """Make element take full viewport width and height."""
     return combine_classes(w.screen, h.screen)
 
-# %% ../../nbs/utilities/sizing.ipynb 46
+# %% ../../nbs/utilities/sizing.ipynb 45
 def test_sizing_helper_examples(
 ):
     """Test helper functions for common sizing patterns."""

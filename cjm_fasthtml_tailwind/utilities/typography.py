@@ -81,6 +81,7 @@ FONT_SCALES = [ # Font size named scales
     NamedScale("9xl"),
 ]
 
+# %% ../../nbs/utilities/typography.ipynb 9
 FONT_SIZE_CONFIG = ScaleConfig( # Font size configuration
     numeric=False,  # No numeric scales for font size
     decimals=False,
@@ -89,9 +90,10 @@ FONT_SIZE_CONFIG = ScaleConfig( # Font size configuration
     negative=False
 )
 
+# %% ../../nbs/utilities/typography.ipynb 10
 font_size = ScaledFactory('text', FONT_SIZE_CONFIG, "Utilities for controlling the font size of an element.") # Font size factory
 
-# %% ../../nbs/utilities/typography.ipynb 9
+# %% ../../nbs/utilities/typography.ipynb 11
 def test_typography_font_size_examples():
     """Test font size utilities."""
     assert str(font_size.xs) == "text-xs"
@@ -111,11 +113,11 @@ def test_typography_font_size_examples():
 # Run the tests
 test_typography_font_size_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 12
+# %% ../../nbs/utilities/typography.ipynb 14
 antialiased = SingleValueFactory("antialiased", "Applies antialiased font smoothing") # Antialiased font smoothing
 subpixel_antialiased = SingleValueFactory("subpixel-antialiased", "Applies subpixel antialiased font smoothing") # Subpixel antialiased font smoothing
 
-# %% ../../nbs/utilities/typography.ipynb 13
+# %% ../../nbs/utilities/typography.ipynb 15
 def test_typography_font_smoothing_examples():
     """Test font smoothing utilities."""
     assert str(antialiased) == "antialiased"
@@ -124,11 +126,11 @@ def test_typography_font_smoothing_examples():
 # Run the tests
 test_typography_font_smoothing_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 15
+# %% ../../nbs/utilities/typography.ipynb 17
 italic = SingleValueFactory("italic", "Sets font style to italic") # Italic font style
 not_italic = SingleValueFactory("not-italic", "Sets font style to normal") # Normal font style
 
-# %% ../../nbs/utilities/typography.ipynb 16
+# %% ../../nbs/utilities/typography.ipynb 18
 def test_typography_font_style_examples():
     """Test font style utilities."""
     assert str(italic) == "italic"
@@ -137,7 +139,7 @@ def test_typography_font_style_examples():
 # Run the tests
 test_typography_font_style_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 18
+# %% ../../nbs/utilities/typography.ipynb 20
 class FontWeight(str, Enum):
     THIN = "thin"
     EXTRALIGHT = "extralight"
@@ -151,7 +153,7 @@ class FontWeight(str, Enum):
 
 font_weight = enums_to_simple_factory("font", [FontWeight], "Utilities for controlling the font weight of an element.") # Font weight utilities
 
-# %% ../../nbs/utilities/typography.ipynb 19
+# %% ../../nbs/utilities/typography.ipynb 21
 def test_typography_font_weight_examples():
     """Test font weight utilities."""
     # Named weights
@@ -168,7 +170,7 @@ def test_typography_font_weight_examples():
 # Run the tests
 test_typography_font_weight_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 21
+# %% ../../nbs/utilities/typography.ipynb 23
 class FontStretch(str, Enum):
     ULTRA_CONDENSED = "ultra-condensed"
     EXTRA_CONDENSED = "extra-condensed"
@@ -182,7 +184,7 @@ class FontStretch(str, Enum):
 
 font_stretch = enums_to_simple_factory("font-stretch", [FontStretch], "Utilities for selecting the width of a font face.") # Font stretch utilities
 
-# %% ../../nbs/utilities/typography.ipynb 22
+# %% ../../nbs/utilities/typography.ipynb 24
 def test_typography_font_stretch_examples():
     """Test font stretch utilities."""
     assert str(font_stretch.ultra_condensed) == "font-stretch-ultra-condensed"
@@ -198,7 +200,7 @@ def test_typography_font_stretch_examples():
 # Run the tests
 test_typography_font_stretch_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 25
+# %% ../../nbs/utilities/typography.ipynb 27
 # Font variant numeric utilities
 normal_nums = SingleValueFactory("normal-nums", "Normal numeric font variant") # Normal numbers
 ordinal = SingleValueFactory("ordinal", "Ordinal numeric markers") # Ordinal numbers
@@ -210,7 +212,7 @@ tabular_nums = SingleValueFactory("tabular-nums", "Tabular figures") # Tabular n
 diagonal_fractions = SingleValueFactory("diagonal-fractions", "Diagonal fractions") # Diagonal fractions
 stacked_fractions = SingleValueFactory("stacked-fractions", "Stacked fractions") # Stacked fractions
 
-# %% ../../nbs/utilities/typography.ipynb 26
+# %% ../../nbs/utilities/typography.ipynb 28
 def test_typography_font_variant_numeric_examples():
     """Test font variant numeric utilities."""
     assert str(normal_nums) == "normal-nums"
@@ -226,7 +228,7 @@ def test_typography_font_variant_numeric_examples():
 # Run the tests
 test_typography_font_variant_numeric_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 29
+# %% ../../nbs/utilities/typography.ipynb 31
 # Letter spacing config
 TRACKING_CONFIG = ScaleConfig(
     numeric=False,
@@ -246,7 +248,7 @@ TRACKING_CONFIG = ScaleConfig(
 
 tracking = ScaledFactory("tracking", TRACKING_CONFIG, "Letter spacing utilities for controlling tracking") # Letter spacing factory
 
-# %% ../../nbs/utilities/typography.ipynb 30
+# %% ../../nbs/utilities/typography.ipynb 32
 def test_typography_spacing_examples():
     """Test letter spacing utilities."""
     # Letter spacing
@@ -262,7 +264,7 @@ def test_typography_spacing_examples():
 # Run the tests
 test_typography_spacing_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 32
+# %% ../../nbs/utilities/typography.ipynb 34
 # Line clamp config - numeric values for number of lines
 LINE_CLAMP_CONFIG = ScaleConfig(
     numeric=True,
@@ -274,7 +276,7 @@ LINE_CLAMP_CONFIG = ScaleConfig(
 
 line_clamp = ScaledFactory("line-clamp", LINE_CLAMP_CONFIG, "Line clamp utilities for limiting text lines") # Line clamp factory
 
-# %% ../../nbs/utilities/typography.ipynb 33
+# %% ../../nbs/utilities/typography.ipynb 35
 def test_typography_line_clamp_examples():
     """Test line clamp utilities."""
         
@@ -291,7 +293,7 @@ def test_typography_line_clamp_examples():
 # Run the tests
 test_typography_line_clamp_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 36
+# %% ../../nbs/utilities/typography.ipynb 38
 # Line height config - uses numeric scale plus none
 LEADING_CONFIG = ScaleConfig(
     numeric=True,
@@ -303,7 +305,7 @@ LEADING_CONFIG = ScaleConfig(
 
 leading = ScaledFactory("leading", LEADING_CONFIG, "Utilities for controlling the leading, or line height, of an element.") # Line height factory
 
-# %% ../../nbs/utilities/typography.ipynb 37
+# %% ../../nbs/utilities/typography.ipynb 39
 def test_typography_line_height_examples():
     """Test line height utilities."""
     # Line height
@@ -323,7 +325,7 @@ def test_typography_line_height_examples():
 # Run the tests
 test_typography_line_height_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 40
+# %% ../../nbs/utilities/typography.ipynb 42
 class ListImageUtility(BaseUtility):
     """Utility class for list-style-image with arbitrary value support."""
     
@@ -380,7 +382,7 @@ class ListImageFactory(BaseFactory):
 
 list_image = ListImageFactory() # List image factory
 
-# %% ../../nbs/utilities/typography.ipynb 41
+# %% ../../nbs/utilities/typography.ipynb 43
 def test_typography_list_image_examples():
     """Test list style image utilities."""
     assert str(list_image.none) == "list-image-none"
@@ -391,14 +393,14 @@ def test_typography_list_image_examples():
 # Run the tests
 test_typography_list_image_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 43
+# %% ../../nbs/utilities/typography.ipynb 45
 class ListStylePosition(str, Enum):
     INSIDE = "inside"
     OUTSIDE = "outside"
 
 list_position = enums_to_simple_factory("list", [ListStylePosition], "Utilities for controlling the position of bullets and numbers in lists.") # List position factory
 
-# %% ../../nbs/utilities/typography.ipynb 44
+# %% ../../nbs/utilities/typography.ipynb 46
 class ListStyleType(str, Enum):
     DISC = "disc"
     DECIMAL = "decimal"
@@ -406,7 +408,7 @@ class ListStyleType(str, Enum):
 
 list_style = enums_to_simple_factory("list", [ListStyleType], "Utilities for controlling the marker style of a list.") # List type factory
 
-# %% ../../nbs/utilities/typography.ipynb 45
+# %% ../../nbs/utilities/typography.ipynb 47
 def test_typography_list_styles_examples():
     """Test list styles utilities."""
     
@@ -420,7 +422,7 @@ def test_typography_list_styles_examples():
 # Run the tests
 test_typography_list_styles_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 47
+# %% ../../nbs/utilities/typography.ipynb 49
 class TextAlign(str, Enum):
     LEFT = "left"
     CENTER = "center"
@@ -431,7 +433,7 @@ class TextAlign(str, Enum):
 
 text_align = enums_to_simple_factory("text", [TextAlign], "Utilities for controlling the alignment of text.") # Text alignment factory
 
-# %% ../../nbs/utilities/typography.ipynb 48
+# %% ../../nbs/utilities/typography.ipynb 50
 def test_typography_text_alignment_examples():
     """Test text alignment utilities."""
     # Text alignment
@@ -445,10 +447,10 @@ def test_typography_text_alignment_examples():
 # Run the tests
 test_typography_text_alignment_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 50
+# %% ../../nbs/utilities/typography.ipynb 52
 text_color = ColoredFactory("text", "Utilities for controlling the text color of an element.") # Text color factory
 
-# %% ../../nbs/utilities/typography.ipynb 51
+# %% ../../nbs/utilities/typography.ipynb 53
 def test_typography_text_color_examples():
     """Test text color utilities."""
     # Standard colors
@@ -499,16 +501,16 @@ def test_typography_text_color_examples():
 # Run the tests
 test_typography_text_color_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 53
+# %% ../../nbs/utilities/typography.ipynb 55
 underline = SingleValueFactory("underline", "Underline text decoration") # Underline text
 overline = SingleValueFactory("overline", "Overline text decoration") # Overline text
 line_through = SingleValueFactory("line-through", "Line through text decoration") # Line through text
 no_underline = SingleValueFactory("no-underline", "Remove text decoration") # No text decoration
 
-# %% ../../nbs/utilities/typography.ipynb 55
+# %% ../../nbs/utilities/typography.ipynb 57
 decoration_color = ColoredFactory("decoration", "Utilities for controlling the color of text decorations.") # Text decoration color factory
 
-# %% ../../nbs/utilities/typography.ipynb 57
+# %% ../../nbs/utilities/typography.ipynb 59
 class DecorationStyle(str, Enum):
     SOLID = "solid"
     DOUBLE = "double"
@@ -518,7 +520,7 @@ class DecorationStyle(str, Enum):
 
 decoration_style = enums_to_simple_factory("decoration", [DecorationStyle], "Utilities for controlling the style of text decorations.") # Text decoration style factory
 
-# %% ../../nbs/utilities/typography.ipynb 59
+# %% ../../nbs/utilities/typography.ipynb 61
 # Decoration thickness config
 DECORATION_THICKNESS_CONFIG = ScaleConfig(
     numeric=True,  # 0, 1, 2, 4, 8
@@ -534,7 +536,7 @@ DECORATION_THICKNESS_CONFIG = ScaleConfig(
 
 decoration_thickness = ScaledFactory("decoration", DECORATION_THICKNESS_CONFIG, "Text decoration thickness utilities") # Text decoration thickness factory
 
-# %% ../../nbs/utilities/typography.ipynb 60
+# %% ../../nbs/utilities/typography.ipynb 62
 def test_typography_text_decoration_examples():
     """Test text decoration utilities."""
     # Decoration lines
@@ -595,7 +597,7 @@ def test_typography_text_decoration_examples():
 # Run the tests
 test_typography_text_decoration_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 62
+# %% ../../nbs/utilities/typography.ipynb 64
 # Underline offset config
 UNDERLINE_OFFSET_CONFIG = ScaleConfig(
     numeric=True,  # 0, 1, 2, 4, 8
@@ -610,7 +612,7 @@ UNDERLINE_OFFSET_CONFIG = ScaleConfig(
 
 underline_offset = ScaledFactory("underline-offset", UNDERLINE_OFFSET_CONFIG, "Text underline offset utilities") # Text underline offset factory
 
-# %% ../../nbs/utilities/typography.ipynb 63
+# %% ../../nbs/utilities/typography.ipynb 65
 def test_typography_underline_offset_examples():
     """Test underline offset utilities."""    
     # Underline offset
@@ -627,13 +629,13 @@ def test_typography_underline_offset_examples():
 # Run the tests
 test_typography_underline_offset_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 65
+# %% ../../nbs/utilities/typography.ipynb 67
 uppercase = SingleValueFactory("uppercase", "Transform text to uppercase") # Uppercase text
 lowercase = SingleValueFactory("lowercase", "Transform text to lowercase") # Lowercase text
 capitalize = SingleValueFactory("capitalize", "Capitalize first letter of each word") # Capitalize text
 normal_case = SingleValueFactory("normal-case", "Preserve original text case") # Normal case text
 
-# %% ../../nbs/utilities/typography.ipynb 66
+# %% ../../nbs/utilities/typography.ipynb 68
 def test_typography_text_transform_examples():
     """Test text transform utilities."""    
     # Text transform
@@ -645,12 +647,12 @@ def test_typography_text_transform_examples():
 # Run the tests
 test_typography_text_transform_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 68
+# %% ../../nbs/utilities/typography.ipynb 70
 truncate = SingleValueFactory("truncate", "Truncate text with ellipsis when it overflows") # Truncate overflow text
 text_ellipsis = SingleValueFactory("text-ellipsis", "Use ellipsis for text overflow") # Text ellipsis
 text_clip = SingleValueFactory("text-clip", "Clip text when it overflows") # Text clip
 
-# %% ../../nbs/utilities/typography.ipynb 69
+# %% ../../nbs/utilities/typography.ipynb 71
 def test_typography_text_overflow_examples():
     """Test text overflow utilities."""
     # Text overflow
@@ -661,13 +663,13 @@ def test_typography_text_overflow_examples():
 # Run the tests
 test_typography_text_overflow_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 71
+# %% ../../nbs/utilities/typography.ipynb 73
 text_wrap = SingleValueFactory("text-wrap", "Allow text to wrap normally") # Text wrap
 text_nowrap = SingleValueFactory("text-nowrap", "Prevent text from wrapping") # Text no wrap
 text_balance = SingleValueFactory("text-balance", "Balance text for better readability") # Text balance
 text_pretty = SingleValueFactory("text-pretty", "Optimize text wrapping for readability") # Text pretty
 
-# %% ../../nbs/utilities/typography.ipynb 72
+# %% ../../nbs/utilities/typography.ipynb 74
 def test_typography_text_wrap_examples():
     """Test text wrap utilities."""
     
@@ -680,11 +682,11 @@ def test_typography_text_wrap_examples():
 # Run the tests
 test_typography_text_wrap_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 74
+# %% ../../nbs/utilities/typography.ipynb 76
 # Text indent uses spacing scale
 indent = DirectionalScaledFactory("indent", SPACING_CONFIG, "Text indentation utilities") # Text indent factory
 
-# %% ../../nbs/utilities/typography.ipynb 75
+# %% ../../nbs/utilities/typography.ipynb 77
 def test_typography_text_indent_examples():
     """Test text indent utilities."""
         
@@ -699,7 +701,7 @@ def test_typography_text_indent_examples():
 # Run the tests
 test_typography_text_indent_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 77
+# %% ../../nbs/utilities/typography.ipynb 79
 align = SimpleFactory(
     {
         "baseline": "align-baseline",
@@ -714,7 +716,7 @@ align = SimpleFactory(
     "Vertical alignment utilities for inline or table-cell elements"
 ) # Vertical align factory
 
-# %% ../../nbs/utilities/typography.ipynb 78
+# %% ../../nbs/utilities/typography.ipynb 80
 def test_typography_vertical_align_examples():
     """Test vertical align utilities."""
     
@@ -731,7 +733,7 @@ def test_typography_vertical_align_examples():
 # Run the tests
 test_typography_vertical_align_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 80
+# %% ../../nbs/utilities/typography.ipynb 82
 whitespace = SimpleFactory(
     {
         "normal": "whitespace-normal",
@@ -744,7 +746,7 @@ whitespace = SimpleFactory(
     "White space utilities for controlling how white space is handled"
 ) # White space factory
 
-# %% ../../nbs/utilities/typography.ipynb 81
+# %% ../../nbs/utilities/typography.ipynb 83
 def test_typography_whitespace_examples():
     """Test whitespace utilities."""
     
@@ -759,12 +761,12 @@ def test_typography_whitespace_examples():
 # Run the tests
 test_typography_whitespace_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 83
+# %% ../../nbs/utilities/typography.ipynb 85
 break_normal = SingleValueFactory("break-normal", "Normal word breaking behavior") # Normal word break
 break_all = SingleValueFactory("break-all", "Break words at any character") # Break all
 break_keep = SingleValueFactory("break-keep", "Prevent word breaks") # Keep words together
 
-# %% ../../nbs/utilities/typography.ipynb 84
+# %% ../../nbs/utilities/typography.ipynb 86
 def test_typography_word_break_examples():
     """Test word break utilities."""
     
@@ -776,12 +778,12 @@ def test_typography_word_break_examples():
 # Run the tests
 test_typography_word_break_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 86
+# %% ../../nbs/utilities/typography.ipynb 88
 wrap_break_word = SingleValueFactory("wrap-break-word", "Break long words at arbitrary points") # Break word wrap
 wrap_anywhere = SingleValueFactory("wrap-anywhere", "Break at any point if needed") # Wrap anywhere
 wrap_normal = SingleValueFactory("wrap-normal", "Break only at normal break points") # Normal wrap
 
-# %% ../../nbs/utilities/typography.ipynb 87
+# %% ../../nbs/utilities/typography.ipynb 89
 def test_typography_overflow_wrap_examples():
     """Test overflow wrap utilities."""
     
@@ -793,7 +795,7 @@ def test_typography_overflow_wrap_examples():
 # Run the tests
 test_typography_overflow_wrap_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 89
+# %% ../../nbs/utilities/typography.ipynb 91
 hyphens = SimpleFactory(
     {
         "none": "hyphens-none",
@@ -803,7 +805,7 @@ hyphens = SimpleFactory(
     "Hyphenation utilities for controlling word hyphenation"
 ) # Hyphens factory
 
-# %% ../../nbs/utilities/typography.ipynb 90
+# %% ../../nbs/utilities/typography.ipynb 92
 def test_typography_hyphens_examples():
     """Test hyphens utilities."""
     
@@ -815,7 +817,7 @@ def test_typography_hyphens_examples():
 # Run the tests
 test_typography_hyphens_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 92
+# %% ../../nbs/utilities/typography.ipynb 94
 class ContentUtility(BaseUtility):
     """Utility class for content with arbitrary value support."""
     
@@ -874,7 +876,7 @@ class ContentFactory(BaseFactory):
 
 content = ContentFactory() # Content factory
 
-# %% ../../nbs/utilities/typography.ipynb 93
+# %% ../../nbs/utilities/typography.ipynb 95
 def test_typography_content_examples():
     """Test content utilities for pseudo-elements."""
     assert str(content.none) == "content-none"
@@ -888,7 +890,7 @@ def test_typography_content_examples():
 # Run the tests
 test_typography_content_examples()
 
-# %% ../../nbs/utilities/typography.ipynb 97
+# %% ../../nbs/utilities/typography.ipynb 99
 def test_typography_fasthtml_examples():
     """Test typography utilities in practical FastHTML component examples."""
     from fasthtml.common import H1, H2, P, Div, Span, A, Ul, Li, Blockquote

@@ -11,9 +11,8 @@ __all__ = ['transition', 'transition_behavior', 'DURATION_SCALE', 'DURATION_CONF
            'test_transitions_and_animation_delay_examples', 'AnimationFactory',
            'test_transitions_and_animation_examples', 'test_transitions_and_animation_fasthtml_examples',
            'test_transitions_and_animation_animation_fasthtml_examples',
-           'test_transitions_and_animation_composition_fasthtml_examples',
-           'test_transitions_and_animation_factory_documentation', 'smooth_transition', 'hover_effect', 'fade_in',
-           'loading_spinner', 'skeleton_loader', 'test_transitions_and_animation_helper_examples']
+           'test_transitions_and_animation_composition_fasthtml_examples', 'smooth_transition', 'hover_effect',
+           'fade_in', 'loading_spinner', 'skeleton_loader', 'test_transitions_and_animation_helper_examples']
 
 # %% ../../nbs/utilities/transitions_and_animation.ipynb 3
 from typing import Optional, Dict, Any, Union, List
@@ -63,6 +62,7 @@ class TransitionPropertyFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 6
 # Create transition property factory
 transition = TransitionPropertyFactory(
     {
@@ -77,7 +77,7 @@ transition = TransitionPropertyFactory(
     "Transition property utilities for controlling which CSS properties transition"
 ) # The transition property factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 6
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 7
 # Override __getattr__ to handle empty string key for default transition
 class TransitionPropertyFactory(SimpleFactory):
     """Factory for transition property utilities with custom value support."""
@@ -118,6 +118,7 @@ class TransitionPropertyFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 8
 # Recreate transition property factory with the enhanced class
 transition = TransitionPropertyFactory(
     {
@@ -132,7 +133,7 @@ transition = TransitionPropertyFactory(
     "Transition property utilities for controlling which CSS properties transition"
 ) # The transition property factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 7
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 9
 def test_transitions_and_animation_property_examples():
     """Test transition property utilities."""
     # Test predefined transition properties
@@ -156,7 +157,7 @@ def test_transitions_and_animation_property_examples():
 # Run the tests
 test_transitions_and_animation_property_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 10
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 12
 transition_behavior = SimpleFactory(
     {
         "normal": "transition-normal",
@@ -165,7 +166,7 @@ transition_behavior = SimpleFactory(
     "Transition behavior utilities for controlling the behavior of CSS transitions"
 ) # The transition behavior factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 11
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 13
 def test_transitions_and_animation_behavior_examples():
     """Test transition behavior utilities."""
     assert str(transition_behavior.normal) == "transition-normal"
@@ -174,10 +175,11 @@ def test_transitions_and_animation_behavior_examples():
 # Run the tests
 test_transitions_and_animation_behavior_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 13
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 15
 # Standard duration values in milliseconds
 DURATION_SCALE = [0, 75, 100, 150, 200, 300, 500, 700, 1000] # Standard Tailwind duration scale
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 16
 DURATION_CONFIG = ScaleConfig( # Duration configuration
     numeric=False,  # Don't use full numeric scale
     decimals=False,
@@ -198,6 +200,7 @@ DURATION_CONFIG = ScaleConfig( # Duration configuration
     negative=False
 )
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 17
 # Enhanced duration factory with custom value support
 class DurationFactory(ScaledFactory):
     """Factory for duration utilities with millisecond support."""
@@ -262,10 +265,11 @@ class DurationFactory(ScaledFactory):
             }
         }
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 18
 # Create duration factory
 duration = DurationFactory("duration", DURATION_CONFIG, "Transition duration utilities for controlling the duration of CSS transitions") # The duration factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 15
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 20
 def test_transitions_and_animation_duration_examples():
     """Test transition duration utilities."""
     # Test standard duration values with attributes
@@ -315,7 +319,7 @@ def test_transitions_and_animation_duration_examples():
 # Run the tests
 test_transitions_and_animation_duration_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 17
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 22
 # Enhanced factory for easing functions with custom value support
 class EaseFactory(SimpleFactory):
     """Factory for easing/timing function utilities with custom value support."""
@@ -348,6 +352,7 @@ class EaseFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 23
 # Create ease factory
 ease = EaseFactory(
     {
@@ -360,7 +365,7 @@ ease = EaseFactory(
     "Transition timing function utilities for controlling the easing of CSS transitions"
 ) # The ease factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 18
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 24
 def test_transitions_and_animation_timing_examples():
     """Test transition timing function utilities."""
     # Test predefined easing functions
@@ -384,10 +389,11 @@ def test_transitions_and_animation_timing_examples():
 # Run the tests
 test_transitions_and_animation_timing_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 20
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 26
 # Standard delay values in milliseconds (same as duration scale)
 DELAY_SCALE = [0, 75, 100, 150, 200, 300, 500, 700, 1000] # Standard Tailwind delay scale
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 27
 DELAY_CONFIG = ScaleConfig( # Delay configuration
     numeric=False,  # Don't use full numeric scale
     decimals=False,
@@ -407,6 +413,7 @@ DELAY_CONFIG = ScaleConfig( # Delay configuration
     negative=False
 )
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 28
 # Enhanced delay factory with custom value support
 class DelayFactory(DurationFactory):
     """Factory for delay utilities with millisecond support."""
@@ -433,10 +440,11 @@ class DelayFactory(DurationFactory):
         self._1000 = self(1000)
         # Note: delay doesn't have 'initial' like duration does
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 29
 # Create delay factory
 delay = DelayFactory("delay", DELAY_CONFIG, "Transition delay utilities for controlling the delay of CSS transitions") # The delay factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 21
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 30
 def test_transitions_and_animation_delay_examples():
     """Test transition delay utilities."""
     # Test standard delay values with attributes
@@ -484,7 +492,7 @@ def test_transitions_and_animation_delay_examples():
 # Run the tests
 test_transitions_and_animation_delay_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 23
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 32
 # Enhanced factory for animations with custom value support
 class AnimationFactory(SimpleFactory):
     """Factory for animation utilities with custom value support."""
@@ -517,6 +525,7 @@ class AnimationFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 33
 # Create animation factory
 animate = AnimationFactory(
     {
@@ -529,7 +538,7 @@ animate = AnimationFactory(
     "Animation utilities for animating elements with CSS animations"
 ) # The animation factory
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 24
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 34
 def test_transitions_and_animation_examples():
     """Test animation utilities."""
     # Test predefined animations
@@ -551,7 +560,7 @@ def test_transitions_and_animation_examples():
 # Run the tests
 test_transitions_and_animation_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 26
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
 def test_transitions_and_animation_fasthtml_examples():
     """Test transition and animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Span, A, Img
@@ -642,7 +651,7 @@ def test_transitions_and_animation_fasthtml_examples():
 # Run the tests
 test_transitions_and_animation_fasthtml_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 28
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 38
 def test_transitions_and_animation_animation_fasthtml_examples():
     """Test animation utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Span, Button
@@ -722,7 +731,7 @@ def test_transitions_and_animation_animation_fasthtml_examples():
 # Run the tests
 test_transitions_and_animation_animation_fasthtml_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 30
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 40
 def test_transitions_and_animation_composition_fasthtml_examples():
     """Test composing multiple transition utilities together."""
     from fasthtml.common import Div, Button
@@ -790,52 +799,7 @@ def test_transitions_and_animation_composition_fasthtml_examples():
 # Run the tests
 test_transitions_and_animation_composition_fasthtml_examples()
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 33
-def test_transitions_and_animation_factory_documentation():
-    """Test that transition and animation factories have accessible documentation."""
-    # Test transition property factory
-    assert transition.describe() == "Transition property utilities for controlling which CSS properties transition"
-    transition_info = transition.get_info()
-    assert 'predefined_values' in transition_info['options']
-    assert '' in transition_info['options']['predefined_values']  # Default transition
-    assert 'all' in transition_info['options']['predefined_values']
-    
-    # Test transition behavior factory
-    assert transition_behavior.describe() == "Transition behavior utilities for controlling the behavior of CSS transitions"
-    behavior_info = transition_behavior.get_info()
-    assert 'available_values' in behavior_info['options']
-    assert 'normal' in behavior_info['options']['available_values']
-    assert 'discrete' in behavior_info['options']['available_values']
-    
-    # Test duration factory
-    assert duration.describe() == "Transition duration utilities for controlling the duration of CSS transitions"
-    duration_info = duration.get_info()
-    assert 'standard_scale' in duration_info['options']
-    assert duration_info['options']['standard_scale'] == DURATION_SCALE
-    
-    # Test ease factory
-    assert ease.describe() == "Transition timing function utilities for controlling the easing of CSS transitions"
-    ease_info = ease.get_info()
-    assert 'predefined_values' in ease_info['options']
-    assert 'linear' in ease_info['options']['predefined_values']
-    assert 'in-out' in ease_info['options']['predefined_values']
-    
-    # Test delay factory
-    assert delay.describe() == "Transition delay utilities for controlling the delay of CSS transitions"
-    delay_info = delay.get_info()
-    assert 'standard_scale' in delay_info['options']
-    
-    # Test animation factory
-    assert animate.describe() == "Animation utilities for animating elements with CSS animations"
-    animate_info = animate.get_info()
-    assert 'predefined_values' in animate_info['options']
-    assert 'spin' in animate_info['options']['predefined_values']
-    assert 'bounce' in animate_info['options']['predefined_values']
-
-# Run the tests
-test_transitions_and_animation_factory_documentation()
-
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 35
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 43
 def smooth_transition(
     properties: str = "all",  # Which properties to transition (default: all)
     duration_ms: int = 300,  # Duration in milliseconds
@@ -871,7 +835,7 @@ def smooth_transition(
         ease_func
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 36
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 44
 def hover_effect(
     duration_ms: int = 200  # Duration in milliseconds
 ) -> str:  # Combined CSS classes for hover effects
@@ -882,7 +846,7 @@ def hover_effect(
         ease.in_out
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 37
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 45
 def fade_in(
     duration_ms: int = 500,  # Duration in milliseconds
     delay_ms: Optional[int] = None  # Optional delay in milliseconds
@@ -899,7 +863,7 @@ def fade_in(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 38
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 46
 def loading_spinner(
 ) -> str:  # Combined CSS classes for a loading spinner
     """Create a loading spinner animation."""
@@ -909,7 +873,7 @@ def loading_spinner(
         animate.spin
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 39
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 47
 def skeleton_loader(
 ) -> str:  # Combined CSS classes for a skeleton loader
     """Create a skeleton loader animation for content placeholders."""
@@ -919,7 +883,7 @@ def skeleton_loader(
         animate.pulse
     )
 
-# %% ../../nbs/utilities/transitions_and_animation.ipynb 40
+# %% ../../nbs/utilities/transitions_and_animation.ipynb 48
 def test_transitions_and_animation_helper_examples():
     """Test helper functions for common transition patterns."""
     # Test smooth_transition

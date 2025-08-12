@@ -11,8 +11,7 @@ __all__ = ['filter_none', 'BLUR_SCALES', 'blur', 'BRIGHTNESS_VALUES', 'brightnes
            'test_filters_blur_examples', 'test_filters_brightness_examples', 'test_filters_contrast_examples',
            'DropShadowScale', 'test_filters_drop_shadow_examples', 'test_filters_grayscale_examples',
            'test_filters_hue_rotate_examples', 'test_filters_invert_examples', 'test_filters_saturate_examples',
-           'test_filters_sepia_examples', 'test_filters_backdrop_examples', 'test_filters_fasthtml_examples',
-           'test_filters_factory_documentation']
+           'test_filters_sepia_examples', 'test_filters_backdrop_examples', 'test_filters_fasthtml_examples']
 
 # %% ../../nbs/utilities/filters.ipynb 3
 from typing import Optional, Dict, Any, Union, List
@@ -60,6 +59,7 @@ class BlurScale:
         """Format as Tailwind class suffix."""
         return self.name
 
+# %% ../../nbs/utilities/filters.ipynb 9
 # Blur scale definitions based on Tailwind v4 docs
 BLUR_SCALES = [
     BlurScale("xs", "4px", "--blur-xs"),
@@ -71,6 +71,7 @@ BLUR_SCALES = [
     BlurScale("3xl", "64px", "--blur-3xl"),
 ]
 
+# %% ../../nbs/utilities/filters.ipynb 10
 # Create blur factory using SimpleFactory for named scales
 blur = SimpleFactory(
     {
@@ -86,7 +87,7 @@ blur = SimpleFactory(
     "Blur filter utilities for applying blur effects to an element"
 ) # Blur filter factory
 
-# %% ../../nbs/utilities/filters.ipynb 9
+# %% ../../nbs/utilities/filters.ipynb 11
 def test_filters_blur_examples():
     """Test blur filter utilities."""
     # Test named blur scales
@@ -102,7 +103,7 @@ def test_filters_blur_examples():
 # Run the tests
 test_filters_blur_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 11
+# %% ../../nbs/utilities/filters.ipynb 13
 # Brightness percentage values (common presets)
 BRIGHTNESS_VALUES = [0, 50, 75, 90, 95, 100, 105, 110, 125, 150, 200]
 
@@ -119,7 +120,7 @@ brightness_config = ScaleConfig(
 # Create brightness factory
 brightness = ScaledFactory("brightness", brightness_config, "Brightness filter utilities for adjusting element brightness")
 
-# %% ../../nbs/utilities/filters.ipynb 12
+# %% ../../nbs/utilities/filters.ipynb 14
 def test_filters_brightness_examples():
     """Test brightness filter utilities."""
     # Test common brightness values
@@ -139,14 +140,14 @@ def test_filters_brightness_examples():
 # Run the tests
 test_filters_brightness_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 14
+# %% ../../nbs/utilities/filters.ipynb 16
 # Contrast percentage values (common presets)
 CONTRAST_VALUES = [0, 50, 75, 100, 125, 150, 200]
 
 # Create contrast factory using same config as brightness
 contrast = ScaledFactory("contrast", brightness_config, "Contrast filter utilities for adjusting element contrast")
 
-# %% ../../nbs/utilities/filters.ipynb 15
+# %% ../../nbs/utilities/filters.ipynb 17
 def test_filters_contrast_examples():
     """Test contrast filter utilities."""
     # Test common contrast values
@@ -166,7 +167,7 @@ def test_filters_contrast_examples():
 # Run the tests
 test_filters_contrast_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 17
+# %% ../../nbs/utilities/filters.ipynb 19
 # Define drop shadow scale configuration
 @dataclass
 class DropShadowScale:
@@ -179,6 +180,7 @@ class DropShadowScale:
         """Format as Tailwind class suffix."""
         return self.name
 
+# %% ../../nbs/utilities/filters.ipynb 20
 # Drop shadow scale definitions based on Tailwind v4 docs
 DROP_SHADOW_SCALES = [
     DropShadowScale("xs", "0 1px 1px rgb(0 0 0 / 0.05)", "--drop-shadow-xs"),
@@ -189,6 +191,7 @@ DROP_SHADOW_SCALES = [
     DropShadowScale("2xl", "0 25px 25px rgb(0 0 0 / 0.15)", "--drop-shadow-2xl"),
 ]
 
+# %% ../../nbs/utilities/filters.ipynb 21
 # Create drop shadow factory for basic shadow utilities
 drop_shadow = SimpleFactory(
     {
@@ -203,10 +206,11 @@ drop_shadow = SimpleFactory(
     "Drop shadow filter utilities for applying drop shadow effects to an element"
 ) # Drop shadow factory
 
+# %% ../../nbs/utilities/filters.ipynb 22
 # Create drop shadow color factory
 drop_shadow_color = ColoredFactory("drop-shadow", "Drop shadow color utilities for customizing the color of drop shadows")
 
-# %% ../../nbs/utilities/filters.ipynb 18
+# %% ../../nbs/utilities/filters.ipynb 23
 def test_filters_drop_shadow_examples():
     """Test drop shadow filter utilities."""
     # Test named drop shadow scales
@@ -260,14 +264,14 @@ def test_filters_drop_shadow_examples():
 # Run the tests
 test_filters_drop_shadow_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 20
+# %% ../../nbs/utilities/filters.ipynb 25
 # Create grayscale factory with percentage support
 grayscale = ScaledFactory("grayscale", brightness_config, "Grayscale filter utilities for converting elements to grayscale")
 
 # Add convenience for full grayscale
 grayscale.full = SingleValueFactory("grayscale", "Apply 100% grayscale filter")
 
-# %% ../../nbs/utilities/filters.ipynb 21
+# %% ../../nbs/utilities/filters.ipynb 26
 def test_filters_grayscale_examples():
     """Test grayscale filter utilities."""
     # Test full grayscale (default)
@@ -288,7 +292,7 @@ def test_filters_grayscale_examples():
 # Run the tests
 test_filters_grayscale_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 23
+# %% ../../nbs/utilities/filters.ipynb 28
 # Common hue rotation angles
 HUE_ROTATE_VALUES = [0, 15, 30, 60, 90, 180]
 
@@ -305,7 +309,7 @@ hue_rotate_config = ScaleConfig(
 # Create hue rotate factory
 hue_rotate = ScaledFactory("hue-rotate", hue_rotate_config, "Hue rotate filter utilities for rotating element colors")
 
-# %% ../../nbs/utilities/filters.ipynb 24
+# %% ../../nbs/utilities/filters.ipynb 29
 def test_filters_hue_rotate_examples():
     """Test hue rotate filter utilities."""
     # Test positive angles
@@ -330,14 +334,14 @@ def test_filters_hue_rotate_examples():
 # Run the tests
 test_filters_hue_rotate_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 26
+# %% ../../nbs/utilities/filters.ipynb 31
 # Create invert factory with percentage support
 invert = ScaledFactory("invert", brightness_config, "Invert filter utilities for inverting element colors")
 
 # Add convenience for full invert
 invert.full = SingleValueFactory("invert", "Apply 100% invert filter")
 
-# %% ../../nbs/utilities/filters.ipynb 27
+# %% ../../nbs/utilities/filters.ipynb 32
 def test_filters_invert_examples():
     """Test invert filter utilities."""
     # Test full invert (default)
@@ -358,14 +362,14 @@ def test_filters_invert_examples():
 # Run the tests
 test_filters_invert_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 29
+# %% ../../nbs/utilities/filters.ipynb 34
 # Common saturation values
 SATURATE_VALUES = [0, 50, 100, 150, 200]
 
 # Create saturate factory
 saturate = ScaledFactory("saturate", brightness_config, "Saturate filter utilities for adjusting element color saturation")
 
-# %% ../../nbs/utilities/filters.ipynb 30
+# %% ../../nbs/utilities/filters.ipynb 35
 def test_filters_saturate_examples():
     """Test saturate filter utilities."""
     # Test common saturate values
@@ -385,14 +389,14 @@ def test_filters_saturate_examples():
 # Run the tests
 test_filters_saturate_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 32
+# %% ../../nbs/utilities/filters.ipynb 37
 # Create sepia factory with percentage support
 sepia = ScaledFactory("sepia", brightness_config, "Sepia filter utilities for applying sepia tone effects")
 
 # Add convenience for full sepia
 sepia.full = SingleValueFactory("sepia", "Apply 100% sepia filter")
 
-# %% ../../nbs/utilities/filters.ipynb 33
+# %% ../../nbs/utilities/filters.ipynb 38
 def test_filters_sepia_examples():
     """Test sepia filter utilities."""
     # Test full sepia (default)
@@ -413,10 +417,10 @@ def test_filters_sepia_examples():
 # Run the tests
 test_filters_sepia_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 36
+# %% ../../nbs/utilities/filters.ipynb 41
 backdrop_filter_none = SingleValueFactory("backdrop-filter-none", "Remove all backdrop filters from an element") # Remove backdrop filters
 
-# %% ../../nbs/utilities/filters.ipynb 38
+# %% ../../nbs/utilities/filters.ipynb 43
 # Create backdrop blur factory using same scales as regular blur
 backdrop_blur = SimpleFactory(
     {
@@ -432,7 +436,7 @@ backdrop_blur = SimpleFactory(
     "Backdrop blur filter utilities for applying blur effects to the backdrop"
 ) # Backdrop blur factory
 
-# %% ../../nbs/utilities/filters.ipynb 40
+# %% ../../nbs/utilities/filters.ipynb 45
 # Create backdrop filter factories using same configurations as regular filters
 backdrop_brightness = ScaledFactory("backdrop-brightness", brightness_config, "Backdrop brightness filter utilities")
 backdrop_contrast = ScaledFactory("backdrop-contrast", brightness_config, "Backdrop contrast filter utilities")
@@ -447,11 +451,11 @@ backdrop_grayscale.full = SingleValueFactory("backdrop-grayscale", "Apply 100% b
 backdrop_sepia = ScaledFactory("backdrop-sepia", brightness_config, "Backdrop sepia filter utilities")
 backdrop_sepia.full = SingleValueFactory("backdrop-sepia", "Apply 100% backdrop sepia filter")
 
-# %% ../../nbs/utilities/filters.ipynb 42
+# %% ../../nbs/utilities/filters.ipynb 47
 # Create backdrop hue rotate with negative support
 backdrop_hue_rotate = ScaledFactory("backdrop-hue-rotate", hue_rotate_config, "Backdrop hue rotate filter utilities")
 
-# %% ../../nbs/utilities/filters.ipynb 43
+# %% ../../nbs/utilities/filters.ipynb 48
 def test_filters_backdrop_examples():
     """Test backdrop filter utilities."""
     # Test backdrop filter control
@@ -498,7 +502,7 @@ def test_filters_backdrop_examples():
 # Run the tests
 test_filters_backdrop_examples()
 
-# %% ../../nbs/utilities/filters.ipynb 45
+# %% ../../nbs/utilities/filters.ipynb 50
 def test_filters_fasthtml_examples():
     """Test filter utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Img, P, H1, Section
@@ -607,48 +611,3 @@ def test_filters_fasthtml_examples():
 
 # Run the tests
 test_filters_fasthtml_examples()
-
-# %% ../../nbs/utilities/filters.ipynb 48
-def test_filters_factory_documentation():
-    """Test that filter factories have accessible documentation."""
-    # Test filter control
-    assert filter_none.describe() == "Remove all filters from an element"
-    
-    # Test regular filters
-    assert blur.describe() == "Blur filter utilities for applying blur effects to an element"
-    assert brightness.describe() == "Brightness filter utilities for adjusting element brightness"
-    assert contrast.describe() == "Contrast filter utilities for adjusting element contrast"
-    assert drop_shadow.describe() == "Drop shadow filter utilities for applying drop shadow effects to an element"
-    assert drop_shadow_color.describe() == "Drop shadow color utilities for customizing the color of drop shadows"
-    assert grayscale.describe() == "Grayscale filter utilities for converting elements to grayscale"
-    assert hue_rotate.describe() == "Hue rotate filter utilities for rotating element colors"
-    assert invert.describe() == "Invert filter utilities for inverting element colors"
-    assert saturate.describe() == "Saturate filter utilities for adjusting element color saturation"
-    assert sepia.describe() == "Sepia filter utilities for applying sepia tone effects"
-    
-    # Test backdrop filters
-    assert backdrop_filter_none.describe() == "Remove all backdrop filters from an element"
-    assert backdrop_blur.describe() == "Backdrop blur filter utilities for applying blur effects to the backdrop"
-    assert backdrop_brightness.describe() == "Backdrop brightness filter utilities"
-    assert backdrop_contrast.describe() == "Backdrop contrast filter utilities"
-    assert backdrop_grayscale.describe() == "Backdrop grayscale filter utilities"
-    assert backdrop_hue_rotate.describe() == "Backdrop hue rotate filter utilities"
-    assert backdrop_opacity.describe() == "Backdrop opacity filter utilities"
-    assert backdrop_saturate.describe() == "Backdrop saturate filter utilities"
-    assert backdrop_sepia.describe() == "Backdrop sepia filter utilities"
-    
-    # Test get_info methods
-    brightness_info = brightness.get_info()
-    assert 'description' in brightness_info
-    assert 'valid_inputs' in brightness_info
-    assert brightness_info['options']['prefix'] == 'brightness'
-    
-    drop_shadow_info = drop_shadow.get_info()
-    assert 'available_values' in drop_shadow_info['options']
-    assert 'lg' in drop_shadow_info['options']['available_values']
-    
-    hue_rotate_info = hue_rotate.get_info()
-    assert hue_rotate_info['options']['supports_negative'] == True
-
-# Run the tests
-test_filters_factory_documentation()

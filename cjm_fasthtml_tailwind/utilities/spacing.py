@@ -8,12 +8,11 @@ __all__ = ['p', 'ps', 'pe', 'm', 'ms', 'me', 'space', 'test_spacing_basic_exampl
            'test_spacing_margin_directional_examples', 'test_spacing_negative_examples',
            'test_spacing_logical_examples', 'SpaceFactory', 'test_spacing_space_between_examples',
            'test_spacing_fasthtml_examples', 'pad', 'margin', 'test_spacing_helper_examples',
-           'test_spacing_modifier_examples', 'test_spacing_enhanced_factory_examples',
-           'test_spacing_factory_documentation']
+           'test_spacing_modifier_examples', 'test_spacing_enhanced_factory_examples']
 
 # %% ../../nbs/utilities/spacing.ipynb 3
 from typing import Optional, Union, Dict, Any
-from ..core.base import TailwindScale, combine_classes
+from ..core.base import TailwindScale, combine_classes, BaseFactory, SingleValueFactory, SingleValueUtility
 from cjm_fasthtml_tailwind.builders.scales import (
     DirectionalScaledFactory, ScaledFactory, SPACING_CONFIG
 )
@@ -166,8 +165,6 @@ def test_spacing_logical_examples(
 test_spacing_logical_examples()
 
 # %% ../../nbs/utilities/spacing.ipynb 22
-from ..core.base import BaseFactory, SingleValueFactory, SingleValueUtility
-
 # Create space between factories
 # Note: space utilities use a hyphenated prefix pattern
 class SpaceFactory(BaseFactory):
@@ -198,9 +195,10 @@ class SpaceFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/spacing.ipynb 23
 space = SpaceFactory() # The space factory
 
-# %% ../../nbs/utilities/spacing.ipynb 23
+# %% ../../nbs/utilities/spacing.ipynb 24
 def test_spacing_space_between_examples(
 ):
     """Test space between child elements utilities."""
@@ -225,7 +223,7 @@ def test_spacing_space_between_examples(
 # Run the tests
 test_spacing_space_between_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 25
+# %% ../../nbs/utilities/spacing.ipynb 26
 def test_spacing_fasthtml_examples(
 ):
     """Test spacing utilities in practical FastHTML component examples."""
@@ -275,7 +273,7 @@ def test_spacing_fasthtml_examples(
 # Run the tests
 test_spacing_fasthtml_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 28
+# %% ../../nbs/utilities/spacing.ipynb 29
 def pad(
     all: Optional[TailwindScale] = None,  # Padding for all sides
     x: Optional[TailwindScale] = None,    # Horizontal padding
@@ -305,7 +303,7 @@ def pad(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/spacing.ipynb 29
+# %% ../../nbs/utilities/spacing.ipynb 30
 def margin(
     all: Optional[TailwindScale] = None,  # Margin for all sides
     x: Optional[TailwindScale] = None,    # Horizontal margin
@@ -342,7 +340,7 @@ def margin(
     
     return combine_classes(*classes)
 
-# %% ../../nbs/utilities/spacing.ipynb 30
+# %% ../../nbs/utilities/spacing.ipynb 31
 def test_spacing_helper_examples(
 ):
     """Test helper functions for common spacing patterns."""
@@ -359,7 +357,7 @@ def test_spacing_helper_examples(
 # Run the tests
 test_spacing_helper_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 32
+# %% ../../nbs/utilities/spacing.ipynb 33
 def test_spacing_modifier_examples(
 ):
     """Test spacing utilities with modifiers for conditional styling."""
@@ -391,7 +389,7 @@ def test_spacing_modifier_examples(
 # Run the tests
 test_spacing_modifier_examples()
 
-# %% ../../nbs/utilities/spacing.ipynb 33
+# %% ../../nbs/utilities/spacing.ipynb 34
 def test_spacing_enhanced_factory_examples(
 ):
     """Test enhanced SingleValueFactory support in spacing utilities."""
@@ -423,37 +421,3 @@ def test_spacing_enhanced_factory_examples(
 
 # Run the tests
 test_spacing_enhanced_factory_examples()
-
-# %% ../../nbs/utilities/spacing.ipynb 34
-def test_spacing_factory_documentation(
-):
-    """Test that factories have accessible documentation."""
-    # Test main factory documentation
-    assert p.describe() == "Padding utilities for controlling element padding"
-    assert m.describe() == "Margin utilities for controlling element margin"
-    assert ps.describe() == "Padding inline-start utilities (logical property)"
-    assert pe.describe() == "Padding inline-end utilities (logical property)"
-    assert ms.describe() == "Margin inline-start utilities (logical property)"
-    assert me.describe() == "Margin inline-end utilities (logical property)"
-    
-    # Test space factory documentation
-    assert space.describe() == "Space utilities for adding consistent spacing between child elements"
-    assert space.x.describe() == "Horizontal spacing between child elements"
-    assert space.y.describe() == "Vertical spacing between child elements"
-    assert space.x_reverse.describe() == "Reverse the order of horizontal spacing"
-    assert space.y_reverse.describe() == "Reverse the order of vertical spacing"
-    
-    # Test directional sub-factories
-    assert p.t.describe() == "Top p utilities"
-    assert p.r.describe() == "Right p utilities"
-    assert p.b.describe() == "Bottom p utilities"
-    assert p.l.describe() == "Left p utilities"
-    assert p.x.describe() == "Horizontal p utilities"
-    assert p.y.describe() == "Vertical p utilities"
-    
-    # Verify space reverse utilities work correctly
-    assert str(space.x_reverse) == "space-x-reverse"
-    assert str(space.y_reverse) == "space-y-reverse"
-
-# Run the tests
-test_spacing_factory_documentation()

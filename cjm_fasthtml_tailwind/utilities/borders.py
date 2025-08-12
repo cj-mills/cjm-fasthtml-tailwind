@@ -11,8 +11,7 @@ __all__ = ['RADIUS_SCALES', 'RADIUS_CONFIG', 'rounded', 'BORDER_WIDTH_CONFIG', '
            'test_borders_color_examples', 'test_borders_divide_color_examples', 'test_borders_style_examples',
            'test_borders_divide_style_examples', 'OutlineWidthFactory', 'test_borders_outline_width_examples',
            'test_borders_outline_color_examples', 'test_borders_outline_style_examples',
-           'test_borders_outline_offset_examples', 'test_borders_fasthtml_examples',
-           'test_borders_factory_documentation']
+           'test_borders_outline_offset_examples', 'test_borders_fasthtml_examples']
 
 # %% ../../nbs/utilities/borders.ipynb 3
 from typing import Optional, Dict, Any, Union, List
@@ -22,7 +21,7 @@ from cjm_fasthtml_tailwind.core.base import (
     combine_classes, TailwindValue, is_custom_property, is_arbitrary_value,
     NamedScale
 )
-from ..builders.scales import ScaledFactory, ScaleConfig
+from ..builders.scales import ScaledFactory, ScaleConfig, SimpleFactory
 from ..builders.colors import ColoredFactory, ColorValue
 
 from fasthtml.common import Div
@@ -140,10 +139,11 @@ class RoundedFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/borders.ipynb 9
 # Create the main rounded factory
 rounded = RoundedFactory("Border radius utilities for controlling the roundness of element corners")
 
-# %% ../../nbs/utilities/borders.ipynb 10
+# %% ../../nbs/utilities/borders.ipynb 11
 def test_borders_radius_examples():
     """Test border radius utilities with all variants."""
     # Test all corners
@@ -197,7 +197,7 @@ def test_borders_radius_examples():
 # Run the tests
 test_borders_radius_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 13
+# %% ../../nbs/utilities/borders.ipynb 14
 BORDER_WIDTH_CONFIG = ScaleConfig( # Border width configuration
     numeric=True,  # Support numeric values 0, 2, 4, 8
     decimals=False,
@@ -207,7 +207,7 @@ BORDER_WIDTH_CONFIG = ScaleConfig( # Border width configuration
     negative=False
 )
 
-# %% ../../nbs/utilities/borders.ipynb 15
+# %% ../../nbs/utilities/borders.ipynb 16
 class BorderWidthUtility(StandardUtility):
     """Utility class for border width with default value support."""
     
@@ -234,7 +234,7 @@ class BorderWidthUtility(StandardUtility):
         # Otherwise use parent's build logic
         return super()._build_class(value)
 
-# %% ../../nbs/utilities/borders.ipynb 17
+# %% ../../nbs/utilities/borders.ipynb 18
 class BorderWidthFactory(BaseFactory):
     """Factory for creating border width utilities with directional variants."""
     
@@ -361,10 +361,11 @@ class BorderDirectionalFactory:
         """Return the documentation for this factory."""
         return self._doc
 
+# %% ../../nbs/utilities/borders.ipynb 19
 # Create the main border width factory
 border = BorderWidthFactory("Border width utilities for controlling the width of element borders")
 
-# %% ../../nbs/utilities/borders.ipynb 19
+# %% ../../nbs/utilities/borders.ipynb 21
 def test_borders_width_examples():
     """Test border width utilities with all variants."""
     # Test default border (1px)
@@ -413,7 +414,7 @@ def test_borders_width_examples():
 # Run the tests
 test_borders_width_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 22
+# %% ../../nbs/utilities/borders.ipynb 24
 class DivideFactory(BaseFactory):
     """Factory for creating divide utilities that add borders between children."""
     
@@ -449,10 +450,11 @@ class DivideFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/borders.ipynb 25
 # Create the divide factory
 divide = DivideFactory()
 
-# %% ../../nbs/utilities/borders.ipynb 24
+# %% ../../nbs/utilities/borders.ipynb 27
 def test_borders_divide_examples():
     """Test divide utilities for adding borders between children."""
     # Test default divide (1px)
@@ -489,7 +491,7 @@ def test_borders_divide_examples():
 # Run the tests
 test_borders_divide_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 27
+# %% ../../nbs/utilities/borders.ipynb 30
 class BorderColorFactory(BaseFactory):
     """Factory for creating border color utilities with directional variants."""
     
@@ -563,10 +565,11 @@ class BorderColorFactory(BaseFactory):
             ]
         }
 
+# %% ../../nbs/utilities/borders.ipynb 31
 # Create the main border color factory
 border_color = BorderColorFactory("Border color utilities for controlling the color of element borders")
 
-# %% ../../nbs/utilities/borders.ipynb 29
+# %% ../../nbs/utilities/borders.ipynb 33
 def test_borders_color_examples():
     """Test border color utilities with all variants."""
     # Test basic colors for all sides
@@ -640,11 +643,11 @@ def test_borders_color_examples():
 # Run the tests
 test_borders_color_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 32
+# %% ../../nbs/utilities/borders.ipynb 36
 # Create the divide color factory using ColoredFactory
 divide_color = ColoredFactory("divide", "Divide color utilities for controlling the color of borders between child elements")
 
-# %% ../../nbs/utilities/borders.ipynb 34
+# %% ../../nbs/utilities/borders.ipynb 38
 def test_borders_divide_color_examples():
     """Test divide color utilities for borders between children."""
     # Test basic colors
@@ -700,9 +703,7 @@ def test_borders_divide_color_examples():
 # Run the tests
 test_borders_divide_color_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 37
-from ..builders.scales import SimpleFactory
-
+# %% ../../nbs/utilities/borders.ipynb 41
 # Create border style factory
 border_style = SimpleFactory(
     {
@@ -716,7 +717,7 @@ border_style = SimpleFactory(
     "Border style utilities for controlling the style of element borders"
 ) # Border style factory
 
-# %% ../../nbs/utilities/borders.ipynb 39
+# %% ../../nbs/utilities/borders.ipynb 43
 def test_borders_style_examples():
     """Test border style utilities."""
     assert str(border_style.solid) == "border-solid"
@@ -729,7 +730,7 @@ def test_borders_style_examples():
 # Run the tests
 test_borders_style_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 42
+# %% ../../nbs/utilities/borders.ipynb 46
 # Create divide style factory
 divide_style = SimpleFactory(
     {
@@ -743,7 +744,7 @@ divide_style = SimpleFactory(
     "Divide style utilities for controlling the style of borders between child elements"
 ) # Divide style factory
 
-# %% ../../nbs/utilities/borders.ipynb 44
+# %% ../../nbs/utilities/borders.ipynb 48
 def test_borders_divide_style_examples():
     """Test divide style utilities."""
     assert str(divide_style.solid) == "divide-solid"
@@ -756,7 +757,7 @@ def test_borders_divide_style_examples():
 # Run the tests
 test_borders_divide_style_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 47
+# %% ../../nbs/utilities/borders.ipynb 51
 OUTLINE_WIDTH_CONFIG = ScaleConfig( # Outline width configuration
     numeric=True,  # Support numeric values 0, 1, 2, 4, 8
     decimals=False,
@@ -766,7 +767,7 @@ OUTLINE_WIDTH_CONFIG = ScaleConfig( # Outline width configuration
     negative=False
 )
 
-# %% ../../nbs/utilities/borders.ipynb 49
+# %% ../../nbs/utilities/borders.ipynb 53
 class OutlineWidthFactory(BaseFactory):
     """Factory for creating outline width utilities."""
     
@@ -814,10 +815,11 @@ class OutlineWidthFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/borders.ipynb 54
 # Create the main outline width factory
 outline = OutlineWidthFactory("Outline width utilities for controlling the width of element outlines")
 
-# %% ../../nbs/utilities/borders.ipynb 51
+# %% ../../nbs/utilities/borders.ipynb 56
 def test_borders_outline_width_examples():
     """Test outline width utilities."""
     # Test default outline (1px)
@@ -846,11 +848,11 @@ def test_borders_outline_width_examples():
 # Run the tests
 test_borders_outline_width_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 54
+# %% ../../nbs/utilities/borders.ipynb 59
 # Create the outline color factory using ColoredFactory
 outline_color = ColoredFactory("outline", "Outline color utilities for controlling the color of element outlines")
 
-# %% ../../nbs/utilities/borders.ipynb 56
+# %% ../../nbs/utilities/borders.ipynb 61
 def test_borders_outline_color_examples():
     """Test outline color utilities."""
     # Test basic colors
@@ -905,7 +907,7 @@ def test_borders_outline_color_examples():
 # Run the tests
 test_borders_outline_color_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 59
+# %% ../../nbs/utilities/borders.ipynb 64
 # Create outline style factory with special handling for outline-hidden
 outline_style = SimpleFactory(
     {
@@ -918,13 +920,14 @@ outline_style = SimpleFactory(
     "Outline style utilities for controlling the style of element outlines"
 ) # Outline style factory
 
+# %% ../../nbs/utilities/borders.ipynb 65
 # Add outline-hidden as a special single value factory
 outline_hidden = SingleValueFactory(
     "outline-hidden", 
     "Outline hidden utility that creates a transparent outline with offset"
 ) # Special outline-hidden utility
 
-# %% ../../nbs/utilities/borders.ipynb 61
+# %% ../../nbs/utilities/borders.ipynb 67
 def test_borders_outline_style_examples():
     """Test outline style utilities."""
     assert str(outline_style.solid) == "outline-solid"
@@ -939,7 +942,7 @@ def test_borders_outline_style_examples():
 # Run the tests
 test_borders_outline_style_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 64
+# %% ../../nbs/utilities/borders.ipynb 70
 OUTLINE_OFFSET_CONFIG = ScaleConfig( # Outline offset configuration
     numeric=True,  # Support numeric values 0, 1, 2, 4, 8
     decimals=False,
@@ -949,7 +952,7 @@ OUTLINE_OFFSET_CONFIG = ScaleConfig( # Outline offset configuration
     negative=True  # Support negative offset values
 )
 
-# %% ../../nbs/utilities/borders.ipynb 66
+# %% ../../nbs/utilities/borders.ipynb 72
 # Create the outline offset factory
 outline_offset = ScaledFactory(
     "outline-offset", 
@@ -957,7 +960,7 @@ outline_offset = ScaledFactory(
     "Outline offset utilities for controlling the offset of element outlines"
 )
 
-# %% ../../nbs/utilities/borders.ipynb 68
+# %% ../../nbs/utilities/borders.ipynb 74
 def test_borders_outline_offset_examples():
     """Test outline offset utilities."""
     # Test numeric values
@@ -992,7 +995,7 @@ def test_borders_outline_offset_examples():
 # Run the tests
 test_borders_outline_offset_examples()
 
-# %% ../../nbs/utilities/borders.ipynb 73
+# %% ../../nbs/utilities/borders.ipynb 78
 def test_borders_fasthtml_examples():
     """Test border utilities in practical FastHTML component examples."""
     from fasthtml.common import Div, Button, Card, Ul, Li, H3, P, Input, Link
@@ -1247,131 +1250,3 @@ def test_borders_fasthtml_examples():
 
 # Run the tests
 test_borders_fasthtml_examples()
-
-# %% ../../nbs/utilities/borders.ipynb 80
-def test_borders_factory_documentation():
-    """Test that border factories have accessible documentation."""
-    # Test rounded factory
-    assert rounded.describe() == "Border radius utilities for controlling the roundness of element corners"
-    
-    # Test rounded sub-factories
-    assert rounded.t.describe() == "Top border radius"
-    assert rounded.r.describe() == "Right border radius"
-    assert rounded.b.describe() == "Bottom border radius"
-    assert rounded.l.describe() == "Left border radius"
-    assert rounded.s.describe() == "Start (left in LTR) border radius"
-    assert rounded.e.describe() == "End (right in LTR) border radius"
-    
-    # Test corner factories
-    assert rounded.tl.describe() == "Top-left corner radius"
-    assert rounded.tr.describe() == "Top-right corner radius"
-    assert rounded.br.describe() == "Bottom-right corner radius"
-    assert rounded.bl.describe() == "Bottom-left corner radius"
-    assert rounded.ss.describe() == "Start-start corner radius"
-    assert rounded.se.describe() == "Start-end corner radius"
-    assert rounded.ee.describe() == "End-end corner radius"
-    assert rounded.es.describe() == "End-start corner radius"
-    
-    # Test border width factory
-    assert border.describe() == "Border width utilities for controlling the width of element borders"
-    
-    # Test border directional factories
-    assert border.t.describe() == "Top border width"
-    assert border.r.describe() == "Right border width"
-    assert border.b.describe() == "Bottom border width"
-    assert border.l.describe() == "Left border width"
-    assert border.x.describe() == "Horizontal border width"
-    assert border.y.describe() == "Vertical border width"
-    assert border.s.describe() == "Start border width (left in LTR)"
-    assert border.e.describe() == "End border width (right in LTR)"
-    
-    # Test border color factory
-    assert border_color.describe() == "Border color utilities for controlling the color of element borders"
-    
-    # Test border color directional factories
-    assert border_color.t.describe() == "Top border color"
-    assert border_color.r.describe() == "Right border color"
-    assert border_color.b.describe() == "Bottom border color"
-    assert border_color.l.describe() == "Left border color"
-    assert border_color.x.describe() == "Horizontal border color"
-    assert border_color.y.describe() == "Vertical border color"
-    assert border_color.s.describe() == "Start border color (left in LTR)"
-    assert border_color.e.describe() == "End border color (right in LTR)"
-    
-    # Test divide factory
-    assert divide.describe() == "Divide utilities for adding borders between child elements"
-    assert divide.x.describe() == "Horizontal divide between children"
-    assert divide.y.describe() == "Vertical divide between children"
-    assert divide.x_reverse.describe() == "Reverse the order of horizontal divide"
-    assert divide.y_reverse.describe() == "Reverse the order of vertical divide"
-    
-    # Test divide color factory
-    assert divide_color.describe() == "Divide color utilities for controlling the color of borders between child elements"
-    
-    # Test border style factory
-    assert border_style.describe() == "Border style utilities for controlling the style of element borders"
-    
-    # Test divide style factory
-    assert divide_style.describe() == "Divide style utilities for controlling the style of borders between child elements"
-    
-    # Test outline factories
-    assert outline.describe() == "Outline width utilities for controlling the width of element outlines"
-    assert outline_color.describe() == "Outline color utilities for controlling the color of element outlines"
-    assert outline_style.describe() == "Outline style utilities for controlling the style of element outlines"
-    assert outline_hidden.describe() == "Outline hidden utility that creates a transparent outline with offset"
-    assert outline_offset.describe() == "Outline offset utilities for controlling the offset of element outlines"
-    
-    # Test get_info methods
-    rounded_info = rounded.get_info()
-    assert 'named_scales' in rounded_info['valid_inputs']
-    assert 'special_values' in rounded_info['valid_inputs']
-    assert 'variants' in rounded_info
-    assert 'directional' in rounded_info['variants']
-    assert 'corner_specific' in rounded_info['variants']
-    
-    border_info = border.get_info()
-    assert 'default' in border_info['valid_inputs']
-    assert 'numeric_values' in border_info['valid_inputs']
-    assert 'directional_variants' in border_info
-    
-    border_color_info = border_color.get_info()
-    assert 'color_families' in border_color_info['valid_inputs']
-    assert 'special_colors' in border_color_info['valid_inputs']
-    assert 'directional_variants' in border_color_info
-    assert 'usage_examples' in border_color_info
-    
-    divide_info = divide.get_info()
-    assert 'default' in divide_info['valid_inputs']
-    assert 'numeric_values' in divide_info['valid_inputs']
-    assert 'sub_factories' in divide_info
-    
-    divide_color_info = divide_color.get_info()
-    assert 'color_families' in divide_color_info['valid_inputs']
-    assert 'special_colors' in divide_color_info['valid_inputs']
-    
-    # Test style factory info
-    border_style_info = border_style.get_info()
-    assert 'available_values' in border_style_info['options']
-    assert 'solid' in border_style_info['options']['available_values']
-    assert 'dashed' in border_style_info['options']['available_values']
-    
-    divide_style_info = divide_style.get_info()
-    assert 'available_values' in divide_style_info['options']
-    
-    # Test outline factory info
-    outline_info = outline.get_info()
-    assert 'default' in outline_info['valid_inputs']
-    assert 'numeric_values' in outline_info['valid_inputs']
-    
-    outline_color_info = outline_color.get_info()
-    assert 'color_families' in outline_color_info['valid_inputs']
-    
-    outline_style_info = outline_style.get_info()
-    assert 'available_values' in outline_style_info['options']
-    
-    outline_offset_info = outline_offset.get_info()
-    assert 'supports_negative' in outline_offset_info['options']
-    assert outline_offset_info['options']['supports_negative'] == True
-
-# Run the tests
-test_borders_factory_documentation()

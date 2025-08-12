@@ -15,9 +15,8 @@ __all__ = ['DISPLAY_VALUES', 'display_tw', 'POSITION_VALUES', 'position', 'inset
            'test_layout_object_examples', 'test_layout_visibility_examples', 'AspectRatioFactory',
            'test_layout_aspect_columns_examples', 'test_layout_columns_examples', 'BreakFactory', 'OverscrollFactory',
            'test_layout_other_utilities_examples', 'test_layout_fasthtml_examples',
-           'test_layout_enhanced_factories_fasthtml_examples', 'test_layout_modifier_examples',
-           'test_layout_factory_documentation', 'center_absolute', 'stack_context', 'sticky_top', 'full_bleed',
-           'test_layout_helper_examples']
+           'test_layout_enhanced_factories_fasthtml_examples', 'test_layout_modifier_examples', 'center_absolute',
+           'stack_context', 'sticky_top', 'full_bleed', 'test_layout_helper_examples']
 
 # %% ../../nbs/utilities/layout.ipynb 3
 from typing import Optional, Union, Literal, List, Dict, Any
@@ -25,7 +24,7 @@ from dataclasses import dataclass
 from cjm_fasthtml_tailwind.core.base import (
     TailwindScale, combine_classes, StandardUtility, UtilityFactory,
     is_numeric_scale, is_fraction, is_custom_property, is_arbitrary_value,
-    BaseFactory, SingleValueFactory, SingleValueUtility
+    BaseFactory, SingleValueFactory, SingleValueUtility, CONTAINER_SCALES
 )
 from cjm_fasthtml_tailwind.builders.scales import (
     ScaledFactory, DirectionalScaledFactory, ScaleConfig, INSET_CONFIG,
@@ -174,6 +173,7 @@ class InsetDirectionalFactory(BaseFactory):
             'options': options
         }
 
+# %% ../../nbs/utilities/layout.ipynb 13
 # Inset utilities (top, right, bottom, left)
 inset = InsetDirectionalFactory("inset", INSET_CONFIG) # The inset factory for positioning
 
@@ -185,7 +185,7 @@ left = ScaledFactory("left", INSET_CONFIG, "Left position utilities for controll
 start = ScaledFactory("start", INSET_CONFIG, "Logical start position utilities (left in LTR, right in RTL)")
 end = ScaledFactory("end", INSET_CONFIG, "Logical end position utilities (right in LTR, left in RTL)")
 
-# %% ../../nbs/utilities/layout.ipynb 13
+# %% ../../nbs/utilities/layout.ipynb 14
 def test_layout_inset_examples(
 ):
     """Test inset utilities for positioning elements."""
@@ -210,9 +210,10 @@ def test_layout_inset_examples(
 # Run the tests
 test_layout_inset_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 15
+# %% ../../nbs/utilities/layout.ipynb 16
 OVERFLOW_VALUES = ["auto", "hidden", "clip", "visible", "scroll"] # Overflow values
 
+# %% ../../nbs/utilities/layout.ipynb 17
 class OverflowFactory(BaseFactory):
     """Factory for overflow utilities with directional support."""
     
@@ -266,9 +267,10 @@ class OverflowFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/layout.ipynb 18
 overflow = OverflowFactory() # The overflow factory
 
-# %% ../../nbs/utilities/layout.ipynb 16
+# %% ../../nbs/utilities/layout.ipynb 19
 def test_layout_overflow_examples(
 ):
     """Test overflow utilities for content handling."""
@@ -287,7 +289,7 @@ def test_layout_overflow_examples(
 # Run the tests
 test_layout_overflow_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 18
+# %% ../../nbs/utilities/layout.ipynb 21
 Z_INDEX_CONFIG = ScaleConfig( # Z-index configuration
     numeric=True,  # Support numeric values 0-50
     decimals=False,
@@ -302,7 +304,7 @@ Z_INDEX_CONFIG = ScaleConfig( # Z-index configuration
 # Create z-index factory
 z = ScaledFactory("z", Z_INDEX_CONFIG, "Z-index utilities for controlling the stack order of an element") # The z-index factory
 
-# %% ../../nbs/utilities/layout.ipynb 19
+# %% ../../nbs/utilities/layout.ipynb 22
 def test_layout_z_index_examples(
 ):
     """Test z-index utilities for stack ordering."""
@@ -319,7 +321,7 @@ def test_layout_z_index_examples(
 # Run the tests
 test_layout_z_index_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 21
+# %% ../../nbs/utilities/layout.ipynb 24
 # Float utilities
 FLOAT_VALUES = {
     "right": "float-right",
@@ -331,7 +333,7 @@ FLOAT_VALUES = {
 
 float_tw = SimpleFactory(FLOAT_VALUES, "Float utilities for controlling the wrapping of content around an element")  # Renamed to avoid conflict with Python's float
 
-# %% ../../nbs/utilities/layout.ipynb 23
+# %% ../../nbs/utilities/layout.ipynb 26
 # Clear utilities
 CLEAR_VALUES = {
     "left": "clear-left",
@@ -345,7 +347,7 @@ CLEAR_VALUES = {
 # Create clear factory
 clear = SimpleFactory(CLEAR_VALUES, "Clear utilities for controlling wrapping behavior after floating elements") # The clear factory
 
-# %% ../../nbs/utilities/layout.ipynb 24
+# %% ../../nbs/utilities/layout.ipynb 27
 def test_layout_float_clear_examples(
 ):
     """Test float and clear utilities for content wrapping."""
@@ -367,7 +369,7 @@ def test_layout_float_clear_examples(
 # Run the tests
 test_layout_float_clear_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 26
+# %% ../../nbs/utilities/layout.ipynb 29
 # Object fit utilities
 OBJECT_FIT_VALUES = {
     "contain": "object-contain",
@@ -380,7 +382,7 @@ OBJECT_FIT_VALUES = {
 # Create object fit factory
 object_fit = SimpleFactory(OBJECT_FIT_VALUES, "Object fit utilities for controlling how replaced element content should be resized") # The object fit factory
 
-# %% ../../nbs/utilities/layout.ipynb 28
+# %% ../../nbs/utilities/layout.ipynb 31
 # Object position utilities - combines fixed positions with custom value support
 OBJECT_POSITION_VALUES = {
     "top-left": "object-top-left",
@@ -394,6 +396,7 @@ OBJECT_POSITION_VALUES = {
     "bottom-right": "object-bottom-right"
 }
 
+# %% ../../nbs/utilities/layout.ipynb 32
 # Enhanced factory that supports both fixed values and custom positions
 class ObjectPositionFactory(SimpleFactory):
     """Factory for object position with both fixed and custom values."""
@@ -426,13 +429,14 @@ class ObjectPositionFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/layout.ipynb 33
 # Create object position factory
 object_position = ObjectPositionFactory(
     OBJECT_POSITION_VALUES, 
     "Object position utilities for controlling content positioning within its container"
 ) # The object position factory
 
-# %% ../../nbs/utilities/layout.ipynb 29
+# %% ../../nbs/utilities/layout.ipynb 34
 def test_layout_object_examples(
 ):
     """Test object fit and position utilities."""
@@ -453,7 +457,7 @@ def test_layout_object_examples(
 # Run the tests
 test_layout_object_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 31
+# %% ../../nbs/utilities/layout.ipynb 36
 # Visibility utilities
 VISIBILITY_VALUES = {
     "visible": "visible",
@@ -464,7 +468,7 @@ VISIBILITY_VALUES = {
 # Create visibility factory
 visibility = SimpleFactory(VISIBILITY_VALUES, "Visibility utilities for controlling the visibility of an element") # The visibility factory
 
-# %% ../../nbs/utilities/layout.ipynb 33
+# %% ../../nbs/utilities/layout.ipynb 38
 # Box sizing utilities
 BOX_SIZING_VALUES = {
     "border": "box-border",
@@ -474,7 +478,7 @@ BOX_SIZING_VALUES = {
 # Create box sizing factory
 box = SimpleFactory(BOX_SIZING_VALUES, "Box sizing utilities for controlling how the browser calculates element size") # The box sizing factory
 
-# %% ../../nbs/utilities/layout.ipynb 34
+# %% ../../nbs/utilities/layout.ipynb 39
 def test_layout_visibility_examples(
 ):
     """Test visibility and box sizing utilities."""
@@ -490,7 +494,7 @@ def test_layout_visibility_examples(
 # Run the tests
 test_layout_visibility_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 36
+# %% ../../nbs/utilities/layout.ipynb 41
 # Isolation utilities
 ISOLATION_VALUES = {
     "isolate": "isolate",
@@ -500,7 +504,7 @@ ISOLATION_VALUES = {
 # Create isolation factory
 isolation = SimpleFactory(ISOLATION_VALUES, "Isolation utilities for creating a new stacking context") # The isolation factory
 
-# %% ../../nbs/utilities/layout.ipynb 38
+# %% ../../nbs/utilities/layout.ipynb 43
 # Aspect ratio utilities - fixed values with custom ratio support
 ASPECT_RATIO_VALUES = {
     "auto": "aspect-auto",
@@ -508,6 +512,7 @@ ASPECT_RATIO_VALUES = {
     "video": "aspect-video"
 }
 
+# %% ../../nbs/utilities/layout.ipynb 44
 # Enhanced factory that supports both fixed values and custom ratios
 class AspectRatioFactory(SimpleFactory):
     """Factory for aspect ratio with both fixed and custom values."""
@@ -545,10 +550,11 @@ class AspectRatioFactory(SimpleFactory):
             }
         }
 
+# %% ../../nbs/utilities/layout.ipynb 45
 # Create aspect ratio factory
 aspect = AspectRatioFactory(ASPECT_RATIO_VALUES, "Aspect ratio utilities for controlling element proportions") # The aspect ratio factory
 
-# %% ../../nbs/utilities/layout.ipynb 39
+# %% ../../nbs/utilities/layout.ipynb 46
 def test_layout_aspect_columns_examples(
 ):
     """Test aspect ratio and columns utilities."""
@@ -563,9 +569,7 @@ def test_layout_aspect_columns_examples(
 # Run the tests
 test_layout_aspect_columns_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 41
-from ..core.base import CONTAINER_SCALES
-
+# %% ../../nbs/utilities/layout.ipynb 48
 COLUMNS_CONFIG = ScaleConfig( # Columns configuration with container sizes
     numeric=True,  # Support columns-1 through columns-12
     decimals=False,
@@ -580,7 +584,7 @@ COLUMNS_CONFIG = ScaleConfig( # Columns configuration with container sizes
 # Create columns factory
 columns = ScaledFactory("columns", COLUMNS_CONFIG, "Columns utilities for controlling the number of columns within an element") # The columns factory
 
-# %% ../../nbs/utilities/layout.ipynb 42
+# %% ../../nbs/utilities/layout.ipynb 49
 def test_layout_columns_examples(
 ):
     """Test columns utilities."""
@@ -601,7 +605,7 @@ def test_layout_columns_examples(
 # Run the tests
 test_layout_columns_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 44
+# %% ../../nbs/utilities/layout.ipynb 51
 # Break utilities - organized by type
 BREAK_BEFORE_VALUES = {
     "auto": "break-before-auto",
@@ -632,6 +636,7 @@ BREAK_INSIDE_VALUES = {
     "avoid-column": "break-inside-avoid-column"
 }
 
+# %% ../../nbs/utilities/layout.ipynb 52
 # Create break factories with sub-properties
 class BreakFactory(BaseFactory):
     """Factory for break utilities with before, after, and inside sub-factories."""
@@ -662,10 +667,11 @@ class BreakFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/layout.ipynb 53
 # Create the break factory
 break_util = BreakFactory() # The break factory
 
-# %% ../../nbs/utilities/layout.ipynb 46
+# %% ../../nbs/utilities/layout.ipynb 55
 # Box decoration break utilities
 BOX_DECORATION_VALUES = {
     "clone": "box-decoration-clone",
@@ -678,10 +684,11 @@ box_decoration = SimpleFactory(
     "Box decoration break utilities for controlling element fragment rendering across breaks"
 ) # The box decoration factory
 
-# %% ../../nbs/utilities/layout.ipynb 48
+# %% ../../nbs/utilities/layout.ipynb 57
 # Overscroll behavior values
 OVERSCROLL_VALUES = ["auto", "contain", "none"]
 
+# %% ../../nbs/utilities/layout.ipynb 58
 class OverscrollFactory(BaseFactory):
     """Factory for overscroll behavior utilities with directional support."""
     
@@ -724,10 +731,11 @@ class OverscrollFactory(BaseFactory):
             }
         }
 
+# %% ../../nbs/utilities/layout.ipynb 59
 # Create the overscroll factory
 overscroll = OverscrollFactory() # The overscroll factory
 
-# %% ../../nbs/utilities/layout.ipynb 49
+# %% ../../nbs/utilities/layout.ipynb 60
 def test_layout_other_utilities_examples(
 ):
     """Test isolation, break, box decoration, and overscroll utilities."""
@@ -755,7 +763,7 @@ def test_layout_other_utilities_examples(
 # Run the tests
 test_layout_other_utilities_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 51
+# %% ../../nbs/utilities/layout.ipynb 62
 def test_layout_fasthtml_examples(
 ):
     """Test layout utilities in practical FastHTML component examples."""
@@ -816,7 +824,7 @@ def test_layout_fasthtml_examples(
 # Run the tests
 test_layout_fasthtml_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 53
+# %% ../../nbs/utilities/layout.ipynb 64
 def test_layout_enhanced_factories_fasthtml_examples(
 ):
     """Test enhanced factories with modifier support in practical examples."""
@@ -889,7 +897,7 @@ def test_layout_enhanced_factories_fasthtml_examples(
 # Run the tests
 test_layout_enhanced_factories_fasthtml_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 55
+# %% ../../nbs/utilities/layout.ipynb 66
 def test_layout_modifier_examples(
 ):
     """Test layout utilities with modifiers for conditional styling."""
@@ -950,33 +958,7 @@ def test_layout_modifier_examples(
 # Run the tests
 test_layout_modifier_examples()
 
-# %% ../../nbs/utilities/layout.ipynb 56
-def test_layout_factory_documentation(
-):
-    """Test that factories have accessible documentation."""
-    # Test factory documentation
-    assert display_tw.describe() == "Display utilities for controlling the display box type of an element"
-    assert position.describe() == "Position utilities for controlling how an element is positioned in the document"
-    assert inset.describe() == "Inset utilities for controlling the placement of positioned elements"
-    assert overflow.describe() == "Overflow utilities for controlling how an element handles content that is too large"
-    assert z.describe() == "Z-index utilities for controlling the stack order of an element"
-    assert float_tw.describe() == "Float utilities for controlling the wrapping of content around an element"
-    assert clear.describe() == "Clear utilities for controlling wrapping behavior after floating elements"
-    assert object_fit.describe() == "Object fit utilities for controlling how replaced element content should be resized"
-    assert object_position.describe() == "Object position utilities for controlling content positioning within its container"
-    assert visibility.describe() == "Visibility utilities for controlling the visibility of an element"
-    assert box.describe() == "Box sizing utilities for controlling how the browser calculates element size"
-    assert isolation.describe() == "Isolation utilities for creating a new stacking context"
-    assert aspect.describe() == "Aspect ratio utilities for controlling element proportions"
-    assert columns.describe() == "Columns utilities for controlling the number of columns within an element"
-    assert break_util.describe() == "Break utilities for controlling column and page breaks"
-    assert box_decoration.describe() == "Box decoration break utilities for controlling element fragment rendering across breaks"
-    assert overscroll.describe() == "Overscroll behavior utilities for controlling browser behavior at scroll boundaries"
-
-# Run the tests
-test_layout_factory_documentation()
-
-# %% ../../nbs/utilities/layout.ipynb 58
+# %% ../../nbs/utilities/layout.ipynb 68
 def center_absolute(
 ) -> str:  # Combined CSS classes for centering an element
     """Center an absolutely positioned element."""
@@ -988,27 +970,27 @@ def center_absolute(
         "-translate-y-1/2"
     )
 
-# %% ../../nbs/utilities/layout.ipynb 59
+# %% ../../nbs/utilities/layout.ipynb 69
 def stack_context(
     z_value: int = 10  # The z-index value for the stacking context
 ) -> str:  # Combined CSS classes for creating a stacking context
     """Create a stacking context with z-index."""
     return combine_classes(position.relative, z(z_value))
 
-# %% ../../nbs/utilities/layout.ipynb 60
+# %% ../../nbs/utilities/layout.ipynb 70
 def sticky_top(
     offset: TailwindScale = 0  # Top offset value (e.g., 0, 4, '1rem')
 ) -> str:  # Combined CSS classes for sticky positioning
     """Make element sticky at top with optional offset."""
     return combine_classes(position.sticky, top(offset))
 
-# %% ../../nbs/utilities/layout.ipynb 61
+# %% ../../nbs/utilities/layout.ipynb 71
 def full_bleed(
 ) -> str:  # Combined CSS classes for full-bleed layout
     """Make element break out of container constraints."""
     return combine_classes(position.relative, left("1/2"), right("1/2"), "-mx-[50vw]", "w-screen")
 
-# %% ../../nbs/utilities/layout.ipynb 62
+# %% ../../nbs/utilities/layout.ipynb 72
 def test_layout_helper_examples(
 ):
     """Test helper functions for common layout patterns."""

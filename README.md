@@ -93,83 +93,83 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
-    cli_display --> cli_utils
     cli_display --> cli_factory_extraction
+    cli_display --> cli_core_utils_discovery
     cli_display --> cli_example_discovery
+    cli_display --> cli_utils
+    cli_display --> cli_cli_config
     cli_display --> cli_pattern_scanner
     cli_display --> cli_imports
-    cli_display --> cli_helper_discovery
-    cli_display --> cli_cli_config
-    cli_display --> cli_core_utils_discovery
     cli_display --> cli_search
+    cli_display --> cli_helper_discovery
     cli_display --> cli_test_code
-    cli_dynamic_examples --> cli_utils
-    cli_dynamic_examples --> cli_display
     cli_dynamic_examples --> cli_factory_extraction
+    cli_dynamic_examples --> cli_core_utils_discovery
     cli_dynamic_examples --> cli_example_discovery
+    cli_dynamic_examples --> cli_utils
+    cli_dynamic_examples --> cli_cli_config
+    cli_dynamic_examples --> cli_display
     cli_dynamic_examples --> cli_pattern_scanner
     cli_dynamic_examples --> cli_imports
-    cli_dynamic_examples --> cli_helper_discovery
-    cli_dynamic_examples --> cli_cli_config
-    cli_dynamic_examples --> cli_core_utils_discovery
     cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_helper_discovery
     cli_dynamic_examples --> cli_test_code
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_display
+    cli_explorer --> cli_cli_config
     cli_explorer --> cli_dynamic_examples
     cli_explorer --> cli_pattern_scanner
-    cli_explorer --> cli_cli_config
+    cli_explorer --> cli_utils
     cli_explorer --> cli_search
     cli_explorer --> cli_test_code
-    cli_explorer --> cli_utils
-    cli_factory_extraction --> core_base
     cli_factory_extraction --> cli_utils
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_cli_config
     cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_cli_config
     cli_imports --> cli_utils
-    cli_imports --> cli_factory_extraction
     cli_imports --> cli_helper_discovery
-    cli_search --> cli_factory_extraction
+    cli_imports --> cli_factory_extraction
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
+    cli_search --> cli_factory_extraction
     cli_search --> cli_helper_discovery
-    cli_test_code --> cli_cli_config
+    cli_search --> cli_example_discovery
     cli_test_code --> cli_utils
-    cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_cli_config
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_factory_extraction
     cli_utils --> cli_cli_config
     core_testing --> utilities_backgrounds
-    core_testing --> utilities_spacing
-    core_testing --> utilities_sizing
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_layout
-    core_testing --> core_resources
-    core_testing --> utilities_effects
-    core_testing --> utilities_typography
     core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_borders
-    core_testing --> core_base
+    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_accessibility
-    utilities_accessibility --> core_testing
+    core_testing --> utilities_borders
+    core_testing --> utilities_effects
+    core_testing --> utilities_sizing
+    core_testing --> utilities_layout
+    core_testing --> utilities_spacing
+    core_testing --> core_resources
+    core_testing --> utilities_typography
+    core_testing --> core_base
     utilities_accessibility --> builders_scales
+    utilities_accessibility --> core_testing
     utilities_accessibility --> core_base
-    utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_colors
-    utilities_backgrounds --> core_testing
     utilities_backgrounds --> builders_scales
-    utilities_borders --> builders_scales
+    utilities_backgrounds --> core_base
+    utilities_backgrounds --> core_testing
+    utilities_backgrounds --> builders_colors
     utilities_borders --> core_base
-    utilities_borders --> builders_colors
+    utilities_borders --> builders_scales
     utilities_borders --> core_testing
-    utilities_effects --> builders_scales
+    utilities_borders --> builders_colors
     utilities_effects --> core_base
-    utilities_effects --> builders_colors
+    utilities_effects --> builders_scales
     utilities_effects --> core_testing
+    utilities_effects --> builders_colors
     utilities_filters --> builders_scales
-    utilities_filters --> core_base
     utilities_filters --> builders_colors
+    utilities_filters --> core_base
     utilities_filters --> core_testing
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
@@ -178,32 +178,32 @@ graph LR
     utilities_interactivity --> core_base
     utilities_interactivity --> core_testing
     utilities_interactivity --> builders_colors
-    utilities_layout --> builders_scales
     utilities_layout --> core_base
+    utilities_layout --> builders_scales
     utilities_layout --> core_testing
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
     utilities_sizing --> core_base
+    utilities_sizing --> builders_scales
     utilities_spacing --> builders_scales
-    utilities_spacing --> core_base
     utilities_spacing --> core_testing
+    utilities_spacing --> core_base
     utilities_svg --> builders_scales
     utilities_svg --> core_base
-    utilities_svg --> builders_colors
     utilities_svg --> core_testing
+    utilities_svg --> builders_colors
     utilities_tables --> builders_scales
     utilities_tables --> core_base
     utilities_tables --> core_testing
-    utilities_transforms --> builders_scales
     utilities_transforms --> core_base
+    utilities_transforms --> builders_scales
     utilities_transforms --> core_testing
-    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_base
+    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_testing
     utilities_typography --> builders_scales
     utilities_typography --> core_base
-    utilities_typography --> builders_colors
     utilities_typography --> core_testing
+    utilities_typography --> builders_colors
 ```
 
 *114 cross-module dependencies detected*
@@ -318,14 +318,13 @@ Detailed documentation for each module in the project:
 
 ``` python
 from cjm_fasthtml_tailwind.utilities.accessibility import (
-    FORCED_COLOR_ADJUST_VALUES,
     forced_color_adjust,
     sr_only,
     not_sr_only,
+    ForcedColorAdjust,
     test_accessibility_forced_color_adjust_examples,
     test_accessibility_screen_reader_examples,
     test_accessibility_fasthtml_examples,
-    test_accessibility_factory_documentation,
     visually_hidden,
     high_contrast_safe,
     test_accessibility_helper_examples
@@ -350,12 +349,6 @@ def test_accessibility_screen_reader_examples(
 def test_accessibility_fasthtml_examples(
 )
     "Test accessibility utilities in practical FastHTML component examples."
-```
-
-``` python
-def test_accessibility_factory_documentation(
-)
-    "Test that factories have accessible documentation."
 ```
 
 ``` python
@@ -394,10 +387,17 @@ def test_accessibility_helper_examples(
     "Test helper functions for common accessibility patterns."
 ```
 
+#### Classes
+
+``` python
+class ForcedColorAdjust(Enum):
+    "Forced color utility values"
+```
+
 #### Variables
 
 ``` python
-FORCED_COLOR_ADJUST_VALUES = {2 items}
+forced_color_adjust  # The forced color adjust factory
 ```
 
 ### backgrounds (`backgrounds.ipynb`)
@@ -422,7 +422,9 @@ from cjm_fasthtml_tailwind.utilities.backgrounds import (
     bg_position,
     bg_repeat,
     bg_size,
+    BackgroundAttachment,
     test_backgrounds_attachment_examples,
+    BackgroundClip,
     test_backgrounds_clip_examples,
     test_backgrounds_color_examples,
     test_backgrounds_opacity_examples,
@@ -438,8 +440,7 @@ from cjm_fasthtml_tailwind.utilities.backgrounds import (
     test_backgrounds_repeat_examples,
     test_backgrounds_size_examples,
     test_backgrounds_arbitrary_examples,
-    test_backgrounds_fasthtml_examples,
-    test_backgrounds_factory_documentation
+    test_backgrounds_fasthtml_examples
 )
 ```
 
@@ -510,12 +511,17 @@ def test_backgrounds_fasthtml_examples()
     "Test background utilities in practical FastHTML component examples."
 ```
 
+#### Classes
+
 ``` python
-def test_backgrounds_factory_documentation()
-    "Test that background factories have accessible documentation."
+class BackgroundAttachment(Enum):
+    "Background attachment utility values"
 ```
 
-#### Classes
+``` python
+class BackgroundClip(Enum):
+    "Background clip utility values"
+```
 
 ``` python
 class GradientUtility:
@@ -597,6 +603,8 @@ class GradientStopFactory:
 #### Variables
 
 ``` python
+bg_attachment  # Background attachment factory
+bg_clip  # Background clip factory
 bg  # The background color factory
 bg_none  # Remove background image
 ```
@@ -1242,8 +1250,7 @@ from cjm_fasthtml_tailwind.utilities.borders import (
     test_borders_outline_color_examples,
     test_borders_outline_style_examples,
     test_borders_outline_offset_examples,
-    test_borders_fasthtml_examples,
-    test_borders_factory_documentation
+    test_borders_fasthtml_examples
 )
 ```
 
@@ -1307,11 +1314,6 @@ def test_borders_outline_offset_examples()
 ``` python
 def test_borders_fasthtml_examples()
     "Test border utilities in practical FastHTML component examples."
-```
-
-``` python
-def test_borders_factory_documentation()
-    "Test that border factories have accessible documentation."
 ```
 
 #### Classes
@@ -2256,8 +2258,7 @@ from cjm_fasthtml_tailwind.utilities.effects import (
     test_effects_shadow_fasthtml_examples,
     test_effects_shadow_composition_fasthtml_examples,
     test_effects_comprehensive_fasthtml_examples,
-    test_effects_mask_fasthtml_examples,
-    test_effects_factory_documentation
+    test_effects_mask_fasthtml_examples
 )
 ```
 
@@ -2411,11 +2412,6 @@ def test_effects_comprehensive_fasthtml_examples()
 ``` python
 def test_effects_mask_fasthtml_examples()
     "Test mask utilities in practical FastHTML component examples."
-```
-
-``` python
-def test_effects_factory_documentation()
-    "Test that effect factories have accessible documentation."
 ```
 
 #### Classes
@@ -3008,8 +3004,7 @@ from cjm_fasthtml_tailwind.utilities.filters import (
     test_filters_saturate_examples,
     test_filters_sepia_examples,
     test_filters_backdrop_examples,
-    test_filters_fasthtml_examples,
-    test_filters_factory_documentation
+    test_filters_fasthtml_examples
 )
 ```
 
@@ -3073,11 +3068,6 @@ def test_filters_backdrop_examples()
 ``` python
 def test_filters_fasthtml_examples()
     "Test filter utilities in practical FastHTML component examples."
-```
-
-``` python
-def test_filters_factory_documentation()
-    "Test that filter factories have accessible documentation."
 ```
 
 #### Classes
@@ -3219,8 +3209,7 @@ from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import (
     flex_col_center,
     grid_center,
     responsive_grid,
-    test_flexbox_and_grid_helper_examples,
-    test_flexbox_and_grid_factory_documentation
+    test_flexbox_and_grid_helper_examples
 )
 ```
 
@@ -3378,12 +3367,6 @@ def responsive_grid(
 def test_flexbox_and_grid_helper_examples(
 )
     "Test helper functions for common flexbox and grid patterns."
-```
-
-``` python
-def test_flexbox_and_grid_factory_documentation(
-)
-    "Test that factories have accessible documentation."
 ```
 
 #### Classes
@@ -3848,7 +3831,6 @@ from cjm_fasthtml_tailwind.utilities.interactivity import (
     test_interactivity_form_fasthtml_examples,
     test_interactivity_scroll_snap_fasthtml_examples,
     test_interactivity_touch_mobile_fasthtml_examples,
-    test_interactivity_factory_documentation,
     test_interactivity_advanced_fasthtml_examples
 )
 ```
@@ -3943,11 +3925,6 @@ def test_interactivity_scroll_snap_fasthtml_examples()
 ``` python
 def test_interactivity_touch_mobile_fasthtml_examples()
     "Test touch and mobile interaction utilities."
-```
-
-``` python
-def test_interactivity_factory_documentation()
-    "Test that interactivity factories have accessible documentation."
 ```
 
 ``` python
@@ -4052,7 +4029,6 @@ from cjm_fasthtml_tailwind.utilities.layout import (
     test_layout_fasthtml_examples,
     test_layout_enhanced_factories_fasthtml_examples,
     test_layout_modifier_examples,
-    test_layout_factory_documentation,
     center_absolute,
     stack_context,
     sticky_top,
@@ -4145,12 +4121,6 @@ def test_layout_enhanced_factories_fasthtml_examples(
 def test_layout_modifier_examples(
 )
     "Test layout utilities with modifiers for conditional styling."
-```
-
-``` python
-def test_layout_factory_documentation(
-)
-    "Test that factories have accessible documentation."
 ```
 
 ``` python
@@ -4999,7 +4969,6 @@ from cjm_fasthtml_tailwind.utilities.sizing import (
     test_sizing_size_util_examples,
     test_sizing_max_height_examples,
     test_sizing_fasthtml_examples,
-    test_sizing_factory_documentation,
     size,
     square,
     full_size,
@@ -5089,12 +5058,6 @@ def test_sizing_fasthtml_examples(
 ```
 
 ``` python
-def test_sizing_factory_documentation(
-)
-    "Test that factories have accessible documentation."
-```
-
-``` python
 def size(
     w: Optional[TailwindScale] = None,        # Width value
     h: Optional[TailwindScale] = None,        # Height value
@@ -5172,8 +5135,7 @@ from cjm_fasthtml_tailwind.utilities.spacing import (
     margin,
     test_spacing_helper_examples,
     test_spacing_modifier_examples,
-    test_spacing_enhanced_factory_examples,
-    test_spacing_factory_documentation
+    test_spacing_enhanced_factory_examples
 )
 ```
 
@@ -5278,12 +5240,6 @@ def test_spacing_enhanced_factory_examples(
     "Test enhanced SingleValueFactory support in spacing utilities."
 ```
 
-``` python
-def test_spacing_factory_documentation(
-)
-    "Test that factories have accessible documentation."
-```
-
 #### Classes
 
 ``` python
@@ -5357,7 +5313,6 @@ from cjm_fasthtml_tailwind.utilities.svg import (
     test_svg_fasthtml_examples,
     test_svg_icon_fasthtml_examples,
     test_svg_progress_ring_fasthtml_examples,
-    test_svg_factory_documentation,
     test_svg_edge_cases,
     svg_icon_classes,
     test_svg_helper_functions
@@ -5432,11 +5387,6 @@ def test_svg_progress_ring_fasthtml_examples():
     # Progress ring component
     def ProgressRing(percentage: int, size: int = 120)
     "Test creating a progress ring component."
-```
-
-``` python
-def test_svg_factory_documentation()
-    "Test that SVG factories have accessible documentation."
 ```
 
 ``` python
@@ -5531,8 +5481,7 @@ from cjm_fasthtml_tailwind.utilities.tables import (
     test_tables_caption_side_examples,
     test_tables_all_utilities,
     test_tables_fasthtml_examples,
-    test_tables_complex_fasthtml_examples,
-    test_tables_factory_documentation
+    test_tables_complex_fasthtml_examples
 )
 ```
 
@@ -5586,11 +5535,6 @@ def test_tables_fasthtml_examples()
 ``` python
 def test_tables_complex_fasthtml_examples()
     "Test a complex table example with various styling."
-```
-
-``` python
-def test_tables_factory_documentation()
-    "Test that table factories have accessible documentation."
 ```
 
 #### Classes
@@ -5853,8 +5797,7 @@ from cjm_fasthtml_tailwind.utilities.transforms import (
     hover_scale,
     flip_card_3d,
     parallax_transform,
-    test_transforms_helper_examples,
-    test_transforms_factory_documentation
+    test_transforms_helper_examples
 )
 ```
 
@@ -5941,11 +5884,6 @@ def parallax_transform(speed: float = 0.5) -> str
 ``` python
 def test_transforms_helper_examples()
     "Test helper functions for common transform patterns."
-```
-
-``` python
-def test_transforms_factory_documentation()
-    "Test that transform factories have accessible documentation."
 ```
 
 #### Classes
@@ -6202,7 +6140,6 @@ from cjm_fasthtml_tailwind.utilities.transitions_and_animation import (
     test_transitions_and_animation_fasthtml_examples,
     test_transitions_and_animation_animation_fasthtml_examples,
     test_transitions_and_animation_composition_fasthtml_examples,
-    test_transitions_and_animation_factory_documentation,
     smooth_transition,
     hover_effect,
     fade_in,
@@ -6261,11 +6198,6 @@ def test_transitions_and_animation_animation_fasthtml_examples()
 ``` python
 def test_transitions_and_animation_composition_fasthtml_examples()
     "Test composing multiple transition utilities together."
-```
-
-``` python
-def test_transitions_and_animation_factory_documentation()
-    "Test that transition and animation factories have accessible documentation."
 ```
 
 ``` python

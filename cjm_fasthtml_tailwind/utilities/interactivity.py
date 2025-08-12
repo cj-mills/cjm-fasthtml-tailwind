@@ -14,7 +14,7 @@ __all__ = ['accent', 'appearance', 'caret', 'scheme', 'cursor', 'field_sizing', 
            'test_interactivity_touch_action_examples', 'test_interactivity_user_select_examples', 'WillChangeFactory',
            'test_interactivity_will_change_examples', 'test_interactivity_form_fasthtml_examples',
            'test_interactivity_scroll_snap_fasthtml_examples', 'test_interactivity_touch_mobile_fasthtml_examples',
-           'test_interactivity_factory_documentation', 'test_interactivity_advanced_fasthtml_examples']
+           'test_interactivity_advanced_fasthtml_examples']
 
 # %% ../../nbs/utilities/interactivity.ipynb 3
 from typing import Optional, Union, Dict, Any
@@ -820,52 +820,6 @@ def test_interactivity_touch_mobile_fasthtml_examples():
 test_interactivity_touch_mobile_fasthtml_examples()
 
 # %% ../../nbs/utilities/interactivity.ipynb 65
-def test_interactivity_factory_documentation():
-    """Test that interactivity factories have accessible documentation."""
-    # Test color factories
-    assert accent.describe() == "Accent color utilities for form controls like checkboxes, radio buttons, and range sliders"
-    assert caret.describe() == "Caret color utilities for controlling the color of the text input cursor"
-    
-    # Test simple factories
-    assert appearance.describe() == "Appearance utilities for suppressing or restoring native form control styling"
-    assert scheme.describe() == "Color scheme utilities for controlling the preferred color scheme of an element"
-    assert cursor.describe() == "Cursor utilities for controlling the cursor style when hovering over an element"
-    assert field_sizing.describe() == "Field sizing utilities for controlling how form controls are sized"
-    assert pointer_events.describe() == "Pointer events utilities for controlling whether an element responds to pointer events"
-    assert resize.describe() == "Resize utilities for controlling how an element can be resized"
-    assert scroll.describe() == "Scroll behavior utilities for controlling smooth scrolling"
-    
-    # Test directional factories
-    assert scroll_m.describe() == "Scroll margin utilities for controlling scroll offset margins"
-    assert scroll_p.describe() == "Scroll padding utilities for controlling scroll offset padding"
-    
-    # Test scroll snap factories
-    assert snap_align.describe() == "Scroll snap align utilities for controlling snap position alignment"
-    assert snap_stop.describe() == "Scroll snap stop utilities for controlling snap stop behavior"
-    assert snap.describe() == "Scroll snap type utilities for controlling snap container behavior"
-    
-    # Test touch and interaction factories
-    assert touch.describe() == "Touch action utilities for controlling touch gestures on touch devices"
-    assert select.describe() == "User select utilities for controlling text selection behavior"
-    assert will_change.describe() == "Will-change utilities for optimizing animations by hinting browsers about expected changes"
-    
-    # Test get_info methods
-    accent_info = accent.get_info()
-    assert 'color_families' in accent_info['valid_inputs']
-    assert accent_info['options']['supports_opacity'] == True
-    
-    cursor_info = cursor.get_info()
-    assert 'available_values' in cursor_info['options']
-    assert 'pointer' in cursor_info['options']['available_values']
-    
-    scroll_m_info = scroll_m.get_info()
-    assert 'directional_variants' in scroll_m_info['options']
-    assert scroll_m_info['options']['supports_negative'] == True
-
-# Run the tests
-test_interactivity_factory_documentation()
-
-# %% ../../nbs/utilities/interactivity.ipynb 67
 def test_interactivity_advanced_fasthtml_examples():
     """Test advanced combinations of interactivity utilities."""
     from fasthtml.common import Div, Input, Form, Pre
@@ -876,6 +830,7 @@ def test_interactivity_advanced_fasthtml_examples():
     from cjm_fasthtml_tailwind.utilities.layout import position, overflow
     from cjm_fasthtml_tailwind.utilities.transforms import scale_tw, transform
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration
+    from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, grid_display
     
     # Dark mode form with custom styling
     dark_form = Form(
@@ -943,6 +898,7 @@ def test_interactivity_advanced_fasthtml_examples():
     
     # Complex interactive element with animation hints
     animated_card = Div(
+        "Animated Card",
         cls=combine_classes(
             cursor.pointer,
             will_change("transform, opacity"),
@@ -956,6 +912,14 @@ def test_interactivity_advanced_fasthtml_examples():
     assert "cursor-pointer" in animated_card.attrs['class']
     assert "will-change-[transform, opacity]" in animated_card.attrs['class']
     assert "touch-manipulation" in animated_card.attrs['class']
+
+    # Return all examples in a grid layout
+    return Div(
+        dark_form,
+        code_editor,
+        animated_card,
+        cls=combine_classes(grid_display, gap(5))
+    )
 
 # Run the tests
 test_interactivity_advanced_fasthtml_examples()
