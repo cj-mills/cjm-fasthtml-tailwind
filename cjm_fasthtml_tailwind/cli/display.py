@@ -632,7 +632,7 @@ def display_search_results(
     
     if not results:
         print(f"No results found for '{query}'")
-        print(f"Try '{config.cli_command} search {query} --include-source' to search source code of search in source code of examples and helpers")
+        print(f"Try '{config.cli_command} search {query} --include-source' to also search in source code of examples and helpers")
         print(f"Or run '{config.cli_command} search -h' to see usage instructions")
         return
     
