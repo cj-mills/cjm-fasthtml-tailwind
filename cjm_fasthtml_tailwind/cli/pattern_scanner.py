@@ -19,6 +19,7 @@ from typing import List, Dict, Tuple, Optional, Set, Any
 from dataclasses import dataclass
 
 from .cli_config import LibraryConfig, get_active_config
+from .example_discovery import get_example_pattern
 
 # %% ../../nbs/cli/pattern_scanner.ipynb 5
 @dataclass
@@ -621,7 +622,7 @@ def get_migration_suggestions(
             assertion = find_assertion_for_class(css_class, assertion_patterns)
             if assertion:
                 # Extract feature name from example name
-                feature = assertion.example_name.replace(f'test_{assertion.module_name}_', '').replace('_examples', '')
+                feature = get_example_pattern(assertion.module_name).match(assertion.example_name).group(1)
                 suggestion = f"View example: {config.cli_command} example {assertion.module_name} {feature}"
                 class_suggestions.append(suggestion)
                 
@@ -646,7 +647,7 @@ def get_migration_suggestions(
                 
                 # Show up to 3 unique examples
                 for assertion in pattern_assertions:
-                    feature = assertion.example_name.replace(f'test_{assertion.module_name}_', '').replace('_examples', '')
+                    feature = get_example_pattern(assertion.module_name).match(assertion.example_name).group(1)
                     suggestion = f"{config.cli_command} example {assertion.module_name} {feature}"
                     unique_suggestions.add(suggestion)
                     
