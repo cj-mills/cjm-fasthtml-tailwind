@@ -623,11 +623,17 @@ def display_factory_info(
 # %% ../../nbs/cli/display.ipynb 18
 def display_search_results(
     results: List[SearchResult],  # TODO: Add description
-    query: str  # TODO: Add description
+    query: str,  # TODO: Add description
+    config: Optional[LibraryConfig] = None  # Optional configuration to use
 ): # TODO: Add type hint
     """Display search results in a formatted way."""
+    if config is None:
+        config = get_active_config()
+    
     if not results:
         print(f"No results found for '{query}'")
+        print(f"Try '{config.cli_command} search {query} --include-source' to search source code of search in source code of examples and helpers")
+        print(f"Or run '{config.cli_command} search -h' to see usage instructions")
         return
     
     try:
