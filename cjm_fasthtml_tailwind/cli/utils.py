@@ -7,11 +7,12 @@ __all__ = ['SearchResult', 'print_header', 'print_not_found', 'print_total', 'pr
            'display_items_generic', 'handle_module_not_found', 'simple_item_formatter', 'indented_item_formatter',
            'extract_match_context', 'extract_source_line_context', 'create_search_result', 'search_in_text',
            'search_in_name_and_text', 'check_factory_usage_patterns', 'search_in_fields', 'search_in_source_code',
-           'find_usage_in_items', 'get_view_command', 'format_usage_examples', 'discover_utility_modules',
-           'iterate_all_modules_with_items', 'extract_helper_names_from_test', 'load_code_from_file',
-           'list_utility_modules']
+           'find_variable_usages', 'find_usage_in_items', 'get_view_command', 'format_usage_examples',
+           'discover_utility_modules', 'iterate_all_modules_with_items', 'extract_helper_names_from_test',
+           'load_code_from_file', 'list_utility_modules']
 
 # %% ../../nbs/cli/utils.ipynb 3
+import ast
 import inspect
 from typing import List, Tuple, Optional, Dict, Any, Callable, Union
 from dataclasses import dataclass
@@ -346,6 +347,31 @@ def search_in_source_code(
     )
 
 # %% ../../nbs/cli/utils.ipynb 25
+def find_variable_usages(
+    func_src: str,  # TODO: Add description
+    var_name: str  # TODO: Add description
+): # TODO: Add type hint
+    """Find variable usages by parsing function into an AST"""
+    # Parse into an AST
+    tree = ast.parse(func_src)
+
+    matches = []
+
+    class VarVisitor(ast.NodeVisitor):
+        "TODO: Add class description"
+        def visit_Name(
+            self,
+            node  # TODO: Add type hint and description
+        ):
+            "TODO: Add function description"
+            if node.id == var_name:
+                matches.append((node.lineno, node.col_offset, type(node.ctx).__name__))
+            self.generic_visit(node)
+
+    VarVisitor().visit(tree)
+    return matches
+
+# %% ../../nbs/cli/utils.ipynb 26
 def find_usage_in_items(
     target_name: str,  # Name of the target (factory/helper) to find usage for
     items: Dict[str, List[Any]],  # Dictionary of module_name -> list of items
@@ -354,13 +380,12 @@ def find_usage_in_items(
 ) -> List[Tuple[str, Any]]:  # List of (module_name, item) tuples
     """Find items that use a specific target (factory/helper)."""
     usage_items = []
-    patterns = check_factory_usage_patterns(target_name)
-    
+
     for module_name, module_items in items.items():
         for item in module_items:
             try:
-                source = source_getter(item)
-                if source and any(re.search(pattern, source) for pattern in patterns):
+                matches = find_variable_usages(source_getter(item), target_name)
+                if matches:
                     usage_items.append((module_name, item))
             except (AttributeError, TypeError):
                 # Skip items where source can't be extracted
@@ -368,7 +393,7 @@ def find_usage_in_items(
     
     return usage_items
 
-# %% ../../nbs/cli/utils.ipynb 28
+# %% ../../nbs/cli/utils.ipynb 29
 def get_view_command(
     content_type: str,  # Type of content ('factory', 'example', 'helper', 'module')
     module_name: str,  # Module name
@@ -389,7 +414,7 @@ def get_view_command(
     }
     return commands.get(content_type, "")
 
-# %% ../../nbs/cli/utils.ipynb 29
+# %% ../../nbs/cli/utils.ipynb 30
 def format_usage_examples(
     usage_items: List[Tuple[str, Any]],  # List of (module_name, item) tuples
     item_name_getter: Callable[[Any], str],  # Function to get item name
@@ -412,7 +437,7 @@ def format_usage_examples(
     
     return formatted
 
-# %% ../../nbs/cli/utils.ipynb 30
+# %% ../../nbs/cli/utils.ipynb 31
 import importlib
 import pkgutil
 
@@ -426,7 +451,10 @@ def discover_utility_modules(
     
     modules = []
     
-    def discover_modules_recursive(package_path: str, base_name: str = ""):
+    def discover_modules_recursive(
+        package_path: str,  # TODO: Add description
+        base_name: str = ""  # TODO: Add description
+    ):
         """Recursively discover modules and submodules."""
         try:
             # Import the package
@@ -475,7 +503,7 @@ def discover_utility_modules(
     
     return sorted(unique_modules, key=lambda x: x[0])  # Sort by module name
 
-# %% ../../nbs/cli/utils.ipynb 31
+# %% ../../nbs/cli/utils.ipynb 32
 def iterate_all_modules_with_items(
     extractor_func,    # Function to extract items from a module - TODO: Add type hint
     module_filter: Optional[str] = None,  # Optional specific module to filter for
@@ -497,7 +525,7 @@ def iterate_all_modules_with_items(
     
     return all_items
 
-# %% ../../nbs/cli/utils.ipynb 34
+# %% ../../nbs/cli/utils.ipynb 35
 def extract_helper_names_from_test(
     source: str  # Source code of the test_<module>_helper_examples function
 ) -> List[str]:  # List of helper function names
@@ -538,7 +566,7 @@ def extract_helper_names_from_test(
     
     return sorted(list(helper_names))
 
-# %% ../../nbs/cli/utils.ipynb 37
+# %% ../../nbs/cli/utils.ipynb 38
 def load_code_from_file(
     filepath: str  # TODO: Add description
 ) -> Optional[str]:  # TODO: Add return description
@@ -559,7 +587,7 @@ def load_code_from_file(
         print(f"Error reading file: {str(e)}")
         return None
 
-# %% ../../nbs/cli/utils.ipynb 39
+# %% ../../nbs/cli/utils.ipynb 40
 def list_utility_modules(
     config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, str]:  # Dictionary mapping module names to their docstrings

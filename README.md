@@ -93,116 +93,116 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
-    cli_display --> cli_factory_extraction
-    cli_display --> cli_core_utils_discovery
-    cli_display --> cli_example_discovery
     cli_display --> cli_utils
-    cli_display --> cli_cli_config
-    cli_display --> cli_pattern_scanner
-    cli_display --> cli_imports
-    cli_display --> cli_search
+    cli_display --> cli_factory_extraction
     cli_display --> cli_helper_discovery
+    cli_display --> cli_core_utils_discovery
+    cli_display --> cli_search
+    cli_display --> cli_example_discovery
+    cli_display --> cli_imports
+    cli_display --> cli_cli_config
     cli_display --> cli_test_code
-    cli_dynamic_examples --> cli_factory_extraction
-    cli_dynamic_examples --> cli_core_utils_discovery
-    cli_dynamic_examples --> cli_example_discovery
-    cli_dynamic_examples --> cli_utils
-    cli_dynamic_examples --> cli_cli_config
+    cli_display --> cli_pattern_scanner
     cli_dynamic_examples --> cli_display
-    cli_dynamic_examples --> cli_pattern_scanner
-    cli_dynamic_examples --> cli_imports
-    cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_utils
+    cli_dynamic_examples --> cli_factory_extraction
     cli_dynamic_examples --> cli_helper_discovery
+    cli_dynamic_examples --> cli_core_utils_discovery
+    cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_example_discovery
+    cli_dynamic_examples --> cli_imports
+    cli_dynamic_examples --> cli_cli_config
     cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_pattern_scanner
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_display
-    cli_explorer --> cli_cli_config
     cli_explorer --> cli_dynamic_examples
+    cli_explorer --> cli_search
+    cli_explorer --> cli_cli_config
+    cli_explorer --> cli_test_code
     cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_utils
-    cli_explorer --> cli_search
-    cli_explorer --> cli_test_code
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_cli_config
-    cli_imports --> cli_utils
     cli_imports --> cli_helper_discovery
+    cli_imports --> cli_utils
+    cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_factory_extraction
-    cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
+    cli_imports --> cli_cli_config
     cli_search --> cli_helper_discovery
+    cli_search --> cli_utils
     cli_search --> cli_example_discovery
-    cli_test_code --> cli_utils
-    cli_test_code --> cli_cli_config
+    cli_search --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_utils
     cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_cli_config
     cli_utils --> cli_cli_config
-    core_testing --> utilities_backgrounds
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_accessibility
-    core_testing --> utilities_borders
-    core_testing --> utilities_effects
     core_testing --> utilities_sizing
     core_testing --> utilities_layout
-    core_testing --> utilities_spacing
+    core_testing --> utilities_accessibility
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_backgrounds
     core_testing --> core_resources
+    core_testing --> utilities_spacing
     core_testing --> utilities_typography
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_borders
     core_testing --> core_base
-    utilities_accessibility --> builders_scales
+    core_testing --> utilities_effects
     utilities_accessibility --> core_testing
+    utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
-    utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_base
     utilities_backgrounds --> core_testing
-    utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
-    utilities_borders --> builders_scales
     utilities_borders --> core_testing
+    utilities_borders --> builders_scales
     utilities_borders --> builders_colors
-    utilities_effects --> core_base
-    utilities_effects --> builders_scales
-    utilities_effects --> core_testing
     utilities_effects --> builders_colors
-    utilities_filters --> builders_scales
+    utilities_effects --> core_base
+    utilities_effects --> core_testing
+    utilities_effects --> builders_scales
     utilities_filters --> builders_colors
     utilities_filters --> core_base
     utilities_filters --> core_testing
-    utilities_flexbox_and_grid --> builders_scales
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> core_testing
-    utilities_interactivity --> builders_scales
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_base
     utilities_interactivity --> core_testing
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> builders_colors
     utilities_layout --> core_base
     utilities_layout --> builders_scales
     utilities_layout --> core_testing
+    utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
     utilities_sizing --> core_base
-    utilities_sizing --> builders_scales
-    utilities_spacing --> builders_scales
-    utilities_spacing --> core_testing
     utilities_spacing --> core_base
-    utilities_svg --> builders_scales
+    utilities_spacing --> core_testing
+    utilities_spacing --> builders_scales
+    utilities_svg --> builders_colors
     utilities_svg --> core_base
     utilities_svg --> core_testing
-    utilities_svg --> builders_colors
-    utilities_tables --> builders_scales
+    utilities_svg --> builders_scales
     utilities_tables --> core_base
     utilities_tables --> core_testing
-    utilities_transforms --> core_base
+    utilities_tables --> builders_scales
     utilities_transforms --> builders_scales
+    utilities_transforms --> core_base
     utilities_transforms --> core_testing
     utilities_transitions_and_animation --> core_base
-    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_testing
-    utilities_typography --> builders_scales
+    utilities_transitions_and_animation --> builders_scales
     utilities_typography --> core_base
     utilities_typography --> core_testing
+    utilities_typography --> builders_scales
     utilities_typography --> builders_colors
 ```
 
@@ -744,220 +744,134 @@ Modifiers are applied in the order they are passed."
 class ModifierMixin:
     "Mixin to add modifier support to any utility with convenient property access."
     
-    def hover(self) -> 'BaseUtility':
-            """Apply hover modifier."""
-            return self.with_modifiers("hover")
-        
-        @property
-        def focus(self) -> 'BaseUtility'
+    def hover(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply hover modifier."
     
-    def focus(self) -> 'BaseUtility':
-            """Apply focus modifier."""
-            return self.with_modifiers("focus")
-        
-        @property
-        def active(self) -> 'BaseUtility'
+    def focus(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply focus modifier."
     
-    def active(self) -> 'BaseUtility':
-            """Apply active modifier."""
-            return self.with_modifiers("active")
-        
-        @property
-        def visited(self) -> 'BaseUtility'
+    def active(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply active modifier."
     
-    def visited(self) -> 'BaseUtility':
-            """Apply visited modifier."""
-            return self.with_modifiers("visited")
-        
-        @property
-        def disabled(self) -> 'BaseUtility'
+    def visited(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply visited modifier."
     
-    def disabled(self) -> 'BaseUtility':
-            """Apply disabled modifier."""
-            return self.with_modifiers("disabled")
-        
-        @property
-        def checked(self) -> 'BaseUtility'
+    def disabled(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply disabled modifier."
     
-    def checked(self) -> 'BaseUtility':
-            """Apply checked modifier."""
-            return self.with_modifiers("checked")
-        
-        @property
-        def required(self) -> 'BaseUtility'
+    def checked(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply checked modifier."
     
-    def required(self) -> 'BaseUtility':
-            """Apply required modifier."""
-            return self.with_modifiers("required")
-        
-        @property
-        def invalid(self) -> 'BaseUtility'
+    def required(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply required modifier."
     
-    def invalid(self) -> 'BaseUtility':
-            """Apply invalid modifier."""
-            return self.with_modifiers("invalid")
-        
-        @property
-        def valid(self) -> 'BaseUtility'
+    def invalid(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply invalid modifier."
     
-    def valid(self) -> 'BaseUtility':
-            """Apply valid modifier."""
-            return self.with_modifiers("valid")
-        
-        # Pseudo-element modifiers
-        @property
-        def before(self) -> 'BaseUtility'
+    def valid(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply valid modifier."
     
-    def before(self) -> 'BaseUtility':
-            """Apply before pseudo-element modifier."""
-            return self.with_modifiers("before")
-        
-        @property
-        def after(self) -> 'BaseUtility'
+    def before(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply before pseudo-element modifier."
     
-    def after(self) -> 'BaseUtility':
-            """Apply after pseudo-element modifier."""
-            return self.with_modifiers("after")
-        
-        @property
-        def placeholder(self) -> 'BaseUtility'
+    def after(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply after pseudo-element modifier."
     
-    def placeholder(self) -> 'BaseUtility':
-            """Apply placeholder modifier."""
-            return self.with_modifiers("placeholder")
-        
-        @property
-        def selection(self) -> 'BaseUtility'
+    def placeholder(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply placeholder modifier."
     
-    def selection(self) -> 'BaseUtility':
-            """Apply selection modifier."""
-            return self.with_modifiers("selection")
-        
-        # Responsive modifiers
-        @property
-        def sm(self) -> 'BaseUtility'
+    def selection(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply selection modifier."
     
-    def sm(self) -> 'BaseUtility':
-            """Apply small breakpoint modifier."""
-            return self.with_modifiers("sm")
-    
-        @property
-        def max_sm(self) -> 'BaseUtility'
+    def sm(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply small breakpoint modifier."
     
-    def max_sm(self) -> 'BaseUtility':
-            """Apply max small breakpoint modifier variant."""
-            return self.with_modifiers("max-sm")
-        
-        @property
-        def md(self) -> 'BaseUtility'
+    def max_sm(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply max small breakpoint modifier variant."
     
-    def md(self) -> 'BaseUtility':
-            """Apply medium breakpoint modifier."""
-            return self.with_modifiers("md")
-    
-        @property
-        def max_md(self) -> 'BaseUtility'
+    def md(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply medium breakpoint modifier."
     
-    def max_md(self) -> 'BaseUtility':
-            """Apply max medium breakpoint modifier variant."""
-            return self.with_modifiers("max-md")
-        
-        @property
-        def lg(self) -> 'BaseUtility'
+    def max_md(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply max medium breakpoint modifier variant."
     
-    def lg(self) -> 'BaseUtility':
-            """Apply large breakpoint modifier."""
-            return self.with_modifiers("lg")
-        
-        @property
-        def xl(self) -> 'BaseUtility'
+    def lg(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply large breakpoint modifier."
     
-    def xl(self) -> 'BaseUtility':
-            """Apply extra large breakpoint modifier."""
-            return self.with_modifiers("xl")
-        
-        @property
-        def _2xl(self) -> 'BaseUtility'
+    def xl(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply extra large breakpoint modifier."
     
-    def dark(self) -> 'BaseUtility':
-            """Apply dark mode modifier."""
-            return self.with_modifiers("dark")
-        
-        # Motion modifiers
-        @property
-        def motion_reduce(self) -> 'BaseUtility'
+    def dark(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply dark mode modifier."
     
-    def motion_reduce(self) -> 'BaseUtility':
-            """Apply reduced motion modifier."""
-            return self.with_modifiers("motion-reduce")
-        
-        @property
-        def motion_safe(self) -> 'BaseUtility'
+    def motion_reduce(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply reduced motion modifier."
     
-    def motion_safe(self) -> 'BaseUtility':
-            """Apply safe motion modifier."""
-            return self.with_modifiers("motion-safe")
-        
-        # Structural modifiers
-        @property
-        def first(self) -> 'BaseUtility'
+    def motion_safe(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply safe motion modifier."
     
-    def first(self) -> 'BaseUtility':
-            """Apply first child modifier."""
-            return self.with_modifiers("first")
-        
-        @property
-        def last(self) -> 'BaseUtility'
+    def first(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply first child modifier."
     
-    def last(self) -> 'BaseUtility':
-            """Apply last child modifier."""
-            return self.with_modifiers("last")
-        
-        @property
-        def odd(self) -> 'BaseUtility'
+    def last(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply last child modifier."
     
-    def odd(self) -> 'BaseUtility':
-            """Apply odd child modifier."""
-            return self.with_modifiers("odd")
-        
-        @property
-        def even(self) -> 'BaseUtility'
+    def odd(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply odd child modifier."
     
-    def even(self) -> 'BaseUtility':
-            """Apply even child modifier."""
-            return self.with_modifiers("even")
-        
-        # Group and peer modifiers
-        def group(
-            self, 
-            state: Optional[str] = None,  # Optional state like 'hover', 'focus'
-            name: Optional[str] = None    # Optional group name for nested groups
-        ) -> 'BaseUtility':  # The utility with group modifier applied
+    def even(
+            self
+        ) -> 'BaseUtility':  # TODO: Add return description
         "Apply even child modifier."
     
     def group(
@@ -1393,7 +1307,9 @@ class BorderDirectionalFactory:
         )
         "Initialize with prefix and documentation."
     
-    def describe(self) -> str
+    def describe(
+            self
+        ) -> str:  # TODO: Add return description
         "Return the documentation for this factory."
 ```
 
@@ -1511,29 +1427,21 @@ from cjm_fasthtml_tailwind.cli.cli_config import (
 #### Functions
 
 ``` python
-def get_tailwind_config() -> LibraryConfig
+def get_tailwind_config(
+) -> LibraryConfig:  # TODO: Add return description
     "Get configuration for cjm-fasthtml-tailwind library."
 ```
 
 ``` python
-def set_active_config(config: LibraryConfig) -> None:
-    """Set the active library configuration."""
-    global _active_config
-    _active_config = config
-
-def get_active_config() -> LibraryConfig
+def set_active_config(
+    config: LibraryConfig  # TODO: Add description
+) -> None:  # TODO: Add return description
     "Set the active library configuration."
 ```
 
 ``` python
-def get_active_config() -> LibraryConfig:
-    """Get the active library configuration.
-    
-    If no configuration is set, returns the Tailwind config.
-    """
-    global _active_config
-    
-    if _active_config is not None
+def get_active_config(
+) -> LibraryConfig:  # TODO: Add return description
     """
     Get the active library configuration.
     
@@ -1542,22 +1450,15 @@ def get_active_config() -> LibraryConfig:
 ```
 
 ``` python
-def reset_config() -> None
+def reset_config(
+) -> None:  # TODO: Add return description
     "Reset the active configuration to force re-detection."
 ```
 
 ``` python
-def get_config_by_name(name: str) -> Optional[LibraryConfig]:
-    """Get a library configuration by name.
-    
-    Args:
-        name: Library name ('tailwind')
-    
-    Returns:
-        LibraryConfig or None if not found
-    """
-    configs = {
-        'tailwind': get_tailwind_config,
+def get_config_by_name(
+    name: str  # TODO: Add description
+) -> Optional[LibraryConfig]:  # TODO: Add return description
     """
     Get a library configuration by name.
     
@@ -1570,19 +1471,15 @@ def get_config_by_name(name: str) -> Optional[LibraryConfig]:
 ```
 
 ``` python
-def list_available_configs() -> List[str]
+def list_available_configs(
+) -> List[str]:  # TODO: Add return description
     "List all available library configurations."
 ```
 
 ``` python
-def get_config_info(config: LibraryConfig) -> Dict[str, Any]:
-    """Get information about a configuration.
-    
-    Returns:
-        Dictionary with configuration details
-    """
-    return {
-        'library': config.display_name,
+def get_config_info(
+    config: LibraryConfig  # TODO: Add description
+) -> Dict[str, Any]:  # TODO: Add return description
     """
     Get information about a configuration.
     
@@ -1610,14 +1507,17 @@ class LibraryConfig:
     test_pattern_suffix: str = '_examples'  # Suffix for test functions
     helper_test_suffix: str = 'helper_examples'  # Suffix for helper test functions
     
-    def get_test_function_pattern(self, module_name: str, feature: str) -> str:
-            """Get the expected test function name for a module and feature."""
-            return f"{self.test_pattern_prefix}{module_name}_{feature}_{self.test_pattern_suffix}"
-        
-        def get_helper_test_function(self, module_name: str) -> str
+    def get_test_function_pattern(
+            self,
+            module_name: str,  # TODO: Add description
+            feature: str  # TODO: Add description
+        ) -> str:  # TODO: Add return description
         "Get the expected test function name for a module and feature."
     
-    def get_helper_test_function(self, module_name: str) -> str
+    def get_helper_test_function(
+            self,
+            module_name: str  # TODO: Add description
+        ) -> str:  # TODO: Add return description
         "Get the expected helper test function name for a module."
 ```
 
@@ -1738,20 +1638,20 @@ def test_colors_modifier_examples()
 ```
 
 ``` python
-def get_all_color_families() -> List[str]
+def get_all_color_families(
+) -> List[str]:  # TODO: Add return description
     "Get list of all Tailwind color family names."
 ```
 
 ``` python
-def get_all_shades() -> List[str]
+def get_all_shades(
+) -> List[str]:  # TODO: Add return description
     "Get list of all Tailwind shade values."
 ```
 
 ``` python
-def get_all_color_specs() -> List[str]:
-    """Get list of all valid color-shade combinations."""
-    specs = []
-    for family in ColorFamily
+def get_all_color_specs(
+) -> List[str]:  # TODO: Add return description
     "Get list of all valid color-shade combinations."
 ```
 
@@ -3081,7 +2981,9 @@ class BlurScale:
     pixels: str
     var: str
     
-    def format(self) -> str
+    def format(
+            self
+        ) -> str:  # TODO: Add return description
         "Format as Tailwind class suffix."
 ```
 
@@ -3094,7 +2996,9 @@ class DropShadowScale:
     shadow: str
     var: str
     
-    def format(self) -> str
+    def format(
+            self
+        ) -> str:  # TODO: Add return description
         "Format as Tailwind class suffix."
 ```
 
@@ -5859,25 +5763,29 @@ def test_transforms_fasthtml_examples()
 ```
 
 ``` python
-def center_transform() -> str
+def center_transform(
+) -> str:  # TODO: Add return description
     "Center an element using transform translate."
 ```
 
 ``` python
-def hover_scale(scale: int = 110) -> str
+def hover_scale(
+    scale: int = 110  # TODO: Add description
+) -> str:  # TODO: Add return description
     "Create a hover scale effect."
 ```
 
 ``` python
-def flip_card_3d(perspective_value: str = "normal") -> Dict[str, str]:
-    """Get classes for a 3D flip card effect."""
-    return {
-        "container": str(getattr(perspective, perspective_value)),
+def flip_card_3d(
+    perspective_value: str = "normal"  # TODO: Add description
+) -> Dict[str, str]:  # TODO: Add return description
     "Get classes for a 3D flip card effect."
 ```
 
 ``` python
-def parallax_transform(speed: float = 0.5) -> str
+def parallax_transform(
+    speed: float = 0.5  # TODO: Add description
+) -> str:  # TODO: Add return description
     "Create a parallax transform effect."
 ```
 
@@ -6589,14 +6497,17 @@ def test_typography_fasthtml_examples()
 
 ``` python
 class FontFamily(str, Enum):
+    "TODO: Add class description"
 ```
 
 ``` python
 class FontWeight(str, Enum):
+    "TODO: Add class description"
 ```
 
 ``` python
 class FontStretch(str, Enum):
+    "TODO: Add class description"
 ```
 
 ``` python
@@ -6639,18 +6550,22 @@ class ListImageFactory:
 
 ``` python
 class ListStylePosition(str, Enum):
+    "TODO: Add class description"
 ```
 
 ``` python
 class ListStyleType(str, Enum):
+    "TODO: Add class description"
 ```
 
 ``` python
 class TextAlign(str, Enum):
+    "TODO: Add class description"
 ```
 
 ``` python
 class DecorationStyle(str, Enum):
+    "TODO: Add class description"
 ```
 
 ``` python
@@ -6780,6 +6695,7 @@ from cjm_fasthtml_tailwind.cli.utils import (
     check_factory_usage_patterns,
     search_in_fields,
     search_in_source_code,
+    find_variable_usages,
     find_usage_in_items,
     get_view_command,
     format_usage_examples,
@@ -6941,6 +6857,14 @@ def search_in_source_code(
     case_sensitive: bool = False  # Whether to perform case-sensitive search
 ) -> Optional[SearchResult]:  # Search result or None
     "Search in source code and return result with line context."
+```
+
+``` python
+def find_variable_usages(
+    func_src: str,  # TODO: Add description
+    var_name: str  # TODO: Add description
+): # TODO: Add type hint
+    "Find variable usages by parsing function into an AST"
 ```
 
 ``` python

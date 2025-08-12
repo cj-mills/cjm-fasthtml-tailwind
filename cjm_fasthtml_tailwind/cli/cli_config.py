@@ -42,16 +42,24 @@ class LibraryConfig:
     # Helper patterns
     helper_test_suffix: str = 'helper_examples'  # Suffix for helper test functions
     
-    def get_test_function_pattern(self, module_name: str, feature: str) -> str:
+    def get_test_function_pattern(
+        self,
+        module_name: str,  # TODO: Add description
+        feature: str  # TODO: Add description
+    ) -> str:  # TODO: Add return description
         """Get the expected test function name for a module and feature."""
         return f"{self.test_pattern_prefix}{module_name}_{feature}_{self.test_pattern_suffix}"
     
-    def get_helper_test_function(self, module_name: str) -> str:
+    def get_helper_test_function(
+        self,
+        module_name: str  # TODO: Add description
+    ) -> str:  # TODO: Add return description
         """Get the expected helper test function name for a module."""
         return f"{self.test_pattern_prefix}{module_name}_{self.helper_test_suffix}"
 
 # %% ../../nbs/cli/cli_config.ipynb 7
-def get_tailwind_config() -> LibraryConfig:
+def get_tailwind_config(
+) -> LibraryConfig:  # TODO: Add return description
     """Get configuration for cjm-fasthtml-tailwind library."""
     return LibraryConfig(
         package_name='cjm_fasthtml_tailwind',
@@ -70,12 +78,15 @@ def get_tailwind_config() -> LibraryConfig:
 # Global variable to store the active configuration
 _active_config: Optional[LibraryConfig] = None
 
-def set_active_config(config: LibraryConfig) -> None:
+def set_active_config(
+    config: LibraryConfig  # TODO: Add description
+) -> None:  # TODO: Add return description
     """Set the active library configuration."""
     global _active_config
     _active_config = config
 
-def get_active_config() -> LibraryConfig:
+def get_active_config(
+) -> LibraryConfig:  # TODO: Add return description
     """Get the active library configuration.
     
     If no configuration is set, returns the Tailwind config.
@@ -91,13 +102,16 @@ def get_active_config() -> LibraryConfig:
     return _active_config
 
 # %% ../../nbs/cli/cli_config.ipynb 10
-def reset_config() -> None:
+def reset_config(
+) -> None:  # TODO: Add return description
     """Reset the active configuration to force re-detection."""
     global _active_config
     _active_config = None
 
 # %% ../../nbs/cli/cli_config.ipynb 12
-def get_config_by_name(name: str) -> Optional[LibraryConfig]:
+def get_config_by_name(
+    name: str  # TODO: Add description
+) -> Optional[LibraryConfig]:  # TODO: Add return description
     """Get a library configuration by name.
     
     Args:
@@ -114,12 +128,15 @@ def get_config_by_name(name: str) -> Optional[LibraryConfig]:
     return factory() if factory else None
 
 # %% ../../nbs/cli/cli_config.ipynb 14
-def list_available_configs() -> List[str]:
+def list_available_configs(
+) -> List[str]:  # TODO: Add return description
     """List all available library configurations."""
     return ['tailwind']
 
 # %% ../../nbs/cli/cli_config.ipynb 15
-def get_config_info(config: LibraryConfig) -> Dict[str, Any]:
+def get_config_info(
+    config: LibraryConfig  # TODO: Add description
+) -> Dict[str, Any]:  # TODO: Add return description
     """Get information about a configuration.
     
     Returns:

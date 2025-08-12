@@ -357,7 +357,9 @@ class BorderDirectionalFactory:
             return util
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
     
-    def describe(self) -> str:
+    def describe(
+        self
+    ) -> str:  # TODO: Add return description
         """Return the documentation for this factory."""
         return self._doc
 

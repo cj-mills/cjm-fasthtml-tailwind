@@ -140,7 +140,12 @@ class ScaledUtility(StandardUtility):
 class ScaledFactory(UtilityFactory[ScaledUtility]):
     """Factory for creating scaled utilities with enhanced attribute access."""
     
-    def __new__(cls, prefix: Optional[str] = None, config: Optional[ScaleConfig] = None, doc: Optional[str] = None):
+    def __new__(
+        cls,  # TODO: Add type hint and description
+        prefix: Optional[str] = None,  # TODO: Add description
+        config: Optional[ScaleConfig] = None,  # TODO: Add description
+        doc: Optional[str] = None  # TODO: Add description
+    ):
         """Create a new instance with dynamic properties for tab-completion."""
         # If this is a subclass, just create a normal instance
         # Subclasses will add properties in __init__ if needed
@@ -160,8 +165,12 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
                 for key, value in config.special.items():
                     prop_name = key.replace("-", "_")
                     # Create a property that returns a ScaledUtility instance
-                    def make_property(val):
+                    def make_property(
+                        val  # TODO: Add type hint and description
+                    ):
+                        "TODO: Add function description"
                         def getter(self):
+                            "TODO: Add function description"
                             instance = ScaledUtility(self.prefix, self.config)
                             instance._value = val
                             return instance
@@ -174,8 +183,12 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
                     prop_name = f"_{named_scale.name}" if named_scale.name[0].isdigit() else named_scale.name
                     prop_name = prop_name.replace("-", "_")
                     # Create a property that returns a ScaledUtility instance
-                    def make_property(scale_name):
+                    def make_property(
+                        scale_name  # TODO: Add type hint and description
+                    ):
+                        "TODO: Add function description"
                         def getter(self):
+                            "TODO: Add function description"
                             instance = ScaledUtility(self.prefix, self.config)
                             instance._value = scale_name
                             return instance
@@ -220,8 +233,12 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
                     continue
                     
                 # Create a property that returns a ScaledUtility instance
-                def make_property(val):
+                def make_property(
+                    val  # TODO: Add type hint and description
+                ):
+                    "TODO: Add function description"
                     def getter(self):
+                        "TODO: Add function description"
                         instance = ScaledUtility(self.prefix, self.config)
                         instance._value = val
                         return instance
@@ -238,8 +255,12 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
                     continue
                     
                 # Create a property that returns a ScaledUtility instance
-                def make_property(scale_name):
+                def make_property(
+                    scale_name  # TODO: Add type hint and description
+                ):
+                    "TODO: Add function description"
                     def getter(self):
+                        "TODO: Add function description"
                         instance = ScaledUtility(self.prefix, self.config)
                         instance._value = scale_name
                         return instance
@@ -368,7 +389,11 @@ class ScaledFactory(UtilityFactory[ScaledUtility]):
 class NegativeFactory:
     """Factory for creating negative variants."""
     
-    def __new__(cls, prefix: str, config: ScaleConfig):
+    def __new__(
+        cls,  # TODO: Add type hint and description
+        prefix: str,  # TODO: Add description
+        config: ScaleConfig  # TODO: Add description
+    ):
         """Create a new instance with dynamic properties for tab-completion."""
         # Create a unique subclass for this instance
         class_name = f"NegativeFactory_{prefix}_{id(config)}"
@@ -384,8 +409,12 @@ class NegativeFactory:
                     continue
                 prop_name = key.replace("-", "_")
                 # Create a property that returns a negative ScaledUtility instance
-                def make_property(val):
+                def make_property(
+                    val  # TODO: Add type hint and description
+                ):
+                    "TODO: Add function description"
                     def getter(self):
+                        "TODO: Add function description"
                         instance = ScaledUtility(self.prefix, self.config, negative=True)
                         instance._value = val
                         return instance
@@ -619,7 +648,11 @@ def list_scale_values(
 class SimpleFactory(BaseFactory):
     """Factory for utilities that are simple string values with modifier support."""
     
-    def __new__(cls, values_dict: Optional[Dict[str, str]] = None, doc: Optional[str] = None):
+    def __new__(
+        cls,  # TODO: Add type hint and description
+        values_dict: Optional[Dict[str, str]] = None,  # TODO: Add description
+        doc: Optional[str] = None  # TODO: Add description
+    ):
         """Create a new instance with dynamic properties for tab-completion."""
         # If this is a subclass calling super().__new__, just create the instance normally
         # We'll add properties later in __init__
@@ -639,8 +672,12 @@ class SimpleFactory(BaseFactory):
                 prop_name = key.replace("-", "_")
                 
                 # Create a property that returns the cached utility
-                def make_property(css_val):
+                def make_property(
+                    css_val  # TODO: Add type hint and description
+                ):
+                    "TODO: Add function description"
                     def getter(self):
+                        "TODO: Add function description"
                         # Access the cache directly from __dict__ to avoid triggering __getattr__
                         cache = self.__dict__.get('_utility_cache', {})
                         if css_val not in cache:
@@ -663,7 +700,10 @@ class SimpleFactory(BaseFactory):
         # Default case
         return object.__new__(cls)
     
-    def _add_dynamic_properties(self, values_dict: Dict[str, str]):
+    def _add_dynamic_properties(
+        self,
+        values_dict: Dict[str, str]  # TODO: Add description
+    ):
         """Add properties dynamically to the instance for tab-completion."""
         # Create a new class that inherits from the current class
         current_class = self.__class__
@@ -688,8 +728,12 @@ class SimpleFactory(BaseFactory):
                 continue
                 
             # Create a property that returns the cached utility
-            def make_property(css_val):
+            def make_property(
+                css_val  # TODO: Add type hint and description
+            ):
+                "TODO: Add function description"
                 def getter(self):
+                    "TODO: Add function description"
                     # Access the cache directly from __dict__ to avoid triggering __getattr__
                     cache = self.__dict__.get('_utility_cache', {})
                     if css_val not in cache:

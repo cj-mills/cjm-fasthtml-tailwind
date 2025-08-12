@@ -164,142 +164,196 @@ class ModifierMixin:
     
     # Pseudo-class modifiers
     @property
-    def hover(self) -> 'BaseUtility':
+    def hover(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply hover modifier."""
         return self.with_modifiers("hover")
     
     @property
-    def focus(self) -> 'BaseUtility':
+    def focus(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply focus modifier."""
         return self.with_modifiers("focus")
     
     @property
-    def active(self) -> 'BaseUtility':
+    def active(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply active modifier."""
         return self.with_modifiers("active")
     
     @property
-    def visited(self) -> 'BaseUtility':
+    def visited(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply visited modifier."""
         return self.with_modifiers("visited")
     
     @property
-    def disabled(self) -> 'BaseUtility':
+    def disabled(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply disabled modifier."""
         return self.with_modifiers("disabled")
     
     @property
-    def checked(self) -> 'BaseUtility':
+    def checked(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply checked modifier."""
         return self.with_modifiers("checked")
     
     @property
-    def required(self) -> 'BaseUtility':
+    def required(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply required modifier."""
         return self.with_modifiers("required")
     
     @property
-    def invalid(self) -> 'BaseUtility':
+    def invalid(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply invalid modifier."""
         return self.with_modifiers("invalid")
     
     @property
-    def valid(self) -> 'BaseUtility':
+    def valid(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply valid modifier."""
         return self.with_modifiers("valid")
     
     # Pseudo-element modifiers
     @property
-    def before(self) -> 'BaseUtility':
+    def before(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply before pseudo-element modifier."""
         return self.with_modifiers("before")
     
     @property
-    def after(self) -> 'BaseUtility':
+    def after(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply after pseudo-element modifier."""
         return self.with_modifiers("after")
     
     @property
-    def placeholder(self) -> 'BaseUtility':
+    def placeholder(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply placeholder modifier."""
         return self.with_modifiers("placeholder")
     
     @property
-    def selection(self) -> 'BaseUtility':
+    def selection(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply selection modifier."""
         return self.with_modifiers("selection")
     
     # Responsive modifiers
     @property
-    def sm(self) -> 'BaseUtility':
+    def sm(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply small breakpoint modifier."""
         return self.with_modifiers("sm")
 
     @property
-    def max_sm(self) -> 'BaseUtility':
+    def max_sm(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply max small breakpoint modifier variant."""
         return self.with_modifiers("max-sm")
     
     @property
-    def md(self) -> 'BaseUtility':
+    def md(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply medium breakpoint modifier."""
         return self.with_modifiers("md")
 
     @property
-    def max_md(self) -> 'BaseUtility':
+    def max_md(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply max medium breakpoint modifier variant."""
         return self.with_modifiers("max-md")
     
     @property
-    def lg(self) -> 'BaseUtility':
+    def lg(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply large breakpoint modifier."""
         return self.with_modifiers("lg")
     
     @property
-    def xl(self) -> 'BaseUtility':
+    def xl(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply extra large breakpoint modifier."""
         return self.with_modifiers("xl")
     
     @property
-    def _2xl(self) -> 'BaseUtility':
+    def _2xl(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply 2xl breakpoint modifier."""
         return self.with_modifiers("2xl")
     
     # Theme modifiers
     @property
-    def dark(self) -> 'BaseUtility':
+    def dark(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply dark mode modifier."""
         return self.with_modifiers("dark")
     
     # Motion modifiers
     @property
-    def motion_reduce(self) -> 'BaseUtility':
+    def motion_reduce(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply reduced motion modifier."""
         return self.with_modifiers("motion-reduce")
     
     @property
-    def motion_safe(self) -> 'BaseUtility':
+    def motion_safe(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply safe motion modifier."""
         return self.with_modifiers("motion-safe")
     
     # Structural modifiers
     @property
-    def first(self) -> 'BaseUtility':
+    def first(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply first child modifier."""
         return self.with_modifiers("first")
     
     @property
-    def last(self) -> 'BaseUtility':
+    def last(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply last child modifier."""
         return self.with_modifiers("last")
     
     @property
-    def odd(self) -> 'BaseUtility':
+    def odd(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply odd child modifier."""
         return self.with_modifiers("odd")
     
     @property
-    def even(self) -> 'BaseUtility':
+    def even(
+        self
+    ) -> 'BaseUtility':  # TODO: Add return description
         """Apply even child modifier."""
         return self.with_modifiers("even")
     

@@ -55,7 +55,9 @@ class BlurScale:
     pixels: str
     var: str
     
-    def format(self) -> str:
+    def format(
+        self
+    ) -> str:  # TODO: Add return description
         """Format as Tailwind class suffix."""
         return self.name
 
@@ -176,7 +178,9 @@ class DropShadowScale:
     shadow: str
     var: str
     
-    def format(self) -> str:
+    def format(
+        self
+    ) -> str:  # TODO: Add return description
         """Format as Tailwind class suffix."""
         return self.name
 
