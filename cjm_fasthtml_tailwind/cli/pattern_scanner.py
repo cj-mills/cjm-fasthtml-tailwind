@@ -18,6 +18,8 @@ import re
 from typing import List, Dict, Tuple, Optional, Set, Any
 from dataclasses import dataclass
 
+from .cli_config import LibraryConfig, get_active_config
+
 # %% ../../nbs/cli/pattern_scanner.ipynb 5
 @dataclass
 class ClsPattern:
@@ -602,9 +604,13 @@ def find_pattern_examples(
 # %% ../../nbs/cli/pattern_scanner.ipynb 59
 def get_migration_suggestions(
     matches: Dict[str, CSSClassMatch],  # Dictionary of CSS class matches
-    assertion_patterns: List[AssertionPattern]  # List of all assertion patterns from tests
+    assertion_patterns: List[AssertionPattern],  # List of all assertion patterns from tests
+    config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, List[str]]:  # Dictionary mapping CSS classes to their migration suggestions
     "Generate migration suggestions for matched CSS classes."
+    if config is None:
+        config = get_active_config()
+    
     suggestions = {}
     
     for css_class, match in matches.items():
@@ -616,7 +622,7 @@ def get_migration_suggestions(
             if assertion:
                 # Extract feature name from example name
                 feature = assertion.example_name.replace(f'test_{assertion.module_name}_', '').replace('_examples', '')
-                suggestion = f"View example: cjm-tailwind-explore example {assertion.module_name} {feature}"
+                suggestion = f"View example: {config.cli_command} example {assertion.module_name} {feature}"
                 class_suggestions.append(suggestion)
                 
                 # Check if the factory expression might be a helper function
@@ -628,7 +634,7 @@ def get_migration_suggestions(
                     # Check if this might be a helper (not a factory like p.x or w.full)
                     if not ('.' in func_name and len(func_name.split('.')) == 2):
                         # This looks like a helper function
-                        helper_suggestion = f"View helper: cjm-tailwind-explore helper {assertion.module_name} {func_name}"
+                        helper_suggestion = f"View helper: {config.cli_command} helper {assertion.module_name} {func_name}"
                         class_suggestions.append(helper_suggestion)
                 
         elif match.match_type == MatchType.PATTERN:
@@ -641,7 +647,7 @@ def get_migration_suggestions(
                 # Show up to 3 unique examples
                 for assertion in pattern_assertions:
                     feature = assertion.example_name.replace(f'test_{assertion.module_name}_', '').replace('_examples', '')
-                    suggestion = f"cjm-tailwind-explore example {assertion.module_name} {feature}"
+                    suggestion = f"{config.cli_command} example {assertion.module_name} {feature}"
                     unique_suggestions.add(suggestion)
                     
                     # Stop if we have 3 unique suggestions
