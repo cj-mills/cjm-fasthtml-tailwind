@@ -662,9 +662,8 @@ def display_search_results(
                 if result.content_type == 'factory':
                     view_cmd = get_view_command('factory', result.module_name, result.item_name)
                 elif result.content_type == 'example':
-                    # Extract feature from name
-                    feature = result.item_name.replace(f'test_{result.module_name}_', '').replace('_examples', '')
-                    view_cmd = get_view_command('example', result.module_name, feature)
+                    example = next((ex for ex in list_module_examples(result.module_name) if ex.name == result.item_name), None)
+                    view_cmd = get_view_command('example', result.module_name, example.feature)
                 elif result.content_type == 'helper':
                     view_cmd = get_view_command('helper', result.module_name, result.item_name)
                 elif result.content_type == 'module':
