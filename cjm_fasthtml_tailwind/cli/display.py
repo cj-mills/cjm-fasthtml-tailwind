@@ -650,7 +650,7 @@ def display_search_results(
         
         # Display results by type
         for content_type, type_results in by_type.items():
-            print(f"\n{content_type.title()}s ({len(type_results)} results)")
+            print(f"\n{content_type.title()} ({len(type_results)} results)")
             print("-" * 40)
             
             for result in type_results:
