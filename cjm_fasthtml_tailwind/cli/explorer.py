@@ -620,7 +620,7 @@ def create_help_description(
 
 This tool helps you explore the {config.package_name} library, which provides:
 - Python-native {config.display_name} utility class builders for FastHTML projects
-- Type-safe, dynamic CSS class generation without hardcoded strings
+- Dynamic CSS class generation without hardcoded strings
 - Comprehensive utility factories ({example_factories}, etc.)
 - Helper functions for common patterns
 - Full integration with FastHTML components
