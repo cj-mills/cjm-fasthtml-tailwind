@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Numeric and named scale builders for Tailwind CSS utilities">
+
+<title>scales – cjm-fasthtml-tailwind</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="scales – cjm-fasthtml-tailwind">
+<meta property="og:description" content="Numeric and named scale builders for Tailwind CSS utilities">
+<meta property="og:site_name" content="cjm-fasthtml-tailwind">
+<meta name="twitter:title" content="scales – cjm-fasthtml-tailwind">
+<meta name="twitter:description" content="Numeric and named scale builders for Tailwind CSS utilities">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">cjm-fasthtml-tailwind</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../builders/colors.html">builders</a></li><li class="breadcrumb-item"><a href="../builders/scales.html">scales</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cjm-fasthtml-tailwind</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">builders</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../builders/colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../builders/scales.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">scales</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">cli</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/cli_config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CLI Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/core_utils_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core Utilities Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/display.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Display Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/dynamic_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Example Helpers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/example_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/explorer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">explorer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/factory_extraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factory Extraction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/helper_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Helper Function Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/imports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">imports</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/pattern_scanner.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pattern_scanner</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/test_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test Code Functionality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">utils</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">core</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">base</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">utilities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/accessibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">accessibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/backgrounds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backgrounds</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/borders.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">borders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/filters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">filters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/flexbox_and_grid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">flexbox_and_grid</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/interactivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">interactivity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/layout.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">layout</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/sizing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sizing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/spacing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">spacing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/svg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">svg</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/transforms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">transforms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/transitions_and_animation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">transitions_and_animation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/typography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">typography</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#numeric-scale-definitions" id="toc-numeric-scale-definitions" class="nav-link active" data-scroll-target="#numeric-scale-definitions">Numeric Scale Definitions</a>
+  <ul class="collapse">
+  <li><a href="#generate_fractions" id="toc-generate_fractions" class="nav-link" data-scroll-target="#generate_fractions">generate_fractions</a></li>
+  </ul></li>
+  <li><a href="#scale-builders" id="toc-scale-builders" class="nav-link" data-scroll-target="#scale-builders">Scale Builders</a>
+  <ul class="collapse">
+  <li><a href="#scaleconfig" id="toc-scaleconfig" class="nav-link" data-scroll-target="#scaleconfig">ScaleConfig</a></li>
+  <li><a href="#scaledutility" id="toc-scaledutility" class="nav-link" data-scroll-target="#scaledutility">ScaledUtility</a></li>
+  </ul></li>
+  <li><a href="#scale-factory" id="toc-scale-factory" class="nav-link" data-scroll-target="#scale-factory">Scale Factory</a>
+  <ul class="collapse">
+  <li><a href="#scaledfactory" id="toc-scaledfactory" class="nav-link" data-scroll-target="#scaledfactory">ScaledFactory</a></li>
+  <li><a href="#negativefactory" id="toc-negativefactory" class="nav-link" data-scroll-target="#negativefactory">NegativeFactory</a></li>
+  </ul></li>
+  <li><a href="#directional-scale-factory" id="toc-directional-scale-factory" class="nav-link" data-scroll-target="#directional-scale-factory">Directional Scale Factory</a>
+  <ul class="collapse">
+  <li><a href="#directionalscaledutility" id="toc-directionalscaledutility" class="nav-link" data-scroll-target="#directionalscaledutility">DirectionalScaledUtility</a></li>
+  <li><a href="#directionalscaledfactory" id="toc-directionalscaledfactory" class="nav-link" data-scroll-target="#directionalscaledfactory">DirectionalScaledFactory</a></li>
+  </ul></li>
+  <li><a href="#pre-configured-scale-configs" id="toc-pre-configured-scale-configs" class="nav-link" data-scroll-target="#pre-configured-scale-configs">Pre-configured Scale Configs</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a>
+  <ul class="collapse">
+  <li><a href="#test-directional-scales" id="toc-test-directional-scales" class="nav-link" data-scroll-target="#test-directional-scales">Test Directional Scales</a></li>
+  <li><a href="#test-negative-values" id="toc-test-negative-values" class="nav-link" data-scroll-target="#test-negative-values">Test Negative Values</a></li>
+  <li><a href="#test-inset-with-negative-values" id="toc-test-inset-with-negative-values" class="nav-link" data-scroll-target="#test-inset-with-negative-values">Test Inset with Negative Values</a></li>
+  <li><a href="#test-all-fractions" id="toc-test-all-fractions" class="nav-link" data-scroll-target="#test-all-fractions">Test All Fractions</a></li>
+  <li><a href="#test-class-combination" id="toc-test-class-combination" class="nav-link" data-scroll-target="#test-class-combination">Test Class Combination</a></li>
+  </ul></li>
+  <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link" data-scroll-target="#helper-functions">Helper Functions</a>
+  <ul class="collapse">
+  <li><a href="#list_scale_values" id="toc-list_scale_values" class="nav-link" data-scroll-target="#list_scale_values">list_scale_values</a></li>
+  </ul></li>
+  <li><a href="#simple-factory" id="toc-simple-factory" class="nav-link" data-scroll-target="#simple-factory">Simple Factory</a>
+  <ul class="collapse">
+  <li><a href="#simplefactory" id="toc-simplefactory" class="nav-link" data-scroll-target="#simplefactory">SimpleFactory</a></li>
+  <li><a href="#enums_to_simple_factory" id="toc-enums_to_simple_factory" class="nav-link" data-scroll-target="#enums_to_simple_factory">enums_to_simple_factory</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="scales.html.md"><i class="bi bi-file-code"></i>CommonMark</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../builders/colors.html">builders</a></li><li class="breadcrumb-item"><a href="../builders/scales.html">scales</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">scales</h1>
+</div>
+
+<div>
+  <div class="description">
+    Numeric and named scale builders for Tailwind CSS utilities
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="numeric-scale-definitions" class="level2">
+<h2 class="anchored" data-anchor-id="numeric-scale-definitions">Numeric Scale Definitions</h2>
+<p>Define the standard numeric scales used by Tailwind CSS:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L31" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="generate_fractions" class="level3">
+<h3 class="anchored" data-anchor-id="generate_fractions">generate_fractions</h3>
+<blockquote class="blockquote">
+<pre><code> generate_fractions ()</code></pre>
+</blockquote>
+<p><em>Generate all valid Tailwind fractions.</em></p>
+</section>
+</section>
+<section id="scale-builders" class="level2">
+<h2 class="anchored" data-anchor-id="scale-builders">Scale Builders</h2>
+<p>Builders for creating utilities with different scale types:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L44" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="scaleconfig" class="level3">
+<h3 class="anchored" data-anchor-id="scaleconfig">ScaleConfig</h3>
+<blockquote class="blockquote">
+<pre><code> ScaleConfig (numeric:bool=True, decimals:bool=False,
+              fractions:bool=False, named:Optional[List[cjm_fasthtml_tailw
+              ind.core.base.NamedScale]]=None,
+              special:Optional[Dict[str,str]]=None, negative:bool=False)</code></pre>
+</blockquote>
+<p><em>Configuration for a scale builder.</em></p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L54" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="scaledutility" class="level3">
+<h3 class="anchored" data-anchor-id="scaledutility">ScaledUtility</h3>
+<blockquote class="blockquote">
+<pre><code> ScaledUtility (prefix:str, config:__main__.ScaleConfig,
+                negative:bool=False)</code></pre>
+</blockquote>
+<p><em>Utility class with scale support.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prefix</td>
+<td>str</td>
+<td></td>
+<td>The utility prefix (e.g., ‘w’, ‘h’, ‘p’)</td>
+</tr>
+<tr class="even">
+<td>config</td>
+<td>ScaleConfig</td>
+<td></td>
+<td>Configuration defining valid scales and values</td>
+</tr>
+<tr class="odd">
+<td>negative</td>
+<td>bool</td>
+<td>False</td>
+<td>Whether this is a negative variant</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="scale-factory" class="level2">
+<h2 class="anchored" data-anchor-id="scale-factory">Scale Factory</h2>
+<p>Enhanced factory that supports all scale types:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L140" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="scaledfactory" class="level3">
+<h3 class="anchored" data-anchor-id="scaledfactory">ScaledFactory</h3>
+<blockquote class="blockquote">
+<pre><code> ScaledFactory (prefix:Optional[str]=None,
+                config:Optional[__main__.ScaleConfig]=None,
+                doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Factory for creating scaled utilities with enhanced attribute access.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prefix</td>
+<td>Optional</td>
+<td>None</td>
+<td>The utility prefix (e.g., ‘w’, ‘h’, ‘p’)</td>
+</tr>
+<tr class="even">
+<td>config</td>
+<td>Optional</td>
+<td>None</td>
+<td>Configuration defining valid scales and values</td>
+</tr>
+<tr class="odd">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>Optional documentation string</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L389" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="negativefactory" class="level3">
+<h3 class="anchored" data-anchor-id="negativefactory">NegativeFactory</h3>
+<blockquote class="blockquote">
+<pre><code> NegativeFactory (prefix:str, config:__main__.ScaleConfig)</code></pre>
+</blockquote>
+<p><em>Factory for creating negative variants.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prefix</td>
+<td>str</td>
+<td>The utility prefix (e.g., ‘m’, ‘inset’)</td>
+</tr>
+<tr class="even">
+<td>config</td>
+<td>ScaleConfig</td>
+<td>Configuration defining valid scales and values</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="directional-scale-factory" class="level2">
+<h2 class="anchored" data-anchor-id="directional-scale-factory">Directional Scale Factory</h2>
+<p>Factory for utilities with directional variants:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L459" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="directionalscaledutility" class="level3">
+<h3 class="anchored" data-anchor-id="directionalscaledutility">DirectionalScaledUtility</h3>
+<blockquote class="blockquote">
+<pre><code> DirectionalScaledUtility (prefix:str, direction:Optional[str],
+                           config:__main__.ScaleConfig,
+                           negative:bool=False)</code></pre>
+</blockquote>
+<p><em>Directional utility with scale support.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prefix</td>
+<td>str</td>
+<td></td>
+<td>The base utility prefix (e.g., ‘p’ for padding)</td>
+</tr>
+<tr class="even">
+<td>direction</td>
+<td>Optional</td>
+<td></td>
+<td>The direction suffix (‘t’, ‘r’, ‘b’, ‘l’, ‘x’, ‘y’)</td>
+</tr>
+<tr class="odd">
+<td>config</td>
+<td>ScaleConfig</td>
+<td></td>
+<td>Configuration defining valid scales and values</td>
+</tr>
+<tr class="even">
+<td>negative</td>
+<td>bool</td>
+<td>False</td>
+<td>Whether this is a negative variant</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L477" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="directionalscaledfactory" class="level3">
+<h3 class="anchored" data-anchor-id="directionalscaledfactory">DirectionalScaledFactory</h3>
+<blockquote class="blockquote">
+<pre><code> DirectionalScaledFactory (prefix:str, config:__main__.ScaleConfig,
+                           doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Factory for creating directional scaled utilities.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prefix</td>
+<td>str</td>
+<td></td>
+<td>The base utility prefix (e.g., ‘p’ for padding, ‘m’ for margin)</td>
+</tr>
+<tr class="even">
+<td>config</td>
+<td>ScaleConfig</td>
+<td></td>
+<td>Configuration defining valid scales and values</td>
+</tr>
+<tr class="odd">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>Optional documentation string</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="pre-configured-scale-configs" class="level2">
+<h2 class="anchored" data-anchor-id="pre-configured-scale-configs">Pre-configured Scale Configs</h2>
+<p>Common scale configurations for different utility types:</p>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p>Test the scale builders with various configurations:</p>
+<div id="2728a0b0-e80a-4c44-83e0-1da5c4e7f7f4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test basic numeric scales</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> ScaledFactory(<span class="st">"w"</span>, SIZE_CONFIG)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"w-4"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="fl">2.5</span>)) <span class="op">==</span> <span class="st">"w-2.5"</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="dv">0</span>)) <span class="op">==</span> <span class="st">"w-0"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e4723be4-91b2-4ebf-841f-48ab81709380" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test fraction support</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="st">"1/2"</span>)) <span class="op">==</span> <span class="st">"w-1/2"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="st">"3/4"</span>)) <span class="op">==</span> <span class="st">"w-3/4"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="st">"2/3"</span>)) <span class="op">==</span> <span class="st">"w-2/3"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="31420490-436d-4f41-9dab-a6aedd0c1cce" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test named scales</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.xs) <span class="op">==</span> <span class="st">"w-xs"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.sm) <span class="op">==</span> <span class="st">"w-sm"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.lg) <span class="op">==</span> <span class="st">"w-lg"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w._2xl) <span class="op">==</span> <span class="st">"w-2xl"</span>  <span class="co"># Python identifiers can't start with numbers</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4rqj7yff0et" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test ScaledFactory tab-completion for special values and named scales</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> ScaledFactory(<span class="st">"w"</span>, SIZE_CONFIG)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test special values have properties for tab-completion</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'auto'</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'px'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'full'</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'screen'</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'min'</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'max'</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify these are properties</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(w).auto, <span class="bu">property</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(w).full, <span class="bu">property</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(w).screen, <span class="bu">property</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Test named scales have properties for tab-completion  </span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'_3xs'</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'_2xs'</span>)</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'xs'</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'sm'</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'md'</span>)</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'lg'</span>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'xl'</span>)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'_2xl'</span>)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(w, <span class="st">'_7xl'</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify named scales are properties</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(w).xs, <span class="bu">property</span>)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(w).lg, <span class="bu">property</span>)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(w)._2xl, <span class="bu">property</span>)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Test that they work correctly</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.auto) <span class="op">==</span> <span class="st">"w-auto"</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.full) <span class="op">==</span> <span class="st">"w-full"</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.xs) <span class="op">==</span> <span class="st">"w-xs"</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w._2xl) <span class="op">==</span> <span class="st">"w-2xl"</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Test negative factory tab-completion</span></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> DirectionalScaledFactory(<span class="st">"m"</span>, SPACING_CONFIG)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(m.negative, <span class="st">'px'</span>)</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(m.negative).px, <span class="bu">property</span>)</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(m.negative.px) <span class="op">==</span> <span class="st">"-m-px"</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ ScaledFactory tab-completion tests passed!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ ScaledFactory tab-completion tests passed!</code></pre>
+</div>
+</div>
+<div id="0c09423e-2187-40ed-8daa-70aa99060122" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test special values</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.auto) <span class="op">==</span> <span class="st">"w-auto"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.full) <span class="op">==</span> <span class="st">"w-full"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.screen) <span class="op">==</span> <span class="st">"w-screen"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w.px) <span class="op">==</span> <span class="st">"w-px"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="b927d2d6-36aa-4381-bd39-92788ad02eb0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test arbitrary values</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="st">"10px"</span>)) <span class="op">==</span> <span class="st">"w-[10px]"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="st">"2.5rem"</span>)) <span class="op">==</span> <span class="st">"w-[2.5rem]"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="st">"calc(100% - 20px)"</span>)) <span class="op">==</span> <span class="st">"w-[calc(100% - 20px)]"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="1002ad75-e978-4780-b468-345364711b3c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test custom properties</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(w(<span class="st">"--custom-width"</span>)) <span class="op">==</span> <span class="st">"w-(--custom-width)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="test-directional-scales" class="level3">
+<h3 class="anchored" data-anchor-id="test-directional-scales">Test Directional Scales</h3>
+<div id="72cf9bc9-19a1-441e-ba83-793f27b25300" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test directional factory</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> DirectionalScaledFactory(<span class="st">"p"</span>, SPACING_CONFIG)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test all directions</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"p-4"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.t(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"pt-4"</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.r(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"pr-4"</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.b(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"pb-4"</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.l(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"pl-4"</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.x(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"px-4"</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.y(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"py-4"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="302c2735-2364-4bf1-9c6f-07749d12aeba" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test directional with special values</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.x.auto) <span class="op">==</span> <span class="st">"px-auto"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(p.y(<span class="dv">0</span>)) <span class="op">==</span> <span class="st">"py-0"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="test-negative-values" class="level3">
+<h3 class="anchored" data-anchor-id="test-negative-values">Test Negative Values</h3>
+<div id="4ad412b3-1028-407f-9983-3f713e18f900" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test margin with negative values</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> DirectionalScaledFactory(<span class="st">"m"</span>, SPACING_CONFIG)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test negative numeric values</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(m(<span class="dv">4</span>, negative<span class="op">=</span><span class="va">True</span>)) <span class="op">==</span> <span class="st">"-m-4"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(m.negative(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"-m-4"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(m.t.negative(<span class="dv">2</span>)) <span class="op">==</span> <span class="st">"-mt-2"</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(m.x.negative(<span class="dv">8</span>)) <span class="op">==</span> <span class="st">"-mx-8"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c240ad15-a08d-4307-a40b-b284c7d9ec5c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test negative special values</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(m.negative.px) <span class="op">==</span> <span class="st">"-m-px"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(m.x.negative.px) <span class="op">==</span> <span class="st">"-mx-px"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="test-inset-with-negative-values" class="level3">
+<h3 class="anchored" data-anchor-id="test-inset-with-negative-values">Test Inset with Negative Values</h3>
+<div id="1747e9e5-d9b0-4982-926a-eebe12fb8201" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test inset (top/right/bottom/left)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>inset <span class="op">=</span> DirectionalScaledFactory(<span class="st">"inset"</span>, INSET_CONFIG)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Regular values</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(inset(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"inset-4"</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(inset(<span class="st">"1/2"</span>)) <span class="op">==</span> <span class="st">"inset-1/2"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(inset.auto) <span class="op">==</span> <span class="st">"inset-auto"</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(inset.full) <span class="op">==</span> <span class="st">"inset-full"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Negative values</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(inset.negative(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"-inset-4"</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(inset.negative(<span class="st">"1/2"</span>)) <span class="op">==</span> <span class="st">"-inset-1/2"</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(inset.negative.full) <span class="op">==</span> <span class="st">"-inset-full"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="test-all-fractions" class="level3">
+<h3 class="anchored" data-anchor-id="test-all-fractions">Test All Fractions</h3>
+<div id="9d55ca87-c286-4677-9494-b744e7fd28c4" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show all generated fractions</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Generated fractions:"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(FRACTIONS)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generated fractions:
+['1/12', '2/12', '1/6', '1/5', '1/4', '3/12', '4/12', '1/3', '2/6', '2/5', '5/12', '6/12', '1/2', '3/6', '2/4', '7/12', '3/5', '2/3', '8/12', '4/6', '9/12', '3/4', '4/5', '5/6', '10/12', '11/12']</code></pre>
+</div>
+</div>
+<div id="0381ba64-2b02-41b0-bda8-a6296ed1fb39" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test fraction edge cases</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> ScaledFactory(<span class="st">"h"</span>, SIZE_CONFIG)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(h(<span class="st">"1/2"</span>)) <span class="op">==</span> <span class="st">"h-1/2"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(h(<span class="st">"1/3"</span>)) <span class="op">==</span> <span class="st">"h-1/3"</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(h(<span class="st">"2/3"</span>)) <span class="op">==</span> <span class="st">"h-2/3"</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(h(<span class="st">"1/4"</span>)) <span class="op">==</span> <span class="st">"h-1/4"</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(h(<span class="st">"3/4"</span>)) <span class="op">==</span> <span class="st">"h-3/4"</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(h(<span class="st">"1/6"</span>)) <span class="op">==</span> <span class="st">"h-1/6"</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(h(<span class="st">"5/6"</span>)) <span class="op">==</span> <span class="st">"h-5/6"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="test-class-combination" class="level3">
+<h3 class="anchored" data-anchor-id="test-class-combination">Test Class Combination</h3>
+<div id="d4707547-7509-4b2d-a20a-8a04794f05d0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test combining multiple utilities</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cjm_fasthtml_tailwind.core.base <span class="im">import</span> combine_classes</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> ScaledFactory(<span class="st">"w"</span>, SIZE_CONFIG)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> ScaledFactory(<span class="st">"h"</span>, SIZE_CONFIG)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> DirectionalScaledFactory(<span class="st">"p"</span>, SPACING_CONFIG)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> DirectionalScaledFactory(<span class="st">"m"</span>, SPACING_CONFIG)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create various utilities</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>w_util <span class="op">=</span> w(<span class="dv">32</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>h_util <span class="op">=</span> h.full</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>p_util <span class="op">=</span> p.x(<span class="dv">4</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>m_util <span class="op">=</span> m.y.auto</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine them</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> combine_classes(w_util, h_util, p_util, m_util, <span class="st">"flex"</span>, <span class="st">"items-center"</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> classes <span class="op">==</span> <span class="st">"w-32 h-full px-4 my-auto flex items-center"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="helper-functions" class="level2">
+<h2 class="anchored" data-anchor-id="helper-functions">Helper Functions</h2>
+<p>Utility functions for working with scales:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L618" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="list_scale_values" class="level3">
+<h3 class="anchored" data-anchor-id="list_scale_values">list_scale_values</h3>
+<blockquote class="blockquote">
+<pre><code> list_scale_values (config:__main__.ScaleConfig)</code></pre>
+</blockquote>
+<p><em>List all possible values for a scale configuration.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>config</td>
+<td>ScaleConfig</td>
+<td>The scale configuration to extract values from</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>Dict</strong></td>
+<td><strong>Dictionary mapping scale types to their values</strong></td>
+</tr>
+</tbody>
+</table>
+<div id="c3bda3ae-c0ab-4b6a-a393-bf269225543d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test listing scale values</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>size_values <span class="op">=</span> list_scale_values(SIZE_CONFIG)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Size scale has </span><span class="sc">{</span><span class="bu">len</span>(size_values[<span class="st">'numeric'</span>])<span class="sc">}</span><span class="ss"> numeric values"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Size scale has </span><span class="sc">{</span><span class="bu">len</span>(size_values[<span class="st">'fractions'</span>])<span class="sc">}</span><span class="ss"> fraction values"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Named sizes: </span><span class="sc">{</span>size_values[<span class="st">'named'</span>][:<span class="dv">5</span>]<span class="sc">}</span><span class="ss">..."</span>)  <span class="co"># First 5</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Special sizes: </span><span class="sc">{</span>size_values[<span class="st">'special'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Size scale has 97 numeric values
+Size scale has 26 fraction values
+Named sizes: ['3xs', '2xs', 'xs', 'sm', 'md']...
+Special sizes: ['auto', 'px', 'full', 'screen', 'svw', 'svh', 'lvw', 'lvh', 'dvw', 'dvh', 'min', 'max', 'fit', 'lh']</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="simple-factory" class="level2">
+<h2 class="anchored" data-anchor-id="simple-factory">Simple Factory</h2>
+<p>A factory for utilities that use simple string values with dot notation access:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L648" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="simplefactory" class="level3">
+<h3 class="anchored" data-anchor-id="simplefactory">SimpleFactory</h3>
+<blockquote class="blockquote">
+<pre><code> SimpleFactory (values_dict:Optional[Dict[str,str]]=None,
+                doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Factory for utilities that are simple string values with modifier support.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>values_dict</td>
+<td>Optional</td>
+<td>None</td>
+<td>Dictionary mapping attribute names to CSS values</td>
+</tr>
+<tr class="even">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>Optional documentation string</td>
+</tr>
+</tbody>
+</table>
+<div id="893709a9-d47b-4cc7-9685-585488436004" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test SimpleFactory with modifier support</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>test_values <span class="op">=</span> {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"auto"</span>: <span class="st">"auto-value"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"none"</span>: <span class="st">"none-value"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"multi-word"</span>: <span class="st">"multi-word-value"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>factory <span class="op">=</span> SimpleFactory(test_values)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Test basic access (now returns utilities)</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.auto) <span class="op">==</span> <span class="st">"auto-value"</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.none) <span class="op">==</span> <span class="st">"none-value"</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.multi_word) <span class="op">==</span> <span class="st">"multi-word-value"</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with modifiers</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.auto.hover) <span class="op">==</span> <span class="st">"hover:auto-value"</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.none.md) <span class="op">==</span> <span class="st">"md:none-value"</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.multi_word.dark) <span class="op">==</span> <span class="st">"dark:multi-word-value"</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Test chained modifiers</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.auto.hover.lg) <span class="op">==</span> <span class="st">"lg:hover:auto-value"</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(factory.none.dark.focus) <span class="op">==</span> <span class="st">"focus:dark:none-value"</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Test that cached instances work correctly</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>auto1 <span class="op">=</span> factory.auto</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>auto2 <span class="op">=</span> factory.auto</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> auto1 <span class="kw">is</span> auto2  <span class="co"># Should be the same cached instance</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Test tab-completion attributes are present</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(factory, <span class="st">'auto'</span>)</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(factory, <span class="st">'none'</span>)</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(factory, <span class="st">'multi_word'</span>)</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify these are properties</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(factory).auto, <span class="bu">property</span>)</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(factory).none, <span class="bu">property</span>)</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(factory).multi_word, <span class="bu">property</span>)</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ SimpleFactory with modifiers and tab-completion tests passed!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ SimpleFactory with modifiers and tab-completion tests passed!</code></pre>
+</div>
+</div>
+<div id="r6ae9nui94r" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test SimpleFactory subclasses with tab-completion support</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestSubFactory(SimpleFactory):</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test subclass of SimpleFactory."""</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        test_values <span class="op">=</span> {</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"option1"</span>: <span class="st">"test-option1"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"option2"</span>: <span class="st">"test-option2"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"multi-word"</span>: <span class="st">"test-multi-word"</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(test_values, <span class="st">"Test subclass factory"</span>)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create instance and test</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>sub_factory <span class="op">=</span> TestSubFactory()</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Test basic access</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(sub_factory.option1) <span class="op">==</span> <span class="st">"test-option1"</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(sub_factory.option2) <span class="op">==</span> <span class="st">"test-option2"</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(sub_factory.multi_word) <span class="op">==</span> <span class="st">"test-multi-word"</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Test tab-completion attributes are present</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(sub_factory, <span class="st">'option1'</span>)</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(sub_factory, <span class="st">'option2'</span>)</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">hasattr</span>(sub_factory, <span class="st">'multi_word'</span>)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify these are properties</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(sub_factory).option1, <span class="bu">property</span>)</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(sub_factory).option2, <span class="bu">property</span>)</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">isinstance</span>(<span class="bu">type</span>(sub_factory).multi_word, <span class="bu">property</span>)</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Test with modifiers</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(sub_factory.option1.hover) <span class="op">==</span> <span class="st">"hover:test-option1"</span></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">str</span>(sub_factory.option2.md) <span class="op">==</span> <span class="st">"md:test-option2"</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"✅ SimpleFactory subclass with tab-completion tests passed!"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✅ SimpleFactory subclass with tab-completion tests passed!</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/builders/scales.py#L813" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="enums_to_simple_factory" class="level3">
+<h3 class="anchored" data-anchor-id="enums_to_simple_factory">enums_to_simple_factory</h3>
+<blockquote class="blockquote">
+<pre><code> enums_to_simple_factory (prefix:str, src_enums:List[enum.Enum],
+                          doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Create a SimpleFactory using a string prefix and the values from a list of enums</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prefix</td>
+<td>str</td>
+<td></td>
+<td>The factory prefix</td>
+</tr>
+<tr class="even">
+<td>src_enums</td>
+<td>List</td>
+<td></td>
+<td>The source enums</td>
+</tr>
+<tr class="odd">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>The factory docstring.</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>SimpleFactory</strong></td>
+<td></td>
+<td><strong>The resulting simple factory</strong></td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/cj-mills\.github\.io\/cjm-fasthtml-tailwind");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
