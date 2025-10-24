@@ -93,119 +93,119 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
-    cli_display --> cli_utils
-    cli_display --> cli_pattern_scanner
-    cli_display --> cli_helper_discovery
     cli_display --> cli_cli_config
-    cli_display --> cli_imports
+    cli_display --> cli_utils
     cli_display --> cli_factory_extraction
-    cli_display --> cli_core_utils_discovery
+    cli_display --> cli_pattern_scanner
     cli_display --> cli_example_discovery
-    cli_display --> cli_search
+    cli_display --> cli_imports
+    cli_display --> cli_core_utils_discovery
     cli_display --> cli_test_code
+    cli_display --> cli_helper_discovery
+    cli_display --> cli_search
+    cli_dynamic_examples --> cli_cli_config
     cli_dynamic_examples --> cli_display
     cli_dynamic_examples --> cli_utils
-    cli_dynamic_examples --> cli_pattern_scanner
-    cli_dynamic_examples --> cli_helper_discovery
-    cli_dynamic_examples --> cli_cli_config
     cli_dynamic_examples --> cli_factory_extraction
-    cli_dynamic_examples --> cli_core_utils_discovery
+    cli_dynamic_examples --> cli_pattern_scanner
     cli_dynamic_examples --> cli_example_discovery
-    cli_dynamic_examples --> cli_search
-    cli_dynamic_examples --> cli_test_code
     cli_dynamic_examples --> cli_imports
+    cli_dynamic_examples --> cli_core_utils_discovery
+    cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_helper_discovery
+    cli_dynamic_examples --> cli_search
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_display
-    cli_explorer --> cli_dynamic_examples
-    cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_cli_config
-    cli_explorer --> cli_search
+    cli_explorer --> cli_display
+    cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_dynamic_examples
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_search
     cli_explorer --> cli_utils
-    cli_factory_extraction --> core_base
     cli_factory_extraction --> cli_utils
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_utils
-    cli_imports --> cli_helper_discovery
     cli_imports --> cli_cli_config
+    cli_imports --> cli_utils
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_helper_discovery
     cli_imports --> cli_factory_extraction
     cli_pattern_scanner --> cli_cli_config
     cli_pattern_scanner --> cli_example_discovery
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
     cli_search --> cli_factory_extraction
-    cli_test_code --> cli_utils
-    cli_test_code --> cli_helper_discovery
+    cli_search --> cli_example_discovery
     cli_test_code --> cli_cli_config
+    cli_test_code --> cli_utils
     cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_helper_discovery
     cli_utils --> cli_cli_config
     core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_spacing
-    core_testing --> core_resources
-    core_testing --> utilities_sizing
     core_testing --> utilities_layout
+    core_testing --> utilities_spacing
     core_testing --> utilities_borders
-    core_testing --> utilities_effects
-    core_testing --> utilities_backgrounds
     core_testing --> utilities_typography
-    core_testing --> utilities_accessibility
+    core_testing --> utilities_backgrounds
     core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_sizing
+    core_testing --> core_resources
+    core_testing --> utilities_effects
+    core_testing --> utilities_accessibility
     core_testing --> core_base
-    utilities_accessibility --> core_base
-    utilities_accessibility --> core_testing
     utilities_accessibility --> builders_scales
+    utilities_accessibility --> core_testing
+    utilities_accessibility --> core_base
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_scales
-    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_testing
+    utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
-    utilities_borders --> builders_scales
-    utilities_borders --> builders_colors
     utilities_borders --> core_testing
+    utilities_borders --> builders_colors
+    utilities_borders --> builders_scales
     utilities_effects --> core_base
-    utilities_effects --> builders_scales
-    utilities_effects --> builders_colors
     utilities_effects --> core_testing
-    utilities_filters --> builders_colors
+    utilities_effects --> builders_colors
+    utilities_effects --> builders_scales
     utilities_filters --> core_base
-    utilities_filters --> builders_scales
+    utilities_filters --> builders_colors
     utilities_filters --> core_testing
+    utilities_filters --> builders_scales
     utilities_flexbox_and_grid --> core_base
-    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_testing
+    utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_base
-    utilities_interactivity --> builders_scales
-    utilities_interactivity --> builders_colors
     utilities_interactivity --> core_testing
+    utilities_interactivity --> builders_colors
+    utilities_interactivity --> builders_scales
     utilities_layout --> core_base
-    utilities_layout --> builders_scales
     utilities_layout --> core_testing
-    utilities_sizing --> core_base
-    utilities_sizing --> core_testing
+    utilities_layout --> builders_scales
     utilities_sizing --> builders_scales
+    utilities_sizing --> core_testing
+    utilities_sizing --> core_base
+    utilities_spacing --> core_testing
     utilities_spacing --> core_base
     utilities_spacing --> builders_scales
-    utilities_spacing --> core_testing
     utilities_svg --> core_base
-    utilities_svg --> builders_scales
     utilities_svg --> builders_colors
     utilities_svg --> core_testing
+    utilities_svg --> builders_scales
+    utilities_tables --> core_testing
     utilities_tables --> core_base
     utilities_tables --> builders_scales
-    utilities_tables --> core_testing
     utilities_transforms --> core_base
-    utilities_transforms --> builders_scales
     utilities_transforms --> core_testing
-    utilities_transitions_and_animation --> builders_scales
+    utilities_transforms --> builders_scales
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> core_testing
-    utilities_typography --> core_base
+    utilities_transitions_and_animation --> builders_scales
+    utilities_typography --> core_testing
     utilities_typography --> builders_scales
     utilities_typography --> builders_colors
-    utilities_typography --> core_testing
+    utilities_typography --> core_base
 ```
 
 *116 cross-module dependencies detected*
@@ -748,132 +748,132 @@ class ModifierMixin:
     
     def hover(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with hover state modifier applied
         "Apply hover modifier."
     
     def focus(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with focus state modifier applied
         "Apply focus modifier."
     
     def active(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with active state modifier applied
         "Apply active modifier."
     
     def visited(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with visited state modifier applied
         "Apply visited modifier."
     
     def disabled(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with disabled state modifier applied
         "Apply disabled modifier."
     
     def checked(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with checked state modifier applied
         "Apply checked modifier."
     
     def required(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with required state modifier applied
         "Apply required modifier."
     
     def invalid(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with invalid state modifier applied
         "Apply invalid modifier."
     
     def valid(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with valid state modifier applied
         "Apply valid modifier."
     
     def before(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with before pseudo-element modifier applied
         "Apply before pseudo-element modifier."
     
     def after(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with after pseudo-element modifier applied
         "Apply after pseudo-element modifier."
     
     def placeholder(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with placeholder modifier applied
         "Apply placeholder modifier."
     
     def selection(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with selection modifier applied
         "Apply selection modifier."
     
     def sm(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with small breakpoint modifier applied
         "Apply small breakpoint modifier."
     
     def max_sm(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with max-sm breakpoint modifier applied
         "Apply max small breakpoint modifier variant."
     
     def md(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with medium breakpoint modifier applied
         "Apply medium breakpoint modifier."
     
     def max_md(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with max-md breakpoint modifier applied
         "Apply max medium breakpoint modifier variant."
     
     def lg(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with large breakpoint modifier applied
         "Apply large breakpoint modifier."
     
     def xl(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with extra large breakpoint modifier applied
         "Apply extra large breakpoint modifier."
     
     def dark(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with dark mode modifier applied
         "Apply dark mode modifier."
     
     def motion_reduce(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with reduced motion modifier applied
         "Apply reduced motion modifier."
     
     def motion_safe(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with safe motion modifier applied
         "Apply safe motion modifier."
     
     def first(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with first child modifier applied
         "Apply first child modifier."
     
     def last(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with last child modifier applied
         "Apply last child modifier."
     
     def odd(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with odd child modifier applied
         "Apply odd child modifier."
     
     def even(
             self
-        ) -> 'BaseUtility':  # TODO: Add return description
+        ) -> 'BaseUtility':  # Utility with even child modifier applied
         "Apply even child modifier."
     
     def group(
@@ -1641,19 +1641,19 @@ def test_colors_modifier_examples()
 
 ``` python
 def get_all_color_families(
-) -> List[str]:  # TODO: Add return description
+) -> List[str]:  # List of all color family names
     "Get list of all Tailwind color family names."
 ```
 
 ``` python
 def get_all_shades(
-) -> List[str]:  # TODO: Add return description
+) -> List[str]:  # List of all shade values
     "Get list of all Tailwind shade values."
 ```
 
 ``` python
 def get_all_color_specs(
-) -> List[str]:  # TODO: Add return description
+) -> List[str]:  # List of all valid color-shade combinations
     "Get list of all valid color-shade combinations."
 ```
 

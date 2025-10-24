@@ -584,19 +584,19 @@ test_colors_modifier_examples()
 
 # %% ../../nbs/builders/colors.ipynb 41
 def get_all_color_families(
-) -> List[str]:  # TODO: Add return description
+) -> List[str]:  # List of all color family names
     """Get list of all Tailwind color family names."""
     return [c.value for c in ColorFamily]
 
 # %% ../../nbs/builders/colors.ipynb 42
 def get_all_shades(
-) -> List[str]:  # TODO: Add return description
+) -> List[str]:  # List of all shade values
     """Get list of all Tailwind shade values."""
     return [s.value for s in ColorShade]
 
 # %% ../../nbs/builders/colors.ipynb 43
 def get_all_color_specs(
-) -> List[str]:  # TODO: Add return description
+) -> List[str]:  # List of all valid color-shade combinations
     """Get list of all valid color-shade combinations."""
     specs = []
     for family in ColorFamily:

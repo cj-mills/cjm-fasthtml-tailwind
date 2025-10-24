@@ -166,63 +166,63 @@ class ModifierMixin:
     @property
     def hover(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with hover state modifier applied
         """Apply hover modifier."""
         return self.with_modifiers("hover")
     
     @property
     def focus(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with focus state modifier applied
         """Apply focus modifier."""
         return self.with_modifiers("focus")
     
     @property
     def active(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with active state modifier applied
         """Apply active modifier."""
         return self.with_modifiers("active")
     
     @property
     def visited(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with visited state modifier applied
         """Apply visited modifier."""
         return self.with_modifiers("visited")
     
     @property
     def disabled(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with disabled state modifier applied
         """Apply disabled modifier."""
         return self.with_modifiers("disabled")
     
     @property
     def checked(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with checked state modifier applied
         """Apply checked modifier."""
         return self.with_modifiers("checked")
     
     @property
     def required(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with required state modifier applied
         """Apply required modifier."""
         return self.with_modifiers("required")
     
     @property
     def invalid(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with invalid state modifier applied
         """Apply invalid modifier."""
         return self.with_modifiers("invalid")
     
     @property
     def valid(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with valid state modifier applied
         """Apply valid modifier."""
         return self.with_modifiers("valid")
     
@@ -230,28 +230,28 @@ class ModifierMixin:
     @property
     def before(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with before pseudo-element modifier applied
         """Apply before pseudo-element modifier."""
         return self.with_modifiers("before")
     
     @property
     def after(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with after pseudo-element modifier applied
         """Apply after pseudo-element modifier."""
         return self.with_modifiers("after")
     
     @property
     def placeholder(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with placeholder modifier applied
         """Apply placeholder modifier."""
         return self.with_modifiers("placeholder")
     
     @property
     def selection(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with selection modifier applied
         """Apply selection modifier."""
         return self.with_modifiers("selection")
     
@@ -259,49 +259,49 @@ class ModifierMixin:
     @property
     def sm(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with small breakpoint modifier applied
         """Apply small breakpoint modifier."""
         return self.with_modifiers("sm")
 
     @property
     def max_sm(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with max-sm breakpoint modifier applied
         """Apply max small breakpoint modifier variant."""
         return self.with_modifiers("max-sm")
     
     @property
     def md(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with medium breakpoint modifier applied
         """Apply medium breakpoint modifier."""
         return self.with_modifiers("md")
 
     @property
     def max_md(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with max-md breakpoint modifier applied
         """Apply max medium breakpoint modifier variant."""
         return self.with_modifiers("max-md")
     
     @property
     def lg(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with large breakpoint modifier applied
         """Apply large breakpoint modifier."""
         return self.with_modifiers("lg")
     
     @property
     def xl(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with extra large breakpoint modifier applied
         """Apply extra large breakpoint modifier."""
         return self.with_modifiers("xl")
     
     @property
     def _2xl(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with 2xl breakpoint modifier applied
         """Apply 2xl breakpoint modifier."""
         return self.with_modifiers("2xl")
     
@@ -309,7 +309,7 @@ class ModifierMixin:
     @property
     def dark(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with dark mode modifier applied
         """Apply dark mode modifier."""
         return self.with_modifiers("dark")
     
@@ -317,14 +317,14 @@ class ModifierMixin:
     @property
     def motion_reduce(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with reduced motion modifier applied
         """Apply reduced motion modifier."""
         return self.with_modifiers("motion-reduce")
     
     @property
     def motion_safe(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with safe motion modifier applied
         """Apply safe motion modifier."""
         return self.with_modifiers("motion-safe")
     
@@ -332,28 +332,28 @@ class ModifierMixin:
     @property
     def first(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with first child modifier applied
         """Apply first child modifier."""
         return self.with_modifiers("first")
     
     @property
     def last(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with last child modifier applied
         """Apply last child modifier."""
         return self.with_modifiers("last")
     
     @property
     def odd(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with odd child modifier applied
         """Apply odd child modifier."""
         return self.with_modifiers("odd")
     
     @property
     def even(
         self
-    ) -> 'BaseUtility':  # TODO: Add return description
+    ) -> 'BaseUtility':  # Utility with even child modifier applied
         """Apply even child modifier."""
         return self.with_modifiers("even")
     
