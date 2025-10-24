@@ -10,6 +10,7 @@ __all__ = ['add_modules_parser', 'add_factories_parser', 'add_factory_parser', '
            'create_example_usage_flow', 'create_help_epilogue', 'setup_argument_parser', 'main']
 
 # %% ../../nbs/cli/explorer.ipynb 3
+import argparse
 from typing import Optional
 from .utils import load_code_from_file
 from .search import search_all
@@ -35,16 +36,16 @@ from cjm_fasthtml_tailwind.cli.dynamic_examples import (
 
 # %% ../../nbs/cli/explorer.ipynb 7
 def add_modules_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'modules' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'modules' command
     """Add the 'modules' command parser."""
     return subparsers.add_parser('modules', help='List all utility modules')
 
 # %% ../../nbs/cli/explorer.ipynb 8
 def add_factories_parser(
-    subparsers,  # TODO: Add type hint and description
+    subparsers:argparse._SubParsersAction, # Subparsers object to add the 'factories' command to
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+) -> argparse.ArgumentParser: # Argument parser for the 'factories' command
     """Add the 'factories' command parser."""
     if config is None:
         config = get_active_config()
@@ -74,8 +75,8 @@ def add_factories_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 9
 def add_factory_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'factory' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'factory' command
     """Add the 'factory' command parser."""
     parser = subparsers.add_parser('factory', help='Show detailed info for a specific factory')
     
@@ -97,8 +98,8 @@ def add_factory_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 10
 def add_examples_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'examples' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'examples' command
     """Add the 'examples' command parser."""
     parser = subparsers.add_parser('examples', help='Show usage examples')
     parser.add_argument(
@@ -110,8 +111,8 @@ def add_examples_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 11
 def add_example_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'example' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'example' command
     """Add the 'example' command parser."""
     parser = subparsers.add_parser('example', help='Show source code for a specific example')
     
@@ -133,8 +134,8 @@ def add_example_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 12
 def add_helpers_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'helpers' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'helpers' command
     """Add the 'helpers' command parser."""
     parser = subparsers.add_parser('helpers', help='Show helper functions')
     parser.add_argument(
@@ -146,8 +147,8 @@ def add_helpers_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 13
 def add_helper_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'helper' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'helper' command
     """Add the 'helper' command parser."""
     parser = subparsers.add_parser('helper', help='Show source code for a specific helper')
     
@@ -169,8 +170,8 @@ def add_helper_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 14
 def add_search_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'search' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'search' command
     """Add the 'search' command parser."""
     # Get dynamic examples
     example_factories = get_example_factories(limit=2)
@@ -238,9 +239,9 @@ def add_search_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 15
 def add_test_code_parser(
-    subparsers,  # TODO: Add type hint and description
+    subparsers:argparse._SubParsersAction, # Subparsers object to add the 'test-code' command to
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+) -> argparse.ArgumentParser: # Argument parser for the 'test-code' command
     """Add the 'test-code' command parser."""
     if config is None:
         config = get_active_config()
@@ -331,15 +332,15 @@ def add_test_code_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 16
 def add_core_utils_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'core-utils' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'core-utils' command
     """Add the 'core-utils' command parser."""
     return subparsers.add_parser('core-utils', help='List core utility functions')
 
 # %% ../../nbs/cli/explorer.ipynb 17
 def add_core_util_parser(
-    subparsers  # TODO: Add type hint and description
-): # TODO: Add type hint
+    subparsers:argparse._SubParsersAction # Subparsers object to add the 'core-util' command to
+) -> argparse.ArgumentParser: # Argument parser for the 'core-util' command
     """Add the 'core-util' command parser."""
     parser = subparsers.add_parser('core-util', help='Show source code for a core utility')
     
@@ -355,9 +356,9 @@ def add_core_util_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 18
 def add_imports_parser(
-    subparsers,  # TODO: Add type hint and description
+    subparsers:argparse._SubParsersAction, # Subparsers object to add the 'imports' command to
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+) -> argparse.ArgumentParser: # Argument parser for the 'imports' command
     """Add the 'imports' command parser."""
     if config is None:
         config = get_active_config()
@@ -394,9 +395,9 @@ def add_imports_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 20
 def add_scan_parser(
-    subparsers,  # TODO: Add type hint and description
+    subparsers:argparse._SubParsersAction, # Subparsers object to add the 'scan' command to
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+) -> argparse.ArgumentParser: # Argument parser for the 'scan' command
     """Add the 'scan' command parser."""
     if config is None:
         config = get_active_config()
@@ -472,8 +473,8 @@ def add_scan_parser(
 
 # %% ../../nbs/cli/explorer.ipynb 21
 def dispatch_command(
-    args  # TODO: Add type hint and description
-): # TODO: Add type hint
+    args:argparse.Namespace # Parsed command-line arguments
+): # Dispatches to the appropriate command handler
     """Dispatch the parsed arguments to the appropriate handler."""
     if args.command == 'modules':
         display_modules()
@@ -525,8 +526,8 @@ def dispatch_command(
 
 # %% ../../nbs/cli/explorer.ipynb 22
 def handle_search_command(
-    args  # TODO: Add type hint and description
-): # TODO: Add type hint
+    args:argparse.Namespace # Parsed command-line arguments for the search command
+): # Executes the search command with the provided arguments
     """Handle the search command."""
     # Determine which content types to search
     if args.search_in == 'all':
@@ -547,9 +548,9 @@ def handle_search_command(
 
 # %% ../../nbs/cli/explorer.ipynb 23
 def handle_test_code_command(
-    args,  # TODO: Add type hint and description
+    args:argparse.Namespace, # Parsed command-line arguments for the test-code command
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+): # Executes the test-code command with the provided arguments
     """Handle the test-code command."""
     if config is None:
         config = get_active_config()
@@ -582,8 +583,8 @@ def handle_test_code_command(
 
 # %% ../../nbs/cli/explorer.ipynb 25
 def handle_scan_command(
-    args  # TODO: Add type hint and description
-): # TODO: Add type hint
+    args:argparse.Namespace # Parsed command-line arguments for the scan command
+): # Executes the scan command with the provided arguments
     """Handle the scan command."""
     # Determine input type
     input_type = None
@@ -608,7 +609,7 @@ def handle_scan_command(
 # %% ../../nbs/cli/explorer.ipynb 26
 def create_help_description(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-):
+) -> str: # Comprehensive description string for the CLI tool's help message
     """Create a comprehensive description for the CLI tool's help message"""
     if config is None:
         config = get_active_config()
@@ -641,7 +642,7 @@ All information is dynamically extracted from the library itself - nothing is ha
 # %% ../../nbs/cli/explorer.ipynb 27
 def create_example_usage_flow(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-):
+) -> str: # Formatted example usage flow string with aligned comments
     """Create an example usage flow"""
     if config is None:
         config = get_active_config()
@@ -676,7 +677,7 @@ def create_example_usage_flow(
 # %% ../../nbs/cli/explorer.ipynb 28
 def create_help_epilogue(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-):
+) -> str: # Comprehensive epilogue string for the CLI tool's help message
     """Create a comprehensive epilogue for the CLI tool's help message"""
     if config is None:
         config = get_active_config()
@@ -731,7 +732,7 @@ Example Usage Flow:
 # %% ../../nbs/cli/explorer.ipynb 30
 def setup_argument_parser(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+) -> argparse.ArgumentParser: # Configured argument parser with all subcommands
     """Set up the main argument parser with all subcommands."""
     if config is None:
         config = get_active_config()
@@ -769,8 +770,7 @@ def setup_argument_parser(
 # %% ../../nbs/cli/explorer.ipynb 32
 import argparse
 
-def main(
-): # TODO: Add type hint
+def main() -> None: # Executes the CLI with parsed arguments
     """CLI entry point for exploring cjm-fasthtml-tailwind utilities."""
     # Set up the argument parser
     parser = setup_argument_parser()
