@@ -44,22 +44,21 @@ class LibraryConfig:
     
     def get_test_function_pattern(
         self,
-        module_name: str,  # TODO: Add description
-        feature: str  # TODO: Add description
-    ) -> str:  # TODO: Add return description
+        module_name:str, # Name of the module (e.g., 'spacing', 'sizing')
+        feature:str # Feature name (e.g., 'basic', 'directional')
+    ) -> str: # Test function name pattern (e.g., 'test_spacing_basic_examples')
         """Get the expected test function name for a module and feature."""
         return f"{self.test_pattern_prefix}{module_name}_{feature}_{self.test_pattern_suffix}"
     
     def get_helper_test_function(
         self,
-        module_name: str  # TODO: Add description
-    ) -> str:  # TODO: Add return description
+        module_name:str # Name of the module (e.g., 'spacing', 'sizing')
+    ) -> str: # Helper test function name (e.g., 'test_spacing_helper_examples')
         """Get the expected helper test function name for a module."""
         return f"{self.test_pattern_prefix}{module_name}_{self.helper_test_suffix}"
 
 # %% ../../nbs/cli/cli_config.ipynb 7
-def get_tailwind_config(
-) -> LibraryConfig:  # TODO: Add return description
+def get_tailwind_config() -> LibraryConfig: # Configuration for cjm-fasthtml-tailwind library
     """Get configuration for cjm-fasthtml-tailwind library."""
     return LibraryConfig(
         package_name='cjm_fasthtml_tailwind',
@@ -79,18 +78,14 @@ def get_tailwind_config(
 _active_config: Optional[LibraryConfig] = None
 
 def set_active_config(
-    config: LibraryConfig  # TODO: Add description
-) -> None:  # TODO: Add return description
+    config:LibraryConfig # The library configuration to set as active
+): # Returns None
     """Set the active library configuration."""
     global _active_config
     _active_config = config
 
-def get_active_config(
-) -> LibraryConfig:  # TODO: Add return description
-    """Get the active library configuration.
-    
-    If no configuration is set, returns the Tailwind config.
-    """
+def get_active_config() -> LibraryConfig: # The active library configuration (defaults to Tailwind)
+    """Get the active library configuration. If no configuration is set, returns the Tailwind config."""
     global _active_config
     
     if _active_config is not None:
@@ -102,24 +97,16 @@ def get_active_config(
     return _active_config
 
 # %% ../../nbs/cli/cli_config.ipynb 10
-def reset_config(
-) -> None:  # TODO: Add return description
+def reset_config(): # Returns None
     """Reset the active configuration to force re-detection."""
     global _active_config
     _active_config = None
 
 # %% ../../nbs/cli/cli_config.ipynb 12
 def get_config_by_name(
-    name: str  # TODO: Add description
-) -> Optional[LibraryConfig]:  # TODO: Add return description
-    """Get a library configuration by name.
-    
-    Args:
-        name: Library name ('tailwind')
-    
-    Returns:
-        LibraryConfig or None if not found
-    """
+    name:str # Library name ('tailwind')
+) -> Optional[LibraryConfig]: # LibraryConfig or None if not found
+    """Get a library configuration by name."""
     configs = {
         'tailwind': get_tailwind_config,
     }
@@ -128,20 +115,15 @@ def get_config_by_name(
     return factory() if factory else None
 
 # %% ../../nbs/cli/cli_config.ipynb 14
-def list_available_configs(
-) -> List[str]:  # TODO: Add return description
+def list_available_configs() -> List[str]: # List of available library configuration names
     """List all available library configurations."""
     return ['tailwind']
 
 # %% ../../nbs/cli/cli_config.ipynb 15
 def get_config_info(
-    config: LibraryConfig  # TODO: Add description
-) -> Dict[str, Any]:  # TODO: Add return description
-    """Get information about a configuration.
-    
-    Returns:
-        Dictionary with configuration details
-    """
+    config:LibraryConfig # The library configuration to get information about
+) -> Dict[str, Any]: # Dictionary with configuration details
+    """Get information about a configuration."""
     return {
         'library': config.display_name,
         'package': config.package_name,

@@ -113,8 +113,8 @@ def show_related_commands(
 
 # %% ../../nbs/cli/display.ipynb 8
 def display_modules(
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+): # Returns None
     """Display all available utility modules with their documentation."""
     if config is None:
         config = get_active_config()
@@ -126,9 +126,9 @@ def display_modules(
     
     # Create formatter
     def module_formatter(
-        item  # TODO: Add type hint and description
-    ): # TODO: Add type hint
-        "TODO: Add function description"
+        item:Tuple[str, str] # Tuple of (module_name, module_docstring)
+    ) -> str: # Formatted module description
+        """Format module name and documentation for display."""
         name, doc = item
         return f"{name}: {doc}"
     
@@ -151,9 +151,9 @@ def display_modules(
 
 # %% ../../nbs/cli/display.ipynb 9
 def display_module_factories(
-    module_name: str,  # TODO: Add description
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+    module_name:str, # Name of the module to display factories for
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+): # Returns None
     """Display all factories in a specific module."""
     if config is None:
         config = get_active_config()
@@ -190,8 +190,8 @@ def display_module_factories(
 
 # %% ../../nbs/cli/display.ipynb 10
 def display_all_factories(
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+): # Returns None
     """Display all factories across all modules."""
     if config is None:
         config = get_active_config()

@@ -26,8 +26,8 @@ class CoreUtilityInfo:
 
 # %% ../../nbs/cli/core_utils_discovery.ipynb 5
 def get_core_utilities(
-    config: Optional[LibraryConfig] = None  # Optional configuration
-) -> List[CoreUtilityInfo]:  # TODO: Add return description
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+) -> List[CoreUtilityInfo]: # List of core utility information objects
     """Get information about core utility functions."""
     if config is None:
         config = get_active_config()

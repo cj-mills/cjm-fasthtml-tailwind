@@ -93,43 +93,43 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
+    cli_display --> cli_example_discovery
     cli_display --> cli_cli_config
     cli_display --> cli_utils
     cli_display --> cli_factory_extraction
     cli_display --> cli_pattern_scanner
-    cli_display --> cli_example_discovery
-    cli_display --> cli_imports
-    cli_display --> cli_core_utils_discovery
-    cli_display --> cli_test_code
-    cli_display --> cli_helper_discovery
     cli_display --> cli_search
-    cli_dynamic_examples --> cli_cli_config
+    cli_display --> cli_helper_discovery
+    cli_display --> cli_core_utils_discovery
+    cli_display --> cli_imports
+    cli_display --> cli_test_code
     cli_dynamic_examples --> cli_display
+    cli_dynamic_examples --> cli_example_discovery
+    cli_dynamic_examples --> cli_cli_config
     cli_dynamic_examples --> cli_utils
     cli_dynamic_examples --> cli_factory_extraction
     cli_dynamic_examples --> cli_pattern_scanner
-    cli_dynamic_examples --> cli_example_discovery
-    cli_dynamic_examples --> cli_imports
-    cli_dynamic_examples --> cli_core_utils_discovery
-    cli_dynamic_examples --> cli_test_code
-    cli_dynamic_examples --> cli_helper_discovery
     cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_helper_discovery
+    cli_dynamic_examples --> cli_core_utils_discovery
+    cli_dynamic_examples --> cli_imports
+    cli_dynamic_examples --> cli_test_code
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_cli_config
     cli_explorer --> cli_display
+    cli_explorer --> cli_cli_config
     cli_explorer --> cli_pattern_scanner
+    cli_explorer --> cli_search
     cli_explorer --> cli_dynamic_examples
     cli_explorer --> cli_test_code
-    cli_explorer --> cli_search
     cli_explorer --> cli_utils
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
+    cli_imports --> cli_helper_discovery
     cli_imports --> cli_cli_config
     cli_imports --> cli_utils
     cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_helper_discovery
     cli_imports --> cli_factory_extraction
     cli_pattern_scanner --> cli_cli_config
     cli_pattern_scanner --> cli_example_discovery
@@ -137,75 +137,75 @@ graph LR
     cli_search --> cli_helper_discovery
     cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
-    cli_test_code --> cli_cli_config
-    cli_test_code --> cli_utils
-    cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_cli_config
+    cli_test_code --> cli_factory_extraction
+    cli_test_code --> cli_utils
     cli_utils --> cli_cli_config
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_layout
-    core_testing --> utilities_spacing
-    core_testing --> utilities_borders
-    core_testing --> utilities_typography
-    core_testing --> utilities_backgrounds
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_sizing
-    core_testing --> core_resources
     core_testing --> utilities_effects
-    core_testing --> utilities_accessibility
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_spacing
+    core_testing --> utilities_layout
+    core_testing --> utilities_borders
+    core_testing --> utilities_sizing
+    core_testing --> utilities_backgrounds
     core_testing --> core_base
-    utilities_accessibility --> builders_scales
+    core_testing --> utilities_typography
+    core_testing --> utilities_accessibility
+    core_testing --> core_resources
     utilities_accessibility --> core_testing
     utilities_accessibility --> core_base
+    utilities_accessibility --> builders_scales
+    utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_base
     utilities_backgrounds --> core_testing
-    utilities_backgrounds --> builders_colors
-    utilities_backgrounds --> builders_scales
+    utilities_borders --> builders_scales
     utilities_borders --> core_base
     utilities_borders --> core_testing
     utilities_borders --> builders_colors
-    utilities_borders --> builders_scales
-    utilities_effects --> core_base
-    utilities_effects --> core_testing
     utilities_effects --> builders_colors
     utilities_effects --> builders_scales
-    utilities_filters --> core_base
-    utilities_filters --> builders_colors
-    utilities_filters --> core_testing
+    utilities_effects --> core_base
+    utilities_effects --> core_testing
     utilities_filters --> builders_scales
+    utilities_filters --> builders_colors
+    utilities_filters --> core_base
+    utilities_filters --> core_testing
+    utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> core_testing
-    utilities_flexbox_and_grid --> builders_scales
+    utilities_interactivity --> builders_scales
     utilities_interactivity --> core_base
     utilities_interactivity --> core_testing
     utilities_interactivity --> builders_colors
-    utilities_interactivity --> builders_scales
+    utilities_layout --> builders_scales
     utilities_layout --> core_base
     utilities_layout --> core_testing
-    utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
     utilities_sizing --> core_base
+    utilities_sizing --> builders_scales
+    utilities_spacing --> builders_scales
     utilities_spacing --> core_testing
     utilities_spacing --> core_base
-    utilities_spacing --> builders_scales
-    utilities_svg --> core_base
-    utilities_svg --> builders_colors
-    utilities_svg --> core_testing
     utilities_svg --> builders_scales
-    utilities_tables --> core_testing
-    utilities_tables --> core_base
+    utilities_svg --> builders_colors
+    utilities_svg --> core_base
+    utilities_svg --> core_testing
     utilities_tables --> builders_scales
+    utilities_tables --> core_base
+    utilities_tables --> core_testing
+    utilities_transforms --> builders_scales
     utilities_transforms --> core_base
     utilities_transforms --> core_testing
-    utilities_transforms --> builders_scales
+    utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> core_testing
-    utilities_transitions_and_animation --> builders_scales
-    utilities_typography --> core_testing
     utilities_typography --> builders_scales
-    utilities_typography --> builders_colors
     utilities_typography --> core_base
+    utilities_typography --> core_testing
+    utilities_typography --> builders_colors
 ```
 
 *116 cross-module dependencies detected*
@@ -1429,65 +1429,48 @@ from cjm_fasthtml_tailwind.cli.cli_config import (
 #### Functions
 
 ``` python
-def get_tailwind_config(
-) -> LibraryConfig:  # TODO: Add return description
+def get_tailwind_config() -> LibraryConfig: # Configuration for cjm-fasthtml-tailwind library
     "Get configuration for cjm-fasthtml-tailwind library."
 ```
 
 ``` python
 def set_active_config(
-    config: LibraryConfig  # TODO: Add description
-) -> None:  # TODO: Add return description
+    config:LibraryConfig # The library configuration to set as active
+): # Returns None
     "Set the active library configuration."
 ```
 
 ``` python
-def get_active_config(
-) -> LibraryConfig:  # TODO: Add return description
-    """
-    Get the active library configuration.
+def get_active_config() -> LibraryConfig: # The active library configuration (defaults to Tailwind)
+    """Get the active library configuration. If no configuration is set, returns the Tailwind config."""
+    global _active_config
     
-    If no configuration is set, returns the Tailwind config.
-    """
+    if _active_config is not None
+    "Get the active library configuration. If no configuration is set, returns the Tailwind config."
 ```
 
 ``` python
-def reset_config(
-) -> None:  # TODO: Add return description
+def reset_config(): # Returns None
     "Reset the active configuration to force re-detection."
 ```
 
 ``` python
 def get_config_by_name(
-    name: str  # TODO: Add description
-) -> Optional[LibraryConfig]:  # TODO: Add return description
-    """
-    Get a library configuration by name.
-    
-    Args:
-        name: Library name ('tailwind')
-    
-    Returns:
-        LibraryConfig or None if not found
-    """
+    name:str # Library name ('tailwind')
+) -> Optional[LibraryConfig]: # LibraryConfig or None if not found
+    "Get a library configuration by name."
 ```
 
 ``` python
-def list_available_configs(
-) -> List[str]:  # TODO: Add return description
+def list_available_configs() -> List[str]: # List of available library configuration names
     "List all available library configurations."
 ```
 
 ``` python
 def get_config_info(
-    config: LibraryConfig  # TODO: Add description
-) -> Dict[str, Any]:  # TODO: Add return description
-    """
-    Get information about a configuration.
-    
-    Returns:
-        Dictionary with configuration details
-    """
+    config:LibraryConfig # The library configuration to get information about
+) -> Dict[str, Any]: # Dictionary with configuration details
+    "Get information about a configuration."
 ```
 
 #### Classes
@@ -1511,15 +1494,15 @@ class LibraryConfig:
     
     def get_test_function_pattern(
             self,
-            module_name: str,  # TODO: Add description
-            feature: str  # TODO: Add description
-        ) -> str:  # TODO: Add return description
+            module_name:str, # Name of the module (e.g., 'spacing', 'sizing')
+            feature:str # Feature name (e.g., 'basic', 'directional')
+        ) -> str: # Test function name pattern (e.g., 'test_spacing_basic_examples')
         "Get the expected test function name for a module and feature."
     
     def get_helper_test_function(
             self,
-            module_name: str  # TODO: Add description
-        ) -> str:  # TODO: Add return description
+            module_name:str # Name of the module (e.g., 'spacing', 'sizing')
+        ) -> str: # Helper test function name (e.g., 'test_spacing_helper_examples')
         "Get the expected helper test function name for a module."
 ```
 
@@ -1762,8 +1745,8 @@ from cjm_fasthtml_tailwind.cli.core_utils_discovery import (
 
 ``` python
 def get_core_utilities(
-    config: Optional[LibraryConfig] = None  # Optional configuration
-) -> List[CoreUtilityInfo]:  # TODO: Add return description
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+) -> List[CoreUtilityInfo]: # List of core utility information objects
     "Get information about core utility functions."
 ```
 
@@ -1856,23 +1839,23 @@ def show_related_commands(
 
 ``` python
 def display_modules(
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+): # Returns None
     "Display all available utility modules with their documentation."
 ```
 
 ``` python
 def display_module_factories(
-    module_name: str,  # TODO: Add description
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+    module_name:str, # Name of the module to display factories for
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+): # Returns None
     "Display all factories in a specific module."
 ```
 
 ``` python
 def display_all_factories(
-    config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+    config:Optional[LibraryConfig]=None # Library configuration (uses active config if not provided)
+): # Returns None
     "Display all factories across all modules."
 ```
 
