@@ -41,9 +41,9 @@ from cjm_fasthtml_tailwind.cli.display import (
 
 # %% ../../nbs/cli/dynamic_examples.ipynb 5
 def get_example_modules(
-    limit: int = 2,  # TODO: Add description
+    limit: int = 2,  # Maximum number of module names to return
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
+) -> str:  # Comma-separated list of module names
     """Get example module names dynamically."""
     if config is None:
         config = get_active_config()
@@ -57,10 +57,10 @@ def get_example_modules(
 
 # %% ../../nbs/cli/dynamic_examples.ipynb 6
 def get_example_factories(
-    module_name: str = None,  # TODO: Add description
-    limit: int = 4,  # TODO: Add description
+    module_name: str = None,  # Optional module name to get factories from (uses first module if None)
+    limit: int = 4,  # Maximum number of factory names to return
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
+) -> str:  # Comma-separated list of factory names
     """Get example factory names dynamically."""
     if config is None:
         config = get_active_config()
@@ -84,10 +84,10 @@ def get_example_factories(
 
 # %% ../../nbs/cli/dynamic_examples.ipynb 7
 def get_example_features(
-    module_name: str = None,  # TODO: Add description
-    limit: int = 3,  # TODO: Add description
+    module_name: str = None,  # Optional module name to get features from (uses first module if None)
+    limit: int = 3,  # Maximum number of feature names to return
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
+) -> str:  # Comma-separated list of feature names
     """Get example feature names dynamically."""
     if config is None:
         config = get_active_config()
@@ -111,10 +111,10 @@ def get_example_features(
 
 # %% ../../nbs/cli/dynamic_examples.ipynb 8
 def get_example_helpers(
-    module_name: str = None,  # TODO: Add description
-    limit: int = 2,  # TODO: Add description
+    module_name: str = None,  # Optional module name to get helpers from (uses first module if None)
+    limit: int = 2,  # Maximum number of helper names to return
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
+) -> str:  # Comma-separated list of helper function names
     """Get example helper function names dynamically."""
     if config is None:
         config = get_active_config()
@@ -138,9 +138,9 @@ def get_example_helpers(
 
 # %% ../../nbs/cli/dynamic_examples.ipynb 9
 def get_example_core_utils(
-    limit: int = 2,  # TODO: Add description
+    limit: int = 2,  # Maximum number of utility names to return
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-) -> str:  # TODO: Add return description
+) -> str:  # Comma-separated list of core utility names
     """Get example core utility names dynamically."""
     if config is None:
         config = get_active_config()
@@ -154,7 +154,7 @@ def get_example_core_utils(
 
 # %% ../../nbs/cli/dynamic_examples.ipynb 10
 def get_combine_classes_example(
-) -> str:  # TODO: Add return description
+) -> str:  # Example code string using combine_classes
     """Get a dynamic example of combine_classes usage."""
     # Try to find combine_classes usage in examples
     from cjm_fasthtml_tailwind.cli.example_discovery import list_all_examples
@@ -184,8 +184,8 @@ def get_combine_classes_example(
 
 # %% ../../nbs/cli/dynamic_examples.ipynb 11
 def get_example_test_code(
-    limit_chars: int = 50  # TODO: Add description
-) -> str:  # TODO: Add return description
+    limit_chars: int = 50  # Maximum length of the returned code example
+) -> str:  # Example code string extracted from test functions
     """Get an actual code example from test functions."""
     # Try to get examples from the first available module
     all_examples = list_all_examples()

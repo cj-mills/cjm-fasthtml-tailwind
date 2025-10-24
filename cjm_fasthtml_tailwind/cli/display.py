@@ -224,9 +224,9 @@ def display_all_factories(
 
 # %% ../../nbs/cli/display.ipynb 11
 def display_module_examples(
-    module_name: str,  # TODO: Add description
+    module_name: str,  # Name of the module to display examples for
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display all usage examples in a specific module."""
     if config is None:
         config = get_active_config()
@@ -238,10 +238,11 @@ def display_module_examples(
         return
 
     # Create formatter
+    from cjm_fasthtml_tailwind.cli.example_discovery import ExampleInfo
     def example_formatter(
-        item  # TODO: Add type hint and description
-    ): # TODO: Add type hint
-        "TODO: Add function description"
+        item: ExampleInfo  # The example info object to format
+    ) -> str:  # Formatted string with example details and view command
+        """Format an example for display."""
         return f"  - {item.feature}: {item.docstring}\n    View with: {get_view_command('example', item.module_name, item.feature)}\n"
     
     display_items_generic(
@@ -267,7 +268,7 @@ def display_module_examples(
 # %% ../../nbs/cli/display.ipynb 12
 def display_all_examples(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display all usage examples across all modules."""
     if config is None:
         config = get_active_config()
@@ -275,10 +276,11 @@ def display_all_examples(
     all_examples = list_all_examples()
     
     # Create formatter
+    from cjm_fasthtml_tailwind.cli.example_discovery import ExampleInfo
     def example_formatter(
-        item  # TODO: Add type hint and description
-    ): # TODO: Add type hint
-        "TODO: Add function description"
+        item: ExampleInfo  # The example info object to format
+    ) -> str:  # Formatted string with example details
+        """Format an example for display."""
         return f"  - {item.feature}: {item.docstring}"
     
     display_items_generic(
@@ -303,10 +305,10 @@ def display_all_examples(
 
 # %% ../../nbs/cli/display.ipynb 13
 def display_example_source(
-    module_name: str,  # TODO: Add description
-    feature: str,  # TODO: Add description
+    module_name: str,  # Name of the module containing the example
+    feature: str,  # Feature name identifying the example
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display the source code of a specific example function."""
     if config is None:
         config = get_active_config()
@@ -348,9 +350,9 @@ def display_example_source(
 
 # %% ../../nbs/cli/display.ipynb 14
 def display_module_helpers(
-    module_name: str,  # TODO: Add description
+    module_name: str,  # Name of the module to display helpers for
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display helper functions available in a specific module."""
     if config is None:
         config = get_active_config()
@@ -390,10 +392,10 @@ def display_module_helpers(
 
 # %% ../../nbs/cli/display.ipynb 15
 def display_helper_source(
-    module_name: str,  # TODO: Add description
-    helper_name: str,  # TODO: Add description
+    module_name: str,  # Name of the module containing the helper
+    helper_name: str,  # Name of the helper function
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display the source code of a specific helper function."""
     if config is None:
         config = get_active_config()
@@ -469,7 +471,7 @@ def display_helper_source(
 # %% ../../nbs/cli/display.ipynb 16
 def display_all_helpers(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display all helper functions across all modules."""
     if config is None:
         config = get_active_config()
@@ -482,10 +484,11 @@ def display_all_helpers(
             all_helpers[module_name] = helpers
     
     # Create formatter
+    from cjm_fasthtml_tailwind.cli.helper_discovery import HelperInfo
     def helper_formatter(
-        item  # TODO: Add type hint and description
-    ): # TODO: Add type hint
-        "TODO: Add function description"
+        item: HelperInfo  # The helper info object to format
+    ) -> str:  # Formatted string with helper name and first line of docstring
+        """Format a helper for display."""
         # Get first line of docstring for concise display
         first_line = item.docstring.split('\n')[0] if item.docstring else "No documentation available"
         return f"  - {item.name}: {first_line}"
@@ -499,10 +502,10 @@ def display_all_helpers(
 
 # %% ../../nbs/cli/display.ipynb 17
 def display_factory_info(
-    module_name: str,  # TODO: Add description
-    factory_name: str,  # TODO: Add description
+    module_name: str,  # Name of the module containing the factory
+    factory_name: str,  # Name of the factory to display info for
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display detailed information about a specific factory."""
     if config is None:
         config = get_active_config()
@@ -622,10 +625,10 @@ def display_factory_info(
 
 # %% ../../nbs/cli/display.ipynb 18
 def display_search_results(
-    results: List[SearchResult],  # TODO: Add description
-    query: str,  # TODO: Add description
+    results: List[SearchResult],  # List of search results to display
+    query: str,  # The search query that was executed
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display search results in a formatted way."""
     if config is None:
         config = get_active_config()
@@ -687,9 +690,9 @@ def display_search_results(
 
 # %% ../../nbs/cli/display.ipynb 19
 def display_core_utility_source(
-    util_name: str,  # TODO: Add description
+    util_name: str,  # Name of the core utility function
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display the source code of a specific core utility function."""
     if config is None:
         config = get_active_config()
@@ -781,7 +784,7 @@ def display_core_utility_source(
 # %% ../../nbs/cli/display.ipynb 20
 def display_core_utilities(
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display all core utility functions."""
     if config is None:
         config = get_active_config()
@@ -816,9 +819,9 @@ def display_core_utilities(
 
 # %% ../../nbs/cli/display.ipynb 21
 def display_imports(
-    modules: Optional[List[str]] = None,  # TODO: Add description
+    modules: Optional[List[str]] = None,  # List of specific modules to get imports for (None for all)
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display recommended import statements."""
     if config is None:
         config = get_active_config()
@@ -846,12 +849,12 @@ def display_imports(
 
 # %% ../../nbs/cli/display.ipynb 22
 def display_test_code_result(
-    success: bool,  # TODO: Add description
-    stdout: str,  # TODO: Add description
-    stderr: str,  # TODO: Add description
-    code: str,  # TODO: Add description
+    success: bool,  # Whether the code executed successfully
+    stdout: str,  # Standard output from the code execution
+    stderr: str,  # Standard error from the code execution
+    code: str,  # The code that was executed
     config: Optional[LibraryConfig] = None  # Optional configuration to use
-): # TODO: Add type hint
+):
     """Display the results of test code execution."""
     if config is None:
         config = get_active_config()
