@@ -37,7 +37,7 @@ class ClsPatternVisitor(ast.NodeVisitor):
     
     def __init__(
         self,
-        source_lines: List[str]  # TODO: Add description
+        source_lines: List[str]  # Source code lines for extracting context around patterns
     ):
         """Initialize with source code lines for context extraction."""
         self.patterns: List[ClsPattern] = []
@@ -45,8 +45,8 @@ class ClsPatternVisitor(ast.NodeVisitor):
     
     def visit_Call(
         self,
-        node: ast.Call  # TODO: Add description
-    ) -> None:  # TODO: Add return description
+        node: ast.Call  # AST Call node to examine for cls= keyword arguments
+    ):  # Visits the node and updates self.patterns
         """Visit function calls to find cls= keyword arguments."""
         # Check if this call has a cls keyword argument
         for keyword in node.keywords:
@@ -60,9 +60,9 @@ class ClsPatternVisitor(ast.NodeVisitor):
     
     def _extract_pattern(
         self,
-        value_node: ast.AST,  # TODO: Add description
-        call_node: ast.Call  # TODO: Add description
-    ) -> Optional[ClsPattern]:  # TODO: Add return description
+        value_node: ast.AST,  # AST node representing the cls= value
+        call_node: ast.Call  # AST Call node containing the cls= keyword argument
+    ) -> Optional[ClsPattern]:  # ClsPattern object if extraction succeeds, None otherwise
         """Extract a ClsPattern from the cls= value node."""
         try:
             line_number = value_node.lineno
@@ -121,12 +121,9 @@ def scan_python_code(
 
 # %% ../../nbs/cli/pattern_scanner.ipynb 11
 def extract_css_classes_from_node(
-    node: ast.AST  # TODO: Add description
-) -> List[str]:  # TODO: Add return description
-    """
-    Recursively extract CSS classes from an AST node.
-    Handles various patterns including combine_classes calls.
-    """
+    node: ast.AST  # AST node to extract CSS classes from
+) -> List[str]:  # List of CSS class strings found in the node
+    """Recursively extract CSS classes from an AST node. Handles various patterns including combine_classes calls."""
     classes = []
     
     if isinstance(node, ast.Constant) and isinstance(node.value, str):
@@ -172,8 +169,8 @@ def extract_css_classes_from_node(
 def display_patterns(
     patterns: List[ClsPattern],  # List of ClsPattern objects to display
     show_context: bool = True  # Whether to show the code context
-) -> None:  # TODO: Add return description
-    "Display found patterns in a formatted way."
+):  # Displays patterns to stdout, returns nothing
+    """Display found patterns in a formatted way."""
     if not patterns:
         print("No cls= patterns found in the code.")
         return
@@ -451,8 +448,8 @@ def match_css_classes(
 # %% ../../nbs/cli/pattern_scanner.ipynb 49
 def display_match_results(
     matches: Dict[str, CSSClassMatch]  # Dictionary of CSS classes to their match results
-) -> None:  # TODO: Add return description
-    "Display match results in a formatted way."
+):  # Displays match results to stdout, returns nothing
+    """Display match results in a formatted way."""
     # Group by match type
     exact_matches = []
     pattern_matches = []
@@ -528,8 +525,8 @@ def analyze_code_patterns(
 # %% ../../nbs/cli/pattern_scanner.ipynb 51
 def display_code_analysis(
     code: str  # Python source code to analyze
-) -> None:  # TODO: Add return description
-    "Analyze and display replaceable patterns in Python code."
+):  # Displays analysis report to stdout, returns nothing
+    """Analyze and display replaceable patterns in Python code."""
     results = analyze_code_patterns(code)
     
     print("Code Analysis Report")
@@ -667,8 +664,8 @@ def get_migration_suggestions(
 # %% ../../nbs/cli/pattern_scanner.ipynb 60
 def display_migration_suggestions(
     code: str  # Python source code to analyze
-) -> None:  # TODO: Add return description
-    "Analyze code and display migration suggestions."
+):  # Displays migration suggestions to stdout, returns nothing
+    """Analyze code and display migration suggestions."""
     # Get analysis results
     results = analyze_code_patterns(code)
     
@@ -698,8 +695,8 @@ def display_migration_suggestions(
 # %% ../../nbs/cli/pattern_scanner.ipynb 61
 def analyze_and_suggest(
     code: str  # Python source code to analyze
-) -> None:  # TODO: Add return description
-    "Perform complete analysis of code with migration suggestions."
+):  # Displays analysis and migration suggestions to stdout, returns nothing
+    """Perform complete analysis of code with migration suggestions."""
     # First show the analysis
     display_code_analysis(code)
     
@@ -872,8 +869,8 @@ def analyze_input(
 def display_input_analysis(
     input_source: str,  # Code string, Python file path, or notebook path
     input_type: Optional[InputType] = None  # Optional explicit input type. If None, will auto-detect.
-) -> None:  # TODO: Add return description
-    "Analyze and display replaceable patterns from any input type."
+):  # Displays analysis report to stdout, returns nothing
+    """Analyze and display replaceable patterns from any input type."""
     results = analyze_input(input_source, input_type)
     
     print("Pattern Analysis Report")
@@ -914,8 +911,8 @@ def display_input_analysis(
 def analyze_and_suggest_input(
     input_source: str,  # Code string, Python file path, or notebook path
     input_type: Optional[InputType] = None  # Optional explicit input type. If None, will auto-detect.
-) -> None:  # TODO: Add return description
-    "Perform complete analysis with migration suggestions for any input type."
+):  # Displays analysis and migration suggestions to stdout, returns nothing
+    """Perform complete analysis with migration suggestions for any input type."""
     # First show the analysis
     display_input_analysis(input_source, input_type)
     
