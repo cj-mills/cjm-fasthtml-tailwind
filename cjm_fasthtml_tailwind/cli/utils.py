@@ -33,9 +33,9 @@ class SearchResult:
 
 # %% ../../nbs/cli/utils.ipynb 7
 def print_header(
-    title: str,  # TODO: Add description
-    width: int = 60  # TODO: Add description
-): # TODO: Add type hint
+    title: str,  # Header title to display
+    width: int = 60  # Width of separator line in characters
+) -> None:  # No return value
     """Print a formatted header with title and separator."""
     print(title)
     print("=" * width)
@@ -44,11 +44,11 @@ def print_header(
 
 # %% ../../nbs/cli/utils.ipynb 8
 def print_not_found(
-    item_type: str,  # TODO: Add description
-    item_name: str,  # TODO: Add description
-    module_name: Optional[str] = None,  # TODO: Add description
+    item_type: str,  # Type of item that wasn't found (e.g., 'factory', 'example')
+    item_name: str,  # Name of the item that wasn't found
+    module_name: Optional[str] = None,  # Optional module name where search was performed
     config: Optional[LibraryConfig] = None  # Optional configuration
-): # TODO: Add type hint
+) -> None:  # No return value
     """Print a standardized not found message."""
     if config is None:
         config = get_active_config()
@@ -61,10 +61,10 @@ def print_not_found(
 
 # %% ../../nbs/cli/utils.ipynb 9
 def print_total(
-    item_type: str,  # TODO: Add description
-    count: int,  # TODO: Add description
-    across_modules: bool = False  # TODO: Add description
-): # TODO: Add type hint
+    item_type: str,  # Type of items being counted (e.g., 'factories', 'examples')
+    count: int,  # Number of items found
+    across_modules: bool = False  # Whether count spans multiple modules
+) -> None:  # No return value
     """Print a standardized total count message."""
     if across_modules:
         print(f"\nTotal {item_type} across all modules: {count}")
@@ -136,9 +136,9 @@ def simple_item_formatter(
 ) -> Callable[[Any], str]:  # Formatter function
     """Create a simple formatter for items with name and documentation fields."""
     def formatter(
-        item  # TODO: Add type hint and description
-    ): # TODO: Add type hint
-        "TODO: Add function description"
+        item: Any  # Item to format
+    ) -> str:  # Formatted string
+        """Format item as 'name: documentation'."""
         name = getattr(item, name_field, "Unknown")
         doc = getattr(item, doc_field, "No documentation available")
         return f"{name}: {doc}"
@@ -150,24 +150,24 @@ def indented_item_formatter(
 ) -> Callable[[Any], Callable[[Any], str]]:  # Returns a formatter factory
     """Create a formatter that indents items with a prefix."""
     def make_formatter(
-        inner_formatter: Callable[[Any], str]  # TODO: Add description
-    ) -> Callable[[Any], str]:  # TODO: Add return description
-        "TODO: Add function description"
+        inner_formatter: Callable[[Any], str]  # Formatter to wrap with indentation
+    ) -> Callable[[Any], str]:  # Formatter that adds indentation
+        """Create indented formatter from inner formatter."""
         def formatter(
-            item  # TODO: Add type hint and description
-        ): # TODO: Add type hint
-            "TODO: Add function description"
+            item: Any  # Item to format
+        ) -> str:  # Indented formatted string
+            """Format item with indentation prefix."""
             return prefix + inner_formatter(item)
         return formatter
     return make_formatter
 
 # %% ../../nbs/cli/utils.ipynb 16
 def extract_match_context(
-    text: str,   # TODO: Add description
-    query: str,   # TODO: Add description
-    case_sensitive: bool = False,   # TODO: Add description
-    context_size: int = 30  # TODO: Add description
-) -> str:  # TODO: Add return description
+    text: str,  # Text to extract context from
+    query: str,  # Query string to find
+    case_sensitive: bool = False,  # Whether to perform case-sensitive search
+    context_size: int = 30  # Number of characters to show before and after match
+) -> str:  # Context string with match highlighted
     """Extract context around a match in text."""
     text_search = text if case_sensitive else text.lower()
     query_search = query if case_sensitive else query.lower()
@@ -186,10 +186,10 @@ def extract_match_context(
 
 # %% ../../nbs/cli/utils.ipynb 17
 def extract_source_line_context(
-    source: str,   # TODO: Add description
-    query: str,   # TODO: Add description
-    case_sensitive: bool = False  # TODO: Add description
-) -> str:  # TODO: Add return description
+    source: str,  # Source code to search
+    query: str,  # Query string to find
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> str:  # Line context showing where match was found
     """Extract line context for a match in source code."""
     source_search = source if case_sensitive else source.lower()
     query_search = query if case_sensitive else query.lower()
@@ -212,12 +212,12 @@ def extract_source_line_context(
 
 # %% ../../nbs/cli/utils.ipynb 18
 def create_search_result(
-    content_type: str,  # TODO: Add description
-    module_name: str,  # TODO: Add description
-    item_name: str,  # TODO: Add description
-    match_context: str,  # TODO: Add description
-    match_location: str  # TODO: Add description
-) -> SearchResult:  # TODO: Add return description
+    content_type: str,  # Type of content ('factory', 'example', 'helper', 'module')
+    module_name: str,  # Module where match was found
+    item_name: str,  # Name of the item that matched
+    match_context: str,  # Context showing the match
+    match_location: str  # Where in the item the match was found ('name', 'doc', 'source')
+) -> SearchResult:  # SearchResult instance with provided fields
     """Create a SearchResult with standard fields."""
     return SearchResult(
         content_type=content_type,
@@ -240,14 +240,14 @@ def search_in_text(
 
 # %% ../../nbs/cli/utils.ipynb 20
 def search_in_name_and_text(
-    query: str,  # TODO: Add description
-    item_name: str,  # TODO: Add description
-    text: str,  # TODO: Add description
-    content_type: str,  # TODO: Add description
-    module_name: str,  # TODO: Add description
-    text_location: str,  # TODO: Add description
-    case_sensitive: bool = False  # TODO: Add description
-) -> List[SearchResult]:  # TODO: Add return description
+    query: str,  # Search query to find
+    item_name: str,  # Item name to search in
+    text: str,  # Text (documentation, docstring) to search in
+    content_type: str,  # Type of content being searched
+    module_name: str,  # Module containing the item
+    text_location: str,  # Description of text field (e.g., 'documentation', 'docstring')
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of search results for matches found
     """Search in both name and text fields, returning search results."""
     results = []
     
@@ -276,8 +276,8 @@ def search_in_name_and_text(
 
 # %% ../../nbs/cli/utils.ipynb 21
 def check_factory_usage_patterns(
-    factory_name: str  # TODO: Add description
-) -> List[str]:  # TODO: Add return description
+    factory_name: str  # Name of factory to create patterns for
+) -> List[str]:  # List of regex patterns matching factory usage
     """Get regex patterns to match common factory usage patterns."""
     import re
     
@@ -348,22 +348,22 @@ def search_in_source_code(
 
 # %% ../../nbs/cli/utils.ipynb 25
 def find_variable_usages(
-    func_src: str,  # TODO: Add description
-    var_name: str  # TODO: Add description
-): # TODO: Add type hint
-    """Find variable usages by parsing function into an AST"""
+    func_src: str,  # Source code to search
+    var_name: str  # Variable name to find
+) -> List[Tuple[int, int, str]]:  # List of (line_number, column, context_type) tuples
+    """Find variable usages by parsing function into an AST."""
     # Parse into an AST
     tree = ast.parse(func_src)
 
     matches = []
 
     class VarVisitor(ast.NodeVisitor):
-        "TODO: Add class description"
+        """AST visitor to find variable name references."""
         def visit_Name(
             self,
-            node  # TODO: Add type hint and description
-        ):
-            "TODO: Add function description"
+            node: ast.Name  # AST Name node to visit
+        ) -> None:  # No return value
+            """Visit Name nodes and record matches."""
             if node.id == var_name:
                 matches.append((node.lineno, node.col_offset, type(node.ctx).__name__))
             self.generic_visit(node)
@@ -452,9 +452,9 @@ def discover_utility_modules(
     modules = []
     
     def discover_modules_recursive(
-        package_path: str,  # TODO: Add description
-        base_name: str = ""  # TODO: Add description
-    ):
+        package_path: str,  # Full package path to discover (e.g., 'pkg.subpkg')
+        base_name: str = ""  # Base discovery path for relative naming
+    ) -> List[Tuple[str, Any]]:  # List of (module_name, module) tuples
         """Recursively discover modules and submodules."""
         try:
             # Import the package
@@ -505,7 +505,7 @@ def discover_utility_modules(
 
 # %% ../../nbs/cli/utils.ipynb 32
 def iterate_all_modules_with_items(
-    extractor_func,    # Function to extract items from a module - TODO: Add type hint
+    extractor_func: Callable[[Any, str], List[Any]],  # Function to extract items from a module
     module_filter: Optional[str] = None,  # Optional specific module to filter for
     config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, List[Any]]:  # Dictionary mapping module names to their items
@@ -568,8 +568,8 @@ def extract_helper_names_from_test(
 
 # %% ../../nbs/cli/utils.ipynb 38
 def load_code_from_file(
-    filepath: str  # TODO: Add description
-) -> Optional[str]:  # TODO: Add return description
+    filepath: str  # Path to file to load
+) -> Optional[str]:  # File contents as string, or None if error
     """Load code from a file."""
     try:
         path = Path(filepath).expanduser().resolve()

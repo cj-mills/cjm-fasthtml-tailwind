@@ -93,119 +93,119 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
-    cli_display --> cli_utils
-    cli_display --> cli_factory_extraction
     cli_display --> cli_pattern_scanner
+    cli_display --> cli_utils
     cli_display --> cli_cli_config
-    cli_display --> cli_example_discovery
-    cli_display --> cli_helper_discovery
-    cli_display --> cli_test_code
     cli_display --> cli_core_utils_discovery
+    cli_display --> cli_factory_extraction
+    cli_display --> cli_example_discovery
     cli_display --> cli_imports
     cli_display --> cli_search
-    cli_dynamic_examples --> cli_utils
-    cli_dynamic_examples --> cli_display
-    cli_dynamic_examples --> cli_factory_extraction
+    cli_display --> cli_test_code
+    cli_display --> cli_helper_discovery
     cli_dynamic_examples --> cli_pattern_scanner
+    cli_dynamic_examples --> cli_utils
     cli_dynamic_examples --> cli_cli_config
-    cli_dynamic_examples --> cli_example_discovery
-    cli_dynamic_examples --> cli_helper_discovery
-    cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_display
     cli_dynamic_examples --> cli_core_utils_discovery
+    cli_dynamic_examples --> cli_factory_extraction
+    cli_dynamic_examples --> cli_example_discovery
     cli_dynamic_examples --> cli_imports
     cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_helper_discovery
     cli_example_discovery --> cli_utils
-    cli_explorer --> cli_display
-    cli_explorer --> cli_dynamic_examples
     cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_cli_config
+    cli_explorer --> cli_dynamic_examples
+    cli_explorer --> cli_display
     cli_explorer --> cli_utils
-    cli_explorer --> cli_test_code
     cli_explorer --> cli_search
+    cli_explorer --> cli_test_code
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_utils
     cli_helper_discovery --> cli_example_discovery
-    cli_imports --> cli_utils
     cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_cli_config
-    cli_imports --> cli_factory_extraction
     cli_imports --> cli_helper_discovery
-    cli_pattern_scanner --> cli_example_discovery
+    cli_imports --> cli_utils
+    cli_imports --> cli_factory_extraction
     cli_pattern_scanner --> cli_cli_config
+    cli_pattern_scanner --> cli_example_discovery
     cli_search --> cli_utils
-    cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
-    cli_test_code --> cli_utils
+    cli_search --> cli_factory_extraction
     cli_test_code --> cli_cli_config
-    cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_utils
+    cli_test_code --> cli_factory_extraction
     cli_utils --> cli_cli_config
-    core_testing --> utilities_typography
-    core_testing --> utilities_layout
-    core_testing --> core_resources
-    core_testing --> utilities_sizing
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_spacing
-    core_testing --> utilities_transitions_and_animation
     core_testing --> utilities_backgrounds
+    core_testing --> utilities_spacing
+    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_effects
+    core_testing --> utilities_layout
     core_testing --> utilities_borders
-    core_testing --> core_base
     core_testing --> utilities_accessibility
+    core_testing --> utilities_sizing
+    core_testing --> utilities_typography
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> core_resources
+    core_testing --> core_base
     utilities_accessibility --> core_testing
     utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
     utilities_backgrounds --> core_testing
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_scales
     utilities_backgrounds --> builders_colors
+    utilities_backgrounds --> builders_scales
     utilities_borders --> core_testing
     utilities_borders --> core_base
-    utilities_borders --> builders_scales
     utilities_borders --> builders_colors
+    utilities_borders --> builders_scales
     utilities_effects --> core_testing
     utilities_effects --> core_base
-    utilities_effects --> builders_scales
     utilities_effects --> builders_colors
+    utilities_effects --> builders_scales
     utilities_filters --> core_testing
+    utilities_filters --> builders_colors
     utilities_filters --> core_base
     utilities_filters --> builders_scales
-    utilities_filters --> builders_colors
-    utilities_flexbox_and_grid --> core_testing
     utilities_flexbox_and_grid --> core_base
+    utilities_flexbox_and_grid --> core_testing
     utilities_flexbox_and_grid --> builders_scales
     utilities_interactivity --> core_testing
-    utilities_interactivity --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> core_base
     utilities_interactivity --> builders_colors
-    utilities_layout --> core_testing
     utilities_layout --> core_base
+    utilities_layout --> core_testing
     utilities_layout --> builders_scales
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
+    utilities_sizing --> builders_scales
     utilities_sizing --> core_base
-    utilities_spacing --> core_testing
     utilities_spacing --> core_base
+    utilities_spacing --> core_testing
     utilities_spacing --> builders_scales
     utilities_svg --> core_testing
     utilities_svg --> core_base
-    utilities_svg --> builders_scales
     utilities_svg --> builders_colors
+    utilities_svg --> builders_scales
     utilities_tables --> core_testing
-    utilities_tables --> core_base
     utilities_tables --> builders_scales
-    utilities_transforms --> core_testing
+    utilities_tables --> core_base
     utilities_transforms --> core_base
+    utilities_transforms --> core_testing
     utilities_transforms --> builders_scales
     utilities_transitions_and_animation --> core_testing
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> builders_scales
     utilities_typography --> core_testing
-    utilities_typography --> core_base
     utilities_typography --> builders_scales
     utilities_typography --> builders_colors
+    utilities_typography --> core_base
 ```
 
 *116 cross-module dependencies detected*
@@ -6712,28 +6712,28 @@ from cjm_fasthtml_tailwind.cli.utils import (
 
 ``` python
 def print_header(
-    title: str,  # TODO: Add description
-    width: int = 60  # TODO: Add description
-): # TODO: Add type hint
+    title: str,  # Header title to display
+    width: int = 60  # Width of separator line in characters
+) -> None:  # No return value
     "Print a formatted header with title and separator."
 ```
 
 ``` python
 def print_not_found(
-    item_type: str,  # TODO: Add description
-    item_name: str,  # TODO: Add description
-    module_name: Optional[str] = None,  # TODO: Add description
+    item_type: str,  # Type of item that wasn't found (e.g., 'factory', 'example')
+    item_name: str,  # Name of the item that wasn't found
+    module_name: Optional[str] = None,  # Optional module name where search was performed
     config: Optional[LibraryConfig] = None  # Optional configuration
-): # TODO: Add type hint
+) -> None:  # No return value
     "Print a standardized not found message."
 ```
 
 ``` python
 def print_total(
-    item_type: str,  # TODO: Add description
-    count: int,  # TODO: Add description
-    across_modules: bool = False  # TODO: Add description
-): # TODO: Add type hint
+    item_type: str,  # Type of items being counted (e.g., 'factories', 'examples')
+    count: int,  # Number of items found
+    across_modules: bool = False  # Whether count spans multiple modules
+) -> None:  # No return value
     "Print a standardized total count message."
 ```
 
@@ -6778,31 +6778,31 @@ def indented_item_formatter(
 
 ``` python
 def extract_match_context(
-    text: str,   # TODO: Add description
-    query: str,   # TODO: Add description
-    case_sensitive: bool = False,   # TODO: Add description
-    context_size: int = 30  # TODO: Add description
-) -> str:  # TODO: Add return description
+    text: str,  # Text to extract context from
+    query: str,  # Query string to find
+    case_sensitive: bool = False,  # Whether to perform case-sensitive search
+    context_size: int = 30  # Number of characters to show before and after match
+) -> str:  # Context string with match highlighted
     "Extract context around a match in text."
 ```
 
 ``` python
 def extract_source_line_context(
-    source: str,   # TODO: Add description
-    query: str,   # TODO: Add description
-    case_sensitive: bool = False  # TODO: Add description
-) -> str:  # TODO: Add return description
+    source: str,  # Source code to search
+    query: str,  # Query string to find
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> str:  # Line context showing where match was found
     "Extract line context for a match in source code."
 ```
 
 ``` python
 def create_search_result(
-    content_type: str,  # TODO: Add description
-    module_name: str,  # TODO: Add description
-    item_name: str,  # TODO: Add description
-    match_context: str,  # TODO: Add description
-    match_location: str  # TODO: Add description
-) -> SearchResult:  # TODO: Add return description
+    content_type: str,  # Type of content ('factory', 'example', 'helper', 'module')
+    module_name: str,  # Module where match was found
+    item_name: str,  # Name of the item that matched
+    match_context: str,  # Context showing the match
+    match_location: str  # Where in the item the match was found ('name', 'doc', 'source')
+) -> SearchResult:  # SearchResult instance with provided fields
     "Create a SearchResult with standard fields."
 ```
 
@@ -6817,21 +6817,21 @@ def search_in_text(
 
 ``` python
 def search_in_name_and_text(
-    query: str,  # TODO: Add description
-    item_name: str,  # TODO: Add description
-    text: str,  # TODO: Add description
-    content_type: str,  # TODO: Add description
-    module_name: str,  # TODO: Add description
-    text_location: str,  # TODO: Add description
-    case_sensitive: bool = False  # TODO: Add description
-) -> List[SearchResult]:  # TODO: Add return description
+    query: str,  # Search query to find
+    item_name: str,  # Item name to search in
+    text: str,  # Text (documentation, docstring) to search in
+    content_type: str,  # Type of content being searched
+    module_name: str,  # Module containing the item
+    text_location: str,  # Description of text field (e.g., 'documentation', 'docstring')
+    case_sensitive: bool = False  # Whether to perform case-sensitive search
+) -> List[SearchResult]:  # List of search results for matches found
     "Search in both name and text fields, returning search results."
 ```
 
 ``` python
 def check_factory_usage_patterns(
-    factory_name: str  # TODO: Add description
-) -> List[str]:  # TODO: Add return description
+    factory_name: str  # Name of factory to create patterns for
+) -> List[str]:  # List of regex patterns matching factory usage
     "Get regex patterns to match common factory usage patterns."
 ```
 
@@ -6862,10 +6862,10 @@ def search_in_source_code(
 
 ``` python
 def find_variable_usages(
-    func_src: str,  # TODO: Add description
-    var_name: str  # TODO: Add description
-): # TODO: Add type hint
-    "Find variable usages by parsing function into an AST"
+    func_src: str,  # Source code to search
+    var_name: str  # Variable name to find
+) -> List[Tuple[int, int, str]]:  # List of (line_number, column, context_type) tuples
+    "Find variable usages by parsing function into an AST."
 ```
 
 ``` python
@@ -6908,7 +6908,7 @@ def discover_utility_modules(
 
 ``` python
 def iterate_all_modules_with_items(
-    extractor_func,    # Function to extract items from a module - TODO: Add type hint
+    extractor_func: Callable[[Any, str], List[Any]],  # Function to extract items from a module
     module_filter: Optional[str] = None,  # Optional specific module to filter for
     config: Optional[LibraryConfig] = None  # Optional configuration
 ) -> Dict[str, List[Any]]:  # Dictionary mapping module names to their items
@@ -6924,8 +6924,8 @@ def extract_helper_names_from_test(
 
 ``` python
 def load_code_from_file(
-    filepath: str  # TODO: Add description
-) -> Optional[str]:  # TODO: Add return description
+    filepath: str  # Path to file to load
+) -> Optional[str]:  # File contents as string, or None if error
     "Load code from a file."
 ```
 
