@@ -1063,7 +1063,7 @@ test_transforms_fasthtml_examples()
 
 # %% ../../nbs/utilities/transforms.ipynb 60
 def center_transform(
-) -> str:  # TODO: Add return description
+) -> str: # Classes to center an element using translate transformations
     """Center an element using transform translate."""
     return combine_classes(
         str(translate.x.negative("1/2")),
@@ -1072,15 +1072,15 @@ def center_transform(
 
 # %% ../../nbs/utilities/transforms.ipynb 61
 def hover_scale(
-    scale: int = 110  # TODO: Add description
-) -> str:  # TODO: Add return description
+    scale: int = 110 # The scale percentage to apply on hover (e.g., 110 for 110%)
+) -> str: # Classes to create a hover scale effect with transitions
     """Create a hover scale effect."""
     return f"hover:scale-{scale} transition-transform"
 
 # %% ../../nbs/utilities/transforms.ipynb 62
 def flip_card_3d(
-    perspective_value: str = "normal"  # TODO: Add description
-) -> Dict[str, str]:  # TODO: Add return description
+    perspective_value: str = "normal" # The perspective value for the 3D effect (e.g., 'normal', 'dramatic', 'distant')
+) -> Dict[str, str]: # Dictionary with class strings for container, inner, front, and back elements
     """Get classes for a 3D flip card effect."""
     return {
         "container": str(getattr(perspective, perspective_value)),
@@ -1095,8 +1095,8 @@ def flip_card_3d(
 
 # %% ../../nbs/utilities/transforms.ipynb 63
 def parallax_transform(
-    speed: float = 0.5  # TODO: Add description
-) -> str:  # TODO: Add return description
+    speed: float = 0.5 # The parallax scroll speed multiplier (e.g., 0.5 for half speed)
+) -> str: # Classes to create a parallax transform effect based on scroll position
     """Create a parallax transform effect."""
     return combine_classes(
         str(translate.y(f"calc(var(--scroll-y) * -{speed})")),

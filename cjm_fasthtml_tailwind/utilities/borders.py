@@ -359,7 +359,7 @@ class BorderDirectionalFactory:
     
     def describe(
         self
-    ) -> str:  # TODO: Add return description
+    ) -> str: # The documentation string for this directional border factory
         """Return the documentation for this factory."""
         return self._doc
 

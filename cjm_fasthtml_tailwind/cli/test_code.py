@@ -20,9 +20,9 @@ from .cli_config import LibraryConfig, get_active_config
 
 # %% ../../nbs/cli/test_code.ipynb 4
 def create_test_script(
-    code: str,  # TODO: Add description
+    code: str, # The Python code snippet to wrap in a test script
     config: Optional[LibraryConfig] = None  # Optional configuration
-) -> str:  # TODO: Add return description
+) -> str: # A complete Python script with imports and the provided code
     """Create a test script with necessary imports and the provided code."""
     if config is None:
         config = get_active_config()

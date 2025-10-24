@@ -57,7 +57,7 @@ class BlurScale:
     
     def format(
         self
-    ) -> str:  # TODO: Add return description
+    ) -> str: # The name of this blur scale for use in Tailwind classes
         """Format as Tailwind class suffix."""
         return self.name
 
@@ -180,7 +180,7 @@ class DropShadowScale:
     
     def format(
         self
-    ) -> str:  # TODO: Add return description
+    ) -> str: # The name of this drop shadow scale for use in Tailwind classes
         """Format as Tailwind class suffix."""
         return self.name
 

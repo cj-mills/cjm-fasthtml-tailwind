@@ -48,7 +48,7 @@ from IPython.display import display
 
 # %% ../../nbs/utilities/typography.ipynb 5
 class FontFamily(str, Enum):
-    "TODO: Add class description"
+    """Font family options for controlling typography."""
     SANS = "sans"
     SERIF = "serif"
     MONO = "mono"
@@ -142,7 +142,7 @@ test_typography_font_style_examples()
 
 # %% ../../nbs/utilities/typography.ipynb 20
 class FontWeight(str, Enum):
-    "TODO: Add class description"
+    """Font weight options from thin to black."""
     THIN = "thin"
     EXTRALIGHT = "extralight"
     LIGHT = "light"
@@ -174,7 +174,7 @@ test_typography_font_weight_examples()
 
 # %% ../../nbs/utilities/typography.ipynb 23
 class FontStretch(str, Enum):
-    "TODO: Add class description"
+    """Font stretch options for controlling font width."""
     ULTRA_CONDENSED = "ultra-condensed"
     EXTRA_CONDENSED = "extra-condensed"
     CONDENSED = "condensed"
@@ -398,7 +398,7 @@ test_typography_list_image_examples()
 
 # %% ../../nbs/utilities/typography.ipynb 45
 class ListStylePosition(str, Enum):
-    "TODO: Add class description"
+    """List marker position options."""
     INSIDE = "inside"
     OUTSIDE = "outside"
 
@@ -406,7 +406,7 @@ list_position = enums_to_simple_factory("list", [ListStylePosition], "Utilities 
 
 # %% ../../nbs/utilities/typography.ipynb 46
 class ListStyleType(str, Enum):
-    "TODO: Add class description"
+    """List marker type options."""
     DISC = "disc"
     DECIMAL = "decimal"
     NONE = "none"
@@ -429,7 +429,7 @@ test_typography_list_styles_examples()
 
 # %% ../../nbs/utilities/typography.ipynb 49
 class TextAlign(str, Enum):
-    "TODO: Add class description"
+    """Text alignment options."""
     LEFT = "left"
     CENTER = "center"
     RIGHT = "right"
@@ -518,7 +518,7 @@ decoration_color = ColoredFactory("decoration", "Utilities for controlling the c
 
 # %% ../../nbs/utilities/typography.ipynb 59
 class DecorationStyle(str, Enum):
-    "TODO: Add class description"
+    """Text decoration style options."""
     SOLID = "solid"
     DOUBLE = "double"
     DOTTED = "dotted"

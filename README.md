@@ -93,119 +93,119 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
-    cli_display --> cli_core_utils_discovery
     cli_display --> cli_utils
-    cli_display --> cli_search
     cli_display --> cli_factory_extraction
-    cli_display --> cli_example_discovery
     cli_display --> cli_pattern_scanner
     cli_display --> cli_cli_config
+    cli_display --> cli_example_discovery
     cli_display --> cli_helper_discovery
     cli_display --> cli_test_code
+    cli_display --> cli_core_utils_discovery
     cli_display --> cli_imports
-    cli_dynamic_examples --> cli_core_utils_discovery
-    cli_dynamic_examples --> cli_display
+    cli_display --> cli_search
     cli_dynamic_examples --> cli_utils
-    cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_display
     cli_dynamic_examples --> cli_factory_extraction
-    cli_dynamic_examples --> cli_example_discovery
     cli_dynamic_examples --> cli_pattern_scanner
     cli_dynamic_examples --> cli_cli_config
+    cli_dynamic_examples --> cli_example_discovery
     cli_dynamic_examples --> cli_helper_discovery
     cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_core_utils_discovery
     cli_dynamic_examples --> cli_imports
+    cli_dynamic_examples --> cli_search
     cli_example_discovery --> cli_utils
     cli_explorer --> cli_display
     cli_explorer --> cli_dynamic_examples
-    cli_explorer --> cli_search
-    cli_explorer --> cli_utils
     cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_cli_config
+    cli_explorer --> cli_utils
     cli_explorer --> cli_test_code
+    cli_explorer --> cli_search
     cli_factory_extraction --> cli_utils
     cli_factory_extraction --> core_base
-    cli_helper_discovery --> cli_example_discovery
     cli_helper_discovery --> cli_utils
-    cli_imports --> cli_factory_extraction
-    cli_imports --> cli_core_utils_discovery
-    cli_imports --> cli_helper_discovery
-    cli_imports --> cli_cli_config
+    cli_helper_discovery --> cli_example_discovery
     cli_imports --> cli_utils
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_cli_config
+    cli_imports --> cli_factory_extraction
+    cli_imports --> cli_helper_discovery
     cli_pattern_scanner --> cli_example_discovery
     cli_pattern_scanner --> cli_cli_config
-    cli_search --> cli_helper_discovery
     cli_search --> cli_utils
     cli_search --> cli_factory_extraction
     cli_search --> cli_example_discovery
+    cli_search --> cli_helper_discovery
+    cli_test_code --> cli_utils
+    cli_test_code --> cli_cli_config
     cli_test_code --> cli_factory_extraction
     cli_test_code --> cli_helper_discovery
-    cli_test_code --> cli_cli_config
-    cli_test_code --> cli_utils
     cli_utils --> cli_cli_config
-    core_testing --> utilities_layout
-    core_testing --> utilities_spacing
-    core_testing --> utilities_borders
-    core_testing --> utilities_flexbox_and_grid
     core_testing --> utilities_typography
-    core_testing --> utilities_sizing
-    core_testing --> utilities_backgrounds
+    core_testing --> utilities_layout
     core_testing --> core_resources
+    core_testing --> utilities_sizing
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_spacing
     core_testing --> utilities_transitions_and_animation
-    core_testing --> core_base
+    core_testing --> utilities_backgrounds
     core_testing --> utilities_effects
+    core_testing --> utilities_borders
+    core_testing --> core_base
     core_testing --> utilities_accessibility
-    utilities_accessibility --> core_base
     utilities_accessibility --> core_testing
     utilities_accessibility --> builders_scales
-    utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_colors
+    utilities_accessibility --> core_base
     utilities_backgrounds --> core_testing
+    utilities_backgrounds --> core_base
     utilities_backgrounds --> builders_scales
-    utilities_borders --> core_base
-    utilities_borders --> builders_colors
+    utilities_backgrounds --> builders_colors
     utilities_borders --> core_testing
+    utilities_borders --> core_base
     utilities_borders --> builders_scales
-    utilities_effects --> core_base
-    utilities_effects --> builders_colors
+    utilities_borders --> builders_colors
     utilities_effects --> core_testing
+    utilities_effects --> core_base
     utilities_effects --> builders_scales
-    utilities_filters --> core_base
-    utilities_filters --> builders_colors
+    utilities_effects --> builders_colors
     utilities_filters --> core_testing
+    utilities_filters --> core_base
     utilities_filters --> builders_scales
-    utilities_flexbox_and_grid --> core_base
+    utilities_filters --> builders_colors
     utilities_flexbox_and_grid --> core_testing
+    utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
-    utilities_interactivity --> core_base
-    utilities_interactivity --> builders_colors
     utilities_interactivity --> core_testing
+    utilities_interactivity --> core_base
     utilities_interactivity --> builders_scales
-    utilities_layout --> core_base
+    utilities_interactivity --> builders_colors
     utilities_layout --> core_testing
+    utilities_layout --> core_base
     utilities_layout --> builders_scales
-    utilities_sizing --> core_base
     utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
-    utilities_spacing --> core_base
+    utilities_sizing --> core_base
     utilities_spacing --> core_testing
+    utilities_spacing --> core_base
     utilities_spacing --> builders_scales
-    utilities_svg --> core_base
-    utilities_svg --> builders_colors
     utilities_svg --> core_testing
+    utilities_svg --> core_base
     utilities_svg --> builders_scales
-    utilities_tables --> core_base
+    utilities_svg --> builders_colors
     utilities_tables --> core_testing
+    utilities_tables --> core_base
     utilities_tables --> builders_scales
-    utilities_transforms --> core_base
     utilities_transforms --> core_testing
+    utilities_transforms --> core_base
     utilities_transforms --> builders_scales
-    utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> core_testing
+    utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> builders_scales
-    utilities_typography --> core_base
-    utilities_typography --> builders_colors
     utilities_typography --> core_testing
+    utilities_typography --> core_base
     utilities_typography --> builders_scales
+    utilities_typography --> builders_colors
 ```
 
 *116 cross-module dependencies detected*
@@ -1311,7 +1311,7 @@ class BorderDirectionalFactory:
     
     def describe(
             self
-        ) -> str:  # TODO: Add return description
+        ) -> str: # The documentation string for this directional border factory
         "Return the documentation for this factory."
 ```
 
@@ -2983,7 +2983,7 @@ class BlurScale:
     
     def format(
             self
-        ) -> str:  # TODO: Add return description
+        ) -> str: # The name of this blur scale for use in Tailwind classes
         "Format as Tailwind class suffix."
 ```
 
@@ -2998,7 +2998,7 @@ class DropShadowScale:
     
     def format(
             self
-        ) -> str:  # TODO: Add return description
+        ) -> str: # The name of this drop shadow scale for use in Tailwind classes
         "Format as Tailwind class suffix."
 ```
 
@@ -5577,9 +5577,9 @@ from cjm_fasthtml_tailwind.cli.test_code import (
 
 ``` python
 def create_test_script(
-    code: str,  # TODO: Add description
+    code: str, # The Python code snippet to wrap in a test script
     config: Optional[LibraryConfig] = None  # Optional configuration
-) -> str:  # TODO: Add return description
+) -> str: # A complete Python script with imports and the provided code
     "Create a test script with necessary imports and the provided code."
 ```
 
@@ -5765,28 +5765,28 @@ def test_transforms_fasthtml_examples()
 
 ``` python
 def center_transform(
-) -> str:  # TODO: Add return description
+) -> str: # Classes to center an element using translate transformations
     "Center an element using transform translate."
 ```
 
 ``` python
 def hover_scale(
-    scale: int = 110  # TODO: Add description
-) -> str:  # TODO: Add return description
+    scale: int = 110 # The scale percentage to apply on hover (e.g., 110 for 110%)
+) -> str: # Classes to create a hover scale effect with transitions
     "Create a hover scale effect."
 ```
 
 ``` python
 def flip_card_3d(
-    perspective_value: str = "normal"  # TODO: Add description
-) -> Dict[str, str]:  # TODO: Add return description
+    perspective_value: str = "normal" # The perspective value for the 3D effect (e.g., 'normal', 'dramatic', 'distant')
+) -> Dict[str, str]: # Dictionary with class strings for container, inner, front, and back elements
     "Get classes for a 3D flip card effect."
 ```
 
 ``` python
 def parallax_transform(
-    speed: float = 0.5  # TODO: Add description
-) -> str:  # TODO: Add return description
+    speed: float = 0.5 # The parallax scroll speed multiplier (e.g., 0.5 for half speed)
+) -> str: # Classes to create a parallax transform effect based on scroll position
     "Create a parallax transform effect."
 ```
 
@@ -6498,17 +6498,17 @@ def test_typography_fasthtml_examples()
 
 ``` python
 class FontFamily(str, Enum):
-    "TODO: Add class description"
+    "Font family options for controlling typography."
 ```
 
 ``` python
 class FontWeight(str, Enum):
-    "TODO: Add class description"
+    "Font weight options from thin to black."
 ```
 
 ``` python
 class FontStretch(str, Enum):
-    "TODO: Add class description"
+    "Font stretch options for controlling font width."
 ```
 
 ``` python
@@ -6551,22 +6551,22 @@ class ListImageFactory:
 
 ``` python
 class ListStylePosition(str, Enum):
-    "TODO: Add class description"
+    "List marker position options."
 ```
 
 ``` python
 class ListStyleType(str, Enum):
-    "TODO: Add class description"
+    "List marker type options."
 ```
 
 ``` python
 class TextAlign(str, Enum):
-    "TODO: Add class description"
+    "Text alignment options."
 ```
 
 ``` python
 class DecorationStyle(str, Enum):
-    "TODO: Add class description"
+    "Text decoration style options."
 ```
 
 ``` python
