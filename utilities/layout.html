@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Display, position, overflow, z-index and other layout utilities for Tailwind CSS">
+
+<title>layout – cjm-fasthtml-tailwind</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="layout – cjm-fasthtml-tailwind">
+<meta property="og:description" content="Display, position, overflow, z-index and other layout utilities for Tailwind CSS">
+<meta property="og:site_name" content="cjm-fasthtml-tailwind">
+<meta name="twitter:title" content="layout – cjm-fasthtml-tailwind">
+<meta name="twitter:description" content="Display, position, overflow, z-index and other layout utilities for Tailwind CSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">cjm-fasthtml-tailwind</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../utilities/accessibility.html">utilities</a></li><li class="breadcrumb-item"><a href="../utilities/layout.html">layout</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cjm-fasthtml-tailwind</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">builders</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../builders/colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../builders/scales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">scales</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">cli</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/cli_config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CLI Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/core_utils_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core Utilities Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/display.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Display Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/dynamic_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Example Helpers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/example_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/explorer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">explorer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/factory_extraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factory Extraction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/helper_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Helper Function Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/imports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">imports</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/pattern_scanner.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pattern_scanner</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/test_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test Code Functionality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">utils</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">core</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">base</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">utilities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/accessibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">accessibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/backgrounds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">backgrounds</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/borders.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">borders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/filters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">filters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/flexbox_and_grid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">flexbox_and_grid</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/interactivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">interactivity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/layout.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">layout</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/sizing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sizing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/spacing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">spacing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/svg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">svg</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/transforms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">transforms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/transitions_and_animation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">transitions_and_animation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/typography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">typography</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#display-utilities" id="toc-display-utilities" class="nav-link active" data-scroll-target="#display-utilities">Display Utilities</a>
+  <ul class="collapse">
+  <li><a href="#test_layout_display_examples" id="toc-test_layout_display_examples" class="nav-link" data-scroll-target="#test_layout_display_examples">test_layout_display_examples</a></li>
+  </ul></li>
+  <li><a href="#position-utilities" id="toc-position-utilities" class="nav-link" data-scroll-target="#position-utilities">Position Utilities</a>
+  <ul class="collapse">
+  <li><a href="#test_layout_position_examples" id="toc-test_layout_position_examples" class="nav-link" data-scroll-target="#test_layout_position_examples">test_layout_position_examples</a></li>
+  </ul></li>
+  <li><a href="#inset-utilities-toprightbottomleft" id="toc-inset-utilities-toprightbottomleft" class="nav-link" data-scroll-target="#inset-utilities-toprightbottomleft">Inset Utilities (Top/Right/Bottom/Left)</a>
+  <ul class="collapse">
+  <li><a href="#insetdirectionalfactory" id="toc-insetdirectionalfactory" class="nav-link" data-scroll-target="#insetdirectionalfactory">InsetDirectionalFactory</a></li>
+  <li><a href="#test_layout_inset_examples" id="toc-test_layout_inset_examples" class="nav-link" data-scroll-target="#test_layout_inset_examples">test_layout_inset_examples</a></li>
+  </ul></li>
+  <li><a href="#overflow-utilities" id="toc-overflow-utilities" class="nav-link" data-scroll-target="#overflow-utilities">Overflow Utilities</a>
+  <ul class="collapse">
+  <li><a href="#overflowfactory" id="toc-overflowfactory" class="nav-link" data-scroll-target="#overflowfactory">OverflowFactory</a></li>
+  <li><a href="#test_layout_overflow_examples" id="toc-test_layout_overflow_examples" class="nav-link" data-scroll-target="#test_layout_overflow_examples">test_layout_overflow_examples</a></li>
+  </ul></li>
+  <li><a href="#z-index-utilities" id="toc-z-index-utilities" class="nav-link" data-scroll-target="#z-index-utilities">Z-Index Utilities</a>
+  <ul class="collapse">
+  <li><a href="#test_layout_z_index_examples" id="toc-test_layout_z_index_examples" class="nav-link" data-scroll-target="#test_layout_z_index_examples">test_layout_z_index_examples</a></li>
+  </ul></li>
+  <li><a href="#float-utilities" id="toc-float-utilities" class="nav-link" data-scroll-target="#float-utilities">Float Utilities</a></li>
+  <li><a href="#clear-utilities" id="toc-clear-utilities" class="nav-link" data-scroll-target="#clear-utilities">Clear Utilities</a>
+  <ul class="collapse">
+  <li><a href="#test_layout_float_clear_examples" id="toc-test_layout_float_clear_examples" class="nav-link" data-scroll-target="#test_layout_float_clear_examples">test_layout_float_clear_examples</a></li>
+  </ul></li>
+  <li><a href="#object-fit-utilities" id="toc-object-fit-utilities" class="nav-link" data-scroll-target="#object-fit-utilities">Object Fit Utilities</a></li>
+  <li><a href="#object-position-utilities" id="toc-object-position-utilities" class="nav-link" data-scroll-target="#object-position-utilities">Object Position Utilities</a>
+  <ul class="collapse">
+  <li><a href="#objectpositionfactory" id="toc-objectpositionfactory" class="nav-link" data-scroll-target="#objectpositionfactory">ObjectPositionFactory</a></li>
+  <li><a href="#test_layout_object_examples" id="toc-test_layout_object_examples" class="nav-link" data-scroll-target="#test_layout_object_examples">test_layout_object_examples</a></li>
+  </ul></li>
+  <li><a href="#visibility-utilities" id="toc-visibility-utilities" class="nav-link" data-scroll-target="#visibility-utilities">Visibility Utilities</a></li>
+  <li><a href="#box-sizing-utilities" id="toc-box-sizing-utilities" class="nav-link" data-scroll-target="#box-sizing-utilities">Box Sizing Utilities</a>
+  <ul class="collapse">
+  <li><a href="#test_layout_visibility_examples" id="toc-test_layout_visibility_examples" class="nav-link" data-scroll-target="#test_layout_visibility_examples">test_layout_visibility_examples</a></li>
+  </ul></li>
+  <li><a href="#isolation-utilities" id="toc-isolation-utilities" class="nav-link" data-scroll-target="#isolation-utilities">Isolation Utilities</a></li>
+  <li><a href="#aspect-ratio-utilities" id="toc-aspect-ratio-utilities" class="nav-link" data-scroll-target="#aspect-ratio-utilities">Aspect Ratio Utilities</a>
+  <ul class="collapse">
+  <li><a href="#aspectratiofactory" id="toc-aspectratiofactory" class="nav-link" data-scroll-target="#aspectratiofactory">AspectRatioFactory</a></li>
+  <li><a href="#test_layout_aspect_columns_examples" id="toc-test_layout_aspect_columns_examples" class="nav-link" data-scroll-target="#test_layout_aspect_columns_examples">test_layout_aspect_columns_examples</a></li>
+  </ul></li>
+  <li><a href="#columns-utilities" id="toc-columns-utilities" class="nav-link" data-scroll-target="#columns-utilities">Columns Utilities</a>
+  <ul class="collapse">
+  <li><a href="#test_layout_columns_examples" id="toc-test_layout_columns_examples" class="nav-link" data-scroll-target="#test_layout_columns_examples">test_layout_columns_examples</a></li>
+  </ul></li>
+  <li><a href="#break-utilities" id="toc-break-utilities" class="nav-link" data-scroll-target="#break-utilities">Break Utilities</a>
+  <ul class="collapse">
+  <li><a href="#breakfactory" id="toc-breakfactory" class="nav-link" data-scroll-target="#breakfactory">BreakFactory</a></li>
+  </ul></li>
+  <li><a href="#box-decoration-break-utilities" id="toc-box-decoration-break-utilities" class="nav-link" data-scroll-target="#box-decoration-break-utilities">Box Decoration Break Utilities</a></li>
+  <li><a href="#overscroll-behavior-utilities" id="toc-overscroll-behavior-utilities" class="nav-link" data-scroll-target="#overscroll-behavior-utilities">Overscroll Behavior Utilities</a>
+  <ul class="collapse">
+  <li><a href="#overscrollfactory" id="toc-overscrollfactory" class="nav-link" data-scroll-target="#overscrollfactory">OverscrollFactory</a></li>
+  <li><a href="#test_layout_other_utilities_examples" id="toc-test_layout_other_utilities_examples" class="nav-link" data-scroll-target="#test_layout_other_utilities_examples">test_layout_other_utilities_examples</a></li>
+  </ul></li>
+  <li><a href="#practical-examples" id="toc-practical-examples" class="nav-link" data-scroll-target="#practical-examples">Practical Examples</a>
+  <ul class="collapse">
+  <li><a href="#test_layout_fasthtml_examples" id="toc-test_layout_fasthtml_examples" class="nav-link" data-scroll-target="#test_layout_fasthtml_examples">test_layout_fasthtml_examples</a></li>
+  <li><a href="#test_layout_enhanced_factories_fasthtml_examples" id="toc-test_layout_enhanced_factories_fasthtml_examples" class="nav-link" data-scroll-target="#test_layout_enhanced_factories_fasthtml_examples">test_layout_enhanced_factories_fasthtml_examples</a></li>
+  <li><a href="#test_layout_modifier_examples" id="toc-test_layout_modifier_examples" class="nav-link" data-scroll-target="#test_layout_modifier_examples">test_layout_modifier_examples</a></li>
+  </ul></li>
+  <li><a href="#helper-functions" id="toc-helper-functions" class="nav-link" data-scroll-target="#helper-functions">Helper Functions</a>
+  <ul class="collapse">
+  <li><a href="#center_absolute" id="toc-center_absolute" class="nav-link" data-scroll-target="#center_absolute">center_absolute</a></li>
+  <li><a href="#stack_context" id="toc-stack_context" class="nav-link" data-scroll-target="#stack_context">stack_context</a></li>
+  <li><a href="#sticky_top" id="toc-sticky_top" class="nav-link" data-scroll-target="#sticky_top">sticky_top</a></li>
+  <li><a href="#full_bleed" id="toc-full_bleed" class="nav-link" data-scroll-target="#full_bleed">full_bleed</a></li>
+  <li><a href="#test_layout_helper_examples" id="toc-test_layout_helper_examples" class="nav-link" data-scroll-target="#test_layout_helper_examples">test_layout_helper_examples</a></li>
+  </ul></li>
+  <li><a href="#export" id="toc-export" class="nav-link" data-scroll-target="#export">Export</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="layout.html.md"><i class="bi bi-file-code"></i>CommonMark</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../utilities/accessibility.html">utilities</a></li><li class="breadcrumb-item"><a href="../utilities/layout.html">layout</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">layout</h1>
+</div>
+
+<div>
+  <div class="description">
+    Display, position, overflow, z-index and other layout utilities for Tailwind CSS
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="display-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="display-utilities">Display Utilities</h2>
+<p>Tailwind CSS provides utilities for controlling the display box type of an element.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L54" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_layout_display_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_display_examples">test_layout_display_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_display_examples ()</code></pre>
+</blockquote>
+<p><em>Test display utilities with various values.</em></p>
+<div id="6d5e0cc1-ea78-4eb6-9ba5-51a2523a502d" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DISPLAY_VALUES <span class="op">=</span> { <span class="co"># Display utilities for general display types (not flex/grid/table)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"inline"</span>: <span class="st">"inline"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"block"</span>: <span class="st">"block"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"inline-block"</span>: <span class="st">"inline-block"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"flow-root"</span>: <span class="st">"flow-root"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"contents"</span>: <span class="st">"contents"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"list-item"</span>: <span class="st">"list-item"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hidden"</span>: <span class="st">"hidden"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"none"</span>: <span class="st">"none"</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>display_tw <span class="op">=</span> SimpleFactory(DISPLAY_VALUES, <span class="st">"Display utilities for controlling the display box type of an element"</span>) <span class="co"># The display factory for general display types</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="e9e297ae-b869-4780-a755-793c77df5ecb" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_display_examples(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test display utilities with various values."""</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test display utilities with dot notation</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.block) <span class="op">==</span> <span class="st">"block"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.inline) <span class="op">==</span> <span class="st">"inline"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.hidden) <span class="op">==</span> <span class="st">"hidden"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.inline_block) <span class="op">==</span> <span class="st">"inline-block"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.flow_root) <span class="op">==</span> <span class="st">"flow-root"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.contents) <span class="op">==</span> <span class="st">"contents"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.list_item) <span class="op">==</span> <span class="st">"list-item"</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.none) <span class="op">==</span> <span class="st">"none"</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>test_layout_display_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="position-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="position-utilities">Position Utilities</h2>
+<p>Control how an element is positioned in the document.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L82" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_layout_position_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_position_examples">test_layout_position_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_position_examples ()</code></pre>
+</blockquote>
+<p><em>Test position utilities.</em></p>
+<div id="62ceab15-1293-4226-8153-5bdfdcec85a9" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>POSITION_VALUES <span class="op">=</span> { <span class="co"># Position utilities</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"static"</span>: <span class="st">"static"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fixed"</span>: <span class="st">"fixed"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"absolute"</span>: <span class="st">"absolute"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"relative"</span>: <span class="st">"relative"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sticky"</span>: <span class="st">"sticky"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>position <span class="op">=</span> SimpleFactory(POSITION_VALUES, <span class="st">"Position utilities for controlling how an element is positioned in the document"</span>) <span class="co"># The position factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="449df6b0-0777-426c-8a40-ad5d4faa7f41" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_position_examples(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test position utilities."""</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test position utilities with dot notation</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.static) <span class="op">==</span> <span class="st">"static"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.relative) <span class="op">==</span> <span class="st">"relative"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.absolute) <span class="op">==</span> <span class="st">"absolute"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.fixed) <span class="op">==</span> <span class="st">"fixed"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.sticky) <span class="op">==</span> <span class="st">"sticky"</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>test_layout_position_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="inset-utilities-toprightbottomleft" class="level2">
+<h2 class="anchored" data-anchor-id="inset-utilities-toprightbottomleft">Inset Utilities (Top/Right/Bottom/Left)</h2>
+<p>Control the placement of positioned elements.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L97" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="insetdirectionalfactory" class="level3">
+<h3 class="anchored" data-anchor-id="insetdirectionalfactory">InsetDirectionalFactory</h3>
+<blockquote class="blockquote">
+<pre><code> InsetDirectionalFactory (prefix:str,
+                          config:cjm_fasthtml_tailwind.builders.scales.Sca
+                          leConfig)</code></pre>
+</blockquote>
+<p><em>Special factory for inset utilities that use hyphenated directions.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prefix</td>
+<td>str</td>
+<td>The base prefix (‘inset’)</td>
+</tr>
+<tr class="even">
+<td>config</td>
+<td>ScaleConfig</td>
+<td>Configuration defining valid scales and values</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L189" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_inset_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_inset_examples">test_layout_inset_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_inset_examples ()</code></pre>
+</blockquote>
+<p><em>Test inset utilities for positioning elements.</em></p>
+<div id="6442c610-f1d0-4917-971d-6b8a24d86c8d" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inset utilities (top, right, bottom, left)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>inset <span class="op">=</span> InsetDirectionalFactory(<span class="st">"inset"</span>, INSET_CONFIG) <span class="co"># The inset factory for positioning</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Individual direction utilities don't need special handling</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>top <span class="op">=</span> ScaledFactory(<span class="st">"top"</span>, INSET_CONFIG, <span class="st">"Top position utilities for controlling vertical placement"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> ScaledFactory(<span class="st">"right"</span>, INSET_CONFIG, <span class="st">"Right position utilities for controlling horizontal placement"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>bottom <span class="op">=</span> ScaledFactory(<span class="st">"bottom"</span>, INSET_CONFIG, <span class="st">"Bottom position utilities for controlling vertical placement"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> ScaledFactory(<span class="st">"left"</span>, INSET_CONFIG, <span class="st">"Left position utilities for controlling horizontal placement"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> ScaledFactory(<span class="st">"start"</span>, INSET_CONFIG, <span class="st">"Logical start position utilities (left in LTR, right in RTL)"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> ScaledFactory(<span class="st">"end"</span>, INSET_CONFIG, <span class="st">"Logical end position utilities (right in LTR, left in RTL)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="983801f8-e29d-4362-b87a-fc9bbc31a9bd" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_inset_examples(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test inset utilities for positioning elements."""</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test inset utilities</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset(<span class="dv">0</span>)) <span class="op">==</span> <span class="st">"inset-0"</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"inset-4"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset(<span class="st">"1/2"</span>)) <span class="op">==</span> <span class="st">"inset-1/2"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset.auto) <span class="op">==</span> <span class="st">"inset-auto"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset.full) <span class="op">==</span> <span class="st">"inset-full"</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset.negative(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"-inset-4"</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test directional inset</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset.x(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"inset-x-4"</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset.y(<span class="dv">8</span>)) <span class="op">==</span> <span class="st">"inset-y-8"</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test individual directions</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(top(<span class="dv">0</span>)) <span class="op">==</span> <span class="st">"top-0"</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(right(<span class="dv">4</span>)) <span class="op">==</span> <span class="st">"right-4"</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bottom.auto) <span class="op">==</span> <span class="st">"bottom-auto"</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(left.negative(<span class="dv">2</span>)) <span class="op">==</span> <span class="st">"-left-2"</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>test_layout_inset_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="overflow-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="overflow-utilities">Overflow Utilities</h2>
+<p>Control how an element handles content that is too large for the container.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L217" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="overflowfactory" class="level3">
+<h3 class="anchored" data-anchor-id="overflowfactory">OverflowFactory</h3>
+<blockquote class="blockquote">
+<pre><code> OverflowFactory ()</code></pre>
+</blockquote>
+<p><em>Factory for overflow utilities with directional support.</em></p>
+<div id="63a728ea-fb3f-490b-b843-d9281ec6926a" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>OVERFLOW_VALUES <span class="op">=</span> [<span class="st">"auto"</span>, <span class="st">"hidden"</span>, <span class="st">"clip"</span>, <span class="st">"visible"</span>, <span class="st">"scroll"</span>] <span class="co"># Overflow values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L274" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_overflow_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_overflow_examples">test_layout_overflow_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_overflow_examples ()</code></pre>
+</blockquote>
+<p><em>Test overflow utilities for content handling.</em></p>
+<div id="b719e50b-8026-4f5a-9c91-ef93536bdb7b" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>overflow <span class="op">=</span> OverflowFactory() <span class="co"># The overflow factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="9d9678b0-46b7-4fcb-bef9-31306e4f0072" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_overflow_examples(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test overflow utilities for content handling."""</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test overflow utilities</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.auto) <span class="op">==</span> <span class="st">"overflow-auto"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.hidden) <span class="op">==</span> <span class="st">"overflow-hidden"</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.visible) <span class="op">==</span> <span class="st">"overflow-visible"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Directional overflow utilities</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.x.auto) <span class="op">==</span> <span class="st">"overflow-x-auto"</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.y.scroll) <span class="op">==</span> <span class="st">"overflow-y-scroll"</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.x.visible) <span class="op">==</span> <span class="st">"overflow-x-visible"</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.y.visible) <span class="op">==</span> <span class="st">"overflow-y-visible"</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.y.clip) <span class="op">==</span> <span class="st">"overflow-y-clip"</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>test_layout_overflow_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="z-index-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="z-index-utilities">Z-Index Utilities</h2>
+<p>Control the stack order of an element.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L308" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_layout_z_index_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_z_index_examples">test_layout_z_index_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_z_index_examples ()</code></pre>
+</blockquote>
+<p><em>Test z-index utilities for stack ordering.</em></p>
+<div id="19d4e933-f010-43d5-9421-903f19693cd8" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Z_INDEX_CONFIG <span class="op">=</span> ScaleConfig( <span class="co"># Z-index configuration</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    numeric<span class="op">=</span><span class="va">True</span>,  <span class="co"># Support numeric values 0-50</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    decimals<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    fractions<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    named<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    special<span class="op">=</span>{</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"auto"</span>: <span class="st">"auto"</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    negative<span class="op">=</span><span class="va">True</span>  <span class="co"># Support negative z-index</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create z-index factory</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> ScaledFactory(<span class="st">"z"</span>, Z_INDEX_CONFIG, <span class="st">"Z-index utilities for controlling the stack order of an element"</span>) <span class="co"># The z-index factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="d91255f1-80e5-494b-b74b-41c7be0a040e" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_z_index_examples(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test z-index utilities for stack ordering."""</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test z-index utilities</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="dv">0</span>)) <span class="op">==</span> <span class="st">"z-0"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="dv">10</span>)) <span class="op">==</span> <span class="st">"z-10"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="dv">20</span>)) <span class="op">==</span> <span class="st">"z-20"</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="dv">50</span>)) <span class="op">==</span> <span class="st">"z-50"</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z.auto) <span class="op">==</span> <span class="st">"z-auto"</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z.negative(<span class="dv">10</span>)) <span class="op">==</span> <span class="st">"-z-10"</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="st">"999"</span>)) <span class="op">==</span> <span class="st">"z-[999]"</span> <span class="co"># (string number without units)</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="st">"[999]"</span>)) <span class="op">==</span> <span class="st">"z-[999]"</span> <span class="co"># (explicit arbitrary value)</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>test_layout_z_index_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="float-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="float-utilities">Float Utilities</h2>
+<p>Control the wrapping of content around an element.</p>
+<div id="2798591c-c316-4d3b-836c-226d8b9c7a89" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Float utilities</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>FLOAT_VALUES <span class="op">=</span> {</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"right"</span>: <span class="st">"float-right"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"left"</span>: <span class="st">"float-left"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"start"</span>: <span class="st">"float-start"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"end"</span>: <span class="st">"float-end"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"none"</span>: <span class="st">"float-none"</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>float_tw <span class="op">=</span> SimpleFactory(FLOAT_VALUES, <span class="st">"Float utilities for controlling the wrapping of content around an element"</span>)  <span class="co"># Renamed to avoid conflict with Python's float</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="clear-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="clear-utilities">Clear Utilities</h2>
+<p>Control the wrapping behavior of an element after floating elements.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L351" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_layout_float_clear_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_float_clear_examples">test_layout_float_clear_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_float_clear_examples ()</code></pre>
+</blockquote>
+<p><em>Test float and clear utilities for content wrapping.</em></p>
+<div id="d4b4b948-9479-48e9-afb9-8eef42deef29" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear utilities</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>CLEAR_VALUES <span class="op">=</span> {</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"left"</span>: <span class="st">"clear-left"</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"right"</span>: <span class="st">"clear-right"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"both"</span>: <span class="st">"clear-both"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"start"</span>: <span class="st">"clear-start"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"end"</span>: <span class="st">"clear-end"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"none"</span>: <span class="st">"clear-none"</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create clear factory</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>clear <span class="op">=</span> SimpleFactory(CLEAR_VALUES, <span class="st">"Clear utilities for controlling wrapping behavior after floating elements"</span>) <span class="co"># The clear factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="ep3b41jssrn" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_float_clear_examples(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test float and clear utilities for content wrapping."""</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test float utilities</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.right) <span class="op">==</span> <span class="st">"float-right"</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.left) <span class="op">==</span> <span class="st">"float-left"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.start) <span class="op">==</span> <span class="st">"float-start"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.end) <span class="op">==</span> <span class="st">"float-end"</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.none) <span class="op">==</span> <span class="st">"float-none"</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test clear utilities</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.left) <span class="op">==</span> <span class="st">"clear-left"</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.right) <span class="op">==</span> <span class="st">"clear-right"</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.both) <span class="op">==</span> <span class="st">"clear-both"</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.start) <span class="op">==</span> <span class="st">"clear-start"</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.end) <span class="op">==</span> <span class="st">"clear-end"</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.none) <span class="op">==</span> <span class="st">"clear-none"</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>test_layout_float_clear_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="object-fit-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="object-fit-utilities">Object Fit Utilities</h2>
+<p>Control how a replaced element’s content should be resized.</p>
+<div id="ac4f1d13-89b2-47c8-af90-9cc7c1689888" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Object fit utilities</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>OBJECT_FIT_VALUES <span class="op">=</span> {</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"contain"</span>: <span class="st">"object-contain"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cover"</span>: <span class="st">"object-cover"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fill"</span>: <span class="st">"object-fill"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"none"</span>: <span class="st">"object-none"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"scale-down"</span>: <span class="st">"object-scale-down"</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create object fit factory</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>object_fit <span class="op">=</span> SimpleFactory(OBJECT_FIT_VALUES, <span class="st">"Object fit utilities for controlling how replaced element content should be resized"</span>) <span class="co"># The object fit factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="object-position-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="object-position-utilities">Object Position Utilities</h2>
+<p>Control how a replaced element’s content should be positioned within its container.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L401" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="objectpositionfactory" class="level3">
+<h3 class="anchored" data-anchor-id="objectpositionfactory">ObjectPositionFactory</h3>
+<blockquote class="blockquote">
+<pre><code> ObjectPositionFactory (values_dict:Optional[Dict[str,str]]=None,
+                        doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Factory for object position with both fixed and custom values.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>values_dict</td>
+<td>Optional</td>
+<td>None</td>
+<td>Dictionary mapping attribute names to CSS values</td>
+</tr>
+<tr class="even">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>Optional documentation string</td>
+</tr>
+</tbody>
+</table>
+<div id="ce8628be-560d-4131-9363-3f3d7cfa83a1" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Object position utilities - combines fixed positions with custom value support</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>OBJECT_POSITION_VALUES <span class="op">=</span> {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"top-left"</span>: <span class="st">"object-top-left"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"top"</span>: <span class="st">"object-top"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"top-right"</span>: <span class="st">"object-top-right"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"left"</span>: <span class="st">"object-left"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"center"</span>: <span class="st">"object-center"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"right"</span>: <span class="st">"object-right"</span>,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bottom-left"</span>: <span class="st">"object-bottom-left"</span>,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bottom"</span>: <span class="st">"object-bottom"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bottom-right"</span>: <span class="st">"object-bottom-right"</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L440" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_object_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_object_examples">test_layout_object_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_object_examples ()</code></pre>
+</blockquote>
+<p><em>Test object fit and position utilities.</em></p>
+<div id="c33b5809-04c2-4682-8253-e4097b10eeb8" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create object position factory</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>object_position <span class="op">=</span> ObjectPositionFactory(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    OBJECT_POSITION_VALUES, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Object position utilities for controlling content positioning within its container"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>) <span class="co"># The object position factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="7ae43ac0-0e9c-4e5e-b7de-c3f679eb1a0e" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_object_examples(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test object fit and position utilities."""</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test object fit utilities</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_fit.contain) <span class="op">==</span> <span class="st">"object-contain"</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_fit.cover) <span class="op">==</span> <span class="st">"object-cover"</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_fit.fill) <span class="op">==</span> <span class="st">"object-fill"</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_fit.none) <span class="op">==</span> <span class="st">"object-none"</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_fit.scale_down) <span class="op">==</span> <span class="st">"object-scale-down"</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test object position utilities with dot notation</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_position.center) <span class="op">==</span> <span class="st">"object-center"</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_position.top) <span class="op">==</span> <span class="st">"object-top"</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_position.bottom_right) <span class="op">==</span> <span class="st">"object-bottom-right"</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_position(<span class="st">"50</span><span class="sc">% 25%</span><span class="st">"</span>)) <span class="op">==</span> <span class="st">"object-[50</span><span class="sc">% 25%</span><span class="st">]"</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(object_position(<span class="st">"--custom-position"</span>)) <span class="op">==</span> <span class="st">"object-(--custom-position)"</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>test_layout_object_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="visibility-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="visibility-utilities">Visibility Utilities</h2>
+<p>Control the visibility of an element.</p>
+<div id="6c4ae8c6-9d90-4578-936e-291a25c9a0ac" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visibility utilities</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>VISIBILITY_VALUES <span class="op">=</span> {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"visible"</span>: <span class="st">"visible"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"invisible"</span>: <span class="st">"invisible"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"collapse"</span>: <span class="st">"collapse"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create visibility factory</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>visibility <span class="op">=</span> SimpleFactory(VISIBILITY_VALUES, <span class="st">"Visibility utilities for controlling the visibility of an element"</span>) <span class="co"># The visibility factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="box-sizing-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="box-sizing-utilities">Box Sizing Utilities</h2>
+<p>Control how the browser should calculate an element’s total size.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L482" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_layout_visibility_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_visibility_examples">test_layout_visibility_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_visibility_examples ()</code></pre>
+</blockquote>
+<p><em>Test visibility and box sizing utilities.</em></p>
+<div id="53025f25-c1f6-4a3b-a1e6-188ab0fa0ea7" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box sizing utilities</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>BOX_SIZING_VALUES <span class="op">=</span> {</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"border"</span>: <span class="st">"box-border"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"content"</span>: <span class="st">"box-content"</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box sizing factory</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>box <span class="op">=</span> SimpleFactory(BOX_SIZING_VALUES, <span class="st">"Box sizing utilities for controlling how the browser calculates element size"</span>) <span class="co"># The box sizing factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="9mdii2wb1h6" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_visibility_examples(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test visibility and box sizing utilities."""</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test visibility utilities</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(visibility.visible) <span class="op">==</span> <span class="st">"visible"</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(visibility.invisible) <span class="op">==</span> <span class="st">"invisible"</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(visibility.collapse) <span class="op">==</span> <span class="st">"collapse"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test box sizing utilities</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(box.border) <span class="op">==</span> <span class="st">"box-border"</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(box.content) <span class="op">==</span> <span class="st">"box-content"</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>test_layout_visibility_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="isolation-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="isolation-utilities">Isolation Utilities</h2>
+<p>Control whether an element should explicitly create a new stacking context.</p>
+<div id="f8e76b55-d17f-4982-91b8-36c5ee20b441" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Isolation utilities</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ISOLATION_VALUES <span class="op">=</span> {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"isolate"</span>: <span class="st">"isolate"</span>,</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"auto"</span>: <span class="st">"isolation-auto"</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create isolation factory</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>isolation <span class="op">=</span> SimpleFactory(ISOLATION_VALUES, <span class="st">"Isolation utilities for creating a new stacking context"</span>) <span class="co"># The isolation factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="aspect-ratio-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="aspect-ratio-utilities">Aspect Ratio Utilities</h2>
+<p>Control the aspect ratio of an element.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L517" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="aspectratiofactory" class="level3">
+<h3 class="anchored" data-anchor-id="aspectratiofactory">AspectRatioFactory</h3>
+<blockquote class="blockquote">
+<pre><code> AspectRatioFactory (values_dict:Optional[Dict[str,str]]=None,
+                     doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Factory for aspect ratio with both fixed and custom values.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>values_dict</td>
+<td>Optional</td>
+<td>None</td>
+<td>Dictionary mapping attribute names to CSS values</td>
+</tr>
+<tr class="even">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>Optional documentation string</td>
+</tr>
+</tbody>
+</table>
+<div id="1bfa55d4-1c85-433f-b2ef-2b37a0acb8f7" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aspect ratio utilities - fixed values with custom ratio support</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ASPECT_RATIO_VALUES <span class="op">=</span> {</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"auto"</span>: <span class="st">"aspect-auto"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"square"</span>: <span class="st">"aspect-square"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"video"</span>: <span class="st">"aspect-video"</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L558" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_aspect_columns_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_aspect_columns_examples">test_layout_aspect_columns_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_aspect_columns_examples ()</code></pre>
+</blockquote>
+<p><em>Test aspect ratio and columns utilities.</em></p>
+<div id="216bde33-c0a1-441b-89f5-dbd8f47076ab" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create aspect ratio factory</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>aspect <span class="op">=</span> AspectRatioFactory(ASPECT_RATIO_VALUES, <span class="st">"Aspect ratio utilities for controlling element proportions"</span>) <span class="co"># The aspect ratio factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="ea09b97e-8b3c-44bb-b831-72df791b86da" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_aspect_columns_examples(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test aspect ratio and columns utilities."""</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test aspect ratio utilities with dot notation</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(aspect.auto) <span class="op">==</span> <span class="st">"aspect-auto"</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(aspect.square) <span class="op">==</span> <span class="st">"aspect-square"</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(aspect.video) <span class="op">==</span> <span class="st">"aspect-video"</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(aspect(<span class="st">"16/9"</span>)) <span class="op">==</span> <span class="st">"aspect-16/9"</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(aspect(<span class="st">"4/3"</span>)) <span class="op">==</span> <span class="st">"aspect-4/3"</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(aspect(<span class="st">"--custom"</span>)) <span class="op">==</span> <span class="st">"aspect-(--custom)"</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>test_layout_aspect_columns_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="columns-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="columns-utilities">Columns Utilities</h2>
+<p>Control the number of columns within an element.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L588" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_layout_columns_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_columns_examples">test_layout_columns_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_columns_examples ()</code></pre>
+</blockquote>
+<p><em>Test columns utilities.</em></p>
+<div id="9aefecb8-69d6-4963-8677-4a3eb5c99274" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>COLUMNS_CONFIG <span class="op">=</span> ScaleConfig( <span class="co"># Columns configuration with container sizes</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    numeric<span class="op">=</span><span class="va">True</span>,  <span class="co"># Support columns-1 through columns-12</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    decimals<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    fractions<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    named<span class="op">=</span>CONTAINER_SCALES,  <span class="co"># Use all container scales (3xs through 7xl)</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    special<span class="op">=</span>{</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"auto"</span>: <span class="st">"auto"</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    negative<span class="op">=</span><span class="va">False</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create columns factory</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> ScaledFactory(<span class="st">"columns"</span>, COLUMNS_CONFIG, <span class="st">"Columns utilities for controlling the number of columns within an element"</span>) <span class="co"># The columns factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="a1366be3-b288-4deb-8def-1fe300eadf18" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_columns_examples(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test columns utilities."""</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test columns utilities</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns(<span class="dv">1</span>)) <span class="op">==</span> <span class="st">"columns-1"</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns(<span class="dv">2</span>)) <span class="op">==</span> <span class="st">"columns-2"</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns(<span class="dv">3</span>)) <span class="op">==</span> <span class="st">"columns-3"</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns.auto) <span class="op">==</span> <span class="st">"columns-auto"</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns.xs) <span class="op">==</span> <span class="st">"columns-xs"</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns.sm) <span class="op">==</span> <span class="st">"columns-sm"</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns.lg) <span class="op">==</span> <span class="st">"columns-lg"</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns._3xl) <span class="op">==</span> <span class="st">"columns-3xl"</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns._4xl) <span class="op">==</span> <span class="st">"columns-4xl"</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns._5xl) <span class="op">==</span> <span class="st">"columns-5xl"</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns._6xl) <span class="op">==</span> <span class="st">"columns-6xl"</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(columns._7xl) <span class="op">==</span> <span class="st">"columns-7xl"</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>test_layout_columns_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="break-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="break-utilities">Break Utilities</h2>
+<p>Control column and page breaks.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L641" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="breakfactory" class="level3">
+<h3 class="anchored" data-anchor-id="breakfactory">BreakFactory</h3>
+<blockquote class="blockquote">
+<pre><code> BreakFactory ()</code></pre>
+</blockquote>
+<p><em>Factory for break utilities with before, after, and inside sub-factories.</em></p>
+<div id="2a275b10-0b99-4b4e-9ede-ca003c3d1e30" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Break utilities - organized by type</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>BREAK_BEFORE_VALUES <span class="op">=</span> {</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"auto"</span>: <span class="st">"break-before-auto"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avoid"</span>: <span class="st">"break-before-avoid"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"all"</span>: <span class="st">"break-before-all"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avoid-page"</span>: <span class="st">"break-before-avoid-page"</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"page"</span>: <span class="st">"break-before-page"</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"left"</span>: <span class="st">"break-before-left"</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"right"</span>: <span class="st">"break-before-right"</span>,</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"column"</span>: <span class="st">"break-before-column"</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>BREAK_AFTER_VALUES <span class="op">=</span> {</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"auto"</span>: <span class="st">"break-after-auto"</span>,</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avoid"</span>: <span class="st">"break-after-avoid"</span>,</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"all"</span>: <span class="st">"break-after-all"</span>,</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avoid-page"</span>: <span class="st">"break-after-avoid-page"</span>,</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"page"</span>: <span class="st">"break-after-page"</span>,</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"left"</span>: <span class="st">"break-after-left"</span>,</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"right"</span>: <span class="st">"break-after-right"</span>,</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"column"</span>: <span class="st">"break-after-column"</span></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>BREAK_INSIDE_VALUES <span class="op">=</span> {</span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"auto"</span>: <span class="st">"break-inside-auto"</span>,</span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avoid"</span>: <span class="st">"break-inside-avoid"</span>,</span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avoid-page"</span>: <span class="st">"break-inside-avoid-page"</span>,</span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"avoid-column"</span>: <span class="st">"break-inside-avoid-column"</span></span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="85d53d12-d5bd-4c1c-bf15-b2219591416a" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the break factory</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>break_util <span class="op">=</span> BreakFactory() <span class="co"># The break factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="box-decoration-break-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="box-decoration-break-utilities">Box Decoration Break Utilities</h2>
+<p>Control how element fragments should be rendered across multiple lines, columns, or pages.</p>
+<div id="5ee545ba-bffc-4886-b4ec-e1d436fe9ec7" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box decoration break utilities</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>BOX_DECORATION_VALUES <span class="op">=</span> {</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"clone"</span>: <span class="st">"box-decoration-clone"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"slice"</span>: <span class="st">"box-decoration-slice"</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create box decoration factory</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>box_decoration <span class="op">=</span> SimpleFactory(</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    BOX_DECORATION_VALUES, </span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Box decoration break utilities for controlling element fragment rendering across breaks"</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>) <span class="co"># The box decoration factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="overscroll-behavior-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="overscroll-behavior-utilities">Overscroll Behavior Utilities</h2>
+<p>Control how the browser behaves when reaching the boundary of a scrolling area.</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L692" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="overscrollfactory" class="level3">
+<h3 class="anchored" data-anchor-id="overscrollfactory">OverscrollFactory</h3>
+<blockquote class="blockquote">
+<pre><code> OverscrollFactory ()</code></pre>
+</blockquote>
+<p><em>Factory for overscroll behavior utilities with directional support.</em></p>
+<div id="0d7a4914-4bcc-453f-8a86-d9ede9f3cc63" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overscroll behavior values</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>OVERSCROLL_VALUES <span class="op">=</span> [<span class="st">"auto"</span>, <span class="st">"contain"</span>, <span class="st">"none"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L739" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_other_utilities_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_other_utilities_examples">test_layout_other_utilities_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_other_utilities_examples ()</code></pre>
+</blockquote>
+<p><em>Test isolation, break, box decoration, and overscroll utilities.</em></p>
+<div id="7e10bade-99bc-4e60-9193-f6b527604676" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the overscroll factory</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>overscroll <span class="op">=</span> OverscrollFactory() <span class="co"># The overscroll factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="x5p9c7ej0on" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_other_utilities_examples(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test isolation, break, box decoration, and overscroll utilities."""</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test isolation utilities</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(isolation.isolate) <span class="op">==</span> <span class="st">"isolate"</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(isolation.auto) <span class="op">==</span> <span class="st">"isolation-auto"</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test break utilities</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(break_util.before.auto) <span class="op">==</span> <span class="st">"break-before-auto"</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(break_util.before.page) <span class="op">==</span> <span class="st">"break-before-page"</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(break_util.after.column) <span class="op">==</span> <span class="st">"break-after-column"</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(break_util.inside.avoid) <span class="op">==</span> <span class="st">"break-inside-avoid"</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test box decoration break utilities</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(box_decoration.clone) <span class="op">==</span> <span class="st">"box-decoration-clone"</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(box_decoration.<span class="bu">slice</span>) <span class="op">==</span> <span class="st">"box-decoration-slice"</span></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test overscroll behavior utilities</span></span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overscroll.auto) <span class="op">==</span> <span class="st">"overscroll-auto"</span></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overscroll.contain) <span class="op">==</span> <span class="st">"overscroll-contain"</span></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overscroll.none) <span class="op">==</span> <span class="st">"overscroll-none"</span></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overscroll.x.auto) <span class="op">==</span> <span class="st">"overscroll-x-auto"</span></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overscroll.y.contain) <span class="op">==</span> <span class="st">"overscroll-y-contain"</span></span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>test_layout_other_utilities_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="practical-examples" class="level2">
+<h2 class="anchored" data-anchor-id="practical-examples">Practical Examples</h2>
+<p>Let’s see how to use these layout utilities in real FastHTML components:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L767" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_layout_fasthtml_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_fasthtml_examples">test_layout_fasthtml_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_fasthtml_examples ()</code></pre>
+</blockquote>
+<p><em>Test layout utilities in practical FastHTML component examples.</em></p>
+<div id="59899a4f-913a-4ab9-99db-372f47aa4d8c" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_fasthtml_examples(</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test layout utilities in practical FastHTML component examples."""</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> fasthtml.common <span class="im">import</span> Div, Img, Header, Nav, Main, Section, Article, Aside</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.backgrounds <span class="im">import</span> bg</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.sizing <span class="im">import</span> h, w</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.flexbox_and_grid <span class="im">import</span> items, justify, gap, flex_display, grid_display</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.borders <span class="im">import</span> rounded</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fixed header with z-index</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    header <span class="op">=</span> Header(</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>        Nav(<span class="st">"Navigation"</span>),</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(position.fixed, top(<span class="dv">0</span>), left(<span class="dv">0</span>), right(<span class="dv">0</span>), z(<span class="dv">50</span>), bg.white)</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> header.attrs[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">"fixed top-0 left-0 right-0 z-50 bg-white"</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sticky sidebar with scroll</span></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>    sidebar <span class="op">=</span> Aside(</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Sidebar content"</span>,</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(position.sticky, top(<span class="dv">20</span>), h.screen, overflow.y.auto)</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> sidebar.attrs[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">"sticky top-20 h-screen overflow-y-auto"</span></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Modal overlay with z-index</span></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>    modal_overlay <span class="op">=</span> Div(</span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>        Div(<span class="st">"Modal content"</span>, cls<span class="op">=</span>combine_classes(position.relative, z(<span class="dv">10</span>))),</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(position.fixed, inset(<span class="dv">0</span>), z(<span class="dv">40</span>), flex_display, items.center, justify.center, bg.black.opacity(<span class="dv">50</span>))</span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> modal_overlay.attrs[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">"fixed inset-0 z-40 flex items-center justify-center bg-black/50"</span></span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> modal_overlay.children[<span class="dv">0</span>].attrs[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">"relative z-10"</span></span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Image with aspect ratio and object fit</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>    image_container <span class="op">=</span> Div(</span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>        Img(src<span class="op">=</span><span class="st">"https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"</span>, cls<span class="op">=</span>combine_classes(object_fit.cover, object_position.center, w.full, h.full)),</span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(aspect.video, overflow.hidden, rounded.lg)</span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> image_container.attrs[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">"aspect-video overflow-hidden rounded-lg"</span></span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> image_container.children[<span class="dv">0</span>].attrs[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">"object-cover object-center w-full h-full"</span></span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Multi-column layout</span></span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Note: 'prose' is from Tailwind Typography plugin and doesn't have a factory yet</span></span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>    article <span class="op">=</span> Article(</span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Lorem ipsum dolor sit amet..."</span>,</span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(columns(<span class="dv">2</span>), gap(<span class="dv">8</span>), <span class="st">"prose"</span>)</span>
+<span id="cb52-45"><a href="#cb52-45" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-46"><a href="#cb52-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> article.attrs[<span class="st">'class'</span>] <span class="op">==</span> <span class="st">"columns-2 gap-8 prose"</span></span>
+<span id="cb52-47"><a href="#cb52-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb52-48"><a href="#cb52-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return all examples in a grid layout</span></span>
+<span id="cb52-49"><a href="#cb52-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Div(</span>
+<span id="cb52-50"><a href="#cb52-50" aria-hidden="true" tabindex="-1"></a>        header,</span>
+<span id="cb52-51"><a href="#cb52-51" aria-hidden="true" tabindex="-1"></a>        sidebar,</span>
+<span id="cb52-52"><a href="#cb52-52" aria-hidden="true" tabindex="-1"></a>        modal_overlay,</span>
+<span id="cb52-53"><a href="#cb52-53" aria-hidden="true" tabindex="-1"></a>        image_container,</span>
+<span id="cb52-54"><a href="#cb52-54" aria-hidden="true" tabindex="-1"></a>        article,</span>
+<span id="cb52-55"><a href="#cb52-55" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(grid_display, gap(<span class="dv">5</span>))</span>
+<span id="cb52-56"><a href="#cb52-56" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-57"><a href="#cb52-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-58"><a href="#cb52-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb52-59"><a href="#cb52-59" aria-hidden="true" tabindex="-1"></a>test_layout_fasthtml_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"grid gap-5"</span><span class="dt">&gt;</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">header</span><span class="ot"> class</span><span class="op">=</span><span class="st">"fixed top-0 left-0 right-0 z-50 bg-white"</span><span class="dt">&gt;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">nav</span><span class="dt">&gt;</span>Navigation<span class="dt">&lt;/</span><span class="kw">nav</span><span class="dt">&gt;</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">header</span><span class="dt">&gt;</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">aside</span><span class="ot"> class</span><span class="op">=</span><span class="st">"sticky top-20 h-screen overflow-y-auto"</span><span class="dt">&gt;</span>Sidebar content<span class="dt">&lt;/</span><span class="kw">aside</span><span class="dt">&gt;</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"fixed inset-0 z-40 flex items-center justify-center bg-black/50"</span><span class="dt">&gt;</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"relative z-10"</span><span class="dt">&gt;</span>Modal content<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"aspect-video overflow-hidden rounded-lg"</span><span class="dt">&gt;</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"</span><span class="ot"> class</span><span class="op">=</span><span class="st">"object-cover object-center w-full h-full"</span><span class="dt">&gt;</span>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">article</span><span class="ot"> class</span><span class="op">=</span><span class="st">"columns-2 gap-8 prose"</span><span class="dt">&gt;</span>Lorem ipsum dolor sit amet...<span class="dt">&lt;/</span><span class="kw">article</span><span class="dt">&gt;</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="a1c72c8f-20bc-45da-b8c8-e1c605126001" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> test_layout_fasthtml_examples</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app()</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(test_func.__doc__.title().replace(<span class="st">'.'</span>, <span class="st">''</span>), test_func())</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L828" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_enhanced_factories_fasthtml_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_enhanced_factories_fasthtml_examples">test_layout_enhanced_factories_fasthtml_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_enhanced_factories_fasthtml_examples ()</code></pre>
+</blockquote>
+<p><em>Test enhanced factories with modifier support in practical examples.</em></p>
+<div id="5z4op041h4v" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_enhanced_factories_fasthtml_examples(</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test enhanced factories with modifier support in practical examples."""</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> fasthtml.common <span class="im">import</span> Div, Nav, Button, Span</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.flexbox_and_grid <span class="im">import</span> gap, grid_display</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.accessibility <span class="im">import</span> sr_only</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mobile navigation with responsive display</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    mobile_nav <span class="op">=</span> Nav(</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>        Button(<span class="st">"Menu"</span>, cls<span class="op">=</span><span class="st">"md:hidden"</span>),</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>        Div(</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Navigation items"</span>,</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>            cls<span class="op">=</span>combine_classes(</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>                display_tw.none.md,  <span class="co"># Hidden by default, shown on md+</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>                position.fixed.md,   <span class="co"># Fixed position on larger screens</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>                <span class="st">"w-full md:w-auto"</span></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"md:none"</span> <span class="kw">in</span> mobile_nav.children[<span class="dv">1</span>].attrs[<span class="st">'class'</span>]</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"md:fixed"</span> <span class="kw">in</span> mobile_nav.children[<span class="dv">1</span>].attrs[<span class="st">'class'</span>]</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Dropdown menu with hover states</span></span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>    dropdown <span class="op">=</span> Div(</span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>        Button(<span class="st">"Options"</span>, cls<span class="op">=</span><span class="st">"relative"</span>),</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>        Div(</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Dropdown content"</span>,</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>            cls<span class="op">=</span>combine_classes(</span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>                display_tw.none.group(<span class="st">"hover"</span>),  <span class="co"># Show on parent hover</span></span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>                position.absolute,</span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>                <span class="st">"mt-2 bg-white shadow-lg"</span></span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span><span class="st">"group relative"</span></span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"group-hover:none"</span> <span class="kw">in</span> dropdown.children[<span class="dv">1</span>].attrs[<span class="st">'class'</span>]</span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Accessible skip link</span></span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a>    skip_link <span class="op">=</span> Div(</span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Skip to content"</span>,</span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a>            sr_only.focus,           <span class="co"># Hidden but shown on focus</span></span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a>            position.absolute.focus, <span class="co"># Position when focused</span></span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a>            <span class="st">"top-4 left-4 bg-white p-2 z-50"</span></span>
+<span id="cb56-45"><a href="#cb56-45" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb56-46"><a href="#cb56-46" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"focus:sr-only"</span> <span class="kw">in</span> skip_link.attrs[<span class="st">'class'</span>]</span>
+<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"focus:absolute"</span> <span class="kw">in</span> skip_link.attrs[<span class="st">'class'</span>]</span>
+<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Responsive overflow handling</span></span>
+<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a>    table_container <span class="op">=</span> Div(</span>
+<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Table content"</span>,</span>
+<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb56-54"><a href="#cb56-54" aria-hidden="true" tabindex="-1"></a>            overflow.x.auto,              <span class="co"># Always allow horizontal scroll</span></span>
+<span id="cb56-55"><a href="#cb56-55" aria-hidden="true" tabindex="-1"></a>            overflow.y.hidden.md,         <span class="co"># Hide vertical scroll on medium+</span></span>
+<span id="cb56-56"><a href="#cb56-56" aria-hidden="true" tabindex="-1"></a>            <span class="st">"border rounded"</span></span>
+<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"overflow-x-auto"</span> <span class="kw">in</span> table_container.attrs[<span class="st">'class'</span>]</span>
+<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"md:overflow-y-hidden"</span> <span class="kw">in</span> table_container.attrs[<span class="st">'class'</span>]</span>
+<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Div(</span>
+<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a>        mobile_nav,</span>
+<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a>        dropdown,</span>
+<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a>        skip_link,</span>
+<span id="cb56-66"><a href="#cb56-66" aria-hidden="true" tabindex="-1"></a>        table_container,</span>
+<span id="cb56-67"><a href="#cb56-67" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(grid_display, gap(<span class="dv">5</span>))</span>
+<span id="cb56-68"><a href="#cb56-68" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a>test_layout_enhanced_factories_fasthtml_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"grid gap-5"</span><span class="dt">&gt;</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">nav</span><span class="dt">&gt;</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"md:hidden"</span><span class="dt">&gt;</span>Menu<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"md:none md:fixed w-full md:w-auto"</span><span class="dt">&gt;</span>Navigation items<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">nav</span><span class="dt">&gt;</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"group relative"</span><span class="dt">&gt;</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> class</span><span class="op">=</span><span class="st">"relative"</span><span class="dt">&gt;</span>Options<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"group-hover:none absolute mt-2 bg-white shadow-lg"</span><span class="dt">&gt;</span>Dropdown content<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"focus:sr-only focus:absolute top-4 left-4 bg-white p-2 z-50"</span><span class="dt">&gt;</span>Skip to content<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"overflow-x-auto md:overflow-y-hidden border rounded"</span><span class="dt">&gt;</span>Table content<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="e0f289b0-3113-4575-980f-8736febc2bdc" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> test_layout_enhanced_factories_fasthtml_examples</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app()</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(test_func.__doc__.title().replace(<span class="st">'.'</span>, <span class="st">''</span>), test_func())</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L901" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_modifier_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_modifier_examples">test_layout_modifier_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_modifier_examples ()</code></pre>
+</blockquote>
+<p><em>Test layout utilities with modifiers for conditional styling.</em></p>
+<div id="xo4u7gosto" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_modifier_examples(</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test layout utilities with modifiers for conditional styling."""</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test display utilities with modifiers (now supported!)</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.hidden) <span class="op">==</span> <span class="st">"hidden"</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.block) <span class="op">==</span> <span class="st">"block"</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.hidden.hover) <span class="op">==</span> <span class="st">"hover:hidden"</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.block.md) <span class="op">==</span> <span class="st">"md:block"</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.none.dark) <span class="op">==</span> <span class="st">"dark:none"</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test position utilities with modifiers (now supported!)</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.fixed) <span class="op">==</span> <span class="st">"fixed"</span></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.absolute.hover) <span class="op">==</span> <span class="st">"hover:absolute"</span></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.relative.lg) <span class="op">==</span> <span class="st">"lg:relative"</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.sticky.md.dark) <span class="op">==</span> <span class="st">"dark:md:sticky"</span></span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test inset utilities with modifiers (these already supported modifiers)</span></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset(<span class="dv">0</span>).hover) <span class="op">==</span> <span class="st">"hover:inset-0"</span></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(top(<span class="dv">4</span>).md) <span class="op">==</span> <span class="st">"md:top-4"</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bottom.auto.lg) <span class="op">==</span> <span class="st">"lg:bottom-auto"</span></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(left.negative(<span class="dv">2</span>).hover) <span class="op">==</span> <span class="st">"hover:-left-2"</span></span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test z-index with modifiers</span></span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="dv">10</span>).hover) <span class="op">==</span> <span class="st">"hover:z-10"</span></span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="dv">50</span>).lg) <span class="op">==</span> <span class="st">"lg:z-50"</span></span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z.auto.dark) <span class="op">==</span> <span class="st">"dark:z-auto"</span></span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test overflow utilities with modifiers (now supported!)</span></span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.hidden) <span class="op">==</span> <span class="st">"overflow-hidden"</span></span>
+<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.auto.hover) <span class="op">==</span> <span class="st">"hover:overflow-auto"</span></span>
+<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.x.scroll.md) <span class="op">==</span> <span class="st">"md:overflow-x-scroll"</span></span>
+<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(overflow.y.hidden.dark) <span class="op">==</span> <span class="st">"dark:overflow-y-hidden"</span></span>
+<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test float utilities with modifiers (now supported!)</span></span>
+<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.right) <span class="op">==</span> <span class="st">"float-right"</span></span>
+<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.left.hover) <span class="op">==</span> <span class="st">"hover:float-left"</span></span>
+<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(float_tw.none.lg) <span class="op">==</span> <span class="st">"lg:float-none"</span></span>
+<span id="cb60-38"><a href="#cb60-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-39"><a href="#cb60-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test clear utilities with modifiers (now supported!)</span></span>
+<span id="cb60-40"><a href="#cb60-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.both) <span class="op">==</span> <span class="st">"clear-both"</span></span>
+<span id="cb60-41"><a href="#cb60-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.left.md) <span class="op">==</span> <span class="st">"md:clear-left"</span></span>
+<span id="cb60-42"><a href="#cb60-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(clear.none.hover) <span class="op">==</span> <span class="st">"hover:clear-none"</span></span>
+<span id="cb60-43"><a href="#cb60-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-44"><a href="#cb60-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test responsive inset</span></span>
+<span id="cb60-45"><a href="#cb60-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset.x(<span class="dv">4</span>).sm) <span class="op">==</span> <span class="st">"sm:inset-x-4"</span></span>
+<span id="cb60-46"><a href="#cb60-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(inset.y(<span class="dv">8</span>).md) <span class="op">==</span> <span class="st">"md:inset-y-8"</span></span>
+<span id="cb60-47"><a href="#cb60-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-48"><a href="#cb60-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test group/peer modifiers</span></span>
+<span id="cb60-49"><a href="#cb60-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(z(<span class="dv">20</span>).group(<span class="st">"hover"</span>)) <span class="op">==</span> <span class="st">"group-hover:z-20"</span></span>
+<span id="cb60-50"><a href="#cb60-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.fixed.group(<span class="st">"focus"</span>)) <span class="op">==</span> <span class="st">"group-focus:fixed"</span></span>
+<span id="cb60-51"><a href="#cb60-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.none.peer(<span class="st">"checked"</span>)) <span class="op">==</span> <span class="st">"peer-checked:none"</span></span>
+<span id="cb60-52"><a href="#cb60-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-53"><a href="#cb60-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test arbitrary modifiers</span></span>
+<span id="cb60-54"><a href="#cb60-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(top(<span class="dv">0</span>).aria(<span class="st">"expanded"</span>)) <span class="op">==</span> <span class="st">"aria-expanded:top-0"</span></span>
+<span id="cb60-55"><a href="#cb60-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(position.absolute.data(<span class="st">"open"</span>)) <span class="op">==</span> <span class="st">"data-[open]:absolute"</span></span>
+<span id="cb60-56"><a href="#cb60-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(display_tw.block.has(<span class="st">":checked"</span>)) <span class="op">==</span> <span class="st">"has-[:checked]:block"</span></span>
+<span id="cb60-57"><a href="#cb60-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-58"><a href="#cb60-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb60-59"><a href="#cb60-59" aria-hidden="true" tabindex="-1"></a>test_layout_modifier_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="helper-functions" class="level2">
+<h2 class="anchored" data-anchor-id="helper-functions">Helper Functions</h2>
+<p>Convenient functions for common layout patterns:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L962" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="center_absolute" class="level3">
+<h3 class="anchored" data-anchor-id="center_absolute">center_absolute</h3>
+<blockquote class="blockquote">
+<pre><code> center_absolute ()</code></pre>
+</blockquote>
+<p><em>Center an absolutely positioned element.</em></p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L974" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="stack_context" class="level3">
+<h3 class="anchored" data-anchor-id="stack_context">stack_context</h3>
+<blockquote class="blockquote">
+<pre><code> stack_context (z_value:int=10)</code></pre>
+</blockquote>
+<p><em>Create a stacking context with z-index.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>z_value</td>
+<td>int</td>
+<td>10</td>
+<td>The z-index value for the stacking context</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td><strong>Combined CSS classes for creating a stacking context</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L981" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="sticky_top" class="level3">
+<h3 class="anchored" data-anchor-id="sticky_top">sticky_top</h3>
+<blockquote class="blockquote">
+<pre><code> sticky_top (offset:Union[int,float,str]=0)</code></pre>
+</blockquote>
+<p><em>Make element sticky at top with optional offset.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>offset</td>
+<td>Union</td>
+<td>0</td>
+<td>Top offset value (e.g., 0, 4, ‘1rem’)</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>str</strong></td>
+<td></td>
+<td><strong>Combined CSS classes for sticky positioning</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L988" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="full_bleed" class="level3">
+<h3 class="anchored" data-anchor-id="full_bleed">full_bleed</h3>
+<blockquote class="blockquote">
+<pre><code> full_bleed ()</code></pre>
+</blockquote>
+<p><em>Make element break out of container constraints.</em></p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/layout.py#L994" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_layout_helper_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_layout_helper_examples">test_layout_helper_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_layout_helper_examples ()</code></pre>
+</blockquote>
+<p><em>Test helper functions for common layout patterns.</em></p>
+<div id="6ae174cd-0472-4491-80c1-e0f103539cc8" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_layout_helper_examples(</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test helper functions for common layout patterns."""</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test helper functions</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> center_absolute() <span class="op">==</span> <span class="st">"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> stack_context(<span class="dv">20</span>) <span class="op">==</span> <span class="st">"relative z-20"</span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> sticky_top(<span class="dv">4</span>) <span class="op">==</span> <span class="st">"sticky top-4"</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> full_bleed() <span class="op">==</span> <span class="st">"relative left-1/2 right-1/2 -mx-[50vw] w-screen"</span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>test_layout_helper_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="export" class="level2">
+<h2 class="anchored" data-anchor-id="export">Export</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/cj-mills\.github\.io\/cjm-fasthtml-tailwind");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

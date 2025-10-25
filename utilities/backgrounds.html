@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Background utilities for Tailwind CSS">
+
+<title>backgrounds – cjm-fasthtml-tailwind</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="backgrounds – cjm-fasthtml-tailwind">
+<meta property="og:description" content="Background utilities for Tailwind CSS">
+<meta property="og:site_name" content="cjm-fasthtml-tailwind">
+<meta name="twitter:title" content="backgrounds – cjm-fasthtml-tailwind">
+<meta name="twitter:description" content="Background utilities for Tailwind CSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">cjm-fasthtml-tailwind</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../utilities/accessibility.html">utilities</a></li><li class="breadcrumb-item"><a href="../utilities/backgrounds.html">backgrounds</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">cjm-fasthtml-tailwind</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">builders</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../builders/colors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">colors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../builders/scales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">scales</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">cli</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/cli_config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CLI Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/core_utils_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core Utilities Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/display.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Display Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/dynamic_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Example Helpers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/example_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Example Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/explorer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">explorer</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/factory_extraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factory Extraction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/helper_discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Helper Function Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/imports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">imports</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/pattern_scanner.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pattern_scanner</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/search.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Search Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/test_code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Test Code Functionality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../cli/utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">utils</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">core</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">base</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">testing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">utilities</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/accessibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">accessibility</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/backgrounds.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">backgrounds</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/borders.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">borders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/filters.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">filters</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/flexbox_and_grid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">flexbox_and_grid</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/interactivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">interactivity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/layout.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">layout</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/sizing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sizing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/spacing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">spacing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/svg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">svg</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/transforms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">transforms</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/transitions_and_animation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">transitions_and_animation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../utilities/typography.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">typography</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background-attachment" id="toc-background-attachment" class="nav-link active" data-scroll-target="#background-attachment">Background Attachment</a>
+  <ul class="collapse">
+  <li><a href="#backgroundattachment" id="toc-backgroundattachment" class="nav-link" data-scroll-target="#backgroundattachment">BackgroundAttachment</a></li>
+  <li><a href="#test_backgrounds_attachment_examples" id="toc-test_backgrounds_attachment_examples" class="nav-link" data-scroll-target="#test_backgrounds_attachment_examples">test_backgrounds_attachment_examples</a></li>
+  </ul></li>
+  <li><a href="#background-clip" id="toc-background-clip" class="nav-link" data-scroll-target="#background-clip">Background Clip</a>
+  <ul class="collapse">
+  <li><a href="#backgroundclip" id="toc-backgroundclip" class="nav-link" data-scroll-target="#backgroundclip">BackgroundClip</a></li>
+  <li><a href="#test_backgrounds_clip_examples" id="toc-test_backgrounds_clip_examples" class="nav-link" data-scroll-target="#test_backgrounds_clip_examples">test_backgrounds_clip_examples</a></li>
+  </ul></li>
+  <li><a href="#background-color" id="toc-background-color" class="nav-link" data-scroll-target="#background-color">Background Color</a>
+  <ul class="collapse">
+  <li><a href="#basic-background-colors" id="toc-basic-background-colors" class="nav-link" data-scroll-target="#basic-background-colors">Basic Background Colors</a></li>
+  <li><a href="#test_backgrounds_color_examples" id="toc-test_backgrounds_color_examples" class="nav-link" data-scroll-target="#test_backgrounds_color_examples">test_backgrounds_color_examples</a></li>
+  <li><a href="#background-opacity" id="toc-background-opacity" class="nav-link" data-scroll-target="#background-opacity">Background Opacity</a></li>
+  <li><a href="#test_backgrounds_opacity_examples" id="toc-test_backgrounds_opacity_examples" class="nav-link" data-scroll-target="#test_backgrounds_opacity_examples">test_backgrounds_opacity_examples</a></li>
+  </ul></li>
+  <li><a href="#background-image" id="toc-background-image" class="nav-link" data-scroll-target="#background-image">Background Image</a>
+  <ul class="collapse">
+  <li><a href="#no-background-image" id="toc-no-background-image" class="nav-link" data-scroll-target="#no-background-image">No Background Image</a></li>
+  <li><a href="#linear-gradients" id="toc-linear-gradients" class="nav-link" data-scroll-target="#linear-gradients">Linear Gradients</a></li>
+  <li><a href="#gradientutility" id="toc-gradientutility" class="nav-link" data-scroll-target="#gradientutility">GradientUtility</a></li>
+  <li><a href="#gradient-backgrounds" id="toc-gradient-backgrounds" class="nav-link" data-scroll-target="#gradient-backgrounds">Gradient Backgrounds</a></li>
+  <li><a href="#gradientfactory" id="toc-gradientfactory" class="nav-link" data-scroll-target="#gradientfactory">GradientFactory</a></li>
+  <li><a href="#gradient-color-stops" id="toc-gradient-color-stops" class="nav-link" data-scroll-target="#gradient-color-stops">Gradient Color Stops</a></li>
+  <li><a href="#gradientstoputility" id="toc-gradientstoputility" class="nav-link" data-scroll-target="#gradientstoputility">GradientStopUtility</a></li>
+  <li><a href="#gradientstopfactory" id="toc-gradientstopfactory" class="nav-link" data-scroll-target="#gradientstopfactory">GradientStopFactory</a></li>
+  <li><a href="#test-background-image-utilities" id="toc-test-background-image-utilities" class="nav-link" data-scroll-target="#test-background-image-utilities">Test Background Image Utilities</a></li>
+  <li><a href="#test_backgrounds_gradient_examples" id="toc-test_backgrounds_gradient_examples" class="nav-link" data-scroll-target="#test_backgrounds_gradient_examples">test_backgrounds_gradient_examples</a></li>
+  <li><a href="#test_backgrounds_gradient_stops_examples" id="toc-test_backgrounds_gradient_stops_examples" class="nav-link" data-scroll-target="#test_backgrounds_gradient_stops_examples">test_backgrounds_gradient_stops_examples</a></li>
+  <li><a href="#gradient-examples" id="toc-gradient-examples" class="nav-link" data-scroll-target="#gradient-examples">Gradient Examples</a></li>
+  <li><a href="#test_backgrounds_gradient_composition_examples" id="toc-test_backgrounds_gradient_composition_examples" class="nav-link" data-scroll-target="#test_backgrounds_gradient_composition_examples">test_backgrounds_gradient_composition_examples</a></li>
+  </ul></li>
+  <li><a href="#background-origin" id="toc-background-origin" class="nav-link" data-scroll-target="#background-origin">Background Origin</a>
+  <ul class="collapse">
+  <li><a href="#test_backgrounds_origin_examples" id="toc-test_backgrounds_origin_examples" class="nav-link" data-scroll-target="#test_backgrounds_origin_examples">test_backgrounds_origin_examples</a></li>
+  </ul></li>
+  <li><a href="#background-position" id="toc-background-position" class="nav-link" data-scroll-target="#background-position">Background Position</a>
+  <ul class="collapse">
+  <li><a href="#test_backgrounds_position_examples" id="toc-test_backgrounds_position_examples" class="nav-link" data-scroll-target="#test_backgrounds_position_examples">test_backgrounds_position_examples</a></li>
+  </ul></li>
+  <li><a href="#background-repeat" id="toc-background-repeat" class="nav-link" data-scroll-target="#background-repeat">Background Repeat</a>
+  <ul class="collapse">
+  <li><a href="#test_backgrounds_repeat_examples" id="toc-test_backgrounds_repeat_examples" class="nav-link" data-scroll-target="#test_backgrounds_repeat_examples">test_backgrounds_repeat_examples</a></li>
+  </ul></li>
+  <li><a href="#background-size" id="toc-background-size" class="nav-link" data-scroll-target="#background-size">Background Size</a>
+  <ul class="collapse">
+  <li><a href="#test_backgrounds_size_examples" id="toc-test_backgrounds_size_examples" class="nav-link" data-scroll-target="#test_backgrounds_size_examples">test_backgrounds_size_examples</a></li>
+  </ul></li>
+  <li><a href="#arbitrary-background-values" id="toc-arbitrary-background-values" class="nav-link" data-scroll-target="#arbitrary-background-values">Arbitrary Background Values</a>
+  <ul class="collapse">
+  <li><a href="#test_backgrounds_arbitrary_examples" id="toc-test_backgrounds_arbitrary_examples" class="nav-link" data-scroll-target="#test_backgrounds_arbitrary_examples">test_backgrounds_arbitrary_examples</a></li>
+  </ul></li>
+  <li><a href="#practical-examples" id="toc-practical-examples" class="nav-link" data-scroll-target="#practical-examples">Practical Examples</a>
+  <ul class="collapse">
+  <li><a href="#test_backgrounds_fasthtml_examples" id="toc-test_backgrounds_fasthtml_examples" class="nav-link" data-scroll-target="#test_backgrounds_fasthtml_examples">test_backgrounds_fasthtml_examples</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="backgrounds.html.md"><i class="bi bi-file-code"></i>CommonMark</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../utilities/accessibility.html">utilities</a></li><li class="breadcrumb-item"><a href="../utilities/backgrounds.html">backgrounds</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">backgrounds</h1>
+</div>
+
+<div>
+  <div class="description">
+    Background utilities for Tailwind CSS
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="background-attachment" class="level2">
+<h2 class="anchored" data-anchor-id="background-attachment">Background Attachment</h2>
+<p>Control how a background image behaves when scrolling:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L32" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="backgroundattachment" class="level3">
+<h3 class="anchored" data-anchor-id="backgroundattachment">BackgroundAttachment</h3>
+<blockquote class="blockquote">
+<pre><code> BackgroundAttachment (value, names=None, module=None, qualname=None,
+                       type=None, start=1, boundary=None)</code></pre>
+</blockquote>
+<p><em>Background attachment utility values</em></p>
+<div id="36818c64-f5db-46b9-8d99-98dfd0d67e8b" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BackgroundAttachment(Enum):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Background attachment utility values"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    FIXED <span class="op">=</span> <span class="st">"fixed"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    LOCAL <span class="op">=</span> <span class="st">"local"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    SCROLL <span class="op">=</span> <span class="st">"scroll"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>bg_attachment <span class="op">=</span> enums_to_simple_factory(<span class="st">"bg"</span>, [BackgroundAttachment], <span class="st">"Background attachment utilities for controlling how a background image behaves when scrolling"</span>) <span class="co"># Background attachment factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L41" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_backgrounds_attachment_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_attachment_examples">test_backgrounds_attachment_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_attachment_examples ()</code></pre>
+</blockquote>
+<p><em>Test background attachment utilities.</em></p>
+<div id="f2c9ed73-c3d5-44e7-b3d4-22127139a4dc" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_attachment_examples():</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background attachment utilities."""</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_attachment.fixed) <span class="op">==</span> <span class="st">"bg-fixed"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_attachment.local) <span class="op">==</span> <span class="st">"bg-local"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_attachment.scroll) <span class="op">==</span> <span class="st">"bg-scroll"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>test_backgrounds_attachment_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="background-clip" class="level2">
+<h2 class="anchored" data-anchor-id="background-clip">Background Clip</h2>
+<p>Control the bounding box of an element’s background:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L51" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="backgroundclip" class="level3">
+<h3 class="anchored" data-anchor-id="backgroundclip">BackgroundClip</h3>
+<blockquote class="blockquote">
+<pre><code> BackgroundClip (value, names=None, module=None, qualname=None, type=None,
+                 start=1, boundary=None)</code></pre>
+</blockquote>
+<p><em>Background clip utility values</em></p>
+<div id="604f52e5-b610-45fd-9e25-91ef9c0ac1fd" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BackgroundClip(Enum):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Background clip utility values"""</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    BORDER <span class="op">=</span> <span class="st">"border"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    PADDING <span class="op">=</span> <span class="st">"padding"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    CONTENT <span class="op">=</span> <span class="st">"content"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    TEXT <span class="op">=</span> <span class="st">"text"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>bg_clip <span class="op">=</span> enums_to_simple_factory(<span class="st">"bg-clip"</span>, [BackgroundClip], <span class="st">"Background clip utilities for controlling the bounding box of an element's background"</span>) <span class="co"># Background clip factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L61" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_backgrounds_clip_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_clip_examples">test_backgrounds_clip_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_clip_examples ()</code></pre>
+</blockquote>
+<p><em>Test background clip utilities.</em></p>
+<div id="ef775829-87c8-4075-92ed-99cd1dc541ec" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_clip_examples():</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background clip utilities."""</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_clip.border) <span class="op">==</span> <span class="st">"bg-clip-border"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_clip.padding) <span class="op">==</span> <span class="st">"bg-clip-padding"</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_clip.content) <span class="op">==</span> <span class="st">"bg-clip-content"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_clip.text) <span class="op">==</span> <span class="st">"bg-clip-text"</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>test_backgrounds_clip_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="background-color" class="level2">
+<h2 class="anchored" data-anchor-id="background-color">Background Color</h2>
+<p>The most commonly used background utility - sets the background color of an element:</p>
+<div id="9375dc6f-d3d9-4114-9785-9d87d7de2209" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>bg <span class="op">=</span> ColoredFactory(<span class="st">"bg"</span>, <span class="st">"Background color utilities for controlling an element's background color"</span>) <span class="co"># The background color factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="basic-background-colors" class="level3">
+<h3 class="anchored" data-anchor-id="basic-background-colors">Basic Background Colors</h3>
+<p>Apply background colors using the standard color palette:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L75" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_backgrounds_color_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_color_examples">test_backgrounds_color_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_color_examples ()</code></pre>
+</blockquote>
+<p><em>Test background color utilities with various color values.</em></p>
+<div id="aa56c897-e466-451d-9591-8b8d6bdfa5ab" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_color_examples():</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background color utilities with various color values."""</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test all 22 Tailwind color families</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.red._500) <span class="op">==</span> <span class="st">"bg-red-500"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.orange._500) <span class="op">==</span> <span class="st">"bg-orange-500"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.amber._500) <span class="op">==</span> <span class="st">"bg-amber-500"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.yellow._500) <span class="op">==</span> <span class="st">"bg-yellow-500"</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.lime._500) <span class="op">==</span> <span class="st">"bg-lime-500"</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.green._500) <span class="op">==</span> <span class="st">"bg-green-500"</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.emerald._500) <span class="op">==</span> <span class="st">"bg-emerald-500"</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.teal._500) <span class="op">==</span> <span class="st">"bg-teal-500"</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.cyan._500) <span class="op">==</span> <span class="st">"bg-cyan-500"</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.sky._500) <span class="op">==</span> <span class="st">"bg-sky-500"</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.blue._500) <span class="op">==</span> <span class="st">"bg-blue-500"</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.indigo._500) <span class="op">==</span> <span class="st">"bg-indigo-500"</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.violet._500) <span class="op">==</span> <span class="st">"bg-violet-500"</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.purple._500) <span class="op">==</span> <span class="st">"bg-purple-500"</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.fuchsia._500) <span class="op">==</span> <span class="st">"bg-fuchsia-500"</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.pink._500) <span class="op">==</span> <span class="st">"bg-pink-500"</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.rose._500) <span class="op">==</span> <span class="st">"bg-rose-500"</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.slate._500) <span class="op">==</span> <span class="st">"bg-slate-500"</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.gray._500) <span class="op">==</span> <span class="st">"bg-gray-500"</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.zinc._500) <span class="op">==</span> <span class="st">"bg-zinc-500"</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.neutral._500) <span class="op">==</span> <span class="st">"bg-neutral-500"</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.stone._500) <span class="op">==</span> <span class="st">"bg-stone-500"</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test different shades</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.blue._300) <span class="op">==</span> <span class="st">"bg-blue-300"</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.green._950) <span class="op">==</span> <span class="st">"bg-green-950"</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Special colors</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.transparent) <span class="op">==</span> <span class="st">"bg-transparent"</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.black) <span class="op">==</span> <span class="st">"bg-black"</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.white) <span class="op">==</span> <span class="st">"bg-white"</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.current) <span class="op">==</span> <span class="st">"bg-current"</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.inherit) <span class="op">==</span> <span class="st">"bg-inherit"</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>test_backgrounds_color_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="background-opacity" class="level3">
+<h3 class="anchored" data-anchor-id="background-opacity">Background Opacity</h3>
+<p>Control the opacity of background colors:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L116" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_backgrounds_opacity_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_opacity_examples">test_backgrounds_opacity_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_opacity_examples ()</code></pre>
+</blockquote>
+<p><em>Test background colors with opacity modifiers.</em></p>
+<div id="b71deb6e-7c14-4a76-9dc7-0cb820a0776e" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_opacity_examples():</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background colors with opacity modifiers."""</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Standard opacity values</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.red._500.opacity(<span class="dv">50</span>)) <span class="op">==</span> <span class="st">"bg-red-500/50"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.blue._300.opacity(<span class="dv">75</span>)) <span class="op">==</span> <span class="st">"bg-blue-300/75"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.black.opacity(<span class="dv">10</span>)) <span class="op">==</span> <span class="st">"bg-black/10"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Arbitrary opacity values</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.green._600.opacity(<span class="st">"[0.87]"</span>)) <span class="op">==</span> <span class="st">"bg-green-600/[0.87]"</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.purple._400.opacity(<span class="st">"(--my-opacity)"</span>)) <span class="op">==</span> <span class="st">"bg-purple-400/(--my-opacity)"</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>test_backgrounds_opacity_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="background-image" class="level2">
+<h2 class="anchored" data-anchor-id="background-image">Background Image</h2>
+<p>Control an element’s background image:</p>
+<section id="no-background-image" class="level3">
+<h3 class="anchored" data-anchor-id="no-background-image">No Background Image</h3>
+<p>Remove background images:</p>
+<div id="3084dd59-c5cc-478c-a4c2-c01cca13c21a" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>bg_none <span class="op">=</span> SingleValueFactory(<span class="st">"bg-none"</span>, <span class="st">"Remove background image"</span>) <span class="co"># Remove background image</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="linear-gradients" class="level3">
+<h3 class="anchored" data-anchor-id="linear-gradients">Linear Gradients</h3>
+<p>Create linear gradient backgrounds:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L134" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="gradientutility" class="level3">
+<h3 class="anchored" data-anchor-id="gradientutility">GradientUtility</h3>
+<blockquote class="blockquote">
+<pre><code> GradientUtility (gradient_type:str, value:Union[int,str,NoneType]=None,
+                  negative:bool=False)</code></pre>
+</blockquote>
+<p><em>Utility class for gradient backgrounds with angle support.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>gradient_type</td>
+<td>str</td>
+<td></td>
+<td>Type of gradient (linear, radial, conic)</td>
+</tr>
+<tr class="even">
+<td>value</td>
+<td>Union</td>
+<td>None</td>
+<td>Direction, angle, or custom value</td>
+</tr>
+<tr class="odd">
+<td>negative</td>
+<td>bool</td>
+<td>False</td>
+<td>Whether to negate the angle</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="gradient-backgrounds" class="level3">
+<h3 class="anchored" data-anchor-id="gradient-backgrounds">Gradient Backgrounds</h3>
+<p>Create gradient backgrounds with various types:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L208" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="gradientfactory" class="level3">
+<h3 class="anchored" data-anchor-id="gradientfactory">GradientFactory</h3>
+<blockquote class="blockquote">
+<pre><code> GradientFactory (gradient_type:str, doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Factory for gradient utilities with angle and direction support.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>gradient_type</td>
+<td>str</td>
+<td></td>
+<td>Type of gradient (linear, radial, conic)</td>
+</tr>
+<tr class="even">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>Documentation</td>
+</tr>
+</tbody>
+</table>
+<div id="daf6251e-1db3-41d4-b17c-b2b2c6379224" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create gradient factories</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>bg_linear <span class="op">=</span> GradientFactory(<span class="st">"linear"</span>, <span class="st">"Linear gradient utilities for creating gradient backgrounds"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>bg_radial <span class="op">=</span> GradientFactory(<span class="st">"radial"</span>, <span class="st">"Radial gradient utilities for creating circular gradient backgrounds"</span>) </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>bg_conic <span class="op">=</span> GradientFactory(<span class="st">"conic"</span>, <span class="st">"Conic gradient utilities for creating conical gradient backgrounds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="gradient-color-stops" class="level3">
+<h3 class="anchored" data-anchor-id="gradient-color-stops">Gradient Color Stops</h3>
+<p>Define color stops for gradients:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L298" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="gradientstoputility" class="level3">
+<h3 class="anchored" data-anchor-id="gradientstoputility">GradientStopUtility</h3>
+<blockquote class="blockquote">
+<pre><code> GradientStopUtility (stop_type:str, value:Union[str,tuple[Union[cjm_fasth
+                      tml_tailwind.builders.colors.ColorFamily,str],Union[
+                      cjm_fasthtml_tailwind.builders.colors.ColorShade,str
+                      ]],int,NoneType]=None, is_position:bool=False)</code></pre>
+</blockquote>
+<p><em>Utility class for gradient color stops with percentage support.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>stop_type</td>
+<td>str</td>
+<td></td>
+<td>Type of stop (from, via, to)</td>
+</tr>
+<tr class="even">
+<td>value</td>
+<td>Union</td>
+<td>None</td>
+<td>Color or percentage</td>
+</tr>
+<tr class="odd">
+<td>is_position</td>
+<td>bool</td>
+<td>False</td>
+<td>Whether this is a position value</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L357" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="gradientstopfactory" class="level3">
+<h3 class="anchored" data-anchor-id="gradientstopfactory">GradientStopFactory</h3>
+<blockquote class="blockquote">
+<pre><code> GradientStopFactory (stop_type:str, doc:Optional[str]=None)</code></pre>
+</blockquote>
+<p><em>Enhanced factory for gradient color stops with percentage support.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>stop_type</td>
+<td>str</td>
+<td></td>
+<td>Type of stop (from, via, to)</td>
+</tr>
+<tr class="even">
+<td>doc</td>
+<td>Optional</td>
+<td>None</td>
+<td>Documentation</td>
+</tr>
+</tbody>
+</table>
+<div id="be5a292b-ee7b-41f2-a629-be410b67828b" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create enhanced gradient stop factories</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>from_color <span class="op">=</span> GradientStopFactory(<span class="st">"from"</span>, <span class="st">"Gradient from color/position utilities for defining the starting color or position of a gradient"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>via_color <span class="op">=</span> GradientStopFactory(<span class="st">"via"</span>, <span class="st">"Gradient via color/position utilities for defining the middle color or position of a gradient"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>to_color <span class="op">=</span> GradientStopFactory(<span class="st">"to"</span>, <span class="st">"Gradient to color/position utilities for defining the ending color or position of a gradient"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="test-background-image-utilities" class="level3">
+<h3 class="anchored" data-anchor-id="test-background-image-utilities">Test Background Image Utilities</h3>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L409" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_backgrounds_gradient_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_gradient_examples">test_backgrounds_gradient_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_gradient_examples ()</code></pre>
+</blockquote>
+<p><em>Test gradient background utilities.</em></p>
+<div id="ea3f7e71-8f93-4385-bc98-f74ab7caad78" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_gradient_examples():</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test gradient background utilities."""</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test bg-none</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_none) <span class="op">==</span> <span class="st">"bg-none"</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test linear gradient directions</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_t) <span class="op">==</span> <span class="st">"bg-linear-to-t"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_tr) <span class="op">==</span> <span class="st">"bg-linear-to-tr"</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_r) <span class="op">==</span> <span class="st">"bg-linear-to-r"</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_br) <span class="op">==</span> <span class="st">"bg-linear-to-br"</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_b) <span class="op">==</span> <span class="st">"bg-linear-to-b"</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_bl) <span class="op">==</span> <span class="st">"bg-linear-to-bl"</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_l) <span class="op">==</span> <span class="st">"bg-linear-to-l"</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.to_tl) <span class="op">==</span> <span class="st">"bg-linear-to-tl"</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test linear gradient angles</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear._45) <span class="op">==</span> <span class="st">"bg-linear-45"</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear._90) <span class="op">==</span> <span class="st">"bg-linear-90"</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear._180) <span class="op">==</span> <span class="st">"bg-linear-180"</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear(<span class="dv">45</span>)) <span class="op">==</span> <span class="st">"bg-linear-45"</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear(<span class="dv">90</span>, negative<span class="op">=</span><span class="va">True</span>)) <span class="op">==</span> <span class="st">"-bg-linear-90"</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_linear.neg_45) <span class="op">==</span> <span class="st">"-bg-linear-45"</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test radial gradient</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_radial()) <span class="op">==</span> <span class="st">"bg-radial"</span></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_radial(<span class="st">"--gradient-shape"</span>)) <span class="op">==</span> <span class="st">"bg-radial-(--gradient-shape)"</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_radial(<span class="st">"circle at center"</span>)) <span class="op">==</span> <span class="st">"bg-radial-[circle at center]"</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test conic gradient</span></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_conic._45) <span class="op">==</span> <span class="st">"bg-conic-45"</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_conic(<span class="dv">90</span>)) <span class="op">==</span> <span class="st">"bg-conic-90"</span></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_conic(<span class="dv">180</span>, negative<span class="op">=</span><span class="va">True</span>)) <span class="op">==</span> <span class="st">"-bg-conic-180"</span></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_conic(<span class="st">"--conic-angle"</span>)) <span class="op">==</span> <span class="st">"bg-conic-(--conic-angle)"</span></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_conic(<span class="st">"from 45deg at center"</span>)) <span class="op">==</span> <span class="st">"bg-conic-[from 45deg at center]"</span></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>test_backgrounds_gradient_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L448" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_backgrounds_gradient_stops_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_gradient_stops_examples">test_backgrounds_gradient_stops_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_gradient_stops_examples ()</code></pre>
+</blockquote>
+<p><em>Test gradient color stop utilities.</em></p>
+<div id="aeb11cef-d989-44c1-917b-e62b66bc88ed" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_gradient_stops_examples():</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test gradient color stop utilities."""</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test from colors</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color.red._500) <span class="op">==</span> <span class="st">"from-red-500"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color.blue._300) <span class="op">==</span> <span class="st">"from-blue-300"</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color.transparent) <span class="op">==</span> <span class="st">"from-transparent"</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color.black.opacity(<span class="dv">50</span>)) <span class="op">==</span> <span class="st">"from-black/50"</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test from percentages</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color._0) <span class="op">==</span> <span class="st">"from-0%"</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color._50) <span class="op">==</span> <span class="st">"from-50%"</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color._100) <span class="op">==</span> <span class="st">"from-100%"</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color(<span class="dv">25</span>)) <span class="op">==</span> <span class="st">"from-25%"</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color(<span class="st">"33%"</span>)) <span class="op">==</span> <span class="st">"from-33%"</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test from custom properties and arbitrary values</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color(<span class="st">"--gradient-start"</span>)) <span class="op">==</span> <span class="st">"from-(--gradient-start)"</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(from_color(<span class="st">"10px"</span>)) <span class="op">==</span> <span class="st">"from-[10px]"</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test via colors</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(via_color.green._400) <span class="op">==</span> <span class="st">"via-green-400"</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(via_color.purple._600) <span class="op">==</span> <span class="st">"via-purple-600"</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(via_color.white) <span class="op">==</span> <span class="st">"via-white"</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(via_color.yellow._200.opacity(<span class="dv">75</span>)) <span class="op">==</span> <span class="st">"via-yellow-200/75"</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test via percentages</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(via_color._50) <span class="op">==</span> <span class="st">"via-50%"</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(via_color(<span class="dv">75</span>)) <span class="op">==</span> <span class="st">"via-75%"</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test to colors</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(to_color.pink._500) <span class="op">==</span> <span class="st">"to-pink-500"</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(to_color.indigo._700) <span class="op">==</span> <span class="st">"to-indigo-700"</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(to_color.current) <span class="op">==</span> <span class="st">"to-current"</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(to_color.cyan._300.opacity(<span class="dv">25</span>)) <span class="op">==</span> <span class="st">"to-cyan-300/25"</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Test to percentages</span></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(to_color._100) <span class="op">==</span> <span class="st">"to-100%"</span></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(to_color(<span class="dv">90</span>)) <span class="op">==</span> <span class="st">"to-90%"</span></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(to_color(<span class="st">"--gradient-end"</span>)) <span class="op">==</span> <span class="st">"to-(--gradient-end)"</span></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>test_backgrounds_gradient_stops_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="gradient-examples" class="level3">
+<h3 class="anchored" data-anchor-id="gradient-examples">Gradient Examples</h3>
+<p>Practical examples of creating gradients:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L492" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="test_backgrounds_gradient_composition_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_gradient_composition_examples">test_backgrounds_gradient_composition_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_gradient_composition_examples ()</code></pre>
+</blockquote>
+<p><em>Test composing gradient backgrounds with color stops.</em></p>
+<div id="92d220d7-edbb-4e65-b87e-cb8204113631" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_gradient_composition_examples():</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test composing gradient backgrounds with color stops."""</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> fasthtml.common <span class="im">import</span> Div</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.spacing <span class="im">import</span> p</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.typography <span class="im">import</span> font_size, text_color</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simple two-color gradient</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    gradient1 <span class="op">=</span> Div(</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Gradient Background"</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>            bg_linear.to_r,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>            from_color.blue._500,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>            to_color.purple._600,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>            p(<span class="dv">8</span>),</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>            text_color.white</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-linear-to-r"</span> <span class="kw">in</span> gradient1.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"from-blue-500"</span> <span class="kw">in</span> gradient1.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"to-purple-600"</span> <span class="kw">in</span> gradient1.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Three-color gradient with via</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    gradient2 <span class="op">=</span> Div(</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Three Color Gradient"</span>,</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>            bg_linear.to_br,</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>            from_color.red._400,</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>            via_color.yellow._500,</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>            to_color.green._600,</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>            p(<span class="dv">8</span>),</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>            text_color.white</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"via-yellow-500"</span> <span class="kw">in</span> gradient2.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Gradient with angle</span></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    gradient3 <span class="op">=</span> Div(</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Angled Gradient"</span>,</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>            bg_linear._45,</span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>            from_color.indigo._500,</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>            to_color.pink._500,</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>            p(<span class="dv">8</span>)</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-linear-45"</span> <span class="kw">in</span> gradient3.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Radial gradient</span></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>    radial <span class="op">=</span> Div(</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Radial Gradient"</span>,</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>            bg_radial(),</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>            from_color.indigo._300,</span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>            to_color.pink._500,</span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>            p(<span class="dv">16</span>)</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-radial"</span> <span class="kw">in</span> radial.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Conic gradient</span></span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>    conic <span class="op">=</span> Div(</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Conic Gradient"</span>,</span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a>            bg_conic._180,</span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a>            from_color.red._500,</span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a>            via_color.yellow._500,</span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a>            to_color.blue._500,</span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a>            p(<span class="dv">16</span>)</span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-conic-180"</span> <span class="kw">in</span> conic.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Gradient with opacity</span></span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a>    gradient_opacity <span class="op">=</span> Div(</span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Semi-transparent gradient"</span>,</span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a>            bg_linear.to_t,</span>
+<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a>            from_color.black.opacity(<span class="dv">90</span>),</span>
+<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a>            to_color.transparent,</span>
+<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a>            p(<span class="dv">8</span>)</span>
+<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"from-black/90"</span> <span class="kw">in</span> gradient_opacity.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"to-transparent"</span> <span class="kw">in</span> gradient_opacity.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Gradient with position percentages</span></span>
+<span id="cb26-87"><a href="#cb26-87" aria-hidden="true" tabindex="-1"></a>    gradient_positions <span class="op">=</span> Div(</span>
+<span id="cb26-88"><a href="#cb26-88" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Gradient with positions"</span>,</span>
+<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb26-90"><a href="#cb26-90" aria-hidden="true" tabindex="-1"></a>            bg_linear.to_r,</span>
+<span id="cb26-91"><a href="#cb26-91" aria-hidden="true" tabindex="-1"></a>            from_color.blue._500,</span>
+<span id="cb26-92"><a href="#cb26-92" aria-hidden="true" tabindex="-1"></a>            from_color._10,  <span class="co"># Start at 10%</span></span>
+<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a>            via_color.green._500,</span>
+<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a>            via_color._50,   <span class="co"># Middle at 50%</span></span>
+<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a>            to_color.red._500,</span>
+<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a>            to_color._90,    <span class="co"># End at 90%</span></span>
+<span id="cb26-97"><a href="#cb26-97" aria-hidden="true" tabindex="-1"></a>            p(<span class="dv">8</span>)</span>
+<span id="cb26-98"><a href="#cb26-98" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-99"><a href="#cb26-99" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-100"><a href="#cb26-100" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"from-10%"</span> <span class="kw">in</span> gradient_positions.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-101"><a href="#cb26-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"via-50%"</span> <span class="kw">in</span> gradient_positions.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-102"><a href="#cb26-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"to-90%"</span> <span class="kw">in</span> gradient_positions.attrs[<span class="st">'class'</span>]</span>
+<span id="cb26-103"><a href="#cb26-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-104"><a href="#cb26-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb26-105"><a href="#cb26-105" aria-hidden="true" tabindex="-1"></a>test_backgrounds_gradient_composition_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="background-origin" class="level2">
+<h2 class="anchored" data-anchor-id="background-origin">Background Origin</h2>
+<p>Control how an element’s background is positioned relative to borders, padding, and content:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L609" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_backgrounds_origin_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_origin_examples">test_backgrounds_origin_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_origin_examples ()</code></pre>
+</blockquote>
+<p><em>Test background origin utilities.</em></p>
+<div id="a5d4269d-773a-4f96-b1de-4c419ce2c8ab" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bg_origin <span class="op">=</span> SimpleFactory(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"border"</span>: <span class="st">"bg-origin-border"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"padding"</span>: <span class="st">"bg-origin-padding"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"content"</span>: <span class="st">"bg-origin-content"</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Background origin utilities for controlling how an element's background is positioned relative to borders, padding, and content"</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>) <span class="co"># Background origin factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="0ea550cd-d755-4ed0-b1f7-46a0deaf57e0" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_origin_examples():</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background origin utilities."""</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_origin.border) <span class="op">==</span> <span class="st">"bg-origin-border"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_origin.padding) <span class="op">==</span> <span class="st">"bg-origin-padding"</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_origin.content) <span class="op">==</span> <span class="st">"bg-origin-content"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>test_backgrounds_origin_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="background-position" class="level2">
+<h2 class="anchored" data-anchor-id="background-position">Background Position</h2>
+<p>Control the position of background images:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L635" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_backgrounds_position_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_position_examples">test_backgrounds_position_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_position_examples ()</code></pre>
+</blockquote>
+<p><em>Test background position utilities.</em></p>
+<div id="603b7510-b3df-4a28-9556-2977c76a0d4e" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>bg_position <span class="op">=</span> SimpleFactory(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"top_left"</span>: <span class="st">"bg-top-left"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"top"</span>: <span class="st">"bg-top"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"top_right"</span>: <span class="st">"bg-top-right"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"left"</span>: <span class="st">"bg-left"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"center"</span>: <span class="st">"bg-center"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"right"</span>: <span class="st">"bg-right"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"bottom_left"</span>: <span class="st">"bg-bottom-left"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"bottom"</span>: <span class="st">"bg-bottom"</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"bottom_right"</span>: <span class="st">"bg-bottom-right"</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Background position utilities for controlling the position of an element's background image"</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>) <span class="co"># Background position factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="9f36c427-b87a-47d4-9f69-ec398474dad3" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_position_examples():</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background position utilities."""</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_position.top_left) <span class="op">==</span> <span class="st">"bg-top-left"</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_position.top) <span class="op">==</span> <span class="st">"bg-top"</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_position.top_right) <span class="op">==</span> <span class="st">"bg-top-right"</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_position.center) <span class="op">==</span> <span class="st">"bg-center"</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_position.bottom) <span class="op">==</span> <span class="st">"bg-bottom"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>test_backgrounds_position_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="background-repeat" class="level2">
+<h2 class="anchored" data-anchor-id="background-repeat">Background Repeat</h2>
+<p>Control the repetition of background images:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L660" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_backgrounds_repeat_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_repeat_examples">test_backgrounds_repeat_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_repeat_examples ()</code></pre>
+</blockquote>
+<p><em>Test background repeat utilities.</em></p>
+<div id="59c77392-59b4-4ea0-b727-e7e327b404e8" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>bg_repeat <span class="op">=</span> SimpleFactory(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"repeat"</span>: <span class="st">"bg-repeat"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"repeat_x"</span>: <span class="st">"bg-repeat-x"</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"repeat_y"</span>: <span class="st">"bg-repeat-y"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"repeat_space"</span>: <span class="st">"bg-repeat-space"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"repeat_round"</span>: <span class="st">"bg-repeat-round"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"no_repeat"</span>: <span class="st">"bg-no-repeat"</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Background repeat utilities for controlling the repetition of an element's background image"</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>) <span class="co"># Background repeat factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="03c8ae10-efaf-44c5-ba71-d9004151671e" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_repeat_examples():</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background repeat utilities."""</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_repeat.repeat) <span class="op">==</span> <span class="st">"bg-repeat"</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_repeat.repeat_x) <span class="op">==</span> <span class="st">"bg-repeat-x"</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_repeat.repeat_y) <span class="op">==</span> <span class="st">"bg-repeat-y"</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_repeat.no_repeat) <span class="op">==</span> <span class="st">"bg-no-repeat"</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>test_backgrounds_repeat_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="background-size" class="level2">
+<h2 class="anchored" data-anchor-id="background-size">Background Size</h2>
+<p>Control the background size of an element’s background image:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L681" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_backgrounds_size_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_size_examples">test_backgrounds_size_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_size_examples ()</code></pre>
+</blockquote>
+<p><em>Test background size utilities.</em></p>
+<div id="b182a181-e8c0-4654-bc69-a51621a76183" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>bg_size <span class="op">=</span> SimpleFactory(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"auto"</span>: <span class="st">"bg-auto"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"cover"</span>: <span class="st">"bg-cover"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"contain"</span>: <span class="st">"bg-contain"</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Background size utilities for controlling the background size of an element's background image"</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>) <span class="co"># Background size factory</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="260bccdd-b871-4733-b6ba-107735ed8c95" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_size_examples():</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background size utilities."""</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_size.auto) <span class="op">==</span> <span class="st">"bg-auto"</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_size.cover) <span class="op">==</span> <span class="st">"bg-cover"</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg_size.contain) <span class="op">==</span> <span class="st">"bg-contain"</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>test_backgrounds_size_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="arbitrary-background-values" class="level2">
+<h2 class="anchored" data-anchor-id="arbitrary-background-values">Arbitrary Background Values</h2>
+<p>Test support for arbitrary background values:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L691" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_backgrounds_arbitrary_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_arbitrary_examples">test_backgrounds_arbitrary_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_arbitrary_examples ()</code></pre>
+</blockquote>
+<p><em>Test background utilities with arbitrary values.</em></p>
+<div id="78abf02f-b3e5-459c-9cf4-556ccaf7b5d5" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_arbitrary_examples():</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background utilities with arbitrary values."""</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Arbitrary color values</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg(<span class="st">"#123456"</span>)) <span class="op">==</span> <span class="st">"bg-[#123456]"</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg(<span class="st">"rgb(10, 20, 30)"</span>)) <span class="op">==</span> <span class="st">"bg-[rgb(10, 20, 30)]"</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg(<span class="st">"linear-gradient(to right, red, blue)"</span>)) <span class="op">==</span> <span class="st">"bg-[linear-gradient(to right, red, blue)]"</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># CSS custom properties</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg(<span class="st">"--custom-bg-color"</span>)) <span class="op">==</span> <span class="st">"bg-(--custom-bg-color)"</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg(<span class="st">"--theme-background"</span>)) <span class="op">==</span> <span class="st">"bg-(--theme-background)"</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>test_backgrounds_arbitrary_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="practical-examples" class="level2">
+<h2 class="anchored" data-anchor-id="practical-examples">Practical Examples</h2>
+<p>Let’s see how to use these background utilities in real FastHTML components:</p>
+<hr>
+<p><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/blob/main/cjm_fasthtml_tailwind/utilities/backgrounds.py#L706" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="test_backgrounds_fasthtml_examples" class="level3">
+<h3 class="anchored" data-anchor-id="test_backgrounds_fasthtml_examples">test_backgrounds_fasthtml_examples</h3>
+<blockquote class="blockquote">
+<pre><code> test_backgrounds_fasthtml_examples ()</code></pre>
+</blockquote>
+<p><em>Test background utilities in practical FastHTML component examples.</em></p>
+<div id="58ad984c-1d12-4f90-88f0-05cca0738a9f" class="cell">
+<details open="" class="code-fold">
+<summary>Exported source</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_backgrounds_fasthtml_examples():</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test background utilities in practical FastHTML component examples."""</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> fasthtml.common <span class="im">import</span> Div, H1, P, Section</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.spacing <span class="im">import</span> p</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.borders <span class="im">import</span> rounded</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.typography <span class="im">import</span> font_size, text_color</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.layout <span class="im">import</span> position</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> cjm_fasthtml_tailwind.utilities.flexbox_and_grid <span class="im">import</span> gap, grid_display</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Card with colored background</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    card <span class="op">=</span> Div(</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>        H1(<span class="st">"Welcome"</span>, cls<span class="op">=</span><span class="bu">str</span>(text_color.white)),</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>        P(<span class="st">"This is a card with a blue background"</span>),</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(bg.blue._500, p(<span class="dv">6</span>), rounded.lg)</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-blue-500"</span> <span class="kw">in</span> card.attrs[<span class="st">'class'</span>]</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Hero section with gradient overlay</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>    hero <span class="op">=</span> Section(</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>        Div(</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>            H1(<span class="st">"Hero Title"</span>),</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>            cls<span class="op">=</span>combine_classes(bg.black.opacity(<span class="dv">50</span>), p(<span class="dv">8</span>))</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>            bg_size.cover,</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>            bg_position.center,</span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>            bg_repeat.no_repeat,</span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>            position.relative</span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">str</span>(bg.black.opacity(<span class="dv">50</span>)) <span class="op">==</span> <span class="st">"bg-black/50"</span></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-cover"</span> <span class="kw">in</span> hero.attrs[<span class="st">'class'</span>]</span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-center"</span> <span class="kw">in</span> hero.attrs[<span class="st">'class'</span>]</span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Text with gradient background using v4 syntax</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>    gradient_text <span class="op">=</span> H1(</span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Gradient Text"</span>,</span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>            bg_clip.text,</span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>            text_color.transparent,</span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>            bg_linear.to_r,</span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>            from_color.blue._500,</span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>            to_color.red._600,</span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>            font_size._7xl</span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-clip-text"</span> <span class="kw">in</span> gradient_text.attrs[<span class="st">'class'</span>]</span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"bg-linear-to-r"</span> <span class="kw">in</span> gradient_text.attrs[<span class="st">'class'</span>]</span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"from-blue-500"</span> <span class="kw">in</span> gradient_text.attrs[<span class="st">'class'</span>]</span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="st">"to-red-600"</span> <span class="kw">in</span> gradient_text.attrs[<span class="st">'class'</span>]</span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return all examples in a grid layout</span></span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Div(</span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>        card,</span>
+<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a>        hero,</span>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a>        gradient_text,</span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a>        cls<span class="op">=</span>combine_classes(grid_display, gap(<span class="dv">5</span>))</span>
+<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests</span></span>
+<span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a>test_backgrounds_fasthtml_examples()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"grid gap-5"</span><span class="dt">&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bg-blue-500 p-6 rounded-lg"</span><span class="dt">&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> class</span><span class="op">=</span><span class="st">"text-white"</span><span class="dt">&gt;</span>Welcome<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>This is a card with a blue background<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">section</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bg-cover bg-center bg-no-repeat relative"</span><span class="dt">&gt;</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bg-black/50 p-8"</span><span class="dt">&gt;</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">h1</span><span class="dt">&gt;</span>Hero Title<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">section</span><span class="dt">&gt;</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> class</span><span class="op">=</span><span class="st">"bg-clip-text text-transparent bg-linear-to-r from-blue-500 to-red-600 text-7xl"</span><span class="dt">&gt;</span>Gradient Text<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div id="72f5d921-09d9-45d2-b829-595380470f1b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>test_func <span class="op">=</span> test_backgrounds_fasthtml_examples</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>app, rt <span class="op">=</span> create_test_app()</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="at">@rt</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> index():</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> create_test_page(test_func.__doc__.title().replace(<span class="st">'.'</span>, <span class="st">''</span>), test_func())</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>server <span class="op">=</span> start_test_server(app)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>display(HTMX())</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>server.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/cj-mills\.github\.io\/cjm-fasthtml-tailwind");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/cj-mills/cjm-fasthtml-tailwind/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
