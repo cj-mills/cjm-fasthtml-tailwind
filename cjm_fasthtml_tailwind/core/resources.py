@@ -5,16 +5,16 @@
 # %% auto #0
 __all__ = ['TAILWIND_CDN', 'get_tailwind_headers']
 
-# %% ../../nbs/core/resources.ipynb #f6a39e1f
+# %% ../../nbs/core/resources.ipynb #4987f9f6
 from fasthtml.common import Link, Script, Style
 from typing import List, Optional, Union, Literal
 from pathlib import Path
 
-# %% ../../nbs/core/resources.ipynb #fbfd612c
+# %% ../../nbs/core/resources.ipynb #fa6149ac
 # Core Tailwind CSS CDN resources
 TAILWIND_CDN = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
 
-# %% ../../nbs/core/resources.ipynb #6880251c
+# %% ../../nbs/core/resources.ipynb #81ca33c5
 def get_tailwind_headers(
 ) -> List[Union[Link, Script]]:  # List of Link and Script elements for Tailwind CSS
     """Get the standard Tailwind CSS CDN headers."""
