@@ -732,7 +732,7 @@ def scan_jupyter_notebook(
 ) -> List[ClsPattern]:  # List of ClsPattern objects found in the notebook
     "Scan a Jupyter notebook for cls= patterns."
     try:
-        from execnb.nbio import read_nb
+        from fastcore.nbio import read_nb
         
         # Read the notebook
         nb = read_nb(notebook_path)
@@ -765,7 +765,7 @@ def scan_jupyter_notebook(
         return all_patterns
         
     except ImportError:
-        print("Error: execnb not installed. Install with: pip install execnb")
+        print("Error: fastcore not installed. Install with: pip install fastcore")
         return []
     except FileNotFoundError:
         print(f"Error: Notebook not found: {notebook_path}")
