@@ -29,6 +29,6 @@ cjm-tailwind-explore = "cjm_fasthtml_tailwind.cli.explorer:main"
 version = {attr = "cjm_fasthtml_tailwind.__version__"}
 
 [tool.setuptools.packages.find]
-include = ["cjm_fasthtml_tailwind"]
+include = ["cjm_fasthtml_tailwind*"]
 
 [tool.nbdev]
