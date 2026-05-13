@@ -93,104 +93,104 @@ graph LR
     builders_colors --> core_base
     builders_scales --> core_base
     cli_core_utils_discovery --> cli_cli_config
+    cli_display --> cli_pattern_scanner
     cli_display --> cli_utils
-    cli_display --> cli_cli_config
+    cli_display --> cli_imports
     cli_display --> cli_example_discovery
     cli_display --> cli_factory_extraction
-    cli_display --> cli_search
-    cli_display --> cli_pattern_scanner
-    cli_display --> cli_test_code
-    cli_display --> cli_helper_discovery
     cli_display --> cli_core_utils_discovery
-    cli_display --> cli_imports
+    cli_display --> cli_search
+    cli_display --> cli_helper_discovery
+    cli_display --> cli_test_code
+    cli_display --> cli_cli_config
+    cli_dynamic_examples --> cli_pattern_scanner
     cli_dynamic_examples --> cli_utils
+    cli_dynamic_examples --> cli_imports
     cli_dynamic_examples --> cli_display
-    cli_dynamic_examples --> cli_cli_config
     cli_dynamic_examples --> cli_example_discovery
     cli_dynamic_examples --> cli_factory_extraction
-    cli_dynamic_examples --> cli_search
-    cli_dynamic_examples --> cli_pattern_scanner
-    cli_dynamic_examples --> cli_test_code
-    cli_dynamic_examples --> cli_helper_discovery
     cli_dynamic_examples --> cli_core_utils_discovery
-    cli_dynamic_examples --> cli_imports
+    cli_dynamic_examples --> cli_search
+    cli_dynamic_examples --> cli_helper_discovery
+    cli_dynamic_examples --> cli_test_code
+    cli_dynamic_examples --> cli_cli_config
     cli_example_discovery --> cli_utils
+    cli_explorer --> cli_utils
     cli_explorer --> cli_display
-    cli_explorer --> cli_cli_config
     cli_explorer --> cli_dynamic_examples
     cli_explorer --> cli_search
     cli_explorer --> cli_pattern_scanner
     cli_explorer --> cli_test_code
-    cli_explorer --> cli_utils
-    cli_factory_extraction --> core_base
+    cli_explorer --> cli_cli_config
     cli_factory_extraction --> cli_utils
+    cli_factory_extraction --> core_base
     cli_helper_discovery --> cli_example_discovery
     cli_helper_discovery --> cli_utils
-    cli_imports --> cli_factory_extraction
-    cli_imports --> cli_cli_config
-    cli_imports --> cli_core_utils_discovery
     cli_imports --> cli_helper_discovery
+    cli_imports --> cli_core_utils_discovery
+    cli_imports --> cli_cli_config
     cli_imports --> cli_utils
+    cli_imports --> cli_factory_extraction
     cli_pattern_scanner --> cli_cli_config
     cli_pattern_scanner --> cli_example_discovery
     cli_search --> cli_utils
-    cli_search --> cli_example_discovery
     cli_search --> cli_helper_discovery
     cli_search --> cli_factory_extraction
-    cli_test_code --> cli_factory_extraction
-    cli_test_code --> cli_cli_config
+    cli_search --> cli_example_discovery
     cli_test_code --> cli_helper_discovery
+    cli_test_code --> cli_cli_config
     cli_test_code --> cli_utils
+    cli_test_code --> cli_factory_extraction
     cli_utils --> cli_cli_config
-    core_testing --> utilities_flexbox_and_grid
-    core_testing --> utilities_transitions_and_animation
-    core_testing --> utilities_borders
-    core_testing --> utilities_backgrounds
-    core_testing --> utilities_typography
-    core_testing --> utilities_layout
-    core_testing --> utilities_sizing
-    core_testing --> utilities_spacing
-    core_testing --> utilities_effects
-    core_testing --> utilities_accessibility
     core_testing --> core_resources
+    core_testing --> utilities_borders
+    core_testing --> utilities_spacing
+    core_testing --> utilities_backgrounds
+    core_testing --> utilities_sizing
+    core_testing --> utilities_layout
+    core_testing --> utilities_flexbox_and_grid
+    core_testing --> utilities_effects
+    core_testing --> utilities_transitions_and_animation
+    core_testing --> utilities_typography
+    core_testing --> utilities_accessibility
     core_testing --> core_base
-    utilities_accessibility --> builders_scales
     utilities_accessibility --> core_testing
+    utilities_accessibility --> builders_scales
     utilities_accessibility --> core_base
-    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_base
-    utilities_backgrounds --> builders_scales
+    utilities_backgrounds --> builders_colors
     utilities_backgrounds --> core_testing
-    utilities_borders --> builders_colors
+    utilities_backgrounds --> builders_scales
     utilities_borders --> core_base
     utilities_borders --> builders_scales
+    utilities_borders --> builders_colors
     utilities_borders --> core_testing
-    utilities_effects --> builders_colors
     utilities_effects --> core_base
+    utilities_effects --> builders_colors
     utilities_effects --> builders_scales
     utilities_effects --> core_testing
-    utilities_filters --> builders_colors
     utilities_filters --> core_base
+    utilities_filters --> builders_colors
     utilities_filters --> builders_scales
     utilities_filters --> core_testing
     utilities_flexbox_and_grid --> core_base
     utilities_flexbox_and_grid --> builders_scales
     utilities_flexbox_and_grid --> core_testing
-    utilities_interactivity --> builders_colors
     utilities_interactivity --> core_base
     utilities_interactivity --> builders_scales
+    utilities_interactivity --> builders_colors
     utilities_interactivity --> core_testing
     utilities_layout --> core_base
     utilities_layout --> builders_scales
     utilities_layout --> core_testing
-    utilities_sizing --> builders_scales
     utilities_sizing --> core_testing
     utilities_sizing --> core_base
+    utilities_sizing --> builders_scales
     utilities_spacing --> builders_scales
-    utilities_spacing --> core_testing
     utilities_spacing --> core_base
-    utilities_svg --> builders_colors
+    utilities_spacing --> core_testing
     utilities_svg --> core_base
+    utilities_svg --> builders_colors
     utilities_svg --> builders_scales
     utilities_svg --> core_testing
     utilities_tables --> core_base
@@ -202,9 +202,9 @@ graph LR
     utilities_transitions_and_animation --> core_base
     utilities_transitions_and_animation --> builders_scales
     utilities_transitions_and_animation --> core_testing
-    utilities_typography --> builders_colors
     utilities_typography --> core_base
     utilities_typography --> builders_scales
+    utilities_typography --> builders_colors
     utilities_typography --> core_testing
 ```
 
@@ -212,101 +212,7 @@ graph LR
 
 ## CLI Reference
 
-### `cjm-tailwind-explore` Command
-
-    usage: cjm-tailwind-explore [-h]
-                                {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
-                                ...
-
-    cjm_fasthtml_tailwind CLI Explorer
-
-    This tool helps you explore the cjm_fasthtml_tailwind library, which provides:
-    - Python-native Tailwind CSS v4 utility class builders for FastHTML projects
-    - Dynamic CSS class generation without hardcoded strings
-    - Comprehensive utility factories (forced_color_adjust, not_sr_only, sr_only, etc.)
-    - Helper functions for common patterns
-    - Full integration with FastHTML components
-
-    Purpose: This CLI tool enables autonomous exploration of the library's API by:
-    - Discovering all available utility modules and their documentation
-    - Listing factory instances with their built-in documentation
-    - Showing usage examples from test functions
-    - Providing source code for helper functions
-    - Searching across all library components
-    - CRITICALLY: Testing code snippets with automatic imports BEFORE implementation
-    - Generating recommended import statements
-    - Scanning existing code for replaceable CSS patterns
-
-    All information is dynamically extracted from the library itself - nothing is hardcoded.
-
-    positional arguments:
-      {modules,factories,factory,examples,example,helpers,helper,search,test-code,core-utils,core-util,imports,scan}
-                            Available commands
-        modules             List all utility modules
-        factories           List factories
-        factory             Show detailed info for a specific factory
-        examples            Show usage examples
-        example             Show source code for a specific example
-        helpers             Show helper functions
-        helper              Show source code for a specific helper
-        search              Search across all library components
-        test-code           ⚠️ CRITICAL: Test code snippets using the library
-                            (ALWAYS use before implementation)
-        core-utils          List core utility functions
-        core-util           Show source code for a core utility
-        imports             Show recommended import statements
-        scan                Scan code for replaceable CSS patterns
-
-    options:
-      -h, --help            show this help message and exit
-
-    Getting Started:
-      1. List all modules:     cjm-tailwind-explore modules
-      2. View factories:       cjm-tailwind-explore factories
-      3. Search for patterns:  cjm-tailwind-explore search <query>
-      4. CRITICAL: Test code:  cjm-tailwind-explore test-code "<code>"
-      5. Get imports:          cjm-tailwind-explore imports
-      6. Scan existing code:   cjm-tailwind-explore scan <file>
-
-    Exploration Workflow:
-      - Start with 'modules' to see available utility categories
-      - Use 'factories -m <module>' to explore specific modules
-      - Use 'factory <module> <name>' for detailed factory information
-      - Use 'examples' to see test-based usage patterns
-      - Use 'search' to find specific functionality
-      - CRITICAL: ALWAYS use 'test-code' to validate code BEFORE implementation
-      - Use 'scan' to analyze existing code for migration opportunities
-
-    IMPORTANT: Code Validation
-      ⚠️  ALWAYS use 'test-code' to verify generated code before using it
-      ⚠️  This ensures correct syntax, proper imports, and expected output
-      ⚠️  Never skip this step - it prevents errors and saves debugging time
-
-    Key Concepts:
-      - Factories: Objects that generate CSS classes (e.g., forced_color_adjust, not_sr_only, sr_only)
-      - Modules: Categories of utilities (accessibility, backgrounds, borders, etc.)
-      - Examples: Test functions demonstrating usage patterns
-      - Helpers: Convenience functions for common patterns
-
-    Tips for Coding Assistants:
-      - MANDATORY: Use 'test-code' to validate ALL generated code before implementation
-      - Use 'search --include-source' to find usage patterns in code
-      - Use 'imports' to get all necessary import statements
-      - Use 'scan' to identify replaceable hardcoded CSS classes
-      - Factory names are intuitive: forced_color_adjust, not_sr_only, sr_only
-      - Combine utilities with combine_classes() function
-      - All factories support method chaining and attribute access
-
-    Example Usage Flow:
-      cjm-tailwind-explore modules                                           # See what's available
-      cjm-tailwind-explore factories -m accessibility                        # Explore accessibility utilities
-      cjm-tailwind-explore factory accessibility forced_color_adjust         # Learn about forced_color_adjust factory
-      cjm-tailwind-explore example accessibility fasthtml                    # See usage examples
-      cjm-tailwind-explore test-code 'print(str(forced_color_adjust.auto))'  # CRITICAL: Test your understanding
-      cjm-tailwind-explore scan app.py                                       # Analyze existing code
-
-For detailed help on any command, use
-`cjm-tailwind-explore <command> --help`.
+No CLI commands found in this project.
 
 ## Module Overview
 

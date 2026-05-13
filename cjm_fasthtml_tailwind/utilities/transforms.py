@@ -961,7 +961,7 @@ test_transforms_translate_examples()
 # %% ../../nbs/utilities/transforms.ipynb #dbc2134a-fa13-430a-8d7e-f706683ff4b0
 def test_transforms_fasthtml_examples():
     """Test transform utilities in practical FastHTML component examples."""
-    from fasthtml.common import Div, Button, Card, Img, A
+    from fasthtml.common import Div, Button, Img, A
     from cjm_fasthtml_tailwind.utilities.transitions_and_animation import transition, duration, animate
     from cjm_fasthtml_tailwind.utilities.layout import position, top, left, display_tw
     from cjm_fasthtml_tailwind.utilities.sizing import h, w

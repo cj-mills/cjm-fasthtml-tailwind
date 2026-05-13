@@ -1000,14 +1000,14 @@ test_borders_outline_offset_examples()
 # %% ../../nbs/utilities/borders.ipynb #b0a4639f-d0b2-4988-a0ed-764a1e7ed05d
 def test_borders_fasthtml_examples():
     """Test border utilities in practical FastHTML component examples."""
-    from fasthtml.common import Div, Button, Card, Ul, Li, H3, P, Input, Link
+    from fasthtml.common import Div, Button, Ul, Li, H3, P, Input, Link
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.layout import display_tw, overflow
     from cjm_fasthtml_tailwind.utilities.flexbox_and_grid import gap, flex_display, grid_display
     from cjm_fasthtml_tailwind.core.base import combine_classes
     
     # Card with rounded corners and colored border
-    card = Card(
+    card = Div(
         H3("Card Title"),
         P("Card content goes here."),
         cls=combine_classes(
@@ -1121,7 +1121,7 @@ def test_borders_fasthtml_examples():
     assert "rounded-bl-md" in complex_border.attrs['class']
     
     # Card with semi-transparent border
-    transparent_card = Card(
+    transparent_card = Div(
         "Semi-transparent border",
         cls=combine_classes(
             border._2,

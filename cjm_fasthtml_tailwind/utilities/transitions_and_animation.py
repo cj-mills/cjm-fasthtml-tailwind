@@ -563,7 +563,7 @@ test_transitions_and_animation_examples()
 # %% ../../nbs/utilities/transitions_and_animation.ipynb #ebc75f52-058e-47f9-a5e6-669145c2a89c
 def test_transitions_and_animation_fasthtml_examples():
     """Test transition and animation utilities in practical FastHTML component examples."""
-    from fasthtml.common import Div, Button, Card, Span, A, Img
+    from fasthtml.common import Div, Button, Span, A, Img
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.typography import font_size, text_color
     from cjm_fasthtml_tailwind.utilities.spacing import p
@@ -590,7 +590,7 @@ def test_transitions_and_animation_fasthtml_examples():
     assert "ease-in-out" in button.attrs['class']
     
     # Card with shadow transition
-    card = Card(
+    card = Div(
         "Content",
         cls=combine_classes(
             shadow.md, shadow.xl.hover,

@@ -1674,7 +1674,7 @@ test_effects_mask_properties_examples()
 # %% ../../nbs/utilities/effects.ipynb #6b0500b6-2805-4c18-a117-0caf8bea129c
 def test_effects_shadow_fasthtml_examples():
     """Test shadow utilities in practical FastHTML component examples."""
-    from fasthtml.common import Div, H2, P, Button, Card
+    from fasthtml.common import Div, H2, P, Button
     from cjm_fasthtml_tailwind.utilities.spacing import p
     from cjm_fasthtml_tailwind.utilities.backgrounds import bg
     from cjm_fasthtml_tailwind.utilities.borders import rounded, border, border_color
